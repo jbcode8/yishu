@@ -1,0 +1,111 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">
+        /* 头像 */
+        #form_right{ position: absolute; top:22px; left: 340px;}
+    </style>
+</block>
+<!--主体内容 开始-->
+<block name="body">
+    <load file="{PLUGIN_PATH}uploadify/jquery.uploadify.min.js" />
+	<load file="{PLUGIN_PATH}DatePicker/WdatePicker.js"/>
+    <!-- 数据表格 开始-->
+    <form action="{:U('Artist/Library/edit')}" method="post" class="edit">
+        <input type="hidden" name="operate" value="2" />
+        <div id="form_left">
+            <table class="form">
+                <input type="hidden" name="uid" value="{$vo.uid}">
+                <input type="hidden" name="id" value="{$vo.id}">
+                <tr>
+                    <th width="150px"><i class="red">* </i>姓名：</th>
+                    <td><input type="text" name="name" value="{$vo.name}" required="required" maxLength="10" /></td>
+                </tr>
+                <tr>
+                    <th>性别：</th>
+                    <td>
+                        <input type="radio"  name="sex" value="1" <if condition="$vo['sex'] eq 1"> checked="checked"</if>>
+                        男&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio"  name="sex" value="0" <if condition="$vo['sex'] eq 0"> checked="checked"</if>>女
+                    </td>
+                </tr>
+                <tr>
+                    <th>QQ：</th>
+                    <td><input type="text" name="qq"  value="{$vo.qq}"  pattern="\d{5,10}" /></td>
+                </tr>
+                <tr>
+                    <th>E-mail：</th>
+                    <td><input type="email" name="email" value="{$vo.email}" maxLength="100" /></td>
+                </tr>
+                <tr>
+                    <th><i class="red">* </i>所在地区：</th>
+                    <td>{:hook('region', array('province'=>$vo['provinceid'], 'city'=>$vo['cityid'], 'area'=>$vo['areaid']))}</td>
+                </tr>
+                <tr>
+                    <th><i class="red">* </i>详细地址：</th>
+                    <td><input type="text" name="address" value="{$vo['address']}" required="required" maxLength="100" size="80" /></td>
+                </tr>
+                <tr>
+                    <th><i class="red">* </i>类别：</th>
+                    <td>  {:getArtistCategory(true,'cid', $vo['cid'])} </td>
+                </tr>
+                <tr>
+                    <th>擅长：</th>
+                    <td><input type="text" name="goodat" value="{$vo['goodat']}" maxLength="100" size="50"> 多个用‘,’号分开</td>
+                </tr>
+                <tr>
+                    <th><i class="red">* </i>生日：</th>
+                    <td><input name="birthday" value="<empty name='vo.birthday'><else/>{$vo.birthday|date='Y-m-d',###}</empty>" class="date" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'});" required="required"/></td>
+                </tr>
+                <tr>
+                    <th><i class="red">* </i>入行时间：</th>
+                    <td><input name="jointime" required="required" value="<empty name='vo.jointime'><else/>{$vo.jointime}</empty>" class="date" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'});"/></td>
+                </tr>
+                <tr>
+                    <th>个人网页：</th>
+                    <td><input type="url" name="web" value="{$vo.web}" maxLength="100" /></td>
+                </tr>
+                <tr>
+                    <th>传真：</th>
+                    <td><input type="text" name="fax" value="{$vo.fax}" maxLength="100" pattern="[+]{0,1}(\d){1,3}[ ]?([-]?((\d)|[ ]){1,12})+" /></td>
+                </tr>
+                <tr>
+                    <th>手机：</th>
+                    <td><input type="text" name="mobile" <if condition="$vo['mobile'] gt 0">value="{$vo.mobile}"</if> maxLength="100" pattern="(1(([35][0-9])|(47)|[8][01236789]))\d{8}" /></td>
+                </tr>
+                <tr>
+                    <th>标志：</th>
+                    <td>
+                        <php>  $type = getArtistType(); </php>
+                        <select name="type">
+                            <volist name="type" id="t" key="k">
+                                <option value="{$k-1}" <if condition="$k-1 eq $vo['type']">selected="selected"</if>>{$t}</option>
+                            </volist>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>空间组图:</th>
+                    <td>
+                        {:hook('upload',array('model'=>'library','type'=>'image','height'=>30,'uploadify'=>'swf','recordid'=>$vo['recordid']))}
+                    </td>
+                </tr>
+                <tr>
+                    <th><i class="red">* </i>简介：</th>
+                    <td><textarea name="description" cols="70"  required="required">{$vo.description}</textarea></td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <button type="submit" class="btn ajax-post" target-form="edit">确认</button>
+                        <button type="reset" class="btn btn_gary">重填</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="form_right">
+            {:hook('upload',array('model'=>'library','type'=>'thumb','height'=>120,width=>150,'uploadify'=>'swfone', 'thumbPic'=>'/Artist/thumb.jpg','recordid'=>$vo['recordid']))}
+        </div>
+    </form>
+    <!-- 数据表格 结束-->
+</block>
+<!--主体内容 结束-->

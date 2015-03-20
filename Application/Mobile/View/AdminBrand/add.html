@@ -1,0 +1,46 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+    <load file="{PLUGIN_PATH}uploadify/jquery.uploadify.min.js" />
+</block>
+<block name="body">
+
+    <form method="post" enctype="multipart/form-data" action="{:U('Paimai/AdminBrand/insert')}" style="width: 700px;height: 300px; margin: auto;">
+    <table class="m_table">
+        <tr>
+            <td width="80">品牌名称:</td>
+            <td>
+                <input type="text" name="brand_name">
+            </td>
+        </tr>
+        <tr>
+            <td>品牌网址:</td>
+            <td>
+                <input type="text" name="site_url">
+            </td>
+        </tr>
+        <tr>
+            <td>是否可用:</td>
+            <td>
+                <input type="radio" checked="checked" name="brand_isshow" value="1"/>&nbsp;是&nbsp;
+                <input type="radio" name="brand_isshow" value="0"/>&nbsp;否&nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td>品牌logo:</td>
+            <td>
+                {:hook('upload',array('model'=>'paimaibrand','type'=>'thumb','height'=>120,width=>150,'uploadify'=>'swfone', 'thumbPic'=>"/Artist/thumb.jpg"))}
+            </td>
+        </tr>
+        <tr>
+            <td>品牌描述:</td>
+            <td>
+                <textarea name="brand_desc"></textarea>
+                {:hook('adminEditor',array('name'=>'brand_desc'))}
+            </td>
+        </tr>
+        <tr><td colspan="2" align="center"><input class="m_submit" type="submit" value="添加"></td></tr>
+    </table>
+    </form>
+</block>

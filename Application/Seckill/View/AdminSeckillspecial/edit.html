@@ -1,0 +1,51 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+    <load file="{PLUGIN_PATH}uploadify/jquery.uploadify.min.js" />
+</block>
+<block name="body">
+
+    <form method="post" action="{:U('Seckill/AdminSeckillspecial/update')}" style="width: 700px;height: 300px; margin: auto;">
+        <input type="hidden" name="skspecial_id" value="{$special.skspecial_id}">
+        <table class="m_table">
+            <tr><td width="100">专场名称:</td><td><input name="skspecial_name" value="{$special.skspecial_name}" style="width:300px;"/></td></tr>
+            <tr><td>专场介绍:</td><td><input type="text" name="skspecial_intro" value="{$special.skspecial_intro}" style="width:500px;"></td></tr>
+            <tr>
+			<td>专场图片:</td>
+		    <td style="height: 150px;">
+			{:hook('upload',array('model'=>'SeckillSpecial','type'=>'thumb','height'=>30,'uploadify'=>'swfone'))}
+			</td>
+		    </tr>
+            <tr>
+                <td>专场时间:</td>
+                <td>
+                    开始时间:<input type="text" name="skspecial_starttime" value="{$special.skspecial_starttime|date='Y-m-d H:i:s',###}"><br/><br/>
+                    结束时间:<input type="text" name="skspecial_endtime" value="{$special.skspecial_endtime|date='Y-m-d H:i:s',###}">
+                </td>
+            </tr>
+            <tr>
+                <td>是否显示:</td>
+                <td>
+                    <input type="radio" <if condition="$special['skspecial_isshow'] eq 0">checked="checked"</if>  name="skspecial_isshow" value="0"/>&nbsp;是&nbsp;
+                    <input type="radio" <if condition="$special['skspecial_isshow'] eq 1">checked="checked"</if> name="skspecial_isshow" value="1"/>&nbsp;否&nbsp;
+                </td>
+            </tr>
+			<tr><td>seo标题:</td><td><input type="text" name="skspecial_seotitle" value="{$special.skspecial_seotitle}"  style="width:500px;"></td></tr>
+			<tr><td>seo关键字:</td><td><input type="text" name="skspecial_keywords" value="{$special.skspecial_keywords}"  style="width:500px;"></td></tr>
+			<tr><td>seo内容:</td><td><input type="text" name="skspecial_seodesc" value="{$special.skspecial_seodesc}"  style="width:500px;"></td></tr>
+            <tr><td colspan="2" align="center"><input class="m_submit" type="submit" value="修改信息"></td></tr>
+        </table>
+      
+    </form>
+    <script type="text/javascript">
+        /*$(function(){
+            $("#test123").click(function(){
+                var tag=$("#test").html();
+                tag=tag.replace(/\/News\/AdminNewslist\//,'');
+                
+                $("#test").html(tag);
+            })
+        })*/
+    </script>
+</block>

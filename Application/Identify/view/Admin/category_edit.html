@@ -1,0 +1,18 @@
+<include file="Admin@Public:header" />
+<div class="container">
+    <ul class="header clear">
+    <li><a href="{:U('Identify/AdminData/index')}">鉴定信息管理</a></li>
+    <li <eq name="ACTION_NAME" value="index">class="current"</eq>><a href="{:U('Identify/AdminCategory/index')}">鉴定类别管理</a></li>
+    <li <eq name="ACTION_NAME" value="edit">class="current"</eq>><a href="javascript:void(0);">编辑鉴定类别</a></li>
+    </ul>
+    <form method="post">
+    <table class="table table-hover">
+        <thead><tr><th></th><th></th></tr></thead>
+        <tbody>
+            <tr><td>名称：</td><td><input type="text" name="name" value="{$data['name']}" /></td></tr>
+            <tr><td>&nbsp;</td><td><input type="hidden" name="id" value="{$data['id']}" /><input name="submit" type="submit" value="编辑信息" class="btn btn-primary" /></td></tr>
+        </tbody>
+    </table>
+    </form>
+</div>
+<include file="Admin@Public:footer" />

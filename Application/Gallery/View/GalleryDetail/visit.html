@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>中国-艺术网</title>
+    <link href="{CSS_PATH}site.css" rel="stylesheet" type="text/css" />
+    <link href="{CSS_PATH}Artist/master-pannel.css" rel="stylesheet" type="text/css" />
+    <script src="{JS_PATH}jquery-1.7.2.js"></script>
+</head>
+<body class="master-video-detail" >
+<!-- 头部 -->
+<div id="header">
+    <div class="con clear">
+        <div class="left">
+            <a href="#"><img src="{IMG_PATH}logo.png" width="100" alt="" /></a>
+        </div>
+        <div class="right">
+            <a href="{:U('/Gallery/Gallery/')}">返回画廊频道</a> | <a href="{:C(WEB_URL)}">首页</a>
+        </div>
+    </div>
+</div>
+<!-- 页面内容 -->
+<div class="main-container">
+    <div class="top-side">
+        <div class="inner-con">
+            <div class="bread-crumbs"><a href="{:C(WEB_URL)}">中国艺术网</a> > <a href="{:U('/Gallery/Gallery/')}">画廊频道</a> >访谈</div>
+            <h1>{$detail.title}</h1>
+            <div class="video-con">
+                <video width="980" height="590" src="{$detail.video}" controls="controls"></video>
+            </div>
+            <div class="oth-info">
+                <span>播放次数：{$detail.hits}</span>
+                <span>评论次数：</span>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-side">
+        <div class="short-discription">
+            <div class="t">简介</div>
+            <div class="sub-t clear">
+                <h3 class="left">{$detail.title}</h3>
+                <div class="data right">发布于 {$detail.create_time|date="Y-m-d",###} 标签：{$detail.keywords}</div>
+            </div>
+            <div class="text">
+                {$detail.brief}
+            </div>
+        </div>
+    </div>
+    <!-- 底部 -->
+    <div id="footer">
+        <div class="top">
+            <a href="#">关于我们</a> ·
+            <a href="#">广告业务</a> ·
+            <a href="#">人才招聘</a> ·
+            <a href="#">新闻动态</a> ·
+            <a href="#">联系我们</a> ·
+            <a href="#">客户投诉</a> ·
+            <a href="#">版权说明</a> ·
+            <a href="#">免责声明隐</a> ·
+            <a href="#">私权保护</a> ·
+            <a href="#">友情链接</a> ·
+            <a href="#">专家顾问</a> ·
+            <a href="#">法律顾问</a>
+        </div>
+        <div class="bottom">
+            <p>Copyright Reserved 2000-2013 中国艺术网 版权所有</p>
+            <p>电信与信息服务业务经营许可证（沪）B2-20030053广播电视制作经营许可证（沪）字第717号</p>
+            <p>京公网安备110113000792号信息网络传播视听节目许可证1909402号</p>
+            <p>网络文化经营许可证文网文［2009］086号互联网出版许可证［2010］445号可信网站验证服务证书2012040503023850号</p>
+        </div>
+    </div>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/js.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(window).manhuatoTop({
+                showHeight : 100,
+                speed : 500
+            });
+        });
+    </script>
+</body>
+</html>
+

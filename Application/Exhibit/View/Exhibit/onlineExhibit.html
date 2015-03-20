@@ -1,0 +1,64 @@
+<extend name="exhibitBase"/>
+<block name='content'>
+
+    <!-- 栏目内容 -->
+    <div class="container clear">
+        <div class="advertise">
+            <a href="#"><img src="{IMG_PATH}advertis/online-exhibition-advertise.jpg" width="980" height="200" alt="" /></a>
+        </div>
+        <div class="display-hall">
+            <div class="nav">
+                <ul class="column">
+                    <li class="nav-1 select">全部展厅</li>
+                    <li class="nav-2">个人展厅</li>
+                    <li class="nav-3">机构展厅</li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <ul class="clear">
+                    <volist name="list" id="vo" key="k">
+                        <li <if condition='$k%4 eq 0'>style="margin-right:0"</if>>
+                            <div class="img">
+                                <p><a href="{:U('/Exhibit/Exhibit/onlineExhibitDetail',array('id'=>$vo['id']))}"><img src="{$vo.url}" width="228" height="228" alt="" /></a></p>
+                                <p><a href="{:U('/Exhibit/Exhibit/onlineExhibitDetail',array('id'=>$vo['id']))}" class="name">{$vo.title}</a></p>
+                            </div>
+                            <div class="ope">
+                                <!--<a class="nice" href="javascript:;">6754</a>-->
+                                <a class="talk" href="javascript:;">{$vo.view}</a>
+                            </div>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+            <div class="common-page clear">
+                <div class="t-center">
+                    <div id="f-page">
+                        <if condition="$pages gt 1">{$page} 共{$pages}页 　到第 <select id="select">{$select}<select> 页 </if>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    #f-page {font: 12px/15px Tahoma, Arial, SimSun; text-align: center;}
+    #f-page .page{ display: inline;}
+    #f-page a, #f-page span {display: inline-block;_display: inline;_zoom: 1;padding: 5px 10px;border: 1px solid #ddd;color: #111;text-decoration: none; margin: 0 3px;}
+    #f-page span, #f-page a:hover {border: 1px solid #a51318;color: #fff;background: #a51318;}
+</style>
+<script type="text/javascript" src="{JS_PATH}common.js"></script>
+<script type="text/javascript" src="{JS_PATH}js.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#select").live("change",function(){
+            var p = $("#select option:selected").val();
+            window.location.href = "{:U('/Exhibit/Exhibit/onlineExhibit')}"+"?p="+p;
+        })
+        commSelect('.info-log .common-select',20);
+
+    });
+</script>
+</block>
+
+

@@ -1,0 +1,18 @@
+<extend name="Admin@Public:base" />
+<block name="style"><style type="text/css">body{ width:650px}</style></block>
+<block name="body">
+    <table class="form">
+        <tr><th class="w1">商品名称:</th><td>{$vo.goods_name}</td></tr>
+        <tr><th>商品编号:</th><td>{$vo.goods_sn}</td></tr>
+        <tr><th>商品关键字:</th><td>{$vo.keywords}</td></tr>
+        <tr><th>售后服务:</th><td><volist name="aryGoodsService" id="rg">-{$rg}&nbsp;&nbsp;</volist></td></tr>
+        <tr><th>鉴定证书:</th><td><volist name="aryGoodsCertificate" id="rc">-{$rc}&nbsp;&nbsp;</volist></td></tr>
+        <tr><th>认证标识:</th><td><volist name="aryGoodsAttest" id="ra">-{$ra}&nbsp;&nbsp;</volist></td></tr>
+        <tr><th>当前价格:</th><td>{$vo.goods_price}</td></tr>
+        <tr><th>市场价格:</th><td>{$vo.market_price}</td></tr>
+        <tr><th>商品描述:</th><td style="line-height:18px;padding:10px 10px 10px 0">{$vo.goods_desc}</td></tr>
+        <tr><th>商品组图:</th><td><volist name="aryPics" id="pic"><img src="{$pic['img_url']}" width="80" height="80" />&nbsp;</volist></td></tr>
+        <tr><th>所属店铺:</th><td>{:mallStoreInfo($vo['store_id'], 'store_name')}</td></tr>
+        <tr><th>添加时间:</th><td>{:date('Y-m-d', $vo['create_time'])}</td></tr>
+    </table>
+</block>

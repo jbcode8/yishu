@@ -1,0 +1,53 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+    <div class="nav_btn">
+        <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Seckill/AdminSeckillspecial/add')}', {title:'添加专场', id:'adoArticle',width:'1000px',height:'600px'})">添加专场</a>
+
+    </div>
+	</br>	
+    <!--快捷按钮 结束-->
+
+    <table class="m_table">
+        <tr><th>专场id</th><th>专场名称</th><th>专场介绍</th><th>专场开始时间</th><th>专场结束时间</th><th>击量点</th><th>是否显示</th><th>操作</th></tr>
+        <volist name="skspecial" id="v">
+            <tr>
+                <td id="id" style="text-align:center">{$v.skspecial_id}</td>
+                <td style="text-align:center">{:substr_CN($v['skspecial_name'],20)}</a></td>
+                <td style="text-align:center">{:substr_CN($v['skspecial_intro'],15)}</td>
+                <td style="text-align:center">{$v.skspecial_starttime|date="Y-m-d H:i:s",###}</td>
+                <td style="text-align:center">{$v.skspecial_endtime|date="Y-m-d H:i:s",###}</td>
+				<td style="text-align:center">{$v.skspecial_hits}</td>
+				<td style="text-align:center">
+				<if condition="$v.skspecial_isshow eq 0">
+				显示
+				<else />
+				不显示
+				</if>
+				</td>
+                <td style="text-align:center">
+				<a href="{:U('Seckill/AdminSeckillspecial/edit',array('skspecial_id'=>$v['skspecial_id']))}">编辑</a>
+				&nbsp&nbsp|&nbsp&nbsp
+				<a class="j_del" href="{:U('Seckill/AdminSeckillspecial/delete',array('skspecial_id'=>$v['skspecial_id']))}">删除</a></td>
+            </tr>
+        </volist>
+		<tr><td colspan="8" align="center">{$page}</td></tr>
+    </table>
+
+    <script>
+        $(function(){
+
+            //判断删除
+            $(".j_del").click(function(e){
+                if(!confirm("你是否确认删除这个专场？")){
+                    e.preventDefault();
+                }
+            });
+
+        })
+    </script>
+</block>

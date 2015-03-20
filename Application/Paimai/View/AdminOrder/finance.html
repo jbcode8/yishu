@@ -1,0 +1,328 @@
+<extend name="Admin@Public:base"/>
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css"/>
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="/search/statics/js/DatePicker/WdatePicker.js"></script>
+
+	<!--jqueryeasyui start-->
+	<link rel="stylesheet" type="text/css" href="{JS_PATH}JqueryEasyui/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="{JS_PATH}JqueryEasyui/themes/icon.css"/>
+    <script type="text/javascript" src="{JS_PATH}JqueryEasyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="{JS_PATH}JqueryEasyui/jquery.easyui.min.js"></script>
+	<!--jqueryeasyui end-->
+
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+	
+
+    <!--快捷按钮 结束-->
+    <style type="text/css">
+        .j_green{
+            color: #59B638;
+        }
+        .j_background{
+            background: #5978A4;
+            color: #fff;
+
+        }
+       
+    </style>
+    分类筛选<select id="so_cat" name="cat">
+                <option value="">全部</option>
+                {$cat_str}
+            </select>
+     开始时间:<input type="text" class="date Wdate" onclick="WdatePicker()" name="starttime" id="starttime" value="{$starttime}"/> 至 结束时间:<input type="text" class="date Wdate" onclick="WdatePicker()" name="endtime" id="endtime" value="{$endtime}"/>
+    是否付款
+    <select id="so_pay" name="paystatus">
+        <option value="0">全部</option>
+        <option value="1" <if condition="$paystatus eq 1">selected='selected'</if>>未付款</option>
+        <option value="2" <if condition="$paystatus eq 2">selected='selected'</if>>已付款</option>
+    </select>
+    <input id="so_time" type="button" value="搜索"/>
+    <a id="j_down" href="#" target="_blank">点击下载csv文件</a>&nbsp;<a id="j_print">打印预览</a>
+    <script type="text/javascript">
+        $(function(){
+            var url=window.location.href;
+                if(!url.match(/\?/)){
+                    url=url+"?";
+                }
+            
+            //搜索时间
+            $("#so_time").click(function(){
+                var starttime=$("#starttime").val();
+                var endtime=$("#endtime").val();
+                //页码
+                url=url.match(/&p=(\d)*/)?url.replace(/&p=(\d)*/,''):url;
+                url=url.replace(/&starttime=[0-9-]*/,'');
+                url=url.replace(/&endtime=[0-9-]*/,'');
+                //起始结束时间
+                if(starttime!=""){
+                    url+="&starttime="+starttime;
+                }
+                if(endtime!=""){
+                    url+="&endtime="+endtime;
+                }
+                //付款状态
+                var paystatus=$("#so_pay").val();
+                url=url.replace(/&paystatus=(\d)*/,'');
+                if(paystatus!=""){
+                    url+="&paystatus="+paystatus;
+                }
+                //分类
+                var cat=$("#so_cat").val();
+                url=url.replace(/&cat=(\d)*/,'');
+                if(cat!=""){
+                    url+="&cat="+cat;
+                }
+                
+                window.location.href=url;
+            })
+            //点击下载
+            var down_url="{:U('Paimai/AdminOrder/caiwudown')}";
+            $("#j_down").click(function(e){
+                e.preventDefault();
+                var starttime=$("#starttime").val();
+                var endtime=$("#endtime").val();
+                //付款状态
+                var paystatus=$("#so_pay").val();
+                if(starttime!=""){
+                    down_url+="&starttime="+starttime;
+                }
+                if(endtime!=""){
+                    down_url+="&endtime="+endtime;
+                }
+                //付款状态
+                if(paystatus!=""){
+                    down_url+="&paystatus="+paystatus;
+                }
+                //分类
+                var cat=$("#so_cat").val();
+                down_url=down_url.replace(/&cat=(\d)*/,'');
+                if(cat!=""){
+                    down_url+="&cat="+cat;
+                }
+                window.location.href=down_url;
+            })
+            //点击打印
+            var print_url="{:U('Paimai/AdminOrder/caiwuprint')}";
+            $("#j_print").click(function(e){
+                e.preventDefault();
+                print_url+="&action=print";
+                var starttime=$("#starttime").val();
+                var endtime=$("#endtime").val();
+                //付款状态
+                var paystatus=$("#so_pay").val();
+                if(starttime!=""){
+                    print_url+="&starttime="+starttime;
+                }
+                if(endtime!=""){
+                    print_url+="&endtime="+endtime;
+                }
+                if(paystatus!=""){
+                    print_url+="&paystatus="+paystatus;
+                }
+                //分类
+                var cat=$("#so_cat").val();
+                print_url=print_url.replace(/&cat=(\d)*/,'');
+                if(cat!=""){
+                    print_url+="&cat="+cat;
+                }
+                
+                window.open(print_url);
+            })
+
+        })
+    </script>
+    <style type="text/css">
+        h1{
+            font-weight: bolder;
+        }
+    </style>
+    <table class="m_table">
+        <volist name="orderinfo" id="v">
+            <tr>
+                <td class="j_background">订单ID:{$v.orderinfo_id}</td>
+                <td>订单号:{$v.orderinfo_sn}</td>
+                <td>
+                    订单总金额:<span style="font-size:15px;">{$v.orderinfo_amount}</span><br/>
+                    成本价:{$v.goods_cost}<br/>
+                    利润:<span style="font-size:15px;color:green;font-weight: bolder;">{$v['orderinfo_amount']-$v['goods_cost']}</span>
+                </td>
+                <td>订单时间:{$v.orderinfo_createtime|date='Y-m-d H:i:s',###}</td>
+                <td>
+                    竞拍者信息:<br/>姓名:{:getUsername($v['orderinfo_uid'],0)}&nbsp;手机:{:getUsername($v['orderinfo_uid'],0,'mobile')}
+                </td>
+            </tr>
+            <tr>
+                <td>商品货号</td>
+                <td>商品名称</td>
+                <td>竞拍次数</td>
+                <td>商品价格</td>
+                <td>
+                    <if condition="$v['orderinfo_paystatus'] eq 0">
+                        &nbsp;
+                    <else />
+                        <button><a href="{:U('AdminShopping/index', array('id'=>$v['orderinfo_id']))}">查看购物单</a></button>
+                    </if>
+                </td>
+            </tr>
+            {:getOrdergoodsByOrderinfo($v['orderinfo_id'])}
+            <tr>
+                <td colspan="2">收货地址:
+					{$v['orderinfo_provincename']}(省/市)
+                    {$v['orderinfo_cityname']}(市/区)
+                    <!--{:getRegionNameByid($v['orderinfo_province'])}(省/市)
+                    {:getRegionNameByid($v['orderinfo_city'])}(市/区)-->
+                    {$v.orderinfo_address}
+                    收货人名字:{$v.orderinfo_reciver}
+                    收货人电话:{$v.orderinfo_mobile}
+                </td>
+				<td colspan="2">
+                <if condition="$v['orderinfo_paystatus'] neq 0">
+				    付款方式:   <if condition="$v['orderinfo_paystyle'] eq 1">支付宝
+                                <elseif condition="$v['orderinfo_paystyle'] eq 6"/>网银在线
+                                <else/>其它
+                                </if>&nbsp;&nbsp;
+                    付款时间:{$v.orderinfo_paytime|date='Y-m-d H:i:s',###}
+                </if>
+                </td> 
+                <td class="j_option">&nbsp;
+                    <!-- 隐藏 -->
+                    <input id="j_orderinfo_id" type="hidden" value="{$v.orderinfo_id}"/>
+    
+                    <if condition="$v['orderinfo_paystatus'] eq 0"><span style="color:red;">未付款</span>
+
+                    <else/>
+                    <span style="color:#087C0A;">已付款</span>
+                    </if>
+                </td>
+            </tr>
+			<tr>
+               <td>
+			   征集人：
+			   </td>  
+               <td>
+			   {:getrecruiter($v['goods_recruiterid'])}
+			   </td>
+               <td>
+			   商家：
+			   </td>
+               <td>
+			   {:getseller($v['goods_sellerid'])}
+			   </td>
+			</tr>
+			<tr>
+				<td colspan="5">订单备注：<span>{$v.orderinfo_note}</span>
+					<a  href="#" class="ordernote easyui-linkbutton" title="{$v.orderinfo_id}" data-options="iconCls:'icon-edit'">编辑</a>
+				</td>
+			</tr>
+			<tr><td colspan="5" class="j_background"></td></tr>
+        </volist>
+		<tr><td colspan="5" align="right" id="j_a_fenye">{$page}</td></tr>
+    </table>
+	<div id="change_note"></div>
+	<textarea id="txa" style="width:80%;height:80%;"></textarea>
+    <script>
+        $(function () {
+			//订单备注
+			$(".ordernote").click(function(){
+				//alert()
+				var this_obj=$(this);
+				var this_id=$(this).attr('title');
+				var note_content=$(this).siblings('span').text();
+				$("#txa").val(note_content);
+				
+				$('#change_note').dialog({    
+					title: '修改订单备注',    
+					width: 400,    
+					height: 200,    
+					closed: false,    
+					cache: false,    
+					//href: 'get_content.php',    
+					modal: true,
+					content:$("#txa"),
+					toolbar:[{
+						text:'保存',
+						iconCls:'icon-edit',
+						handler:function(){
+							
+							$.get(
+								"__URL__/updateordernote",
+                                {id: this_id,note:$("#txa").val()},
+                                function (data) {
+									$(this).siblings('span').text($("#txa").val());
+									$("#txa").val("");
+									window.location.reload();
+                     
+                                },
+								"html"
+							);
+							//alert($("#txa").val());
+						}
+					},{
+						text:'帮助',
+						iconCls:'icon-help',
+						handler:function(){
+							alert('填入后点击保存');
+						}
+					}]
+
+				});    
+
+			});
+            //ajax发货
+            $(".sendgoods").each(function () {
+
+                $(this).click(function () {
+                    var option_td_obj=$(this).parent();
+                    //alert(option_td_obj.text());
+                    var orderinfo_id = $.trim($(this).siblings("input").val());
+                    //alert(orderinfo_id);return ;
+					
+                    if (confirm("确认发货?")) {
+						if(! $('#kd').val()){
+							alert('请填写快递单号');
+							return;
+						}
+                        $.get(
+                                "__URL__/ajax_chargesendstatus",
+                                {'id': orderinfo_id,'kd':$('#kd').val()},
+                                function (data) {
+                                    if (data == 1) {
+                                        alert("发货成功");
+                                        option_td_obj.text("已经发货,等待收货");
+                                        window.location.reload();
+                                    } else {
+                                        alert("发货失败");
+                                    }
+                                }
+                        )
+                    }
+                })
+            })
+
+            //确认退货
+            $(".goods_refund").each(function(){
+                $(this).click(function(){
+                    var refund_id = $(this).parent().find("#j_orderinfo_id").attr("value");
+                    var refund_message = $(this).parent();
+                    if (confirm("确认通过退货?")) {
+                         $.post("{:U('AdminOrder/refund_goods')}", {'id':refund_id }, function(r){
+                            if(r.status){
+                                alert('退货修改成功');
+                                refund_message.html('');
+                                refund_message.html('退货成功');
+                            } else {
+                                alert('退货修改失败');
+                            }
+                        },'json');
+                    }
+                });
+            });
+            
+        })
+    </script>
+
+    
+</block>

@@ -1,0 +1,24 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+<style type="text/css">
+body{width:350px}
+</style>
+</block>
+<block name="body">
+    <form action="{:U('Mall/Attribute/add')}" method="post" class="addAttribute">
+    <table class="form">
+        <tr>
+            <th>属性类型名称:</th>
+            <td><input name="attr_name" type="text" /></td>
+            <td class="tips"><i class="red">* 必填</i></td>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <td>
+                <button type="submit" class="btn ajax-post" target-form="addAttribute">确认</button>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+    </form>
+</block>

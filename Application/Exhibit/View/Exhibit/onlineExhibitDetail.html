@@ -1,0 +1,97 @@
+<extend name="detailBase"/>
+<block name="content">
+    <div class="main-container">
+        <div class="container clear">
+            <h1>{$exhibit_detail.title}</h1>
+            <div class="msg-info clear">
+                <p class="view-end hide">图集已浏览完毕</p>
+                <p class="review hide" style="cursor:pointer">重新浏览</p>
+                <!--<p class="talk"><a href="#">我来说两句( <b>236510</b> )</a></p>-->
+                <div class="share">
+                    <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                    </div>
+                </div>
+                <p class="turn-back"><a href="{:U('/Exhibit/Exhibit/onlineExhibit')}" class="red f14">>> 返回展厅</a></p>
+            </div>
+            <div class="img-con clear">
+                <div class="left">
+                <ul>
+                    <volist name="exhibit_images" id="vo" key="k">
+                        <li class="t{$k} <if condition="$k gt 1">hide<else/>select</if>">
+                                <a href="#"><img src="{$vo}" width="480" height="370" alt="" /></a>
+                        </li>
+                    </volist>
+                </ul>
+                </div>
+                <div class="right">
+                    <h2>推荐内容</h2>
+                    <div class="slideshow">
+                        <!-- 数据必须是4的倍数 -->
+                        <ul class="clear">
+                            <volist name="recommend_list" id="vo">
+                                <li>
+                                    <a href="{:U('/Exhibit/Exhibit/onlineExhibitDetail',array('id'=>$vo['id']))}"><img src="{$vo.url}" width="140" height="100" alt="" /></a>
+                                    <p class="common-word"><a href="#">{$vo.title}</a></p>
+                                </li>
+                            </volist>
+                        </ul>
+                        <div class="num-page clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="last-imgs">
+            <a href="#">
+                <p class="l-arrow">
+                <span href="#">上<br>一<br>图<br>片</span>
+                </p>
+            </a>
+        </div>
+        <div class="next-imgs">
+            <a href="#">
+                <p class="r-arrow">
+                <span href="#">下<br>一<br>图<br>片</span>
+                </p>
+            </a>
+        </div>
+    </div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        // JavaScript Document
+        var num = $('.container .img-con .left ul li').length;
+        $('.last-imgs .l-arrow').bind('click',function(){
+            var _current = $('.container .img-con .left ul li.select').attr('class');
+            _current = parseInt(_current.replace(/[^\d]/g,''));
+            if(_current != 1){
+                $( '.container .img-con .left ul li').hide();
+                $( '.container .img-con .left ul li.t' + (_current-1)).show();
+                $( '.container .img-con .left ul li').removeClass('select');
+                $( '.container .img-con .left ul li.t' + (_current-1)).addClass('select');
+            }
+        });
+        $('.next-imgs .r-arrow').bind('click',function(){
+            var _current = $('.container .img-con .left ul li.select').attr('class');
+            _current = parseInt(_current.replace(/[^\d]/g,''));
+            if(_current < num){
+                $( '.container .img-con .left ul li').hide();
+                $( '.container .img-con .left ul li.t' + (_current+1)).show();
+                $( '.container .img-con .left ul li').removeClass('select');
+                $( '.container .img-con .left ul li.t' + (_current+1)).addClass('select');
+            }
+            if(_current == num-1){
+                $( '.view-end').show();
+                $('.review').show();
+            }
+        });
+        $('.review').click(function(){
+            $( '.container .img-con .left ul li').hide();
+            $( '.container .img-con .left ul li.t1').show();
+            $( '.container .img-con .left ul li').removeClass('select');
+            $( '.container .img-con .left ul li.t1').addClass('select');
+            $( '.view-end').hide();
+            $('.review').hide();
+        })
+
+    });
+</script>
+</block>

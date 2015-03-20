@@ -1,0 +1,85 @@
+<extend name="Admin@Public:base"/>
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css"/>
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="/search/statics/js/DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="http://www.yishu.com/Public/js/jquery.jqprint-0.3.js"></script>
+</block>
+<block name="body">
+   
+    <div class="j_print">
+     <style type="text/css">
+        .shop_header { width:936px; }
+        .shop_header .shop_header_img { width:220px; height:69px; }
+        .shop_body table { border-collapse: collapse; }
+        .shop_body h2 { width:936px; text-align:center;height:60px; line-height:60px;}
+        .shop_body  table td {  width:155px; height:35px;}
+        .shop_body  table th {  width:155px; height:35px;}
+        .shop_cloum  td{ border:1px solid #000; }
+        .shop_cloum  th{ border:1px solid #000;}
+        .shop_footer { margin-top:10px;width:936px;}
+        .shop_footer img { margin:5px 5px; }
+    </style>
+        <div class="shop_header">
+            <img src="http://www.yishu.com/Public/img/shopping_logo.jpg" />
+        </div>
+        <div class="shop_body">
+            <h2>购物单</h2>
+            <table>
+                <tr>
+                    <td class="cloum">订 单 号：</td><td colspan="2">{$list_info['orderinfo_sn']}</td>
+                    <td>订单时间：</td><td colspan="2">{:date("Y-m-d H:i:s", $list_info['orderinfo_createtime'])}</td>
+                </tr>
+                <tr>
+                    <td>收 件 人：</td><td>{$list_info['orderinfo_reciver']}</td>
+                    <td>是否开票：</td><td></td>
+                    <td>配送公司：</td><td></td>
+                </tr>
+                <tr>
+                    <td>收件地址： </td><td colspan="5">{$list_info['orderinfo_provincename']}{$list_info['orderinfo_cityname']}{$list_info['orderinfo_address']}</td>
+                </tr>
+                <tr class="shop_cloum">
+                    <th><strong>订单号</strong></th>
+                    <th><strong>商品货号</strong></th>
+                    <th><strong>商品名称</strong></th>
+                    <th><strong>数量</strong></th>
+                    <th><strong>价格</strong></th>
+                    <th><strong>订单总金额</strong></th>
+                </tr>
+                <tr class="shop_cloum">
+                    <td>{$list_info['orderinfo_sn']}</td>
+                    <td>{$list_order['order_goodssn']}</td>
+                    <td>{$list_order['order_goodsname']}</td>
+                    <td>1</td>
+                    <td>￥{$list_order['order_goodsnowprice']}元</td>
+                    <td>￥{$list_order['order_goodsnowprice']}元</td>
+                </tr>
+                <tr>
+                    <td width="152">总金额：￥{$list_order['order_goodsnowprice']}元</td>
+                    <td>运费：</td>
+                    <td>优惠：</td>
+                    <td>已付：￥{$list_order['order_goodsnowprice']}元</td>
+                    <td colspan="2">应收额：￥{$list_order['order_goodsnowprice']}元</td>
+                </tr>
+            </table>
+        </div>
+        <div class="shop_footer">
+            <img style="float:left;"src="http://www.yishu.com/Public/img/focus_first.jpg" height="149" width="auto" />
+            <img style="float:right;" src="http://www.yishu.com/Public/img/icons/shopping_erweim_0.jpg" />
+        </div>
+    </div>
+
+    <div style="clear:both;"></div>
+    <div style="text-align:center;width:936px;">
+                <input type="button" onclick="print()" value="点击打印">
+    </div>
+    <script type="text/javascript">
+        function  print(){
+            $(".j_print").jqprint();
+        }
+        window.onload = function(){
+            $('title').html('购物单 - By 中国艺术网');
+        }
+    </script>
+    
+</block>

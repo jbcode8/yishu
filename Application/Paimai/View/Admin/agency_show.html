@@ -1,0 +1,32 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="{PLUGIN_PATH}treetable/css/treetable.css" />
+    <load file="{PLUGIN_PATH}treetable/js/jquery.treetable.js" />
+</block>
+<block name="body">
+<div class="container">
+    <ul class="header clear">
+    <li <eq name="ACTION_NAME" value="show">class="current"</eq>><a href="{:U('Auction/AdminAgency/index')}">拍卖机构管理</a></li>
+		<li <eq name="ACTION_NAME" value="add">class="current"</eq>><a href="{:U('Auction/AdminAgency/add')}">添加拍卖机构</a></li>
+    </ul>
+	<table class="table table-hover">
+	<tbody>
+	    <tr><td class="tdL" width="250">机构名称:</td><td>{$list['name']}</td></tr>
+	    <!--<tr><td class="tdL" width="250">创建者ID:</td><td>{$list['mid']}</td></tr>-->
+	    <tr><td class="tdL" width="250">创建时间:</td><td>{$list['createtime']|date='Y-m-d H:i:s',###}</td></tr>
+	    <tr><td class="tdL">机构图片:</td><td><img src="{$list['thumb']}" width="100" height="100"></td></tr>
+	    <tr><td class="tdL">所属区域ID:</td><td>{:getAgencyArea($list['areaid'])}</td></tr>
+	    <tr><td class="tdL">详细地址：</td><td>{$list['address']}</td></tr>
+	    <tr><td class="tdL">状态：</td><td><if condition="($list['status'] eq 0)"><span style="color:blue">待审核 </span><elseif condition="($list['status'] eq 1)" /><span style="color:blue">已通过 </span><else /><span style="color:red">未通过 </span></if></td></tr>
+	    <tr><td class="tdL">关键字：</td><td>{$list['keywords']}</td></tr>
+	    <tr><td class="tdL">机构简介:</td><td><textarea name="content" class="ar-txt" cols="70" rows="5">{$list['description']}</textarea></td></tr>
+	   	<tr><td class="tdL">详细介绍:</td><td><textarea name="content" class="ar-txt" cols="70" rows="5">{$list['content']}</textarea></td></tr>
+	    <tr><td class="tdL">机构电话:</td><td>{$list['tel']}</td></tr>
+	    <tr><td class="tdL">机构邮编:</td><td>{$list['post']}</td></tr>
+	    <tr><td class="tdL">机构邮箱:</td><td>{$list['email']}</td></tr>
+	    <tr><td class="tdL">机构网址:</td><td>{$list['website']}</td></tr>
+	    <tr><td class="tdL">&nbsp;</td><td><a href="{:U('Auction/AdminAgency/check', array('id' => $list['id'], 'audit' => 'yes'))}" class="btn btn-primary">通过审核</a> | <a href="{:U('Auction/AdminAgency/check', array('id' => $list['id'], 'audit' => 'no'))}" class="btn btn-primary">未通过审核</a></td></tr>
+	</tbody>
+	</table>
+</div>
+</block>

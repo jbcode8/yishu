@@ -1,0 +1,71 @@
+<extend name="Admin@Public:base"/>
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css"/>
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" type="text/css" href="{JS_PATH}JqueryEasyui/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="{JS_PATH}JqueryEasyui/themes/icon.css"/>
+    <script type="text/javascript" src="{JS_PATH}JqueryEasyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="{JS_PATH}JqueryEasyui/jquery.easyui.min.js"></script>
+
+</block>
+<block name="body">
+
+
+
+<div id="tt" class="easyui-tabs" style="">   
+    <div title="自动生成的订单" data-options="closable:true,href:'{:U(\"Paimai/AdminOrder/autoorder\",array('v'=>'v'))}',loadingMessage:'数据正在加载中...'" style="padding:20px;">   
+            
+    </div>   
+    <div title="没有付款的订单" data-options="closable:true" style="overflow:auto;padding:20px;">   
+        <table id="no_pay_order"></table>  
+    </div>   
+    
+</div> 
+
+
+    <script type="text/javascript">
+        $(function(){
+          
+            $('#no_pay_order').datagrid({
+                //fit:true,
+                url:"{:U('Paimai/AdminOrder/autoorder',array('v'=>'no_pay_order'))}",    
+                columns:[[    
+                    {field:'code',title:'商品id'},    
+                    {field:'name',title:'商品图片'},    
+                    {field:'price',title:'商品名称',align:'right'},
+                    {field:'name',title:'商品货号'},    
+                    {field:'price',title:'收货地址',align:'right'},
+                    {field:'price',title:'付款状态',align:'right'},
+                ]]    
+            }); 
+
+
+            var info=[];
+            $(".j_info").tooltip({
+                content: '',  
+                onShow:function(){
+                    var this_obj=$(this).tooltip('tip');
+                    var this_uid=$(this).find("#j_userinfo").attr("title");
+                    this_obj.css({backgroundColor: '#666',borderColor: '#666',color:'#fff'});
+                    if(typeof(info[this_uid])!="undefined"){
+                        this_obj.text(info[this_uid]);
+                        return ;
+                    }
+                    $.post(
+                        "{:U('Paimai/AdminOrder/ajax_userorderinfo')}?date="+Math.random(),
+                        {uid:this_uid},
+                        function(data){
+                            info[this_uid]='电话：'+data.info;
+                            this_obj.text('电话：'+data.info);    
+                        },
+                        "json"
+                    );
+                    
+                },
+                trackMouse:true,
+            });
+        })
+    </script>
+        
+</block>

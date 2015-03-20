@@ -1,0 +1,178 @@
+<extend name="Admin@Public:base"/>
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="/search/statics/js/DatePicker/WdatePicker.js"></script> 
+    <link rel="stylesheet" type="text/css" href="{JS_PATH}JqueryEasyui/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="{JS_PATH}JqueryEasyui/themes/icon.css"/>
+    <script type="text/javascript" src="{JS_PATH}JqueryEasyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="{JS_PATH}JqueryEasyui/locale/easyui-lang-zh_CN.js"></script>	
+
+</block>
+<block name="body">
+    
+	
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 开始-->
+    <div id="panel" class="easyui-tabs" data-options="fit:true">
+        <div title="用户信息" style="padding:15px;">
+    	   <table id="j_user_list_table">
+	       	
+	       </table>
+        </div>
+    </div>
+    <div id="memberinfo_toolbar" style="padding:5px;height:auto">
+                <form id="j_so_form" style="padding:15px;">
+                    注册开始时间: <input class="easyui-datebox j_datebox" name="starttime" value="{$starttime}"></input>
+                    注册结束时间: <input class="easyui-datebox j_datebox" name="endtime" value="{$endtime}"></input>
+                    手机号: <input id="j_specailids" class="easyui-validatebox textbox j_alert_moible" type="text" name="mobile" value=""></input>
+                    用户名：<input class="textbox" type="text" name="uname" value=""></input>
+                    <a id="j_so" href="#" class="easyui-linkbutton" iconCls="icon-search">条件搜索</a>
+                    <a id="j_so_clear" href="#" class="easyui-linkbutton" iconCls="icon-search">清空条件</a>
+                    <a id="down-btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">会员信息下载</a>
+                </form>
+        </div>
+       <script type="text/javascript">
+            $(function(){
+                    $('.easyui-datebox').datebox({    
+                        editable:false  
+                    }); 
+                    //用户信息数据表
+                    $("#j_user_list_table").datagrid({
+                        idField:"mid",
+                        url:"{:U('Paimai/AdminMember/index',array('action'=>data))}",
+                        loadMsg:"正在请求数据...",
+                        method:"get",
+                        striped:true,
+                        fit:true,
+                        rownumbers:true,
+                        columns:[[
+                            {
+                                field:'mid',
+                                title:'用户ID',
+                            },
+                            {
+                                field:'username',
+                                title:'用户名',
+                                formatter:function(value,row,index){
+                                    
+                                    return "<a class='j_username' title='"+row.mid+"'>"+value+"</a>";
+                                    
+                                },
+                            },
+                            {
+                                field:'regdate',
+                                title:'注册时间',
+                                align:'center',
+                                formatter:function(value,row,index){
+                                    if(value!=0){
+                                        return new Date(parseInt(value)*1000).toLocaleString();
+                                    }
+                                },
+                                styler: function(value,row,index){
+                                    return 'padding:10px 0;';
+                                }
+
+                            },
+                            {
+                                field:'loginnum',
+                                title:'登录次数(单击本单元格进行排序)',
+								align:'center',
+                                sortable:true
+                            },
+                            {
+                                field:'mobile',
+                                title:'手机',
+                            },
+                            {
+                                field:'email',
+                                title:'邮箱'
+                            },
+                            {
+                                field:'mobile_status',
+                                title:'手机验证状态',
+								align:'center',
+                                formatter:function(value,row,index){
+                                    if(value==1){
+                                        return '是';
+                                    }else{
+                                        return '否';
+                                    }
+                                },
+                            },
+                            {
+                                field:'email_status',
+                                title:'邮箱验证状态',
+								align:'center',
+                                formatter:function(value,row,index){
+                                    if(value==1){
+                                        return '是';
+                                    }else{
+                                        return '否';
+                                    }
+                                }
+                            }, 
+                        ]],
+                        onLoadSuccess:function(data){
+                            $(".j_alert_moible").tooltip({    
+                                position: 'top',    
+                                content: '<span style="color:#fff">支持多手机号查询,中间用英文逗号隔开如：13112349876,15112349876</span>',    
+                                onShow: function(){        
+                                    $(this).tooltip('tip').css({            
+                                        backgroundColor: '#666',            
+                                        borderColor: '#666'        
+                                    });    
+                                }});
+                        },
+                        pagination:true,
+                        //pagePosition:'both',
+                        pageSize:10,
+                        pageList:[10,20,30],
+                        toolbar: $("#memberinfo_toolbar")
+
+                    })
+                      
+
+                    //点击搜索
+                    $("#j_so").click(function(){
+                      $("#j_user_list_table").datagrid("load",serializeForm($("#j_so_form")));
+                    })
+                    //点击清空
+                    $("#j_so_clear").click(function(){
+                        $("#j_so_form").form("clear");
+                        $("#j_user_list_table").datagrid('load',{});
+                    })
+                    //下载
+                    $("#down-btn").click(function(){
+                        $.messager.confirm('确认对话框', '在下载前请先确认筛选', function(r){
+                            if (r){
+                                var url=window.location.href;
+                                var down_str=$("#j_so_form").serialize();
+                                this_url=url.replace(/index/,'downmember');
+                                window.location.href=this_url+"?"+down_str;  
+                            }
+                        });
+
+                            
+                    })
+                    //把表单元素转化成对象
+                    function serializeForm(form){
+                        var obj={};
+                        $.each(form.serializeArray(),function(index,field){
+                            if(field.value){
+                                if(obj[this['name']]){
+                                    obj[this['name']]=obj[this['name']]+","+this['value'];
+                                }else{
+                                    obj[this['name']]=this['value'];
+                                }
+                            }
+                            
+                        })
+                        return obj;
+                    }
+
+                    
+            })
+       </script>
+</block>

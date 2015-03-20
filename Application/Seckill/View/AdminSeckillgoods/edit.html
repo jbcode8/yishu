@@ -1,0 +1,97 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+    <load file="{PLUGIN_PATH}uploadify/jquery.uploadify.min.js" />
+</block>
+<block name="body">
+
+    <form method="post" action="{:U('Seckill/AdminSeckillgoods/update')}" style="width: 700px;height: 300px; margin: auto;">
+        <input type="hidden" name="skgoods_id" value="{$goods.skgoods_id}">
+        <table class="m_table">
+            <tr><td width="100">秒杀商品名称:</td><td><input name="skgoods_name" value="{$goods.skgoods_name}" style="width:300px;"/></td></tr>
+            <tr><td>上传者:</td><td><input type="text" name="skgoods_uploader" value="{$goods.skgoods_uploader}" style="width:100px;"/></td></tr>
+		<tr>
+			<td>所属秒杀专场:</td>
+			<td>
+				<select name="skgoods_specialid">
+					<option value="0">--请选择--</option>
+					<volist name="special" id="v">
+					   <if condition="$v['skspecial_id'] eq $goods['skgoods_specialid']">
+                        <option selected="selected" value="{$v.skspecial_id}">{$v.skspecial_name}</option>
+                        <else/>
+						<option value="{$v.skspecial_id}">{$v.skspecial_name}</option>
+					   </if>
+					</volist>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			 <td>商品时间:</td>
+			  <td>
+					开始时间:<input type="text" name="skgoods_starttime" value="{$goods.skgoods_starttime|date='Y-m-d H:i:s',###}"><br/><br/>
+					结束时间:<input type="text" name="skgoods_endtime" value="{$goods.skgoods_endtime|date='Y-m-d H:i:s',###}">
+			  </td>
+        </tr>
+
+		<tr><td>商品所属公司/单位名:</td><td><input type="text" name="skgoods_sellername" value="{$goods.skgoods_sellername}" style="width:100px;"></td></tr>
+		<tr><td>商品原价:</td><td><input type="text" name="skgoods_marketprice" value="{$goods.skgoods_marketprice}" ></td></tr>
+		<tr><td>秒杀价:</td><td><input type="text" name="skgoods_killprice" value="{$goods.skgoods_killprice}" ></td></tr>
+		<tr><td>重量:</td><td><input type="text" name="skgoods_weight" value="{$goods.skgoods_weight}" ></td></tr>
+		<tr><td>尺寸:</td><td><input type="text" name="skgoods_size" value="{$goods.skgoods_size}" ></td></tr>
+		<tr><td>数量:</td><td><input type="text" name="skgoods_quantity" value="{$goods.skgoods_quantity}" ></td></tr>
+		<tr><td>存货地:</td><td><input type="text" name="skgoods_city" value="{$goods.skgoods_city}" ></td></tr>
+		<tr><td>SEO标题:</td><td><input type="text" name="skgoods_seotitle" value="{$goods.skgoods_seotitle}" style="width:500px;"></td></tr>
+		<tr><td>SEO关键字:</td><td><input type="text" name="skgoods_keywords" value="{$goods.skgoods_keywords}" style="width:500px;"></td></tr>
+		<tr><td>SEO描述:</td><td><input type="text" name="skgoods_seodesc" value="{$goods.skgoods_seodesc}" style="width:500px;"></td></tr>
+		<tr>
+			<td>商品描述:</td>
+			<td>
+				<textarea name="skgoods_brief">{$goods.skgoods_brief}</textarea>
+			</td>
+		</tr>
+		<tr>
+			<td>商品缩略图:</td>
+			<td style="height: 50px;">
+				<!--<input type="file" name="goods_thumb">-->
+				{:hook('upload',array('model'=>'paimaigoods','type'=>'thumb','height'=>30,'uploadify'=>'swfone'))}
+			<div>修改时要和下面的一起修改</div>
+			</td>
+		</tr>
+
+		<tr>
+			<td>商品细节图:</td>
+			<td style="height: 100px;">
+				{:hook('upload',array('model'=>'paimaigoods','type'=>'image','height'=>30,'uploadify'=>'swf'))}图片大小宽800*高800
+			<div>修改时要和上面的一起修改</div>
+			</td>
+		</tr>
+		<tr>
+			<td>商品详情描述:</td>
+			<td>
+				<textarea name="skgoods_intro">{$goods.skgoods_intro}</textarea>
+				{:hook('adminEditor',array('name'=>'skgoods_intro'))}
+			</td>
+		</tr>
+            <tr>
+                <td>是否显示:</td>
+                <td>
+                    <input type="radio" <if condition="$special['skgoods_isshow'] eq 0">checked="checked"</if>  name="skgoods_isshow" value="0"/>&nbsp;是&nbsp;
+                    <input type="radio" <if condition="$special['skgoods_isshow'] eq 1">checked="checked"</if> name="skgoods_isshow" value="1"/>&nbsp;否&nbsp;
+                </td>
+            </tr>
+            <tr><td colspan="2" align="center"><input class="m_submit" type="submit" value="修改信息"></td></tr>
+        </table>
+      
+    </form>
+    <script type="text/javascript">
+        /*$(function(){
+            $("#test123").click(function(){
+                var tag=$("#test").html();
+                tag=tag.replace(/\/News\/AdminNewslist\//,'');
+                
+                $("#test").html(tag);
+            })
+        })*/
+    </script>
+</block>

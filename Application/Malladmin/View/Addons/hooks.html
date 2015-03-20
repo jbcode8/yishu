@@ -1,0 +1,53 @@
+<extend name="Public:base" />
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul>
+            <li class="selected"><a href="{:U('hooks')}">钩子管理</a></li>
+        </ul>
+
+        <!--快捷按钮 开始-->
+        <div class="nav_btn">
+            <a href="javascript:$.dialog.open('{:U('addhook')}',{title:'创建钩子',id:'createhook'});" class='fa fa-plus-square'> 创建钩子</a>
+        </div>
+        <!--快捷按钮 结束-->
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 开始-->
+    <?php
+        $thead = array(
+            'id'            =>  'ID',
+            'name'          =>  '名称',
+            'description'   =>  '描述',
+            'type_text'     =>  '类型',
+            '操作'          =>  array(
+                '编辑'      =>  array(
+                    'class'     =>  'edithook',
+                    'href'      =>  'edithook?id=$id'
+                ),
+                '删除'      =>  array(
+                    'href'      =>  'delhook?id=$id',
+                    'class'     =>  'confirm ajax-get',
+                    'condition' =>  'is_administrator()'
+                )
+            )
+        );
+        echo $_table_list = $__controller__->tableList($_list,$thead);
+    ?>
+    <!-- 数据表格 开始-->
+    <div class="paging">
+        {$_page}
+    </div>
+</block>
+<block name="javascript">
+    <script type="text/javascript">
+        $(function(){
+            $('.edithook').on('click',function(e){
+                e.preventDefault();
+                $.dialog.open(this.href,{title:'编辑钩子',id:'edithook'});
+            })
+        });
+    </script>
+</block>

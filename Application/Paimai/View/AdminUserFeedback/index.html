@@ -1,0 +1,54 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+	<!--
+    <div class="nav_btn">
+        <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Paimai/AdminSeller/add')}', {title:'添加商家', id:'adoArticle',width:'1000px',height:'600px'})"> 添加商家</a>
+
+    </div>-->
+	</br>
+	
+	
+    <!--快捷按钮 结束-->
+
+    <table class="m_table">
+        <tr><th>用户反馈ID</th><th>用户ID</th><th>反馈内容</th><th>联系方式</th><th>反馈时间</th><th>是否显示</th><th>操作</th></tr>
+        <volist name="feedback" id="v">
+            <tr>
+                <td id="id" style="text-align:center">{$v.feedback_id}</td>
+                <td style="text-align:center">{$v.uid}</td>
+                <td>{$v.feedback_content}</td>
+                <td style="text-align:center">{$v.contact}</td>
+                <td style="text-align:center">{$v.feedback_time|date="Y-m-d H:i:s",###}</td>
+				<td style="text-align:center">
+				<if condition="$v.feedback_isshow eq 0">
+				显示
+				<else />
+				不显示
+				</if>
+				</td>
+                <td style="text-align:center">
+				<!--<a href="{:U('Paimai/AdminSeller/edit',array('seller_id'=>$v['seller_id']))}">编辑</a>
+				&nbsp&nbsp|&nbsp&nbsp-->
+				<a class="j_del" href="{:U('Paimai/AdminUserFeedback/delete',array('feedback_id'=>$v['feedback_id']))}">删除</a></td>
+            </tr>
+        </volist>
+		<tr><td colspan="12" align="center">{$page}</td></tr>
+    </table>
+
+    <script>
+        $(function(){
+            //判断删除
+            $(".j_del").click(function(e){
+                if(!confirm("你是否确认删除该条反馈信息吗？")){
+                    e.preventDefault();
+                }
+            });
+
+        })
+    </script>
+</block>

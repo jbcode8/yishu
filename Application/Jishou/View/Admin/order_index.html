@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv='content-type' content='text/html;charset=utf-8'>
+		<link rel="stylesheet" type="text/css" href="http://www.yishu.com/Public/easyui/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="http://www.yishu.com/Public/easyui/themes/icon.css">
+		<script type="text/javascript" src="http://www.yishu.com/Public/easyui/jquery.min.js"></script>
+		<script type="text/javascript" src="http://www.yishu.com/Public/easyui/jquery.easyui.min.js"></script>
+		<script type="text/javascript" src="http://www.w3cschool.cc/try/jeasyui/datagrid-detailview.js"></script>
+		<script>
+			function getimg(value,row,index){
+				return "<img src='"+value+"' width='60' height='60' style='padding-top:5px'/>"
+			}
+			$(function(){
+
+
+			//已付款的页面
+			$('#tt').datagrid({
+			view: detailview,
+			detailFormatter:function(index,row){
+			return '<div class="ddv" style="padding:5px 0"></div>';
+			},
+			onExpandRow: function(index,row){
+				var ddv = $(this).datagrid('getRowDetail',index).find('div.ddv');
+				ddv.panel({
+					border:false,
+					cache:false,
+					href:'{:U('Jishou/AdminOrderManager/getDetailInfo')}?order_id='+row.order_id,
+					onLoad:function(){
+						$('#tt').datagrid('fixDetailRowHeight',index);
+						}
+					});
+					$('#tt').datagrid('fixDetailRowHeight',index);
+			}
+			})
+			
+
+
+
+			//未付款的订单显示物流信息
+
+			$('#tt_2').datagrid({
+			view: detailview,
+			detailFormatter:function(index,row){
+			return '<div class="ddv" style="padding:5px 0"></div>';
+			},
+			onExpandRow: function(index,row){
+				var ddv = $(this).datagrid('getRowDetail',index).find('div.ddv');
+				ddv.panel({
+					border:false,
+					cache:false,
+					href:'{:U('Jishou/AdminOrderManager/getDetailInfo')}?order_id='+row.order_id,
+					onLoad:function(){
+						$('#tt').datagrid('fixDetailRowHeight',60);
+						}
+					});
+					$('#tt').datagrid('fixDetailRowHeight',60);
+			}
+			})
+			
+
+			//已完成的订单列表
+			$('#tt_3').datagrid({
+			view: detailview,
+			detailFormatter:function(index,row){
+			return '<div class="ddv" style="padding:5px 0"></div>';
+			},
+			onExpandRow: function(index,row){
+				var ddv = $(this).datagrid('getRowDetail',index).find('div.ddv');
+				ddv.panel({
+					border:false,
+					cache:false,
+					href:'{:U('Jishou/AdminOrderManager/getDetailInfo')}?order_id='+row.order_id,
+					onLoad:function(){
+						$('#tt').datagrid('fixDetailRowHeight',60);
+						}
+					});
+					$('#tt').datagrid('fixDetailRowHeight',60);
+			}
+			})
+
+
+
+
+		});
+		
+
+			
+
+
+		</script>
+	</head>
+	<body>
+		<div class="easyui-tabs" style="width:100%;">
+			<div title="已付款订单" style="padding:10px;">
+				<table id="tt" class="easyui-datagrid" style="min-height:400px"
+						url="{:U('Jishou/AdminOrderManager/getPayOrder')}"
+						 iconCls="icon-save"
+						rownumbers="false" pagination="true"
+						singleSelect="true"
+						>
+					<thead>
+						<tr>
+							<th field="order_id" width="60" align='center'>订单ID</th>
+							<th field="order_sn" width="150" align='center'>订单编号</th>
+							<th field="seller_id" width="80" align='center'>卖家ID</th>
+							<th field="purchaser_id" width="80" align='center'>买家ID</th>
+							<th field="goods_name"  align="center">商品名称</th>
+							<th field="img"  align="center" width='100' align='center' formatter="getimg">略图片</th>
+							<th field="goods_price" width="110" align='center'>商品价格</th>
+							<th field="atime"  align="center" width='150'>下单时间</th>
+							<th field="pay_time"  align="center" width='150'>付款时间</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+			<div title="未付款订单" closable="true" style="padding:10px;">
+					<table id="tt_2" class="easyui-datagrid" style="min-height:400px"
+						url="{:U('Jishou/AdminOrderManager/getNotPayOrder')}"
+						 iconCls="icon-save"
+						rownumbers="false" pagination="true"
+						singleSelect="true"
+						>
+					<thead>
+						<tr>
+							<th field="order_id" width="60" align='center'>订单ID</th>
+							<th field="order_sn" width="150" align='center'>订单编号</th>
+							<th field="seller_id" width="80" align='center'>卖家ID</th>
+							<th field="purchaser_id" width="80" align='center'>买家ID</th>
+							<th field="goods_name"  align="center">商品名称</th>
+							<th field="img"  align="center" width='100' align='center' formatter="getimg">略图片</th>
+							<th field="goods_price" width="110" align='center'>商品价格</th>
+							<th field="atime"  align="center" width='150'>下单时间</th>
+						</tr>
+					</thead>
+				</table>	
+			</div>
+			<div title="已完成订单" iconCls="icon-reload" closable="true" style="padding:10px;">
+				<table id="tt_3" class="easyui-datagrid" style="min-height:400px"
+						url="{:U('Jishou/AdminOrderManager/getFinishOrder')}"
+						 iconCls="icon-save"
+						rownumbers="false" pagination="true"
+						singleSelect="true"
+						>
+					<thead>
+						<tr>
+							<th field="order_id" width="60" align='center'>订单ID</th>
+							<th field="order_sn" width="150" align='center'>订单编号</th>
+							<th field="seller_id" width="80" align='center'>卖家ID</th>
+							<th field="purchaser_id" width="80" align='center'>买家ID</th>
+							<th field="goods_name"  align="center">商品名称</th>
+							<th field="img"  align="center" width='100' align='center' formatter="getimg">略图片</th>
+							<th field="goods_price" width="110" align='center'>商品价格</th>
+							<th field="atime"  align="center" width='150'>下单时间</th>
+							<th field="pat_time"  align="center" width='150'>付款时间</th>
+						</tr>
+					</thead>
+				</table>	
+			</div>
+		</div>
+	</body>
+</html>

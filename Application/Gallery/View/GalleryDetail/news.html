@@ -1,0 +1,83 @@
+<extend name="galleryDetailBase"/>
+<block name='content'>
+<!--center start-->
+<div class="center cb">
+<!--left start-->
+<div class="gallery_left">
+<!--top start-->
+    <div  class="gallery_lefttop">
+        <h3>{$gInfo.name}</h3>
+        <img src="{$gInfo.gthumb}" width="210" height="200"/>
+        <p><span>作品<a href="{:U('Gallery/GalleryDetail/gworks',array('gid'=>$gInfo['id']))}">{$workcount}</a></span><span>展览<a href="{:U('Gallery/GalleryDetail/gexhibit',array('gid'=>$gInfo['id']))}">{$exhibitcount}</a></span><span class="gallery_l_r">艺术家<a href="{:U('Gallery/GalleryDetail/gartist',array('gid'=>$gInfo['id']))}">{$artistcount}</a></span></p>
+    </div>
+    <!--end top-->
+    <!---->
+    <div class="gallery_leftc">
+        <p>地区：<a href="#">{$gInfo.address}</a></p>
+        <p>成立时间：<a href="#">{$gInfo.found}</a></p>
+        <p>艺术家：<volist name="artist" id="vo"><a href="{:U('/Artist/ArtistDetail/index',array('id'=>$vo['id']))}">{$vo.name}</a>&nbsp;</volist> <a href="#" class="yellow right">更多&gt;&gt;</a></p>
+        <p>关键字：<a href="#">{$gInfo.keywords}</a></p>
+    </div>
+<!---->
+
+</div>
+<!--end left-->
+<!--right start-->
+<div class="gallery_right">
+<!--最近展览 start-->
+<div class="gallery_arts">
+<div class="gallery_artstop">新闻</div>
+<div class="gallery_newsdown">
+<h3>{$show.title}</h3>
+<div class="gallery_newsdownf"><span><a class="g_n_l" href="javascript:" onclick="fontChange('s')"></a><a class="g_n_r" href="javascript:" onclick="fontChange('b')"></a></span>{$show.create_time|date='Y-m-d',###}</div>
+<div id="content">
+<p>
+{$show.content}
+</p>
+</div>
+</div>
+<div class="right cb">
+       <!-- Baidu Button BEGIN -->
+    <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+        <span class="bds_more">分享到：</span>
+        <a class="bds_tsina"></a>
+        <a class="bds_tqq"></a>
+        <a class="bds_qzone"></a>
+        <a class="bds_renren"></a>
+        <a class="bds_msn"></a>
+        <a class="bds_douban"></a>
+        <a class="bds_kaixin001"></a>
+		<a class="shareCount"></a>
+    </div>
+<script type="text/javascript" id="bdshare_js" data="type=tools" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+	document.getElementById("bdshell_js").src = "http://share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+</script>
+<!-- Baidu Button END -->
+</div>
+<div class="gallery_newsgrey">注：本站上发表的所有内容，均为原作者的观点，不代表中国艺术网的立场，也不代表中国艺术网的价值判断。</div>
+</div>
+<!--end 最近展览-->
+</div>
+<!--right end-->
+</div>
+<!--center end-->
+<script>
+    function fontChange(vars){
+        var sizes = $('#content').css('font-size');
+        var realSize = parseInt(sizes);
+        if(vars == 's'){
+            if(realSize>12){
+                var nowSize = realSize-2;
+                $('#content').css('font-size',nowSize+'px');
+            }
+        }else{
+            if(realSize<16){
+                var nowSize = realSize+2;
+                $('#content').css('font-size',nowSize+'px');
+            }
+        }
+    }
+</script>
+</block>

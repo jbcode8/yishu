@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>{$category['title']}-中国艺术网</title>
+    <link href="{CSS_PATH}site.css" rel="stylesheet" type="text/css" />
+    <link href="{CSS_PATH}Home/News/information.css" rel="stylesheet" type="text/css" />
+    <script src="{JS_PATH}jquery-1.7.2.min.js"></script>
+    {/*css区块*/}
+    <block name="css"></block>
+</head>
+<body class="information-panel">
+<!-- 头部 -->
+<div id="header">
+<div class="tool-bar clear">
+<div class="content">
+<div class="info-unlog left hide">
+    <p>
+        <span>欢迎光临中国艺术网！</span>
+        <span><a href="#">用户登陆</a></span>
+        <span> | </span>
+        <span><a href="#">免费注册</a></span>
+    </p>
+</div>
+<div class="info-log left">
+    <p class="wel-msg">欢迎回来！</p>
+    <p class="user-name red">yonglijob@163.com</p>
+    <p class="mail mail-h"><a href="#" class="red">(2)</a></p>
+    <p class="logo-out"><a href="#">安全退出</a></p>
+    <div class="pers-oper common-select">
+        <span>我的艺术网</span>
+        <div class="select hide">
+            <ul>
+                <li><a href="#">用户中心</a></li>
+                <li><a href="#">消息中心</a></li>
+                <li><a href="#">我的收藏</a></li>
+                <li><a href="#">我的好友</a></li>
+                <li><a href="#">账号管理</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="right">
+<p class="right">
+    <span><a href="#">帮助中心</a></span>
+    <span> | </span>
+    <span><a href="#">设为首页</a></span>
+    <span> | </span>
+    <span><a href="#">收藏本站</a></span>
+    <span> | </span>
+    <span>客服热线:</span>
+    <span class="f14"><b>400-000-000</b></span>
+</p>
+<div class="location right">
+<span class="now-city">上海站</span>
+<div id="nav-local" class="hide">
+<p class="local-city">
+    当前城市：
+    <span><b>上海</b></span>
+    <a href="" class="red">[设为默认城市]</a>
+</p>
+<div class="country">
+    <ul>
+        <li><b><a href="#">全国</a></b></li>
+        <li><a href="#">北京</a></li>
+        <li><a href="#">上海</a></li>
+        <li><a href="#">广州</a></li>
+        <li><a href="#">深圳</a></li>
+        <li><a href="#">成都</a></li>
+        <li><a href="#">西安</a></li>
+        <li><a href="#">天津</a></li>
+        <li><a href="#">武汉</a></li>
+        <li><a href="#">重庆</a></li>
+        <li><a href="#">南京</a></li>
+    </ul>
+</div>
+<div class="search-city">
+    <p class="search"><input type="text" placeholder="输入城市名" /></p>
+    <p class="btn">搜 索</p>
+    <p class="red error hide">没有该城市！</p>
+</div>
+<div class="en-word">
+    <ul>
+        <li>A</li>
+        <li>B</li>
+        <li>C</li>
+        <li>D</li>
+        <li>E</li>
+        <li>F</li>
+        <li>G</li>
+        <li>H</li>
+        <li>J</li>
+        <li>K</li>
+        <li>L</li>
+        <li>M</li>
+        <li>N</li>
+        <li>P</li>
+        <li>Q</li>
+        <li>R</li>
+        <li>S</li>
+        <li>T</li>
+        <li>W</li>
+        <li>X</li>
+        <li>Y</li>
+        <li>Z</li>
+    </ul>
+</div>
+<div class="city-list">
+    <div class="content">
+        <div class="a num-rank">
+            <p class="en">A</p>
+            <ul>
+                <li>鞍山</li>
+                <li>安阳</li>
+                <li>安庆</li>
+            </ul>
+        </div>
+        <div class="b num-rank">
+            <p class="en">B</p>
+            <ul>
+                <li>北京</li>
+                <li>包头</li>
+                <li>保定</li>
+                <li>并州</li>
+                <li>宝鸡</li>
+                <li>宝洲</li>
+            </ul>
+        </div>
+        <div class="c num-rank">
+            <p class="en">C</p>
+            <ul>
+                <li>成都</li>
+                <li>长沙</li>
+                <li>重庆</li>
+                <li>长春</li>
+                <li>常州</li>
+                <li>常熟</li>
+                <li>常德</li>
+                <li>长治</li>
+                <li>沧州</li>
+                <li>承德</li>
+                <li>慈溪</li>
+                <li>擦州</li>
+            </ul>
+        </div>
+        <div class="d num-rank">
+            <p class="en">D</p>
+            <ul>
+                <li>大连</li>
+                <li>东莞</li>
+                <li>大庆</li>
+                <li>大同</li>
+                <li>德阳</li>
+                <li>东阳</li>
+                <li>达州</li>
+                <li>德州</li>
+            </ul>
+        </div>
+        <div class="e num-rank">
+            <p class="en">E</p>
+            <ul>
+                <li>鞍山1</li>
+                <li>安阳1</li>
+                <li>安庆1</li>
+            </ul>
+        </div>
+        <div class="f num-rank">
+            <p class="en">F</p>
+            <ul>
+                <li>北京1</li>
+                <li>包头1</li>
+                <li>保定1</li>
+                <li>并州1</li>
+                <li>宝鸡1</li>
+                <li>宝洲1</li>
+            </ul>
+        </div>
+        <div class="g num-rank">
+            <p class="en">G</p>
+            <ul>
+                <li>成都1</li>
+                <li>长沙1</li>
+                <li>重庆1</li>
+                <li>长春1</li>
+                <li>常州1</li>
+                <li>常熟1</li>
+                <li>常德1</li>
+                <li>长治1</li>
+                <li>沧州1</li>
+                <li>承德1</li>
+                <li>慈溪1</li>
+                <li>擦州1</li>
+            </ul>
+        </div>
+        <div class="h num-rank">
+            <p class="en">H</p>
+            <ul>
+                <li>大连1</li>
+                <li>东莞1</li>
+                <li>大庆1</li>
+                <li>大同1</li>
+                <li>德阳1</li>
+                <li>东阳1</li>
+                <li>达州1</li>
+                <li>德州1</li>
+            </ul>
+        </div>
+        <div class="j num-rank">
+            <p class="en">J</p>
+            <ul>
+                <li>鞍山2</li>
+                <li>安阳2</li>
+                <li>安庆2</li>
+            </ul>
+        </div>
+        <div class="k num-rank">
+            <p class="en">K</p>
+            <ul>
+                <li>北京2</li>
+                <li>包头2</li>
+                <li>保定2</li>
+                <li>并州2</li>
+                <li>宝鸡2</li>
+                <li>宝洲2</li>
+            </ul>
+        </div>
+        <div class="l num-rank">
+            <p class="en">L</p>
+            <ul>
+                <li>成都2</li>
+                <li>长沙2</li>
+                <li>重庆2</li>
+                <li>长春2</li>
+                <li>常州2</li>
+                <li>常熟2</li>
+                <li>常德2</li>
+                <li>长治2</li>
+                <li>沧州2</li>
+                <li>承德2</li>
+                <li>慈溪2</li>
+                <li>擦州2</li>
+            </ul>
+        </div>
+        <div class="m num-rank">
+            <p class="en">M</p>
+            <ul>
+                <li>大连2</li>
+                <li>东莞2</li>
+                <li>大庆2</li>
+                <li>大同2</li>
+                <li>德阳2</li>
+                <li>东阳2</li>
+                <li>达州2</li>
+                <li>德州2</li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p class="top-advertis"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Advertis/top-advertis.jpg" alt="advertis" width="980" height="70" /></a></p>
+<div class="header-nav">
+    <span><a href="#">资讯</a></span>
+    <span> | </span>
+    <span><a href="#">大师</a></span>
+    <span> | </span>
+    <span><a href="#">画廊</a></span>
+    <span> | </span>
+    <span><a href="#">展讯</a></span>
+    <span> | </span>
+    <span><a href="#" class="select">专题</a></span>
+    <span> | </span>
+    <span><a href="#">赏鉴</a></span>
+    <span> | </span>
+    <span><a href="#">商城</a></span>
+    <span> | </span>
+    <span><a href="#">竞拍</a></span>
+    <span> | </span>
+    <span><a href="#">大师作品</a></span>
+    <span> | </span>
+    <span><a href="#">藏品专场</a></span>
+    <span> | </span>
+    <span><a href="#">在线鉴宝</a></span>
+    <span> | </span>
+    <span><a href="#">你问我答</a></span>
+    <span> | </span>
+    <span><a href="#">拍品征集</a></span>
+    <span> | </span>
+    <span><a href="#">艺友论坛</a></span>
+    <span> | </span>
+    <span><a href="#">作品代售</a></span>
+    <span> | </span>
+    <span><a href="#">推荐店铺</a></span>
+    <span> | </span>
+    <span><a href="#">在线展厅</a></span>
+    <span> | </span>
+    <span><a href="#">专场活动</a></span>
+</div>
+</div>
+
+{/*内容区块*/}
+<block name='content'></block>
+<!-- 底部 -->
+<div id="footer">
+    <div class="top">
+        <a href="#">关于我们</a> ·
+        <a href="#">广告业务</a> ·
+        <a href="#">人才招聘</a> ·
+        <a href="#">新闻动态</a> ·
+        <a href="#">联系我们</a> ·
+        <a href="#">客户投诉</a> ·
+        <a href="#">版权说明</a> ·
+        <a href="#">免责声明隐</a> ·
+        <a href="#">私权保护</a> ·
+        <a href="#">友情链接</a> ·
+        <a href="#">专家顾问</a> ·
+        <a href="#">法律顾问</a>
+    </div>
+    <div class="bottom">
+        <p>Copyright Reserved 2000-2013 中国艺术网 版权所有</p>
+        <p>电信与信息服务业务经营许可证（沪）B2-20030053广播电视制作经营许可证（沪）字第717号</p>
+        <p>京公网安备110113000792号信息网络传播视听节目许可证1909402号</p>
+        <p>网络文化经营许可证文网文［2009］086号互联网出版许可证［2010］445号可信网站验证服务证书2012040503023850号</p>
+    </div>
+</div>
+<script type="text/javascript" src="{JS_PATH}common.js"></script>
+<script type="text/javascript" src="{JS_PATH}js.js"></script>
+{/*js区块*/}
+<block name="js"></block>
+</body>
+</html>

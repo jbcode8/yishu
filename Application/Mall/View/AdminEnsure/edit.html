@@ -1,0 +1,13 @@
+<extend name="Admin@Public:base" />
+<block name="body">
+    <style type="text/css">body{width:600px}</style>
+    <form action="{:U('edit')}" method="post" class="submitAction">
+        <table class="form">
+            <tr><th>名称:</th><td><input name="name" value="{$vo['name']}" type="text" /></td><td class="tips"><i class="red">* 必填</i></td></tr>
+            <tr><th>标志图片:</th><td>{:hook('thumb',array('tagName'=>'logo','url'=>$vo['logo']))}</td><td class="tips"><i class="red">* 必填</i></td></tr>
+            <tr><th>描述:</th><td><textarea name="desc" style="width:400px;height:80px">{$vo['desc']}</textarea></td><td class="tips"><i class="red">* 必填</i></td></tr>
+            <tr><th>排序:</th><td><input name="listorder" type="text" value="{$vo['listorder']}" /></td><td></td></tr>
+            <tr><th>&nbsp;</th><td><input name="id" type="hidden" value="{$vo['id']}" /><button type="submit" class="btn ajax-post" target-form="submitAction">确认</button></td><td></td></tr>
+        </table>
+    </form>
+</block>

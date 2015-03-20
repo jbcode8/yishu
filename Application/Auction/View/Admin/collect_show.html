@@ -1,0 +1,26 @@
+<extend name="Admin@Public:base" />
+<block name="body">
+<div class="container">
+    <ul class="header clear">
+    <li <eq name="ACTION_NAME" value="show">class="current"</eq>><a href="{:U('Auction/AdminCollect/index')}">拍卖征集管理</a></li>
+    <li <eq name="ACTION_NAME" value="add">class="current"</eq>><a href="{:U('Auction/AdminCollect/add')}">添加拍卖征集</a></li>
+    </ul>
+	<table class="table table-hover">
+	<tbody>
+		<tr><td class="tdL" width="250">征集ID:</td><td>{$list['id']}</td></tr>
+	    <tr><td class="tdL" width="250">征集标题:</td><td>{$list['title']}</td></tr>
+	    <tr><td class="tdL" width="250">截止时间:</td><td>{$list['endtime']}</td></tr>
+	    <tr><td class="tdL" width="250">所属机构:</td><td>{:getAgencyName($list['agencyid'])}</td></tr>
+	    <tr><td class="tdL" width="250">征集范围:</td><td>{$list['range']}</td></tr>
+	    <tr><td class="tdL">显示状态：</td><td><if condition="($list['show'] eq 0)"><span style="color:#008000">显示 </span><else /><span style="color:red">不显示 </span></if></td></tr>
+	   	<tr><td class="tdL">征集前言:</td><td>{$list['preface']}</td></tr>
+	    <tr><td class="tdL">征集要求:</td><td>{$list['require']}</td></tr>
+	    <tr><td class="tdL">征集流程:</td><td>{$list['process']}</td></tr>
+	    <tr><td class="tdL">注意事项:</td><td>{$list['notice']}</td></tr>
+	    <tr><td class="tdL">联系人:</td><td>{$list['relation']}</td></tr>
+	    <tr><td class="tdL">联系方式:</td><td>{$list['contact']}</td></tr>
+	    <tr><td class="tdL">&nbsp;</td><td><a href="{:U('Auction/AdminCollect/check', array('id' => $list['id'], 'audit' => 'yes'))}" class="btn btn-primary">通过审核</a> | <a href="{:U('Auction/AdminCollect/check', array('id' => $list['id'], 'audit' => 'no'))}" class="btn btn-primary">未通过审核</a></td></tr>
+	</tbody>
+	</table>
+</div>
+</block>

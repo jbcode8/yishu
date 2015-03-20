@@ -1,0 +1,44 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+<style type="text/css">
+body{ width:440px}
+</style>
+</block>
+<block name="body">
+    
+    <form action="{:U('Paimai/AdminNews/add')}" method="post" class="addCategory">
+    <table class="form">
+        <tr>
+            <th class="w1">上级类别:</th>
+            <td class="w2">
+                <select name="pid">
+                    <option value="0">顶级分类...</option>
+                    <volist name='cates' id='v'>
+						<option value="{$v.id}">{$v.html} {$v.name}</option>
+					</volist>
+                </select>
+            </td>
+            <td class="tips"><i class="red">* 必选</i></td>
+        </tr>
+        <tr>
+            <th>类别名称:</th>
+            <td><input name="name" type="text" /></td>
+            <td class="tips"><i class="red">* 必填</i></td>
+        </tr>
+        <tr>
+            <th>排列顺序:</th>
+            <td><input name="sort" type="text" value="0" /></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <td>
+                <button type="submit" class="btn ajax-post" target-form="addCategory">确认</button>
+                <button type="reset" class="btn btn_gary">重填</button>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+    </form>
+</block>
+

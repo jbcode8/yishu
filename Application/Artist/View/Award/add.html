@@ -1,0 +1,27 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+
+</block>
+<!--主体内容 开始-->
+<block name="body">
+    <!-- 数据表格 开始-->
+    <form action="{:U('Artist/Award/add')}" method="post" class="addCategory">
+        <table class="form">
+            <tr>
+                <th><i class="red">* </i>奖项名称:</th>
+                <td><input type="text" name="name" required="required" /></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <button type="submit" class="btn" target-form="addCategory">确认</button>
+                    <button type="reset" class="btn btn_gary">重填</button>
+                </td>
+            </tr>
+    </form>
+    <!-- 数据表格 结束-->
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+</block>

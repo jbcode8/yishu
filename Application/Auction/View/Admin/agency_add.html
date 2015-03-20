@@ -1,0 +1,27 @@
+<extend name="Admin@Public:base" />
+<block name="body">
+<div class="container">
+    <ul class="header clear">
+    <li <eq name="ACTION_NAME" value="show">class="current"</eq>><a href="{:U('Auction/AdminAgency/index')}">拍卖机构管理</a></li>
+		<li <eq name="ACTION_NAME" value="add">class="current"</eq>><a href="{:U('Auction/AdminAgency/add')}">添加拍卖机构</a></li>
+    </ul>
+	 <form method="post">
+	<table class="table table-hover">
+	<tbody>
+	    <tr><td class="tdL" width="250">机构名称:</td><td><input type='text' name='name'></td></tr>
+	    <tr><td class="tdL">机构图片:</td><td><Form function="images" parameter="thumb, thumb, , auction" /></td></tr>
+	    <tr><td class="tdL">所属区域ID:</td><td><select name='areaid'><option value=''>请选择区域</option><volist name='area_list' id='vo'><option value='{$vo.id}'>{$vo.name}</option></volist></select></td></tr>
+	    <tr><td class="tdL">详细地址：</td><td><input type='text' name='address'></td></tr>
+	    <tr><td class="tdL">关键字：</td><td><input type='text' name='keywords'></td></tr>
+	    <tr><td class="tdL">机构简介:</td><td><textarea name="description" class="ar-txt" cols="70" rows="5"></textarea></td></tr>
+	   	<tr><td class="tdL">详细介绍:</td><td><textarea name="content" class="ar-txt" cols="70" rows="5"></textarea></td></tr>
+	    <tr><td class="tdL">机构电话:</td><td><input type='text' name='tel'></td></tr>
+	    <tr><td class="tdL">机构邮编:</td><td><input type='text' name='post'>{$list['post']}</td></tr>
+	    <tr><td class="tdL">机构邮箱:</td><td><input type='text' name='email'>{$list['email']}</td></tr>
+	    <tr><td class="tdL">机构网址:</td><td><input type='text' name='website'>{$list['website']}</td></tr>
+	    <tr><td>&nbsp;</td><td><input name="submit" type="submit" value="提交信息" class="btn btn-primary" /></td></tr>
+	</tbody>
+	</table>
+	</form>
+</div>
+</block>

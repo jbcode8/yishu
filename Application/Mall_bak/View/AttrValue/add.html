@@ -1,0 +1,29 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+<style type="text/css">
+body{width:350px}
+</style>
+</block>
+<block name="body">
+    <form action="{:U('Mall/AttrValue/add')}" method="post" class="addAttrValue">
+    <table class="form">
+        <tr>
+            <th class="w1">所属属性:</th>
+            <td>{:selectAttribute()}</td>
+            <td class="tips"><i class="red">* 必填</i></td>
+        </tr>
+        <tr>
+            <th>属性值:</th>
+            <td><input name="val_name" type="text" /></td>
+            <td class="tips"><i class="red">* 必填</i></td>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <td>
+                <button type="submit" class="btn ajax-post" target-form="addAttrValue">确认</button>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+    </form>
+</block>

@@ -1,0 +1,445 @@
+<extend name="newsBase"/>
+<block name="css">
+    <style type="text/css">
+        /*分页样式*/
+        #page {text-align: center;}
+        #page a, #page span {padding: 5px 10px; border: 1px solid #ddd; display: inline-block;  height:20px; color: #15307f; background: #fff;}
+        #page a.num {margin: 0 5px;}
+        #page span.current { color: #fff; background: #96b4f0;}
+    </style>
+</block>
+<block name='content'>
+<!-- 页面内容 -->
+<div class="main-container info-list">
+<!-- 栏目头部 -->
+<div class="panel-header clear">
+    <div class="left top-bar">
+        <p><a href="#"><img src="{IMG_PATH}logo.jpg" alt="logo" /></a></p>
+        <p class="panel-name">今 日<br />头 条</p>
+    </div>
+    <div class="main-web clear">
+        <div class="right">
+            <div id="main-search">
+                <div class="species">
+                    <span class="species-content">全 部</span>
+                    <span class="choose"><img src="{IMG_PATH}icons/search-arrow.gif" alt="" /></span>
+                    <div class="species-jump common-jump hide">
+                        <ul>
+                            <li onclick="javascript:$('#modelid').val(2);">资 讯</li>
+                            <li onclick="javascript:$('#modelid').val(4);">展 讯</li>
+                            <li onclick="javascript:$('#modelid').val(3);">画 廊</li>
+                            <li onclick="javascript:$('#modelid').val(3);">大 师</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="search">
+                    <form action="{:U('Search/index')}" method="get">
+                        <input type="hidden" name="model" id="modelid">
+                        <div class="search-input">
+                            <input type="text" name="q" placeholder="中国最具影响力艺术门户" />
+                        </div>
+                        <p class="search-btn"><input type="submit" value="搜 索" /></p>
+                    </form>
+                </div>
+            </div>
+            <div class="hot-search">
+                <span>热搜：</span>
+                <span><a href="#">乾隆通宝</a></span>
+                <span><a href="#">古典家具</a></span>
+                <span><a href="#">青铜器</a></span>
+                <span><a href="#">油版雕</a></span>
+                <span><a href="#">影像</a></span>
+                <span><a href="#">古籍善本</a></span>
+                <span><a href="#" class="red">紫砂壶</a></span>
+            </div>
+        </div>
+    </div>
+    <div class="main-navigate">
+        <ul>
+            <li><a href="{:U('/Content/Content/index/category/news')}">首页</a></li>
+            <ys:nav name="list" catid="4">
+                <li> <a <if condition="$category['name'] eq $list['name']">class="select"</if> href="{:U('/Content/Content/lists/category/'.$list['name'])}">{$list.title}</a></li>
+            </ys:nav>
+        </ul>
+    </div>
+</div>
+<!-- 栏目内容 -->
+<div class="container clear">
+<!-- 头部信息通知 -->
+<div class="top-msg">
+    <p class="left">
+        <a href="#">艺术网新闻频道上线了!</a>
+    </p>
+    <p class="right">
+        <b class="red">热门资讯：</b>
+        <ys:list name="list" catid="13" order="view DESC" limit="0,1">
+            <a href="{:U('/Content/Content/detail/',array('category'=>$category['name'],'id'=>$list['id']))}">{$list.title|new_msubstr=###,0,20}</a>
+        </ys:list>
+    </p>
+
+</div>
+<!-- 头部图片展示 -->
+<div class="top-landing">
+    <ys:position name="list" catid="13" posid="9" type="1" thumb="1" limit="0,4">
+    <p class="c{$i}">
+        <a href="{:U('/Content/Content/detail/',array('category'=>$category['name'],'id'=>$list['id']))}"><img src="{$list.url}"></a>
+        <span class="common-word">{$list.title|new_msubstr=###,0,50}</span>
+    </p>
+    </ys:position>
+
+</div>
+<!-- 页面主要内容部分 -->
+<div class="il-con">
+<div class="left">
+    <div class="hot-view">
+        <b>热点关注：</b>
+        <span><a href="#">2013山东国际艺术精品展</a></span>
+        <span><a href="#">武汉红木市场跌入深水区</a></span>
+        <span><a href="#" class="red">2013年博宝春季拍卖征集活动开始接受报名</a></span>
+    </div>
+    <div class="il-list">
+        <ul>
+            <script type="text/javascript" id="bdshare_js" data="type=tools&amp;mini=1&amp;uid=6871782" ></script>
+            <script type="text/javascript" id="bdshell_js"></script>
+            <script type="text/javascript">
+                document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+            </script>
+            <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1513882"></script>
+            <notempty name="lists">
+            <volist name="lists" id="vo">
+                <li>
+                    <div class="left">
+                        <a href="{:U('/Content/Content/detail/',array('category'=>$category['name'],'id'=>$vo['id']))}" target="_blank"><if condition="$vo['url'] eq ''"><img src="/nopic.gif" width="184px" height="136px" alt="" /><else/><img src="{$vo.url}" width="184px" height="136px" alt="" /></if></a>
+                    </div>
+                    <div class="right">
+                        <h3><a href="{:U('/Content/Content/detail/',array('category'=>$category['name'],'id'=>$vo['id']))}" target="_blank">{$vo.title}</a></h3>
+                        <p>{$vo.description|new_msubstr=###,0,78,'utf-8',true}<a href="{:U('/Content/Content/detail/',array('category'=>$category['name'],'id'=>$vo['id']))}" class="red" target="_blank">[详情]</a></p>
+                        <div class="operate clear">
+                            <p class="date">{$vo.update_time|date='Y年m月d日',###}</p>
+                            <p class="tag">
+                                标签：
+                                <ys:tags name="list" id="$vo['id']">
+                                    <span><a href="{:U('/Content/Tag/index/',array('tag'=>$list))}">{$list}</a></span>
+                                </ys:tags>
+                            </p>
+                            <p class="comment"><a href="{:U('/Content/Content/detail/',array('category'=>$category['name'],'id'=>$vo['id']))}" uyan_identify="true" >评论<span class="red">（0）</span></a></p>
+                            <!-- Baidu Button BEGIN -->
+                            <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+                                <span class="bds_more">分享到：</span>
+                                <a class="bds_qzone"></a>
+                                <a class="bds_tsina"></a>
+                                <a class="bds_tqq"></a>
+                                <a class="bds_renren"></a>
+                                <a class="bds_t163"></a>
+                            </div>
+                            <!-- Baidu Button END -->
+                        </div>
+                    </div>
+                </li>
+            </volist>
+            <else />
+                <li>没有相关数据</li>
+            </notempty>
+        </ul>
+    </div>
+    <div class="common-apage" id="page">
+        <Ys:page cateid="$category['catid']" listrow="$category['list_row']" />
+    </div>
+</div>
+<div class="right">
+<!-- 日历 -->
+<div class="calendar">
+    <h3>新闻日历</h3>
+    <div type="text" id="datepicker"></div>
+</div>
+<!-- 佳作推荐 -->
+<div class="best-art">
+    <div class="title">
+        <h3>佳作推荐</h3>
+        <a class="more" href="#">更多>></a>
+    </div>
+    <div class="content">
+        <a href="#"><img src="{IMG_PATH}Home/News/Temp/column-img/29.jpg" alt="" /></a>
+        <div class="common-word">
+            <p class="title"><span>秋日的白桦树</span></p>
+            <p>作者：<span>许峰日</span></p>
+            <div class="clear">
+                <p class="left">尺寸：<span>92*66cm</span></p>
+                <p class="right">价格：<span>￥50000</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 精品排行 选项卡 -->
+<div class="bestrank-tab">
+<div class="title clear">
+    <h3>精品排行</h3>
+    <a class="more" href="#">更多>></a>
+</div>
+<div class="nav clear">
+    <ul class="column">
+        <li class="nav-1 select"><span>油画</span></li>
+        <li class="nav-2"><span>书法</span></li>
+        <li class="nav-3"><span>国画</span></li>
+    </ul>
+</div>
+<div class="tab-content">
+<div class="content-1">
+    <ul>
+        <li class="top3">
+            <span class="num">1</span>
+            <div class="img"><a href="#"><img src="{IMG_PATH}Home/News/Temp/column-img/30.jpg" alt="" /></a></div>
+            <div class="disc">
+                <p><b>朝鲜艺术cx精品区</b></p>
+                <p>作者：阿成</p>
+                <p>关注指数：5998</p>
+                <p class="red">￥120000</p>
+            </div>
+        </li>
+        <li class="top3">
+            <span class="num">2</span>
+            <div class="img"><a href="#"><img src="{IMG_PATH}Home/News/Temp/column-img/30.jpg" alt="" /></a></div>
+            <div class="disc">
+                <p><b>2013春拍在西安巡展</b></p>
+                <p>作者：阿成</p>
+                <p>关注指数：5998</p>
+                <p class="red">￥120000</p>
+            </div>
+        </li>
+        <li class="top3">
+            <span class="num">3</span>
+            <div class="img"><a href="#"><img src="{IMG_PATH}Home/News/Temp/column-img/30.jpg" alt="" /></a></div>
+            <div class="disc">
+                <p><b>香山画院画师年展</b></p>
+                <p>作者：阿成</p>
+                <p>关注指数：5998</p>
+                <p class="red">￥120000</p>
+            </div>
+        </li>
+        <li>
+            <span class="num">4</span>
+            <p class="word">真实聚会社交应用移客</p>
+            <p class="price red">￥120000</p>
+        </li>
+        <li>
+            <span class="num">5</span>
+            <p class="word">真实聚会社交应用移客</p>
+            <p class="price red">￥120000</p>
+        </li>
+        <li>
+            <span class="num">6</span>
+            <p class="word">真实聚会社交应用移客</p>
+            <p class="price red">￥120000</p>
+        </li>
+        <li>
+            <span class="num">7</span>
+            <p class="word">真实聚会社交应用移客</p>
+            <p class="price red">￥120000</p>
+        </li>
+        <li>
+            <span class="num">8</span>
+            <p class="word">真实聚会社交应用移客</p>
+            <p class="price red">￥120000</p>
+        </li>
+        <li>
+            <span class="num">9</span>
+            <p class="word">真实聚会社交应用移客</p>
+            <p class="price red">￥120000</p>
+        </li>
+        <li>
+            <span class="num">10</span>
+            <p class="word">真实聚会社交应用移客</p>
+            <p class="price red">￥120000</p>
+        </li>
+    </ul>
+</div>
+<div class="content-2 hide">
+    <ul>
+        <li class="top3">
+            <span class="num">1</span>
+            <div class="img"><a href="#"><img src="{IMG_PATH}Home/News/Temp/column-img/30.jpg" alt="" /></a></div>
+            <div class="disc">
+                <p><b>朝鲜艺术cx精品区</b></p>
+                <p>作者：阿成</p>
+                <p>关注指数：5998</p>
+                <p class="red">￥120000</p>
+            </div>
+        </li>
+        <li class="top3">
+            <span class="num">2</span>
+            <div class="img"><a href="#"><img src="{IMG_PATH}Home/News/Temp/column-img/30.jpg" alt="" /></a></div>
+            <div class="disc">
+                <p><b>2013春拍在西安巡展</b></p>
+                <p>作者：阿成</p>
+                <p>关注指数：5998</p>
+                <p class="red">￥120000</p>
+            </div>
+        </li>
+        <li class="top3">
+            <span class="num">3</span>
+            <div class="img"><a href="#"><img src="{IMG_PATH}Home/News/Temp/column-img/30.jpg" alt="" /></a></div>
+            <div class="disc">
+                <p><b>香山画院画师年展</b></p>
+                <p>作者：阿成</p>
+                <p>关注指数：5998</p>
+                <p class="red">￥120000</p>
+            </div>
+        </li>
+        <li>
+            <span class="num">4</span>
+            <p class="word">15位青年艺术家对焦广州</p>
+            <p class="price red">￥120000</p>
+        </li>
+        <li>
+            <span class="num">5</span>
+            <p class="word">15位青年艺术家对焦广州</p>
+            <p class="price red">￥120000</p>
+        </li>
+        <li>
+            <span class="num">6</span>
+            <p class="word">15位青年艺术家对焦广州</p>
+            <p class="price red">￥120000</p>
+        </li>
+        <li>
+            <span class="num">7</span>
+            <p class="word">15位青年艺术家对焦广州</p>
+            <p class="price red">￥120000</p>
+        </li>
+        <li>
+            <span class="num">8</span>
+            <p class="word">15位青年艺术家对焦广州</p>
+            <p class="price red">￥120000</p>
+        </li>
+        <li>
+            <span class="num">9</span>
+            <p class="word">15位青年艺术家对焦广州</p>
+            <p class="price red">￥120000</p>
+        </li>
+        <li>
+            <span class="num">10</span>
+            <p class="word">15位青年艺术家对焦广州</p>
+            <p class="price red">￥120000</p>
+        </li>
+    </ul>
+</div>
+<div class="content-3 hide">
+    <ul>
+        <li class="top3">
+            <span class="num">1</span>
+            <div class="img"><a href="#"><img src="{IMG_PATH}Home/News/Temp/column-img/30.jpg" alt="" /></a></div>
+            <div class="disc">
+                <p><b>朝鲜艺术cx精品区</b></p>
+                <p>作者：阿成</p>
+                <p>关注指数：5998</p>
+                <p class="red">￥120000</p>
+            </div>
+        </li>
+        <li class="top3">
+            <span class="num">2</span>
+            <div class="img"><a href="#"><img src="{IMG_PATH}Home/News/Temp/column-img/30.jpg" alt="" /></a></div>
+            <div class="disc">
+                <p><b>2013春拍在西安巡展</b></p>
+                <p>作者：阿成</p>
+                <p>关注指数：5998</p>
+                <p class="red">￥120000</p>
+            </div>
+        </li>
+        <li class="top3">
+            <span class="num">3</span>
+            <div class="img"><a href="#"><img src="{IMG_PATH}Home/News/Temp/column-img/30.jpg" alt="" /></a></div>
+            <div class="disc">
+                <p><b>香山画院画师年展</b></p>
+                <p>作者：阿成</p>
+                <p>关注指数：5998</p>
+                <p class="red">￥120000</p>
+            </div>
+        </li>
+        <li>
+            <span class="num">4</span>
+            <p class="word">艺术品信托之殇 无信？</p>
+            <p class="price red">￥120000</p>
+        </li>
+        <li>
+            <span class="num">5</span>
+            <p class="word">艺术品信托之殇 无信？</p>
+            <p class="price red">￥120000</p>
+        </li>
+        <li>
+            <span class="num">6</span>
+            <p class="word">艺术品信托之殇 无信？</p>
+            <p class="price red">￥120000</p>
+        </li>
+        <li>
+            <span class="num">7</span>
+            <p class="word">艺术品信托之殇 无信？</p>
+            <p class="price red">￥120000</p>
+        </li>
+        <li>
+            <span class="num">8</span>
+            <p class="word">艺术品信托之殇 无信？</p>
+            <p class="price red">￥120000</p>
+        </li>
+        <li>
+            <span class="num">9</span>
+            <p class="word">艺术品信托之殇 无信？</p>
+            <p class="price red">￥120000</p>
+        </li>
+        <li>
+            <span class="num">10</span>
+            <p class="word">艺术品信托之殇 无信？</p>
+            <p class="price red">￥120000</p>
+        </li>
+    </ul>
+</div>
+</div>
+</div>
+<!-- 名家 -->
+<div class="famous-art s-cms1 clear">
+    <div class="title">
+        <h3>名家</h3>
+        <a class="more" href="{:U('Artist/ArtistCategory/artist')}">更多 >></a>
+    </div>
+    <div class="content">
+        <ul>
+            <volist name="artist" id="vo">
+            <li><a href="{:U('/Artist/ArtistDetail/index/',array('id'=>$vo['id']))}">{$vo.name}</a></li>
+            </volist>
+
+        </ul>
+    </div>
+</div>
+<!-- 品牌 -->
+<div class="brand s-cms1 clear">
+    <div class="title">
+        <h3>画廊</h3>
+        <a class="more" href="{:U('Gallery/Gallery/index')}">更多 >></a>
+    </div>
+    <div class="content">
+        <ul>
+            <volist name="gallery" id="vo">
+                <li><a href="{:U('Gallery/GalleryDetail/index',array('gid'=>$vo['id']))}">{$vo.name}</a></li>
+            </volist>
+        </ul>
+    </div>
+</div>
+<div class="advertis">
+    <a href="#"><img src="{IMG_PATH}Home/News/Temp/column-img/31.jpg" alt="" /></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</block>
+<block name="js">
+    <script type="text/javascript" src="{JS_PATH}jquery.ui.datepicker.min.js"></script>
+    <script type="text/javascript" src="{JS_PATH}jquery.ui.datepicker-zh-CN.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+            $("#datepicker").datepicker();
+            jumpPanel('.species','.species-jump',true,'.species-content');
+            tabelTab('.bestrank-tab','.column')
+        });
+    </script>
+</block>
+

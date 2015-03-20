@@ -1,0 +1,57 @@
+<extend name="Admin@Public:base" />
+<!--主体内容 开始-->
+<block name="body">
+    <load file="{PLUGIN_PATH}uploadify/jquery.uploadify.min.js" />
+    <!-- 数据表格 开始-->
+    <form action="{:U('Artist/Interview/edit')}" method="post" class="addCategory" onsubmit="return checkKeywords()">
+        <input type="hidden" name="id" value="{$vo.id}" />
+        <div id="form_left">
+            <table class="form">
+                <tr>
+                    <th width="15%"><i class="red">* </i>艺术家姓名：</th>
+                    <td>
+                        <input type="text" name="artistName" id="_artist_name" value="{:getArtistName($vo['aid'])}"  readonly="readonly" required="required" maxLength="10" />
+                        {:R('Library/names',array('_artist_name', $vo['aid']))}
+                    </td>
+                </tr>
+                <tr>
+                    <th><i class="red">* </i>标题：</th>
+                    <td><input type="text"  name="title" value="{$vo.title}" required="required" size="50" ></td>
+                </tr>
+                <tr>
+                    <th><i class="red">* </i>类别：</th>
+                    <td>  {:getArtistCategory(true,'cid', $vo['cid'])} </td>
+                </tr>
+                <tr>
+                    <th><i class="red"> </i>关键字：</th>
+                    <td><input type="text"  name="keywords" value="{$vo.keywords}" placeholder="多个请用‘,’ 分开" ></td>
+                </tr>
+                <tr>
+                    <th><i class="red">* </i>专访简介:</th>
+                    <td>
+                        <textarea name="description" required="required" cols="80" rows="3">{$vo.description}</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <th width="150px"><i class="red">* </i>缩略图：</th>
+                    <td>
+                        {:hook('upload',array('model'=>'interview','type'=>'thumb','height'=>100,'uploadify'=>'swfone','recordid'=>$vo['recordid']))}
+                    </td>
+                </tr>
+                <tr>
+                    <th><i class="red">* </i>视频地址：</th>
+                    <td><input type="url"  name="video" value="{$vo.video}" required="required" size="80" ></td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <button type="submit" class="btn" target-form="addCategory">确认</button>
+                        <button type="reset" class="btn btn_gary">重填</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+    <!-- 数据表格 结束-->
+</block>
+<!--主体内容 结束-->

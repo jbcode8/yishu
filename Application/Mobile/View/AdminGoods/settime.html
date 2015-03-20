@@ -1,0 +1,39 @@
+<extend name="Admin@Public:base"/>
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+
+    <!--导航部分 开始-->
+    <div class="con_nav">
+
+        <!--快捷按钮 开始-->
+        <div class="nav_btn">
+            
+        </div>
+        <!--快捷按钮 结束-->
+
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 开始-->
+    <form action="{:U('do_settime')}" method="post" class="authlistorder">
+        <table class="table">
+            <tbody>
+                    <tr>
+						<td>
+						设置时间:<input name="settime" type="text" />
+						<input type="submit" value="设置" />
+						</td>
+						
+                    </tr>
+            </tbody>
+        </table>
+		
+    </form>
+    <br/>
+    <!-- 数据表格 结束-->
+    
+
+</block>

@@ -1,0 +1,30 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{width:600px}
+    </style>
+</block>
+<block name="body">
+    <form action="{:U('Mall/Keywords/add')}" method="post" class="addKeywords">
+        <table class="form">
+            <tr>
+                <th>关键字:</th>
+                <td><input name="words" type="text" style="width:300px" /></td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+            <tr>
+                <th>排列顺序:</th>
+                <td><input name="listorder" type="text" value="0" /></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>&nbsp;</th>
+                <td>
+                    <button type="submit" class="btn ajax-post" target-form="addKeywords">确认</button>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
+</block>
+

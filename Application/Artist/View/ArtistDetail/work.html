@@ -1,0 +1,61 @@
+<extend name="detailBase"/>
+<block name="content">
+<!--content  start-->
+<div class="center investement cb">
+   <div class="online_top">在线展厅</div>
+
+<!--online start-->
+<div class="consult-slideshow clear">
+					<div class="top-side clear">
+						<div class="l-arrow"><</div>
+						<div class="change-content">
+							<ul>
+                                <volist name="workInfo" id="vo">
+                                    <li class="t{$i} <if condition="$i neq $select_key">hide</if> ">
+                                        <span><img src="{$vo.thumb}" alt="{$vo.name}" width="286" height="403"/></span>
+                                        <p><i>作品名称{:GetImageSize($vo['thumb'])}：<u>{$vo.name}</u></i><i>创作年代：<u>{$vo.years}</u></i></p>
+                                        <p><i>作品尺寸：<u>{$vo.size}</u></i><i>作品材质：<u>{$vo.material}</u></i></p>
+                                        <p><i>作品描述：<u>{$vo.description|new_msubstr=###,0,10}</u></i></p>
+                                    </li>
+                                </volist>
+							</ul>
+						</div>
+						<div class="r-arrow">></div>
+					</div>
+					<div class="bottom-side clear">
+						<div class="l-arrow arr"><</div>
+						<div class="move-content">
+							<ul>
+                                <volist name="workInfo" id="vo">
+								<li class="b{$i} <if condition='$i eq $select_key'>select</if> "><img src="{$vo.thumb}" alt="{$vo.name}" width="122" height="72" /></li>
+								</volist>
+							</ul>
+						</div>
+						<div class="r-arrow arr">></div>
+					</div>
+				</div>
+
+<!--end online-->
+</div>
+<!--content end-->
+<script  src="{JS_PATH}Artist/online.js" ></script>
+<SCRIPT>
+$(document).ready(function(){
+	// JavaScript Document
+	$(window).twinSlide({
+		topImgWidth : 680,
+		topImgHeight : 499,
+		bottomImgWidth : 122,
+		bottomImgHeight : 72,
+		bottomImgMargin : 8,
+		topLeftArrow : '.top-side .l-arrow',
+		topRightArrow : '.top-side .r-arrow',
+		topMoveContent : '.top-side .change-content ul',
+		bottomLeftArrow : '.bottom-side .l-arrow',
+		bottomRightArrow : '.bottom-side .r-arrow',
+		bottomMoveContent : '.bottom-side .move-content ul',
+		oneScreenNum : 7
+	});	  
+});
+</SCRIPT>
+</block>

@@ -1,0 +1,87 @@
+<extend name="Admin@Public:base" />
+
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+	<load file="{CSS_PATH}Mall/antique-site.css" />
+	<load file="{CSS_PATH}Mall/antique-center.css" />
+</block>
+
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul><li class="selected"><a href="{:U('index')}">首页BANNER</a></li></ul>
+
+        
+
+       
+
+    </div>
+    <!--导航部分 结束-->
+<form method="post" action="{:U('/guwan/AdminBanner/upload')}" >
+<div class="antique-manage-pro-publish">
+	<div id="img-cn">
+							<p class="name"><b class="red">*</b> BANNER图片：</p>
+                            <div id="img-cn">
+                                <div class="top clear">
+                                    <div class="l-img">
+                                        <div class="b"><span></span><span></span><span></span><span></span></div>
+                                        <div style="clear:both;position:relative;padding-top:5px">
+                                            <div id="imgs_upload"></div>
+                                        </div>
+                                    </div>
+                                    <div class="r-img" id="list_imgs"><ul>
+                                        <volist name="aryPics" id="vo">
+                                            <li><div class="up-img"><img src="{$vo['img_url']}"><input name="pics[]" type="hidden" value="{$vo['img_url']}"><div class="ope"><span class="moveleft">左移</span><span class="moveright">右移</span><span class="del">删除</span></div></div></li>
+                                        </volist>
+                                    </ul></div>
+                                    <load file="{PLUGIN_PATH}uploadify/jquery.uploadify.min.js" />
+                                    <script type="text/javascript">
+
+                                        var actUrl = "{:addons_url('Attachment://Attachment/mall_banner')}";//, actUrl = actUrl.replace('www', 'mall');
+										actUrl = actUrl.replace('/Mall', '/guwan');
+                                        var swfUrl = '{PLUGIN_PATH}uploadify/uploadify.swf';//, swfUrl = swfUrl.replace('www', 'mall');
+                                        /** 组图上传 */
+                                        $(function() {
+                                            $('#imgs_upload').uploadify({
+                                                'fileObjName':'goods_img', 'buttonText':'', 'height':25, 'width':90, 'swf':swfUrl, 'uploader':actUrl, 'queueID':true, //上传进度
+                                                'onUploadSuccess':function(file, data, response){ 
+													listThumb(JSON.parse(data), response); }
+                                            });
+                                        });
+
+                                        /** 根据返回的数据组装HTML */
+                                        function listThumb(data, bool){
+                                            if(bool && data['status'] == 1){
+                                                var _imgUrl = data['info']['path'] + data['info']['uri'];
+                                                var _list = '<li><div class="up-img"><img src="'+ _imgUrl +'" /><input name="pics[]" type="hidden" value="'+ _imgUrl +'" />';
+                                                _list += '<div class="ope"><span class="moveleft">左移</span><span class="moveright">右移</span><span class="del">删除</span></div></div></li>';
+                                                $('#list_imgs ul').append(_list);
+                                            }
+                                        }
+
+                                        /** 前后移动 | 删除 */
+                                        $('div.ope span').live('click', function(){
+                                            var _act = $(this).attr('class'), _parentLi = $(this).parent().parent().parent(),_nextLi = _parentLi.next(), _prevLi = _parentLi.prev();
+                                            if(_act == 'moveleft' && _prevLi.length > 0){ _parentLi.insertBefore(_prevLi); }
+                                            else if(_act == 'moveright' && _nextLi.length > 0){ _parentLi.insertAfter(_nextLi); }
+                                            else if(_act == 'del' && _parentLi.length > 0){ _parentLi.remove(); }
+                                        });
+                                    </script>
+                                </div>
+                                <div class="bottom clear">
+                                    <p class="red">图片至少上传1张，图片类型只能为gif,png,jpg,jpeg，且大小不超过500K.</p>
+                                </div>
+                            </div>
+
+							<div class="publish-btn">
+							<input type="submit" class="red-btn" value="保存">
+							</div>
+</div>
+</div>
+	
+
+</form>
+</block>
+<!--主体内容 结束-->
+

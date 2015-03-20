@@ -1,0 +1,51 @@
+<extend name="Admin@Public:base"/>
+
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css"/>
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css"/>
+</block>
+
+<block name="body">
+
+	汇总统计：充值失败<span>{$sum0}</span> 支付宝支付<span>{$sum1}</span> 没拍到拍品返回保证金<span>{$sum2}</span> 拍品到期没付款扣除保证金<span>{$sum3}</span> 拍商品扣除保证金<span>{$sum4}</span> 随价格上涨补充保证金<span>{$sum5}</span> 银联在线支付<span>{$sum6}</span> 提现<span>{$sum7}</span>
+   <table class="table treetable">
+       <tr>
+          <td>流id</td>
+          <td>用户id</td>
+          <td>用户名</td>
+          <td>金额</td>
+          <td>时间</td>
+          <td>类型</td>
+          <td>商品id</td>
+          <td>状态</td>
+          <td>sn</td>
+          <td>ip</td>
+          <td>第三方交易号</td>
+          <td>用户email</td>
+          <td>付款时间</td>
+        </tr>
+       <volist name="recharge_detail" id="v">
+        <tr>
+            <td>{$v.recharge_id}</td>
+            <td>{$v.recharge_uid}</td>
+            <td><a target='_blank' href="{:U('Paimai/AdminMember/getmoneybyuid',array('uid'=>$v['recharge_uid']))}">{$v.username}</a></td>
+            <td>{$v.recharge_money}</td>
+            <td>{$v.recharge_createtime}</td>
+            <td>{$v.recharge_style}</td>
+            <td>{$v.recharge_returngid}</td>
+            <td>{$v.recharge_status}</td>
+            <td>{$v.recharge_sn}</td>
+            <td>{$v.recharge_ip}</td>
+            <td>{$v.recharge_trade_no}</td>
+            <td>{$v.recharge_buyeremail}</td>
+            <td>{$v.recharge_paytime}</td>
+        </tr>
+        </volist>
+        <tr><td colspan="12">{$page}</td></tr>
+
+    </table>
+<style type="text/css">
+span {color:red}
+</style>	
+        
+</block>

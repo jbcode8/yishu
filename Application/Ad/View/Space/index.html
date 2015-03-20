@@ -1,0 +1,78 @@
+<extend name="Admin@Public:base" />
+
+<block name="style">
+    <load file="{PLUGIN_PATH}treetable/css/treetable.css" />
+</block>
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul>
+            <li class="selected">
+                <a href="{:U('Ad/Space/index')}">广告位列表</a>
+            </li>
+        </ul>
+        <!--快捷按钮 开始-->
+        <div class="nav_btn">
+            <a id="addSpace" href="{:U('Ad/Space/add')}" class="fa fa-plus-square">&nbsp;&nbsp;添加广告位</a>
+
+        </div>
+        <!--快捷按钮 结束-->
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 开始-->
+    <form action="{:U('listorder')}" method="post" class="authlistorder">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>排序</th>
+                <th>编号</th>
+                <th>版位名称</th>
+                <th>版位尺寸</th>
+                <th>版位描述</th>
+                <th>广告数</th>
+                <th>展示广告数</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <volist name="data" id="vo">
+            <tr>
+                <td style="padding-left:10px;width:150px;text-align: left">
+                    <input type="text" name="listorder[{$vo.id}]" value="{$vo.listorder}" style="width:20px;height:18px;padding:0 4px;margin-left:53px;" />
+                </td>
+                <td>{$vo.id}</td>
+                <td>{$vo.spacename}</td>
+                <td>{$vo.spaceheight}*{$vo.spacewidth}</td>
+                <td>{$vo.spaceintro}</td>
+                <td>{$vo.adcount}</td>
+                <td>{$vo.adshow}</td>
+                <td style="width: 260px">
+                    <a href="{:U('Ad/Space/showAd',array('id'=>$vo['id']))}" target="_blank"> 预览</a>
+                    <a id="editSpace" class="fa fa-edit" href="{:U('Ad/Space/edit', array('id'=>$vo['id']))}"> 修改</a>
+                    <a href="{:U('Ad/Space/delete', array('id'=>$vo['id']))}" class='confirm ajax-get fa fa-trash-o red'> 删除</a>
+                    <a id="addAdv" class="fa fa-plus-square" href="{:U('Ad/Advertise/add',array('sid'=>$vo['id']))}"> 添加广告</a>
+
+            </tr>
+            </volist>
+            </tbody>
+        </table>
+        <div class="paging">
+            <button type="submit" class="btn fa fa-reorder ajax-post" target-form="authlistorder"> 排 序</button>
+        </div>
+    </form>
+    <!-- 数据表格 结束-->
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+    <script type="text/javascript">
+        $(function(){
+            $('#editSpace').live('click',function(e){e.preventDefault();$.dialog.open(this.href, {title:'修改广告位', id:'newWindow'} );});
+            $('#addSpace').live('click',function(e){e.preventDefault();$.dialog.open(this.href, {title:'添加广告位', id:'newWindow'} );});
+            $('#addAdv').live('click',function(e){e.preventDefault();$.dialog.open(this.href, {title:'添加广告', id:'newWindow'} );});
+
+        });
+    </script>
+</block>

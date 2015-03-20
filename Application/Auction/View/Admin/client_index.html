@@ -1,0 +1,41 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="{PLUGIN_PATH}treetable/css/treetable.css" />
+    <load file="{PLUGIN_PATH}treetable/js/jquery.treetable.js" />
+</block>
+<block name="body">
+<div class="container">
+    <ul class="header clear">
+    <li <eq name="ACTION_NAME" value="index">class="current"</eq>><a href="{:U('Auction/AdminClient/index')}">直播客户管理</a></li>
+    <li <eq name="ACTION_NAME" value="add">class="current"</eq>><a href="{:U('Auction/AdminClient/add')}">添加直播客户</a></li>
+    </ul>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>客户名称</th>
+                <th>状态</th>
+                <th>添加时间</th>
+                <th>修改时间</th>
+                <th>管理操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        <volist name="list" key="k" id="v">
+            <tr>
+                <td>{$k}</td>
+                <td>{$v['name']}</td>
+                <td><if condition="$v['status'] == 0"><span style="color:green">显示</span><else /><span style="color:red">不显示</span></if></td>
+                <td>{$v['createtime']|date='Y-m-d H:i:s',###}</td>
+                <td><if condition="!$v['updatetime']">无<else />{$v['updatetime']|date='Y-m-d H:i:s',###}</if></td>
+                <td>
+                    <a href="{:U('Auction/AdminClient/edit',array('id' => $v['id']))}">编辑</a>
+                    <a href="{:U('Auction/AdminClient/delete',array('id' => $v['id']))}" onclick="if(confirm('确定要删除吗？')){return true;};return false;">删除</a>
+                </td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+    <div class="page">{$page}</div>
+</div>
+</block>

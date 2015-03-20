@@ -1,0 +1,61 @@
+<extend name="Public:base" />
+<block name="style">
+    <style type="text/css">
+        .con_nav .nav_btn {left:0}
+    </style>
+</block>
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <!--快捷按钮 开始-->
+        <div class="nav_btn">
+            <a href="javascript:$.dialog.open('{:U('add?catid='.$_GET['catid'].'&model='.$_GET['model'])}',{title:'添加内容',id:'addContent',width:'100%',height:'100%'});" class="fa fa-plus-square"> 添 加</a>
+        </div>
+        <!--快捷按钮 结束-->
+
+    </div>
+
+
+    <!-- 数据表格 开始-->
+    <?php
+        $thead = array(
+                'id'  => 'ID',
+                'title'=>'标题',
+                'view'=>'点击量',
+                'uid'=>array(
+                    '_title'=>'发布人',
+                    'tag'   =>'span',
+                    'func'  => 'get_author($uid)',
+                ),
+                'update_time'=>array(
+                    '_title'=>'更新时间',
+                    'tag'   =>'span',
+                    'func'  => 'date("Y-m-d H:i:s",$update_time)',
+                ),
+                'template'=>'详情模板',
+                '状态'=>array(
+                    '未审核'=>array( 'href' => 'Admin/Content/enabled?id=$id', 'class'=>'ajax-get error fa fa-ban', 'condition'=>'$status==0',),
+                    '已审核'=>array( 'href' => 'Admin/Content/disable?id=$id', 'class'=>'ajax-get success fa fa-check-circle', 'condition'=>'$status==1',),
+                ),
+                '操作'=>array(
+                    '编辑'=>array( 'href' => 'Admin/Content/edit?id=$id', 'class'=>'fa fa-legal editcontent',),
+                    '删除'=>array( 'href' => 'Admin/Content/delete?id=$id&model=$model', 'class'=>'confirm ajax-get fa fa-trash-o', ),
+                ),
+                );
+                echo $_table_list = $__controller__->tableList($_list,$thead);
+    ?>
+    <!-- 数据表格 开始-->
+    <div class="paging">
+        {$_page}
+    </div>
+</block>
+<block name="javascript">
+    <script type="text/javascript">
+        $(function(){
+            $('.editcontent').on('click',function(e){
+                e.preventDefault();
+                $.artDialog.open(this.href,{title:'编辑内容',width:'100%',height:'100%'});
+            })
+        });
+    </script>
+</block>

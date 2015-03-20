@@ -1,0 +1,53 @@
+<extend name="detailBase"/>
+<block name="content">
+<!--content  start-->
+<div class="center">
+<!--投资指数 start-->
+<div class="investement">
+   <div class="message_top">留言板</div>
+   <!--网友评论start-->
+<div class="winning_font">网友评论</div>
+      <form method="post" action="{:U('Artist/ArtistDetail/lMessage',array('id'=>$detail['id']))}">
+          <input type="hidden" name="aid" value="{$detail.id}"/>
+          <div  class="message_board"><input class="message_board_input" name="content" type="text" value="" />
+          <p><span class="left">验证码<input class="message_input" name="yzm" type="text" /><img src="{:U('Artist/ArtistDetail/verify',array('id'=>$detail['id']))}" id="verifyimg"/><a   class="verifyimg">看不清 换一组</a></span><input class="message_input2" name="提交" type="submit" value="提交留言" />
+          </p>
+          </div>
+      </form>
+   <!--end 网友评论-->
+   <!--start 留言注意-->
+   <div class="message_attention">
+   <div class="yellow">留言注意:</div>
+   <p>遵守宪法、法律、法规、规章及社会公德，反映的对象要明确</p>
+   <p>应注明本人具体联系方式，如工作单位、家庭住址、联系电话、电子邮件信箱等</p>
+   <p>为了提高办事效率，明确责任，请按问题的归属选择分类反映</p>
+   <p>及时地处理您的来信，批转有关部门调查、办理。</p>
+  </div>
+   <!--end 留言注意-->
+<div class="winning_font">最新留言</div> 
+   <div class="message_c">
+    <volist name="message" id="vo">
+   <p><span>{:getUsername($vo['uid'])}</span><span>{$vo.create_time|date='Y-m-d H:i:s',###}</span><span>发表评论</span></p>
+   <p class="message_black">{$vo.content}</p>
+    </volist>
+
+  </div>
+  </div>
+<!--end 投资指数-->
+
+</div>
+<!--content end-->
+<script>
+    $(function(){
+        //刷新验证码
+        var verifyimg = $("#verifyimg").attr("src");
+        $(".verifyimg").click(function(){
+            if( verifyimg.indexOf('?')>0){
+                $("#verifyimg").attr("src", verifyimg+'&random='+Math.random());
+            }else{
+                $("#verifyimg").attr("src", verifyimg.replace(/\?.*$/,'')+'?'+Math.random());
+            }
+        });
+    })
+</script>
+</block>

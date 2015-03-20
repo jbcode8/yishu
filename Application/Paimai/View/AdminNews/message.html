@@ -1,0 +1,61 @@
+<extend name="Admin@Public:base" />
+
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <load file="__PUBLIC__/plugin/treetable/js/jquery.treetable.js" />
+</block>
+
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul><li class="selected"><a href="{:U('Paimai/AdminNews/message')}">类别列表</a></li></ul>
+
+        <!--快捷按钮 开始-->
+        <!--div class="nav_btn">
+            <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Paimai/AdminNews/add')}',{title:'添加类别',id:'doCategory'})"> 添加类别</a>
+            
+        </div-->
+        <!--快捷按钮 结束-->
+
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 开始-->
+        <table class="table treetable">
+            <thead>
+            <tr>
+                <td>ID</td>
+                <td>标题</td>
+                <td>邮箱</td>
+                <td>手机</td>
+				<td>内容</td>
+				<td>时间</td>
+				<td>IP</td>
+            </tr>
+            </thead>
+            <tbody>
+            <volist name='message' id='v'>
+			<tr>
+                <td>{$v.id}</td>
+                <td>{$v.title}</td>
+                <td>{$v.email}</td>
+                <td>{$v.phone}</td>
+				<td>{$v.content}</td>
+				<td>{$v.time|date='Y-m-d H:i:s',###}</td>
+				<td>{$v.IP}</td>
+            </tr>
+			</volist>
+            </tbody>
+        </table>
+        <!-- 数据表格 结束-->
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+    <script type="text/javascript">
+        $(function() {
+            $(".table").treetable({expandable: true});
+        });
+    </script>
+</block>

@@ -1,0 +1,135 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_OTHER_PATH}/Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+   <!-- <div class="nav_btn">
+        <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Paimai/AdminCat/add')}', {title:'添加文章', id:'adoArticle'})"> 添加文章</a>
+        <a class="fa fa-plus-square" href="{:U('Mall/ArticleCategory/index')}"> 分类管理</a>
+    </div>-->
+    <!--快捷按钮 结束-->
+    <form method="post" action="{:U('Jishou/AdminCat/insert')}" style="width: 500px;height: 300px; margin: auto;">
+    <table class="m_table">
+        <tr>
+            <td width="100">上级分类:</td>
+            <td>
+                <select name="cat_pid">
+                    <option value="0">顶级分类</option>
+                    <volist name="cat_lists" id="v">
+                        <option value="{$v.cat_id}">{$v.cat_name}</option>
+                    </volist>
+                </select>(必填)
+            </td>
+        </tr>
+        <tr><td width="100">商品分类名称:</td><td><input type="text" name="cat_name">(必填)</td></tr>
+
+        <tr>
+            <td>是否启用显示:</td>
+            <td>
+                <input type="radio" checked="checked" name="is_enabled" value="1"/>&nbsp;是&nbsp;
+                <input type="radio" name="cat_isshow" value="0"/>&nbsp;否&nbsp;
+
+            </td>
+        </tr>
+		<tr>
+            <td>是否启用筛选:</td>
+            <td>
+                <input type="radio"  name="is_filter" value="1"/>&nbsp;是&nbsp;
+                <input type="radio" checked="checked" name="is_filter" value="0"/>&nbsp;否&nbsp;
+
+            </td>
+        </tr>
+        <tr>
+            <td>可筛选属性:</td>
+            <td>
+                <span id="j_add">+</span>
+                <div class="j_select">
+
+                    <select id="goodstype">
+                        <option value="0">--请选择--</option>
+                        <volist name="goods_type" id="v">
+                            <option value="{$v.gtype_id}">{$v.gtype_name}</option>
+                        </volist>
+                    </select>
+                    <select id="attr" name="attr_id[]">
+                        <option value="0">--请选择--</option>
+                    </select>
+                </div>
+                <span id="j_down">-</span>
+            </td>
+        </tr>
+        <script>
+            $(function(){
+                //增加
+                $("#j_add").click(function(){
+                    $(".j_select").last().clone(true).insertAfter($(".j_select").last());
+                });
+                //减少
+                $("#j_down").click(function(){
+                    if($(".j_select").size()>1){
+                        $(".j_select").last().detach();
+                    }
+                });
+
+                $(".j_select").each(function(){
+                    //点击ajax请求
+                    $(this).find("#goodstype").change(function(){
+
+						
+                        var sub_select=$(this).next();
+
+                        sub_select.html("<option value='0'>--请选择--</option>");
+                        $.post(
+                            "{:U('Jishou/AdminCat/ajax_getattribute','','')}",
+                            {"goodstype_id":$(this).val(),'IS_AJAX':'1'},
+                                function(data){
+
+									
+
+									if(!data.flag){return;}
+                                    str="";
+									var attrs = data.attrs;
+                                    for(var i=0;i<data.attrs.length;i++){
+                                        str+="<option value='"+attrs[i].attr_id+"'>"+attrs[i].attr_name+"</option>";
+                                    }
+                                    sub_select.find("option:first").after(str);
+                                },
+                             "json"
+                        );
+                    });
+                });
+
+            })
+        </script>
+		<tr>
+            <td>该分类页关键字:</td>
+            <td>
+                <textarea name="keywords"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>商品分类简短描述:</td>
+            <td>
+                <textarea name="cat_desc"></textarea>
+            </td>
+        </tr>
+        
+        
+		<tr>
+            <td>分类名字拼音:</td>
+            <td>
+                <input type="text" name="cat_spell"/>(*必填)
+            </td>
+        </tr>
+        <tr>
+			<td>排序值</td>
+			<td>
+				<input type='text' name='sort_order' value=0>默认0值大目录显示靠前
+			</td>
+		</tr>
+        <tr><td colspan="2" align="center"><input class="m_submit" type="submit" value="添加"></td></tr>
+    </table>
+    </form>
+</block>

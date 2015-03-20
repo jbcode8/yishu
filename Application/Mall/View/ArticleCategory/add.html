@@ -1,0 +1,44 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+<style type="text/css">
+body{ width:440px}
+</style>
+</block>
+<block name="body">
+    
+    <form action="{:U('Mall/ArticleCategory/add')}" method="post" class="addCategory">
+    <table class="form">
+        <tr>
+            <th class="w1">上级类别:</th>
+            <td class="w2">
+                <select name="parent_id">
+                    <option value="">请选择...</option>
+                    <option value="0">顶级类别</option>
+                    <php>$arrArticleCate = D('ArticleCategory')->getCategoryCache();</php>
+                    {:selectCategory(I('get.parent_id','0','intval'), $arrArticleCate, 'ArticleCategory')}
+                </select>
+            </td>
+            <td class="tips"><i class="red">* 必选</i></td>
+        </tr>
+        <tr>
+            <th>类别名称:</th>
+            <td><input name="cate_name" type="text" /></td>
+            <td class="tips"><i class="red">* 必填</i></td>
+        </tr>
+        <tr>
+            <th>排列顺序:</th>
+            <td><input name="listorder" type="text" value="0" /></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <td>
+                <button type="submit" class="btn ajax-post" target-form="addCategory">确认</button>
+                <button type="reset" class="btn btn_gary">重填</button>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+    </form>
+</block>
+

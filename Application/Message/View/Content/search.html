@@ -1,0 +1,93 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{width: 300px;height: 210px;}
+    </style>
+</block>
+<!--主体内容 开始-->
+<block name="body">
+    <!-- 数据表格 开始-->
+    <form method="post" class="adSearch">
+        <div id="form_left">
+            <table class="form">
+                <tr>
+                    <th width="100px">留言标题：</th>
+                    <td><input type="text" name="title" value="" /></td>
+                </tr>
+                <tr>
+                    <th class="w1">所属留言板：</th>
+                    <td>
+                        <select name="mid">
+                            <option value="">请选择</option>
+                            <volist name="category" id="cate">
+                                <option value="{$key}">{$cate}</option>
+                            </volist>
+                        </select>
+
+                    </td>
+                </tr>
+                <tr>
+                    <th class="w1">留言者名称：</th>
+                    <td>
+                        <input type="text" id="username" name="username" value="" onfocusout="checkName()"/>
+                        <input type="hidden" id="uid" name="uid" value="" />
+                    </td>
+                </tr>
+                <tr>
+                    <th class="w1">状态：</th>
+                    <td>
+                        <select name="status">
+                            <option value="">请选择</option>
+                            <option value="1">已审核</option>
+                            <option value="0">未审核</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <button type="submit" class="btn" target-form="adSearch">确认</button>
+                        <button type="reset" class="btn btn_gary">重填</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </form>
+    <!-- 数据表格 结束-->
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+    <script type="text/javascript">
+        $(function(){
+            $('form').submit(function(){
+                var data = $('form').serializeArray();
+                var  where = '';
+                if(data[0].value != ''){ where += 'title='+data[0].value; }
+                if(data[1].value != ''){ where += where==''?'mid='+data[1].value:'&type='+data[1].value; }
+                if(data[2].value != ''){ where += where==''?'uid='+data[3].value:'&sid='+data[2].value; }
+                if(data[3].value != '' ){ where += where==''?'status='+data[4].value:'&status='+data[3].value;}
+                var url = "{:U('Message/Content/index')}";
+                url.indexOf('?',url)>0?url = url+"&"+where:url = url+"?"+where;
+               $.dialog.opener.location.href = url;
+            });
+        });
+        function checkName(){
+            var uri = "{:U('Message/content/checkUsername')}";
+            var username =$('#username').val();
+
+            $.ajax({
+                url:uri, type:'get', data:{'username':username}, dataType:'jsonp', jsonp: "backfunc",
+                success: function(json){
+                   if(json){
+                        $('#uid').val(json);
+                   }else{
+                       alert('会员名不存在');
+                   }
+                }
+            });
+        }
+    </script>
+
+</block>

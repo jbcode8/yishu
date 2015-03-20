@@ -1,0 +1,40 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+<style type="text/css">
+body{ width:650px}
+</style>
+</block>
+<block name="body">
+    <form action="{:U('Mall/Delivery/edit')}" method="post" class="editDelivery">
+    <table class="form">
+        <tr>
+            <th>配送方式名称:</th>
+            <td><input name="delivery_name" type="text" style="width:300px" value="{$vo.delivery_name}" /></td>
+            <td class="tips"><i class="red">* 必填</i></td>
+        </tr>
+        <tr>
+            <th>配送方式描述:</th>
+            <td><textarea name="delivery_desc" style="width:350px;height:60px">{$vo.delivery_desc}</textarea></td>
+            <td class="tips"><i class="red">* 必填</i></td>
+        </tr>
+        <tr>
+            <th>配送方式价格:</th>
+            <td><input name="delivery_price" type="text" style="width:300px" value="{$vo.delivery_price}" /></td>
+            <td class="tips"><i class="red">* 必填</i></td>
+        </tr>
+        <tr>
+            <th>排列顺序:</th>
+            <td><input name="listorder" type="text" value="{$vo.listorder}" /></td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <td>
+                <input type="hidden" name="delivery_id" value="{$vo.delivery_id}" />
+                <button type="submit" class="btn ajax-post" target-form="editDelivery">确认</button>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+    </form>
+</block>

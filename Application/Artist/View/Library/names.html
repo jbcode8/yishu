@@ -1,0 +1,125 @@
+<style type="text/css">
+    /*整体样式*/
+    #_artist_list{ width:432px; height:200px; position: absolute; display: none;z-index: 1000;}
+    /*索引样式*/
+    #_artist_list ._index {width:100%; height:20px; }
+    #_artist_list ._index ul{list-style: none;}
+    #_artist_list ._index ul li{width: 18px; height:20px; color:#FFFFFF; line-height: 20px; cursor: pointer; text-align: center; float:left; background-color: #5978A4; font-weight: 900;  }
+    #_artist_list ._index ul li a{ display: inline-block; width:100%; height:100%; color:#FFFFFF; }
+    #_artist_list ._index ul li a.selected { background-color: coral; }
+    #_artist_list ._index ul li:hover { background-color: coral; }
+    /*内容样式*/
+    #_artist_list ._content {width:100%; height:180px; background-color: #ccc;}
+    #_artist_list ._content ._move {height:160px; width:432px; overflow:hidden; position: relative; zoom: 1;}
+    #_artist_list ._content ._move-content {height: auto; position: absolute; left: 0; top: 0; width:100%;}
+    #_artist_list ._content ul li { width:20%; height:32px;line-height: 32px; float: left; font-weight: 800; cursor:pointer;}
+    #_artist_list ._content ul li:hover { font-size: 16px; color: coral; }
+    /*操作部分样式*/
+    #_artist_list ._content ._operate{ width:100%;  height:20px; background-color: #5978A4; line-height: 20px;}
+    #_artist_list ._content ._operate p {float: right; padding-right: 10px; padding-bottom: 0;}
+    #_artist_list ._content ._operate ._arrow {cursor: pointer;}
+    #_artist_list ._content span{display: inline-block; width: 60px; height: 20px; text-align: center; line-height: 20px; color:#FFFFFF; background-color:coral; font-weight: 900; }
+</style>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var current = 1;
+        $('#_index_list ul li').mouseenter(function(){  current = 1; });
+        $('._next-arrow').bind('click',function(){
+            var obj = $(this).parents('._content').find('._move-content');
+            if(!$('._move-content').is(':animated')){
+                var allNum = $(this).parents('._content').find('li').length;
+                var currentShow = parseInt(allNum/25)+1;
+                if(current < currentShow){
+                    current ++;
+                    obj.animate({
+                        top: '-=160px'
+                    });
+                }
+            }
+        });
+        $('._pev-arrow').bind('click',function(){
+            var obj = $(this).parents('._content').find('._move-content');
+            if(!$('._move-content').is(':animated')){
+                var allNum = $(this).parents('._content').find('li').length;
+                if(parseInt(obj.css('top')) < 0){
+                    current --;
+                    obj.animate({
+                        top: '+=160px'
+                    });
+                }
+            }
+        });
+    });
+</script>
+<div id="_artist_list">
+    <input type="hidden" name="aid" value="{$aid}" id="_artist_id"  />
+    <!-- 索引选项卡 -->
+    <div class="_index" id="_index_list">
+        <ul>
+            <volist name="az" id="index">
+                <if condition="$index neq 'qt'">
+                    <php> $selected = $index == 'A' ? ' class="selected"' : ''; </php>
+                    <li><a href="#_index_{$index}"{$selected}>{$index}</a></li>
+                    <else/>
+                    <li><a href="#_index_qt" class="fa fa-eye-slash" title="生僻字"></a></li>
+                </if>
+            </volist>
+        </ul>
+    </div>
+    <!-- /索引选项卡 -->
+    <!-- 艺术家姓名 -->
+    <volist name="az" id="index">
+        <php> $count = 0; </php>
+        <div class="_content" id="_index_{$index}">
+            <div class="_move">
+                <div class="_move-content">
+                    <ul>
+                        <if condition="isset($nameArtist[$index])">
+                            <php> $nameArr = $nameArtist[$index]; </php>
+                            <volist name="nameArr" id="vo">
+                                <li value="{$vo.aid}" class="_btn_name">&nbsp;&nbsp;{$vo.name}</li>
+                                <php> $count++; </php>
+                            </volist>
+                            <else/>
+                            <li>&nbsp;</li>
+                        </if>
+                    </ul>
+                </div>
+            </div>
+            <div class="_operate">
+                <if condition="$count gt 25">
+                    <p>
+                        <span class="_arrow _pev-arrow"> < 上一页</span>
+                        <span class="_arrow _next-arrow">下一页 > </span>
+                    </p>
+                </if>
+            </div>
+        </div>
+    </volist>
+    <!-- /艺术家姓名 -->
+</div>
+<script type="text/javascript" src="{JS_PATH}Artist/idTabs.js"></script>
+<script type="text/javascript">
+    var domId = '{$domId}';
+    $(document).ready(function(){
+        $('#'+domId).focusin(function(){
+            $("#_artist_list").show();
+        });
+        $(document).bind('click',function(e){
+            var isFocus = $("#"+domId).is(":focus");
+            if(false == isFocus){
+                var target  = $(e.target);
+                if(target.closest("#_artist_list").length == 0){
+                    $("#_artist_list").hide();
+                }
+            }
+        });
+        $('._btn_name').click(function(){
+            var aid = $(this).attr('value'), aname= $.trim($(this).text());
+            $('#'+domId).val(aname);
+            $('#_artist_id').val(aid);
+            $("#_artist_list").hide();
+        });
+        $("#_index_list ul").idTabs();
+    });
+</script>

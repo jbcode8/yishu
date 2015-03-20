@@ -1,0 +1,54 @@
+<extend name="Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <load file="__PUBLIC__/plugin/treetable/js/jquery.treetable.js" />
+</block>
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul>
+            <li class="selected"><a href="{:U('index')}">后台菜单管理</a></li>
+        </ul>
+
+        <!--快捷按钮 开始-->
+        <div class="nav_btn">
+            <a href="javascript:$.dialog.open('{:U('add')}',{title:'添加菜单',id:'authadd'});" class='fa fa-plus-square'> 添 加</a>
+            <a href="javascript:$('.treetable').treetable('expandAll');" class='fa fa-collapse-o'> 全部展开</a>
+            <a href="javascript:$('.treetable').treetable('collapseAll');" class='fa fa-expand-o'> 全部收缩</a>
+        </div>
+        <!--快捷按钮 结束-->
+
+    </div>
+    <!--导航部分 结束-->
+
+    <form action="{:U('listorder')}" method="post" class="authlistorder">
+    <!-- 数据表格 开始-->
+    <table class="table treetable">
+        <thead>
+            <tr>
+                <td style="text-align: left;padding-left: 15px;">排序</td>
+                <td>编号</td>
+                <td>菜单名称</td>
+                <td>操作</td>
+            </tr>
+        </thead>
+        <tbody>
+            {$list}
+        </tbody>
+    </table>
+    <!-- 数据表格 开始-->
+    <div class="paging">
+         <button type="submit" class="btn fa fa-list ajax-post" target-form="authlistorder"> 排 序</button>
+    </div>
+    </form>
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+    <script type="text/javascript">
+        $(function() {
+            $(".table").treetable({expandable: true});
+        });
+    </script>
+</block>

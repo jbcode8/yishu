@@ -1,0 +1,58 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="{PLUGIN_PATH}treetable/css/treetable.css" />
+    <load file="{PLUGIN_PATH}treetable/js/jquery.treetable.js" />
+</block>
+<block name="body">
+<div class="container">
+    <ul class="header clear">
+    <li <eq name="ACTION_NAME" value="index">class="current"</eq>><a href="{:U('Auction/AdminAgency/index')}">拍卖机构管理</a></li>
+	<li <eq name="ACTION_NAME" value="add">class="current"</eq>><a href="{:U('Auction/AdminAgency/add')}">添加拍卖机构</a></li>
+    </ul>
+    <table class="table table-hover">
+        <thead><tr><th></th><th></th></tr></thead>
+        <tbody>
+        		<tr>
+				<td>序号</td>
+				<td>机构名称：</td>
+				<td>机构编号：</td>
+				<td>创建者</td>
+				<td>审核状态</td>
+				<td>创建时间</td>
+				<td>最近更新时间</td>
+				<td>操作</td>
+				</tr>
+        	<volist name="list" key="k" id="vo">
+        		<php>$updatetime = $vo['updatetime'];</php>
+            	<tr><td>{$k}</td>
+				<td>{$vo.name}</td>
+				<td>{$vo.id}</td>
+				<td>{$vo.mid}</td>
+				<td>
+				<if condition="$vo['status'] eq 0">
+					<span style="color:blue">待审核 </span> | <span>
+					<a href="{:U('Auction/AdminAgency/show', array('id' => $vo['id']))}" style="color:red">去审核</a></span>
+				<elseif condition="($vo['status'] eq 1)" />
+					<span style="color:#008000">已通过</span>
+				<else />
+					<span style="color:red">未通过</span>
+				</if>
+				</td>
+				<td>{$vo.createtime|date='Y-m-d H:i:s',###}</td>
+				<td>
+				<notempty name="updatetime">{$vo.updatetime|date='Y-m-d H:i:s',###}</notempty>
+				<empty name="updatetime">无</empty></td>
+				<td>
+					<a href="{:U('Auction/AdminAgency/show', array('id' => $vo['id']))}">查看详细</a> | 
+					<a href="{:U('Auction/AdminAgency/edit', array('id' => $vo['id']))}">编辑</a> |
+					<a href="{:U('Auction/AdminAgency/delete', array('id' => $vo['id']))}" onclick="if(confirm('确定要删除吗？')){return true;};return false;">删除</a>
+				</td>
+				</tr>
+            </volist>
+           
+        </tbody>
+       
+    </table>
+    <div class="page">{$page}</div>
+</div>
+</block>

@@ -1,0 +1,62 @@
+<extend name="Admin@Public:base" />
+
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <load file="__PUBLIC__/plugin/treetable/js/jquery.treetable.js" />
+</block>
+
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul><li class="selected"><a href="{:U('Paimai/AdminNews/lists')}">新闻列表</a></li></ul>
+
+        <!--快捷按钮 开始-->
+        <div class="nav_btn">
+            <a class="fa fa-plus-square" href="{:U('Paimai/AdminNews/newsadd')}"> 添加新闻</a>
+            
+        </div>
+        <!--快捷按钮 结束-->
+
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 开始-->
+        <table class="table treetable">
+            <thead>
+            <tr>
+                <td style="text-align:left;padding-left:15px">标题</td>
+                <td>编号</td>
+                <td style="text-align:left">分类名称</td>
+                <td>操作</td>
+            </tr>
+            </thead>
+            <tbody>
+            <volist name='news' id='v'>
+			<tr>
+                <td style="text-align:left;padding-left:15px">{$v.title}</td>
+                <td>{$v.id}</td>
+                <td style="text-align:left">
+                    {:catename($v['cid'])}
+                </select>
+				</td>
+                <td>
+				<a href="{:U('Paimai/AdminNews/newsedit',array('id'=>$v['id']))}">修改</a> / 
+				<a href="{:U('Paimai/AdminNews/newsdel',array('id'=>$v['id']))}">删除</a>
+				</td>
+            </tr>
+			</volist>
+            </tbody>
+        </table>
+        <!-- 数据表格 结束-->
+
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+    <script type="text/javascript">
+        $(function() {
+            $(".table").treetable({expandable: true});
+        });
+    </script>
+</block>

@@ -1,0 +1,59 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_OTHER_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+    <div class="nav_btn">
+        <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Jianding/AdminAttribute/attr_add',array('cat_id'=>$gtype['cat_id']))}', {title:'添加属性值', id:'adoArticle'})" style='padding:5px 10px;margin:0px 0 10px 0;border:solid 1px #888;border-radius:3px;'> 添加商品属性值</a>
+
+    </div>
+    <!--快捷按钮 结束-->
+
+	<empty name='attrs_data'>
+			没有属性分类值
+		<else/>
+    <table class="m_table">
+        <tr><th>属性值ID</th><th>属性分类</th><th>属性名</th><th>添加类型</th><th>选择的值</th><th>单位</th><th>操作</th></tr>
+		
+        <volist name="attrs_data" id="v">
+            <tr>
+                <td id="id">{$v.attr_id}</td>
+                <td>{$gtype.cat_name}</td>
+				<td>{$v.attr_name}</td>
+				<td>
+				<if condition = "$v.attr_input_type eq 1">
+					手动输入
+				<else />
+					选择输入
+				</if>
+				</td>
+				<td>{$v.attr_value}</td>
+				<td>{$v.attr_ext}</td>
+                
+
+                <td>
+				<a href="javascript:$.dialog.open('{:U('Jianding/AdminAttribute/update',
+					array('attr_id'=>$v['attr_id']))}', 
+					{title:'修改商品分类属性值', id:'adoArticle'})">编辑</a>
+				&nbsp;|&nbsp;<a class="j_del" href="{:U('Jianding/AdminAttribute/delete',array('attr_id'=>$v['attr_id']))}">删除</a>
+				</td>
+            </tr>
+        </volist>
+		 </table>
+		</empty>
+   
+    <script>
+        $(function(){
+
+            //判断删除
+            $(".j_del").click(function(e){
+                if(!confirm("你确认删除这个类型,如果删除这个商品类型下面的所有属性都将被删除!")){
+                    e.preventDefault();
+                }
+            });
+
+        })
+    </script>
+</block>

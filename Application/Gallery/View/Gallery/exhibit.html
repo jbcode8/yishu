@@ -1,0 +1,224 @@
+<extend name="galleryBase"/>
+<block name='content'>
+<!-- 栏目内容 -->
+<div class="container gallery-exhibition-con clear">
+<div class="filter">
+    <div class="block city-ex">
+        <span class="name">展览城市：</span>
+        <div class="right-con">
+            <ul>
+                <li><a href="{:U('Gallery/Gallery/exhibit')}">全部</a></li>
+                <volist name="area" id="vo">
+                    <li><a href="{:U('Gallery/Gallery/exhibit',array('keyword'=>I('get.keyword'),'startime'=>I('get.startime'),'endtime'=>I('get.endtime'),'region_id'=>$vo['id'],'type'=>I('get.type')))}">{$vo.name|new_msubstr=###,0,2}</a></li>
+                </volist>
+
+            </ul>
+        </div>
+    </div>
+    <div class="block show-ex">
+        <span class="name">展览类型：</span>
+        <div class="right-con">
+            <ul>
+                <li><a href="{:U('Gallery/Gallery/exhibit')}">全部展览</a></li>
+                <li><a href="{:U('Gallery/Gallery/exhibit',array('keyword'=>I('get.keyword'),'startime'=>I('get.startime'),'endtime'=>I('get.endtime'),'region_id'=>I('get.region_id'),'type'=>'jjks'))}">即将开始</a></li>
+                <li><a href="{:U('Gallery/Gallery/exhibit',array('keyword'=>I('get.keyword'),'startime'=>I('get.startime'),'endtime'=>I('get.endtime'),'region_id'=>I('get.region_id'),'type'=>'zzzl'))}">正在展览</a></li>
+                <li><a href="{:U('Gallery/Gallery/exhibit',array('keyword'=>I('get.keyword'),'startime'=>I('get.startime'),'endtime'=>I('get.endtime'),'region_id'=>I('get.region_id'),'type'=>'yjjs'))}">已结束</a></li>
+                <li><a href="{:U('Gallery/Gallery/exhibit',array('keyword'=>I('get.keyword'),'startime'=>I('get.startime'),'endtime'=>I('get.endtime'),'region_id'=>I('get.region_id'),'type'=>'jrkm'))}">今日开幕</a></li>
+            </ul>
+        </div>
+    </div>
+    <form action="{:U('Gallery/Gallery/exhibit')}" method="get">
+        <div class="block date-cho">
+            <span class="name">展览时间：</span>
+            <div class="right-con">
+                <input type="text" class="text" name="starttime" onclick="WdatePicker()" /> - <input type="text" class="text" name="endtime" onclick="WdatePicker()" />
+            </div>
+        </div>
+        <div class="block name-ex">
+            <span class="name">展览名称：</span>
+            <div class="right-con">
+                <input type="text" class="text" name="keyword">
+                <input type="submit" class="red-btn" value="确定" />
+            </div>
+        </div>
+    </form>
+    <div class="block been-choose">
+        <span class="name">您选择的是：</span>
+        <div class="right-con">
+            <ul>
+                <if condition="$_GET eq null">
+                <li><a href="{:U('Gallery/Gallery/exhibit')}">全部 <b class="red">X</b></a></li>
+                </if>
+                <if condition="I('get.region_id') neq ''">
+                    <li><a href="{:U('Gallery/Gallery/exhibit',array('type'=>I('get.type')))}">{:getCity(I('get.region_id'))} <b class="red">X</b></a></li>
+                </if>
+                <if condition="I('get.type') neq ''">
+                    <li><a href="{:U('Gallery/Gallery/exhibit',array('region_id'=>I('get.region_id')))}">{$type[$_GET['type']]} <b class="red">X</b></a></li>
+                </if>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="main-con clear">
+<div class="l-side">
+    <div class="ope">
+        <div class="top clear">
+            <p class="l-con">
+                <span>排序：</span>
+								<span class="sort-choose">
+									<b>按开幕时间</b>
+									<a class="sort-t <if condition="$_GET['starttime'] eq 'Asc'">select-t</if>" href="{:U('Gallery/Gallery/exhibit',array('createtime'=>I('get.createtime'),'starttime'=>'Asc'))}"></a>
+									<a class="sort-b <if condition="$_GET['starttime'] eq 'Desc'">select-b</if>" href="{:U('Gallery/Gallery/exhibit',array('createtime'=>I('get.createtime'),'starttime'=>'Desc'))}"></a>
+								</span>
+								<span class="sort-choose">
+									<b>最新发布</b>
+									<a class="sort-t <if condition="$_GET['createtime'] eq 'Asc'">select-t</if>" href="{:U('Gallery/Gallery/exhibit',array('createtime'=>'Asc','starttime'=>I('get.starttime')))}"></a>
+									<a class="sort-b  <if condition="$_GET['createtime'] eq 'Desc'">select-b</if>" href="{:U('Gallery/Gallery/exhibit',array('createtime'=>'Desc','starttime'=>I('get.starttime')))}"></a>
+								</span>
+            </p>
+            <span class="total">共{$count}个展览</span>
+        </div>
+        <div class="bottom">
+            <b>热点关注：</b>
+            <ys:list name="list" catid="13" order="view DESC" limit="0,3">
+                <a href="{:U('/Content/Content/detail/',array('category'=>'shoucang','id'=>$list['id']))}">{$list.title|new_msubstr=###,0,12}</a>
+            </ys:list>
+        </div>
+    </div>
+    <div class="list-con">
+        <ul>
+            <volist name="lists" id="vo">
+                <li>
+                    <a class="img" href="{:U('Content/Content/detail',array('category'=>'exhibit_personal','id'=>$vo['id']))}"><img src="{$vo.thumb}" width="136" height="180" alt="" /></a>
+                    <div class="text-con">
+                        <h2>{$vo.title}</h2>
+                        <div class="info clear">
+                            <p>展览城市：{$vo.cityName}</p>
+                            <p>展览时间：{$vo.starttime|date='Y-m-d',###}至{$vo.endtime|date='Y-m-d',###}</p>
+                            <p>展览地点：{$vo.address}</p>
+                            <p>主办单位：{$vo.organizer}</p>
+                            <p>参展人员：{$vo.list}</p>
+                        </div>
+                        <div class="discription">
+                            {$vo.description|new_msubstr=###,0,80}...<a href="{:U('Content/Content/detail',array('category'=>'exhibit_personal','id'=>$vo['id']))}" target="_blank">[查看全文]</a>
+                        </div>
+                        <div class="like">
+                            <span class="interest"><a href="#"><b>185</b>人感兴趣</a></span>
+                            |
+                            <span class="registration"><a href="#"><b>32</b>报名</a></span>
+                        </div>
+                    </div>
+                </li>
+            </volist>
+        </ul>
+    </div>
+    <div class="comm-page">
+        <div class="con">
+            {$page}
+        </div>
+    </div>
+</div>
+<div class="r-side">
+<div class="comm-list">
+    <div class="t clear">
+        <h2>热门展览</h2>
+    </div>
+    <div class="con">
+        <ul>
+            <volist name="exhibit_hot" id="vo">
+                <li>
+                    <div class="title top3">
+                        <span class="num">{$i}</span>
+                        <a href="{:U('Gallery/GalleryDetail/show/',array('to'=>'exhibit','id'=>$vo['id'],'gid'=>$vo['gid']))}">{$vo.title|new_msubstr=###,0,13}</a>
+                    </div>
+                    <div class="detail">
+                        <a class="img" href="{:U('Gallery/GalleryDetail/show/',array('to'=>'exhibit','id'=>$vo['id'],'gid'=>$vo['gid']))}"><img src="{$vo.thumb}" alt="{$vo.title}" width="70" height="70"/></a>
+                        <a class="text" href="{:U('Gallery/GalleryDetail/show/',array('to'=>'exhibit','id'=>$vo['id'],'gid'=>$vo['gid']))}">{$vo.description|new_msubstr=###,0,30}...</a>
+                    </div>
+                </li>
+            </volist>
+
+        </ul>
+    </div>
+</div>
+<div class="recommend-opus comm-recommend clear">
+    <h2>推荐作品</h2>
+    <div class="con">
+        <ul>
+            <volist name="gallery_works" id="vo">
+                <li>
+                    <a href="{:U('Gallery/GalleryDetail/show',array('to'=>'works','id'=>$vo['id'],'gid'=>$vo['gid']))}"><img src="{$vo.thumb}" alt="{$vo.name}" width="130" height="130" /></a>
+                    <p class="common-word">{$vo.name|new_msubstr=###,0,8}</p>
+                </li>
+            </volist>
+
+        </ul>
+    </div>
+</div>
+<div class="hot-ranking">
+    <h2>热门访谈</h2>
+    <div class="con">
+        <ul>
+            <volist name="gallery_visit" id="vo">
+                <li>
+                    <div class="title top3">
+                        <span class="num">{$i}</span>
+                        <a href="{:U('Gallery/GalleryDetail/show',array('to'=>'visit','id'=>$vo['id'],'gid'=>$vo['gid']))}">{$vo.title|new_msubstr=###,0,15}</a>
+                    </div>
+                </li>
+            </volist>
+
+        </ul>
+    </div>
+</div>
+<div class="advertise"><a href="#"><img src="{IMG_PATH}column-img/136.jpg" alt="" /></a></div>
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript" src="{JS_PATH}common.js"></script>
+<script type="text/javascript" src="{JS_PATH}js.js"></script>
+<script type="text/javascript" src="{JS_PATH}antique.js"></script>
+<script type="text/javascript" src="{PLUGIN_PATH}DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        jumpPanel('.species','.species-jump',true,'.species-content');
+        commSelect('.info-log .common-select',20);
+        _chooseCity('#nav-local');
+        $(window).manhuatoTop({
+            showHeight : 100,
+            speed : 500
+        });
+        $('.sort-choose a').bind('click',function(){
+            $(this).parent().find('a').removeClass('select-t select-b');
+            var $class = $(this).attr('class');
+            var a = $class.charAt($class.length - 1);
+            if(a == 't'){
+                $(this).addClass('select-t');
+            }
+            else if(a == 'b'){
+                $(this).addClass('select-b');
+            }
+        });
+        $('.comm-list').each(function(){
+            var key = $(this);
+            key.find('li:first .detail').show();
+            key.find('li:first').css('background','#eee');
+            key.find('li').mouseenter(
+                    function(){
+                        key.find('.detail').hide();
+                        key.find('li').css('background','#fff');
+                        $(this).find('.detail').show();
+                        $(this).css('background','#eee');
+                    }
+            );
+        });
+        $('.comm-recommend').each(function(){
+            $(this).find('li:nth-child(2n)').css('margin-right','0');
+        });
+    });
+</script>
+</block>
+
+

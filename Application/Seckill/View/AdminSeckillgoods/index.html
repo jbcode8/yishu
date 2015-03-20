@@ -1,0 +1,59 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+    <div class="nav_btn">
+        <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Seckill/AdminSeckillgoods/add')}', {title:'添加商品', id:'adoArticle',width:'1000px',height:'600px'})">添加商品</a>
+
+    </div>
+	</br>	
+    <!--快捷按钮 结束-->
+
+    <table class="m_table">
+        <tr><th>商品id</th><th>商品名称</th><th>商品货号</th><th>上传者</th><th>商品原价</th><th>秒杀价</th><th>数量</th><th>开始时间</th><th>结束时间</th><th>专场名称</th><th>是否显示</th><th>操作</th></tr>
+        <volist name="goods" id="v">
+            <tr>
+                <td id="id" style="text-align:center">{$v.skgoods_id}</td>
+                <td style="text-align:center">{:substr_CN($v['skgoods_name'],10)}</a></td>
+				<td style="text-align:center">{$v.skgoods_sn}</td>
+                <td style="text-align:center">{$v.skgoods_uploader}</td>
+                <td style="text-align:center">{$v.skgoods_marketprice}</td>
+                <td style="text-align:center">{$v.skgoods_killprice}</td>
+                <td style="text-align:center">{$v.skgoods_quantity}</td>
+				<td style="text-align:center">{$v.skgoods_starttime|date="Y-m-d H:i:s",###}</td>
+				<td style="text-align:center">{$v.skgoods_endtime|date="Y-m-d H:i:s",###}</td>
+				<td style="text-align:center">{:getskspecial($v['skgoods_specialid'])}</td>
+				<td style="text-align:center">
+				<if condition="$v.skgoods_isshow eq 0">
+				显示
+				<else />
+				不显示
+				</if>
+				</td>
+                <td style="text-align:center">
+				<a href="/Seckill/goods-{$v['skgoods_id']}.html" target="_blank">预览</a>
+                &nbsp&nbsp|&nbsp&nbsp
+				<a href="{:U('Seckill/AdminSeckillgoods/edit',array('skgoods_id'=>$v['skgoods_id']))}">编辑</a>
+				&nbsp&nbsp|&nbsp&nbsp
+				<a class="j_del" href="{:U('Seckill/AdminSeckillgoods/delete',array('skgoods_id'=>$v['skgoods_id']))}">删除</a></td>
+            </tr>
+        </volist>
+          <tr><td colspan="12" align="center">{$page}</td></tr>
+    </table>
+
+    <script>
+        $(function(){
+
+            //判断删除
+            $(".j_del").click(function(e){
+                if(!confirm("你是否确认删除这个商品？")){
+                    e.preventDefault();
+                }
+            });
+
+        })
+    </script>
+</block>

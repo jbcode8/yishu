@@ -1,0 +1,177 @@
+<extend name="artistBase"/>
+<block name='content'>
+<!-- 栏目内容 -->
+<div class="container clear">
+<div class="top-show">
+    <a href="#" target="_blank"><img src="{IMG_PATH}column-img/126.jpg"  width="980" height="180" alt="" /></a>
+</div>
+<div class="classify clear">
+    <div class="clear">
+        <p class="left">分类</p>
+        <div class="right">
+            <ul>
+                <li <if condition="$_GET['cid'] eq null">class="select"</if>><a href="{:U('Artist/ArtistCategory/interview',array('type'=>$_GET['type']))}">全部</a></li>
+                <volist name="category" id="vo">
+                    <li <if condition="$_GET['cid'] eq $vo['id']">class="select"</if>><a href="{:U('Artist/ArtistCategory/interview',array('cid'=>$vo['id'],'type'=>$_GET['type']))}">{$vo.name}</a></li>
+                </volist>
+
+            </ul>
+        </div>
+    </div>
+    <div class="reveal">
+        <span>展开 ▼</span>
+    </div>
+</div>
+<div class="bottom-block">
+<!-- 视频 -->
+<div class="video">
+    <div class="asort">
+        <p class="left">共{$count}个视频</p>
+        <p class="right">
+            <span>排序</span>
+            <label>
+                <input type="radio" name="sort" onclick="listSort(1)" <if condition="$_GET['type'] eq 'createtime'">checked="checked"</if>/>
+                <b>最新上传</b>
+            </label>
+            <label>
+                <input type="radio" name="sort" onclick="listSort(2)" <if condition="$_GET['type'] eq 'hits'">checked="checked"</if>/>
+                <b>播放最多</b>
+            </label>
+        </p>
+    </div>
+    <div class="content clear">
+        <ul>
+            <volist name="lists" id="vo">
+            <li>
+                <p class="c1">
+					<img src="{$vo.thumb}" width="214" height="214" alt="" />
+					<a href="{:U('/Artist/ArtistDetail/details/',array('id'=>$vo['id']))}" class="transparent"><img src="{IMG_PATH}icons/video.png" /></a>
+				</p>
+                <p class="c2"><b>{$vo.title|new_msubstr=###,0,14}</b></p>
+                <p class="c3">{$vo.description|new_msubstr=###,0,12}.......</p>
+                <p class="c4"><a href="{:U('/Artist/ArtistDetail/details/',array('id'=>$vo['id']))}" target="_blank">[ 查看详情 ]</a></p>
+            </li>
+            </volist>
+        </ul>
+    </div>
+	<script>
+		$(document).ready(function(){
+			$('.c1').hover(
+				function(){
+					$(this).find('a').show();
+				},
+				function(){
+					$(this).find('a').hide();
+				}
+			);
+		});
+	</script>
+    <!-- 分页 -->
+    <div class="common-page clear">
+        <div class="t-center">
+            {$page}
+        </div>
+    </div>
+</div>
+<div class="r-side">
+    <!-- 大师排行榜 -->
+    <div class="master-ranking clear">
+        <div class="comm-title"><h2>大师排行榜</h2></div>
+        <div class="content">
+            <ul>
+                <volist name="artist_list" id="vo" key="k">
+                <li>
+                    <span class="num top3">{$k}</span>
+                    <div class="default <if condition='$k eq 1'>hide</if>">
+                        <span class="name left">{$vo.name}</span>
+                        <span class="point right">点击次数：<b>{$vo.view}</b></span>
+                    </div>
+                    <div class="change <if condition='$k gt 1'>hide</if>">
+                        <p class="left"><img src="{$vo.thumb}" width="100" height="100"/></p>
+                        <div class="right">
+                            <p class="name"><a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">{$vo.name}</a></p>
+                            <p>{$vo.description|new_msubstr=###,0,18}...<a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">[详细]</a></p>
+                            <p>点击次数：<b>{$vo.view}</b></p>
+                        </div>
+                    </div>
+                </li>
+                </volist>
+
+            </ul>
+        </div>
+    </div>
+    <!-- 广告 -->
+    <div class="advertise clear">
+        <a href="#" target="_blank">
+            <img src="{IMG_PATH}column-img/03.jpg" alt="" width="275" height="100" />
+        </a>
+    </div>
+    <!-- 佳作推荐 -->
+    <div class="opus-recommend clear">
+        <div class="comm-title"><h2>名人名作</h2></div>
+        <div class="content">
+            <ul class="tm0">
+
+                <volist name="events_list" id="vo" key="k">
+                    <li <if condition='$k%2 eq 0'>style="margin-right:0"</if>>
+                        <img src="{$vo.thumb}" width="130" height="130" alt="{$vo.name}" />
+                        <a href="{:U('Artist/ArtistDetail/work',array('id'=>$vo['aid'],'wid'=>$vo[id]))}" target="_blank" class="common-word">
+                            <span class="m-t10">{$vo.name}</span>
+                            <span>作者：{:getArtistName($vo['aid'])}</span>
+                            <span>尺寸：{$vo.size}</span>
+                            <!--<span>价格：400.000元</span>-->
+                        </a>
+                    </li>
+                </volist>
+
+            </ul>
+        </div>
+    </div>
+    <!-- 广告 -->
+    <div class="advertise clear">
+        <a href="#" target="_blank">
+            <img src="{IMG_PATH}column-img/03.jpg" alt="" width="275" height="100" />
+        </a>
+    </div>
+    <!-- 广告 -->
+    <div class="advertise clear">
+        <a href="#" target="_blank">
+            <img src="{IMG_PATH}column-img/03.jpg" alt="" width="275" height="100" />
+        </a>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript" src="{JS_PATH}common.js"></script>
+<script type="text/javascript" src="{JS_PATH}js.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        reveal('.classify','.reveal span','.right',35,70,'展开 ▼','收起 ▲');
+        jumpPanel('.species','.species-jump',true,'.species-content');
+        commSelect('.info-log .common-select',20);
+        _chooseCity('#nav-local');
+        abChange('.master-ranking','.master-ranking ul li','.default','.change');
+        abChange('.foresee-auction','.foresee-auction ul li','.default','.change');
+        navJump('.opus-recommend ul li','.common-word');
+        $(window).manhuatoTop({
+            showHeight : 100,
+            speed : 500
+        });
+        $('.master-exclusive .video .content ul li:nth-child(3n)').css('margin-right','0px');
+
+    });
+    function listSort(v){
+       if(v == 1){
+           window.location.href="{:U('Artist/ArtistCategory/interview',array('type'=>'createtime','cid'=>$_GET['cid']))}";
+       }else{
+           window.location.href="{:U('Artist/ArtistCategory/interview',array('type'=>'hits','cid'=>$_GET['cid']))}";
+       }
+
+
+    }
+</script>
+
+</block>
+

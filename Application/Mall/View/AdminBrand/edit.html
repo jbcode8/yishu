@@ -1,0 +1,113 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+<style type="text/css">
+body{ width:650px}
+</style>
+</block>
+<block name="body">
+    <form action="{:U('edit')}" method="post" class="editBrand">
+    <table class="form">
+        <tr>
+            <th>当前类别:</th>
+            <td>{:brandCateCrumb($vo['cate_id'])}</td>
+            <td><input type="hidden" id="old_cate_id" value="{$vo.cate_id}" /></td>
+        </tr>
+        <tr>
+            <th class="w1">选择类别:</th>
+            <td><div id="cateTag"></div><input type="hidden" id="cate_id" name="cate_id" value="{$vo.cate_id}" /></td>
+            <td class="tips"> 可不选</td>
+        </tr>
+        <tr>
+            <th>品牌名称:</th>
+            <td><input name="brand_name" type="text" value="{$vo.brand_name}" /></td>
+            <td class="tips"><i class="red">* 必填</i></td>
+        </tr>
+        <tr>
+            <th>排列顺序:</th>
+            <td><input name="listorder" type="text" value="{$vo.listorder}" /></td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <td>
+                <input type="hidden" name="brand_id" value="{$vo.brand_id}" />
+                <button type="submit" class="btn ajax-post" target-form="editBrand">确认</button>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+    </form>
+</block>
+<block name="javascript">
+<script type="text/javascript">
+
+/* 以下JS是实现类别的级联 */
+// 类别的JSON数据
+var arrCate = {:jsonCategory()}, lastCateLevel = 0;
+var selectId = 'cateLevel_';
+
+// 默认输出一级分类
+createSelectTag(getCateByParentId(0), 0);
+
+// 移除重复的级联select控件
+function removeSelect(i){
+    for(i; i < 5; i++){
+        if($('#' + selectId + i)){
+            $('#' + selectId + i).remove();
+        }
+    }
+}
+
+// 通过父级id获取子级的类别数组
+function getCateByParentId(pid){
+    var _list = {};
+    $.each(arrCate, function(i, data){
+        if(parseFloat(data['parent_id']) === parseFloat(pid)){
+           _list[i] = data;
+        }
+    });
+    return _list;
+}
+
+// 创建子级的类别Select控件
+function createSubSelect(level){
+    
+    var pid = $('#' + selectId + level).find('option:selected').val();
+    if(pid !== ''){
+        var subCate = getCateByParentId(pid);
+        createSelectTag(subCate, (level + 1)); 
+    }else{
+        removeSelect(level + 1);
+        lastCateLevel = level;
+    }
+    
+    // 赋值给类别的隐藏域
+    var cate_id = $('#' + selectId + lastCateLevel).find('option:selected').val();
+    if(lastCateLevel == 0 && cate_id == ''){
+        cate_id = $('#old_cate_id').val();
+    }
+    $('#cate_id').attr('value', cate_id);
+}
+
+// 创建Select元素(增加到html代码中)
+function createSelectTag(arr, level){
+    var _option = '';
+    
+    // 新建前先清除所有的子级
+    removeSelect(level);
+    
+    // 循环获取选择项
+    $.each(arr, function(k, v){
+        _option += '<option value="'+ v['cate_id'] +'">'+ v['cate_name'] +'</option>';
+    });
+    
+    // 不为空则新建Select控件
+    if(_option !== ''){
+        lastCateLevel = level;
+        $('#cateTag').append('<select onchange="createSubSelect('+ level +')" id="cateLevel_'+ level +'"><option value=""> -- 请选择</option>'+ _option +'</select>');
+    }else{
+        lastCateLevel = level - 1;
+    }
+}
+</script>
+</block>

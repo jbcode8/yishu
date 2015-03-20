@@ -1,0 +1,52 @@
+<extend name="Public:base" />
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul>
+            <li class="selected"><a href="{:U('index')}">模型管理</a></li>
+        </ul>
+
+        <!--快捷按钮 开始-->
+        <div class="nav_btn">
+            <a href="javascript:$.dialog.open('{:U('add')}',{title:'创建模型',id:'createModel'});" class='fa fa-plus-square'> 创建模型</a>
+        </div>
+        <!--快捷按钮 结束-->
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 开始-->
+    <?php
+        $thead = array(
+            'id'            =>  'ID',
+            'name'          =>  '标识',
+            'title'         =>  '名称',
+            'create_time'   =>  array(
+                '_title' => '创建时间',
+                'func'   => 'date("Y-m-d",$create_time)',
+            ),
+            '状态'=>array(
+                '锁定'=>array('href' => 'enabled?id=$id', 'class'=>'ajax-get error fa fa-ban', 'condition'=>'$status==0',),
+                '正常'=>array('href' => 'disable?id=$id', 'class'=>'ajax-get success fa fa-check-circle', 'condition'=>'$status==1',),
+            ),
+            '操作'          =>  array(
+                '编辑'      =>  array('class' => 'edit','href' => 'edit?id=$id'),
+            )
+        );
+    echo $_table_list = $__controller__->tableList($_list,$thead);
+    ?>
+    <!-- 数据表格 开始-->
+    <div class="paging">
+        {$_page}
+    </div>
+</block>
+<block name="javascript">
+    <script type="text/javascript">
+        $(function(){
+            $('.edit').on('click',function(e){
+                e.preventDefault();
+                $.dialog.open(this.href,{title:'编辑模型',id:'editId'});
+            });
+        });
+    </script>
+</block>

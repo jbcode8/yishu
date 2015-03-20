@@ -1,0 +1,121 @@
+<extend name="Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{width:400px;}
+        .thumb{position: relative;}
+        .thumb .thumb_img{position: absolute;top:0;}
+        .thumb #upload_thumb-queue {position: absolute;top:0;width:190px;height:113px;}
+    </style>
+</block>
+<block name="body">
+    <form action="{:U('edit')}" method="post" class="edit">
+        <input type="hidden" name="posid" value="{$vo.posid}" />
+        <table class="form">
+            <tr>
+                <th>推荐位名称:</th>
+                <td>
+                    <input name="name" type="text" placeholder="推荐位名称" value="{$vo.name}"/>
+                </td>
+            </tr>
+            <tr>
+                <th>所属模型:</th>
+                <td>
+                    <select name="modelid" id="modelid">
+                        <volist name="model" id="eo">
+                            <option value="{$eo.id}" <eq name="eo.id" value="$vo.modelid">selected</eq>>{$eo.title}</option>
+                        </volist>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>所属栏目:</th>
+                <td id="catid"></td>
+            </tr>
+            <tr>
+                <th>排序:</th>
+                <td>
+                    <input name="listorder" type="text" value="{$vo.listorder}"/>
+                </td>
+            </tr>
+            <tr>
+                <th>最大保存数目:</th>
+                <td>
+                    <input name="maxnum" type="text" value="{$vo.maxnum}"/>
+                </td>
+            </tr>
+            <tr>
+                <th>上传对应图:</th>
+                <td>
+                    <input name="thumb" id="thumb" type="hidden" value="{$vo.thumb}"/>
+                    <div class="thumb">
+                        <a id="upload_thumb"></a>
+                        <img class="thumb_img" src="<empty name='vo[thumb]'>__PUBLIC__/img/Admin/upload-pic.png<else/>{$vo.thumb}</empty>" width="190" height="113"/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <button type="submit" class="btn ajax-post" target-form="edit" >确认</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</block>
+<block name="javascript">
+    <load file="__PUBLIC__/plugin/uploadify/jquery.uploadify.min.js" />
+    <script type="text/javascript">
+        $(function(){
+            $('#upload_thumb').uploadify({
+                'width'       : 190,
+                'height'      : 113,
+                'buttonText'  : '',
+                'removeTimeout' : 1,
+                'formData'      : {'auth_key' : ''},
+                'swf'         : '__PUBLIC__/plugin/uploadify/uploadify.swf',
+                'uploader'    : '{:addons_url('Attachment://Upload/image')}',
+                        'fileTypeDesc' : 'Image Files',
+                    'fileTypeExts' : '*.gif; *.jpg; *.png',
+                    'itemTemplate' : '<div id="${fileID}">\
+                <div class="uploadify-progress-bar" style="height: 113px;background-color: #5978A4;position: absolute;z-index: 9999;opacity: 0.3"></div>\
+            </div>',
+                    'onUploadSuccess' : uploadSuccessPic
+            });
+
+            if($('#modelid').val() != 0){
+                getModelCategory($('#modelid'));
+            }
+            $('#modelid').change(function(e){
+                getModelCategory($(this));
+            });
+        });
+
+        function getModelCategory(obj){
+            $.get('{:U("Api/getModelCategory")}',{'modelid':obj.val()},function(data){
+                var op = ['<option value="0">该模型下全部分类</option>'];
+                $.each(JSON.parse(data),function(k,v){
+                    if(k == {$vo.catid}){
+                        var selected = 'selected';
+                    }
+                    op.push('<option value="'+ k +'"'+selected+'>'+ v +'</option>');
+                });
+                var html = '<select name="catid">'+op.join('')+'</select>'
+                $('#catid').html(html);
+            });
+        }
+
+        function uploadSuccessPic(file, data, response){
+            var top_alert = window.top.$('#top-alert');
+            var res = JSON.parse(data);
+            if(res.status == false){
+                updateAlert(res.error);
+                setTimeout(function(){
+                    top_alert.find('.close').click();
+                },1500);
+            }else{
+                $('.thumb_img').attr('src',res.url);
+                $('#thumb').val(res.url);
+            }
+        }
+    </script>
+</block>

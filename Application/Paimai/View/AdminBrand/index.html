@@ -1,0 +1,39 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+    <div class="nav_btn">
+        <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Paimai/AdminBrand/add')}', {title:'添加品牌', id:'adoArticle',width:'1000px',height:'600px'})"> 添加品牌</a>
+
+    </div>
+    <!--快捷按钮 结束-->
+
+    <table class="m_table">
+        <tr><th>品牌ID</th><th>品牌名称</th><th>网址</th><th>是否可用</th><th>顺序</th><th>操作</th></tr>
+        <volist name="lists" id="v">
+            <tr>
+                <td id="id">{$v.brand_id}</td>
+                <td>{$v.brand_name}</td>
+                <td>{$v.site_url}</td>
+                <td>{$v.brand_isshow}</td>
+                <td>{$v.brand_order}</td>
+                <td><a href="{:U('Paimai/AdminBrand/edit',array('brand_id'=>$v['brand_id']))}">编辑</a>|<a class="j_del" href="{:U('Paimai/AdminBrand/delete',array('brand_id'=>$v['brand_id']))}">删除</a></td>
+            </tr>
+        </volist>
+    </table>
+    <script>
+        $(function(){
+
+            //判断删除
+            $(".j_del").click(function(e){
+                if(!confirm("你确认删除这个类型,如果删除这个商品类型下面的所有属性都将被删除!")){
+                    e.preventDefault();
+                }
+            });
+
+        })
+    </script>
+</block>

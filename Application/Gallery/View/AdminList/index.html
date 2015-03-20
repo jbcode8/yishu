@@ -1,0 +1,84 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="{PLUGIN_PATH}treetable/css/treetable.css" />
+</block>
+
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul><li class="selected"><a href="{:U('Gallery/AdminList/index')}">画廊列表</a></li></ul>
+
+        <!--快捷按钮 开始-->
+        <div class="nav_btn">
+            <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Gallery/AdminList/add')}', {title:'新增画廊', id:'newWindow'})"> 新增画廊</a>
+        </div>
+        <!--快捷按钮 结束-->
+
+        <!--搜索 开始-->
+        <div class="advSearch">
+            <form method="post" action="{:U(index)}">
+                <div class="row">
+                    <label>关键字：</label>
+                    <input type="text" size="8" name="kw" placeholder="请输入关键字" style="padding:2px 5px" value="{$kw}" />
+                    {:searchSelect(array('name' => '画廊名称', 'desc' => '画廊简介', 'address' => '详细地址'), $opt)}
+                </div>
+                <div class="row">
+                    <label>时间：</label>
+                    <input style="padding:2px 5px" value="{$start_time}" type="text" size="6" placeholder="起始时间" name='start_time' id="starttime"  onfocus="WdatePicker({onpicked:function(){$('#endtime').focus();}})"/> -
+                    <input style="padding:2px 5px" value="{$end_time}" type="text" size="6" placeholder="结束时间" name='end_time' id="endtime" onfocus="WdatePicker({minDate:$('#starttime').val()})" />
+                </div>
+                <button type="submit" class="btn fa fa-search"> 搜 索</button>
+            </form>
+        </div>
+        <!--搜索 结束-->
+    </div>
+    <!--导航部分 结束-->
+
+    <form action="{:U('listorder')}" method="post" class="listorder">
+        <!-- 数据表格 开始-->
+        <?php
+        $thead = array(
+            '_html' => array('_th'=>'row-selected', 'th'=>'排序', 'td'=>'<input class="u-order" type="text" name="listorder[$id]" value="$listorder" />'),
+            'id' => '编号',
+            'name' => '画廊名称',
+            'uid' => '会员ID',
+            'cate_id' => array('_title'=>'画廊类别','func'=>'getCate($cate_id)'),
+            'region_id' => array('_title'=>'所在地区','func'=>'getRegion($region_id)'),
+            'found' => '成立日期',
+            'create_time' => array('_title'=>'申请时间','tag'=>'span', 'func'=>'date("Y-m-d H:i:s", $create_time)'),
+            '状态'=>array(
+            '正常'=>array('class'=>'success', 'condition'=>'$status==1'),
+            '推荐'=>array('class'=>'red', 'condition'=>'$status==2'),
+            '锁定'=>array('class'=>'error','condition'=>'$status==0'),
+            ),
+            '操作'=>array(
+            ' 修改'=>array('href' => 'edit?id=$id', 'class'=>'editInfo fa fa-edit'),
+            ' 删除'=>array('href' => 'delete?id=$id', 'class'=>'confirm ajax-get fa fa-trash-o red'),
+            ' 正常'=>array('href' => 'status?id=$id&val=1', 'class'=>'ajax-get fa fa-flag-o success'),
+            ' 推荐'=>array('href' => 'status?id=$id&val=2', 'class'=>'ajax-get fa fa-thumbs-up red'),
+            ' 锁定'=>array('href' => 'status?id=$id&val=0', 'class'=>'ajax-get fa fa-lock red'),
+            ),
+        );
+        echo $_table_list = $__controller__->tableList($_list, $thead);
+        ?>
+        <!-- 数据表格 结束-->
+        <div class="paging">
+            <if condition="$_list">
+            <button type="submit" class="btn fa fa-list ajax-post" target-form="listorder"> 排 序</button>
+            {$_page}
+            </if>
+        </div>
+    </form>
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+<script type="text/javascript">
+$(function(){
+    $('.editInfo').live('click',function(e){e.preventDefault();$.dialog.open(this.href, {title:'编辑画廊', id:'newWindow'} );});
+    $('.u-order').css({'width':'15px','font':'12px/15px Arial','padding':'2px 5px'});
+});
+</script>
+<load file="__PUBLIC__/plugin/DatePicker/WdatePicker.js" />
+</block>

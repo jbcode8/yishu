@@ -1,0 +1,2582 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>中国艺术网-专业玉器、陶瓷、油画、古玩、国画、艺术收藏,邮票、字画拍卖等珍奇古玩鉴定交易平台</title>
+	<meta name="keywords" content="艺术,玉器,收藏,油画,邮票,陶瓷,国画,古玩" />
+	<meta name="description" content="中国艺术网-为您打造专业的名家油画、国画、玉器、艺术收藏、邮票、陶瓷等珍奇古玩鉴定交易平台，并提供最新最权威的第一手艺术资讯，供您随时阅读学习。" />
+    <link href="{CSS_PATH}site.css" rel="stylesheet" type="text/css" />
+    <link href="{CSS_PATH}style.css" rel="stylesheet" type="text/css" />
+    <script src="{JS_PATH}jquery-1.7.2.js"></script>
+</head>
+<body class="art-index">
+<script type="text/javascript">
+    document.domain = "yishu.com";
+    function addFavorite(url, title) {
+        try {
+            window.external.addFavorite(url, title);
+        } catch (e){
+            try {
+                window.sidebar.addPanel(title, url, '');
+            } catch (e) {
+                alert("不兼容此浏览器，请按 Ctrl+D 键添加到收藏夹!");
+            }
+        }
+    }
+    $(function(){
+        $("#favorites").click(function () {　　　　//$里面是链接的id
+            addFavorite("{:C('WEB_URL')}","中国艺术网");
+            /*
+            var ctrl = (navigator.userAgent.toLowerCase()).indexOf('mac') != -1 ? 'Command/Cmd' : 'CTRL';
+            var fav = "{:C('WEB_URL')}";
+            if (document.all) {
+                window.external.addFavorite("{:C('WEB_URL')}", '中国艺术网')
+            } else if (window.sidebar) {
+                window.sidebar.addPanel('中国艺术网', "{:C('WEB_URL')}", "")
+            } else {　　　　//添加收藏的快捷键
+                alert('添加失败,您可以尝试通过快捷键' + ctrl + ' + D 加入到收藏夹~')
+            }
+            */
+        });
+    });
+    function SetHome(obj,vrl){
+        try{
+            obj.style.behavior='url(#default#homepage)';obj.setHomePage(vrl);
+        }
+        catch(e){
+            if(window.netscape) {
+                try {
+                    netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+                }
+                catch (e) {
+                    alert("此操作被浏览器拒绝！\n请在浏览器地址栏输入“about:config”并回车\n然后将 [signed.applets.codebase_principal_support]的值设置为'true',双击即可。");
+                }
+                var prefs = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefBranch);
+                prefs.setCharPref('browser.startup.homepage',vrl);
+            }
+            else{
+                alert("您好,您的浏览器不支持自动设置页面为首页功能,请您手动在浏览器里设置该页面为首页!");
+            }
+        }
+    }
+</script>
+<!-- 头部导航栏 -->
+<div id="nav-tool" class="top">
+<div class="content">
+<div class="info">
+<ul>
+<li class="bg-grey"><a href="{:C(WEB_URL)}">中国艺术网</a></li>
+
+<li class="bg-grey location">
+<span class="now-city substation" style="display:none;"><php>if(session('city_name')){echo session('city_name');}else{echo get_ip_city();}</php></span>
+<div id="nav-local" class="hide">
+<p class="local-city">
+    当前城市：
+    <span><b><php>if(session('city_name')){echo session('city_name');}else{echo get_ip_city();}</php></b></span>
+    <a id="set_city" class="red">[设为默认城市]</a>
+</p>
+<div class="country">
+    <ul>
+        <li><b><a href="javascript:;">全国</a></b></li>
+        <li><a href="javascript:;">北京</a></li>
+        <li><a href="javascript:;">上海</a></li>
+        <li><a href="javascript:;">广州</a></li>
+        <li><a href="javascript:;">深圳</a></li>
+        <li><a href="javascript:;">成都</a></li>
+        <li><a href="javascript:;">西安</a></li>
+        <li><a href="javascript:;">天津</a></li>
+        <li><a href="javascript:;">武汉</a></li>
+        <li><a href="javascript:;">重庆</a></li>
+        <li><a href="javascript:;">南京</a></li>
+    </ul>
+</div>
+<div class="search-city">
+    <p class="search"><input type="text" placeholder="输入城市名" /></p>
+    <p class="btn">搜 索</p>
+    <p class="red error hide">没有该城市！</p>
+</div>
+<div class="en-word">
+    <ul>
+        <li>A</li>
+        <li>B</li>
+        <li>C</li>
+        <li>D</li>
+        <li>E</li>
+        <li>F</li>
+        <li>G</li>
+        <li>H</li>
+        <li>J</li>
+        <li>K</li>
+        <li>L</li>
+        <li>M</li>
+        <li>N</li>
+        <li>P</li>
+        <li>Q</li>
+        <li>R</li>
+        <li>S</li>
+        <li>T</li>
+        <li>W</li>
+        <li>X</li>
+        <li>Y</li>
+        <li>Z</li>
+    </ul>
+</div>
+<div class="city-list">
+    <div class="content">
+        <div class="a num-rank">
+            <p class="en">A</p>
+            <ul>
+                <li>鞍山</li><li>安阳</li><li>安庆</li><li>安康</li><li>阿克苏</li><li>安顺</li>
+                <li>阿勒泰</li><li>阿拉善</li><li>阿坝</li><li>阿里</li><li>阿拉尔澳门</li>
+            </ul>
+        </div>
+        <div class="b num-rank">
+            <p class="en">B</p>
+            <ul>
+                <li>北京</li><li>保定</li><li>滨州</li><li>包头</li><li>宝鸡</li>
+                <li>本溪</li><li>蚌埠</li><li>北海</li><li>巴彦淖尔</li><li>白城</li>
+                <li>白山</li><li>亳州</li><li>巴中</li><li>白银</li><li>百色</li>
+                <li>毕节</li><li>巴音郭楞</li><li>保山</li><li>博尔塔拉</li>
+            </ul>
+        </div>
+        <div class="c num-rank">
+            <p class="en">C</p>
+            <ul>
+                <li>成都</li><li>重庆</li><li>长沙</li><li>长春</li><li>常州</li>
+                <li>沧州</li><li>赤峰</li><li>承德</li><li>常德</li><li>长治</li>
+                <li>郴州</li><li>滁州</li><li>巢湖</li><li>潮州</li><li>昌吉</li>
+                <li>池州</li><li>楚雄</li><li>崇左</li><li>昌都</li><li>朝阳</li>
+            </ul>
+        </div>
+        <div class="d num-rank">
+            <p class="en">D</p>
+            <ul>
+                <li>大连</li><li>东莞</li><li>德州</li><li>东营</li><li>大庆</li>
+                <li>大同</li><li>丹东</li><li>儋州</li><li>德阳</li><li>达州</li>
+                <li>大理</li><li>大兴安岭</li><li>定西</li><li>德宏</li><li>迪庆</li>
+            </ul>
+        </div>
+        <div class="e num-rank">
+            <p class="en">E</p>
+            <ul>
+                <li>鄂尔多斯</li><li>恩施</li><li>鄂州</li>
+            </ul>
+        </div>
+        <div class="f num-rank">
+            <p class="en">F</p>
+            <ul>
+                <li>福州</li><li>佛山</li><li>抚顺</li><li>阜阳</li>
+                <li>阜新</li><li>抚州</li><li>防城港</li>
+            </ul>
+        </div>
+        <div class="g num-rank">
+            <p class="en">G</p>
+            <ul>
+                <li>广州</li><li>贵阳</li><li>桂林</li><li>赣州</li><li>广元</li>
+                <li>广安</li><li>贵港</li><li>固原</li><li>甘南</li><li>甘孜</li><li>果洛</li>
+            </ul>
+        </div>
+        <div class="h num-rank">
+            <p class="en">H</p>
+            <ul>
+                <li>杭州</li><li>惠州</li><li>哈尔滨</li><li>合肥</li><li>呼和浩特</li>
+                <li>海口</li><li>邯郸</li><li>菏泽</li><li>衡水</li><li>淮安</li><li>衡阳</li>
+                <li>葫芦岛</li><li>淮南</li><li>汉中</li><li>怀化</li><li>淮北</li><li>黄冈</li>
+                <li>湖州</li><li>黄石</li><li>呼伦贝尔</li><li>河源</li><li>鹤壁</li><li>鹤岗</li>
+                <li>黄山</li><li>红河</li><li>河池</li><li>哈密</li><li>黑河</li><li>贺州</li>
+                <li>海西</li><li>和田</li><li>海北</li><li>海东</li><li>黄南</li>
+            </ul>
+        </div>
+        <div class="j num-rank">
+            <p class="en">J</p>
+            <ul>
+                <li>济南</li><li>济宁</li><li>吉林</li><li>锦州</li><li>金华</li>
+                <li>嘉兴</li><li>江门</li><li>荆州</li><li>焦作</li><li>晋中</li>
+                <li>佳木斯</li><li>九江</li><li>晋城</li><li>荆门</li><li>鸡西</li>
+                <li>吉安</li><li>揭阳</li><li>景德镇</li><li>济源</li><li>酒泉</li>
+                <li>金昌</li><li>嘉峪关</li>
+            </ul>
+        </div>
+        <div class="k num-rank">
+            <p class="en">K</p>
+            <ul>
+                <li>昆明</li><li>开封</li><li>喀什</li><li>克拉玛依</li><li>库尔勒</li><li>克孜勒苏</li>
+            </ul>
+        </div>
+        <div class="l num-rank">
+            <p class="en">L</p>
+            <ul>
+                <li>兰州</li><li>拉萨</li><li>廊坊</li><li>临沂</li><li>洛阳</li>
+                <li>聊城</li><li>柳州</li><li>连云港</li><li>临汾</li><li>漯河</li>
+                <li>辽阳</li><li>乐山</li><li>泸州</li><li>六安</li><li>娄底</li>
+                <li>莱芜</li><li>龙岩</li><li>吕梁</li><li>丽水</li><li>凉山</li>
+                <li>丽江</li><li>六盘水</li><li>辽源</li><li>来宾</li><li>临沧</li>
+                <li>陇南</li><li>临夏</li><li>林芝</li>
+            </ul>
+        </div>
+        <div class="m num-rank">
+            <p class="en">M</p>
+            <ul>
+                <li>绵阳</li><li>牡丹江</li><li>茂名</li><li>梅州</li><li>马鞍山</li><li>眉山</li>
+            </ul>
+        </div>
+        <div class="n num-rank">
+            <p class="en">N</p>
+            <ul>
+                <li>南京</li><li>宁波</li><li>南宁</li><li>南昌</li><li>南通</li><li>南阳</li>
+                <li>南充</li><li>内江</li><li>南平</li><li>宁德</li><li>怒江</li><li>那曲</li>
+            </ul>
+        </div>
+        <div class="p num-rank">
+            <p class="en">P</p>
+            <ul>
+                <li>平顶山</li><li>濮阳</li><li>盘锦</li><li>莆田</li><li>攀枝花</li><li>萍乡</li><li>平凉</li><li>普洱</li>
+            </ul>
+        </div>
+        <div class="q num-rank">
+            <p class="en">Q</p>
+            <ul>
+                <li>青岛</li><li>琼海</li><li>秦皇岛</li><li>泉州</li><li>齐齐哈尔</li>
+                <li>清远</li><li>曲靖</li><li>衢州</li><li>庆阳</li><li>七台河</li>
+                <li>钦州</li><li>潜江</li><li>黔东南</li><li>黔南</li><li>黔西南</li>
+            </ul>
+        </div>
+        <div class="r num-rank">
+            <p class="en">R</p>
+            <ul>
+                <li>日照</li><li>日喀则</li>
+            </ul>
+        </div>
+        <div class="s num-rank">
+            <p class="en">S</p>
+            <ul>
+                <li>上海</li><li>深圳</li><li>沈阳</li><li>石家庄</li><li>苏州</li>
+                <li>汕头</li><li>商丘</li><li>三亚</li><li>宿迁</li><li>绍兴</li>
+                <li>十堰</li><li>四平</li><li>三门峡</li><li>邵阳</li><li>上饶</li>
+                <li>遂宁</li><li>三明</li><li>绥化</li><li>石河子</li><li>宿州</li>
+                <li>韶关</li><li>松原</li><li>随州</li><li>汕尾</li><li>双鸭山</li>
+                <li>朔州</li><li>石嘴山</li><li>商洛</li><li>神农架</li><li>山南</li>
+            </ul>
+        </div>
+        <div class="t num-rank">
+            <p class="en">T</p>
+            <ul>
+                <li>天津</li><li>太原</li><li>唐山</li><li>泰安</li><li>台州</li>
+                <li>泰州</li><li>铁岭</li><li>通辽</li><li>通化</li><li>天水</li>
+                <li>铜陵</li><li>铜川</li><li>铜仁</li><li>天门</li><li>塔城</li>
+                <li>吐鲁番</li><li>图木舒克</li>
+            </ul>
+        </div>
+        <div class="w num-rank">
+            <p class="en">W</p>
+            <ul>
+                <li>武汉</li><li>无锡</li><li>乌鲁木齐</li><li>威海</li>
+                <li>潍坊</li><li>温州</li><li>芜湖</li><li>渭南</li>
+                <li>乌海</li><li>梧州</li><li>乌兰察布</li><li>武威</li>
+                <li>文山</li><li>吴忠</li><li>五家渠</li><li>五指山</li>
+            </ul>
+        </div>
+        <div class="x num-rank">
+            <p class="en">X</p>
+            <ul>
+                <li>西安</li><li>厦门</li><li>西宁</li><li>徐州</li><li>咸阳</li>
+                <li>邢台</li><li>襄阳</li><li>新乡</li><li>湘潭</li><li>许昌</li>
+                <li>信阳</li><li>孝感</li><li>忻州</li><li>咸宁</li><li>新余</li>
+                <li>宣城</li><li>仙桃</li><li>锡林郭勒</li><li>湘西</li><li>兴安</li>
+                <li>西双版纳香港</li>
+            </ul>
+        </div>
+        <div class="y num-rank">
+            <p class="en">Y</p>
+            <ul>
+                <li>银川</li><li>宜昌</li><li>烟台</li><li>扬州</li><li>盐城</li>
+                <li>营口</li><li>岳阳</li><li>运城</li><li>榆林</li><li>宜宾</li>
+                <li>阳泉</li><li>延安</li><li>益阳</li><li>永州</li><li>玉林</li>
+                <li>宜春</li><li>阳江</li><li>延边</li><li>玉溪</li><li>伊犁</li>
+                <li>云浮</li><li>伊春</li><li>雅安</li><li>鹰潭</li><li>玉树</li>
+            </ul>
+        </div>
+        <div class="z num-rank">
+            <p class="en">Z</p>
+            <ul>
+                <li>郑州</li><li>珠海</li><li>淄博</li><li>中山</li><li>枣庄</li>
+                <li>张家口</li><li>株洲</li><li>镇江</li><li>周口</li><li>湛江</li>
+                <li>驻马店</li><li>肇庆</li><li>自贡</li><li>遵义</li><li>漳州</li>
+                <li>舟山</li><li>张掖</li><li>资阳</li><li>张家界</li><li>昭通</li>
+                <li>中卫</li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+</li>
+<li class="bg-grey"><a href="/jiameng/">分站加盟</a></li>
+<!--<li class="bg-grey"><a href="http://service.yishu.com/help/">帮助中心</a></li>
+<li class="bg-grey"><a href="http://service.yishu.com/sitemap/">网站地图</a></li>-->
+<li class="bg-grey s"><a href="javascript:SetHome(this,window.location)" class="set-index">设为首页</a></li>
+<li class="bg-grey s"><a href="javascript:void(0)" id="favorites">收藏本站</a></li>
+<li class="bg-grey bdsharebuttonbox" style="padding:0 5px 0 0; height:40px;overflow:hidden;">
+	<a class="bds_more" data-cmd="more" style="cursor:pointer;width:45px;height:30px;line-height:30px; overflow:hidden;padding:0 0 0 5px;background:none;">分享到</a> ∨
+</li>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+</ul>
+
+
+</div>
+<if condition="$auth">
+<!-- 登录 -->
+<div class="logined">
+    <p>欢迎您，</p>
+    <div class="logined-select">
+        <span>{$auth.username}</span>
+        <div class="select hide">
+            <ul>
+                <li><a href="{:C('MEMBER_URL')}">用户中心</a></li>
+                <li><a href="{:C('MEMBER_URL')}">消息中心</a></li>
+                <li><a href="{:C('MEMBER_URL')}">我的收藏</a></li>
+				<li><a href="http://i.yishu.com/auction/center_order/index">拍到拍品</a></li>
+				<li><a href="http://i.yishu.com/auction/center_order/biding">正在参拍</a></li>
+            </ul>
+        </div>
+    </div>
+    <p class="logo-out"><a href="{:C('MEMBER_URL')}member/index/logout?redUrl={:C('WEB_URL')}">安全退出</a></p>
+</div>
+<else/>
+<!-- 未登录 -->
+<div class="un-login">
+    <div class="login">
+        <a href="{:C('MEMBER_URL')}member/passport/login?redUrl={:C('WEB_URL')}" class="login-w">登录</a>
+        <div class="jump hide">
+            <p class="grey">艺术网用户可直接登录</p>
+            <form action="{:C('MEMBER_URL')}member/passport/login" method="post">
+                <p><input type="text" class="text" placeholder="请输入用户名/邮箱/手机号" name="username"/></p>
+                <p><input type="password" class="text" placeholder="请输入密码" name="password"/></p>
+                <div class="clear">
+                    <label class="left">
+                        <span><input type="checkbox" name="remember"/></span>
+                        <span>十天内免登录</span>
+                    </label>
+                    <!--<p class="right"><a href="#">忘记密码？</a></p>-->
+                </div>
+                <p><input type="submit" class="login-btn" value="登 录" /></p>
+            </form>
+        </div>
+    </div>
+    <p class="register bg-grey"><a rel="nofollow" href="{:C('MEMBER_URL')}passport/register">注册</a></p>
+</div>
+</if>
+</div>
+</div>
+<!-- 头部广告位
+<div class="main-container clear" >
+    <div class="m-t5 clear"><a href="#"><img src="{IMG_PATH}advertis/03.jpg"></a></div>
+    <div class="m-t5 clear"><a href="#"><img src="{IMG_PATH}advertis/04.jpg"></a></div>
+    <div class="m-t5 clear"><a href="#" class="left m-t5"><img src="{IMG_PATH}advertis/05.jpg"></a><a class="m_l9 left m-t5" href="#"><img src="{IMG_PATH}advertis/06.jpg"></a><a class="m_l9 right m-t5" href="#"><img src="{IMG_PATH}advertis/07.jpg"></a></div>
+</div> -->
+<!-- 页面内容 -->
+<div class="main-container"   >
+<!-- 栏目头部 -->
+<div class="panel-header clear">
+    <div class="left top-bar">
+        <p><a href="http://www.yishu.com/"><img src="{IMG_PATH}logo.jpg" alt="中国艺术网" /></a></p>
+        <p class="panel-name">中国最具影响力<br />首席艺术门户网</p>
+    </div>
+    <div class="left">
+        <div id="main-search">
+            <div class="species"  style="width:75px;">
+                <span class="species-content">资讯</span>
+                <span class="species-val" style="display:none">132</span>
+                <span class="choose"><img src="{IMG_PATH}icons/search-arrow.gif" alt="" /></span>
+                <div class="species-jump common-jump hide select-inner">
+                    <!-- 最大长度3个汉字 -->
+                    <input class="inner-vaule hide" type="text" />
+                    <ul>
+                        <li value="132">资讯</li>
+                        <li value="56">展讯</li>
+                        <li value="68">藏品</li>
+                        <li value="75">展厅</li>
+                        <li value="76">拍卖</li>
+                        <li value="111">专题活动</li>
+                        <li value="114">书画行情</li>
+                        <li value="3">图片</li>
+                        <li value="52">专题</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="search">
+                <div class="search-input">
+                    <input type="text" placeholder="请输入搜索内容" class="search-content"/>
+                </div>
+                <p class="search-btn"><input type="submit" value=" " /></p>
+            </div>
+        </div>
+        <div class="hot-search">
+            <span>青花瓷</span>
+            <span>古典家具</span>
+            <span>青铜器</span>
+            <span>油版雕</span>
+            <span>影像</span>
+            <span>紫砂壶</span>
+        </div>
+    </div>
+	<!--
+    <div class="right"><a href="http://www.yishu.com/paimai/"><img src="{IMG_PATH}advertis/11.jpg" width="112" height="42" border="0"></a></div>
+	-->
+</div>
+<!-- 艺术网首页 主菜单 -->
+<div class="index-nav clear">
+    <volist name="category" id="vo" key="k">
+        <div class="<if condition='$k eq 1'>channel<else/>trade</if>">
+            <p class="sub-title">{$vo.title}<br><span><img src="{IMG_PATH}icons/0{$k}.gif"></span></p>
+            <ul>
+                <volist name="vo['data']" id="sub" >
+                    <li <if condition='$sub[catid] eq 27'>class="tjhot"</if>><a href="{$sub.url}">{$sub.title}</a><if condition='$sub[catid] eq 27'><i></i></if></li>
+                </volist>
+            </ul>
+        </div>
+
+    </volist>
+
+
+
+</div>
+<!-- 藏品频道 -->
+<!--
+<div class="collect-channel clear">
+    <dl>
+        <dt><b>藏品频道：</b></dt>
+        <dd><a href="{:C(CANG_URL)}t60">国画</a></dd>
+        <dd><a href="{:C(CANG_URL)}t62">书法</a></dd>
+        <dd><a href="{:C(CANG_URL)}t61">油画</a></dd>
+        <dd><a href="{:C(CANG_URL)}t65" class="red">玉器</a><i></i></dd>
+        <dd><a href="{:C(CANG_URL)}t64">瓷器</a></dd>
+        <dd><a href="{:C(CANG_URL)}t63">木器</a></dd>
+        <dd><a href="{:C(CANG_URL)}t131">寿山石</a></dd>
+    </dl>
+</div>
+-->
+<!-- 热点 -->
+<div class="hot-recommend clear">
+    <div class="title left">热<br>点</div>
+    <ul>
+        <ys:indexpos name="list" posid="53" >
+            <li ><a href="{$list.url}" title="{$list.title}">{$list.title|new_msubstr=###,0,10}</a></li>
+        </ys:indexpos>
+    </ul>
+	<!--
+    <div class="clear m_b10"><a rel="nofollow" href="#" class="m_l6 left m-t5"><img src="{IMG_PATH}advertis/08.jpg"></a><a rel="nofollow" class="m_l9 left m-t5" href="#"><img src="{IMG_PATH}advertis/09.jpg"></a><a rel="nofollow" class="m_l9 right m-t5" href="#"><img src="{IMG_PATH}advertis/10.jpg"></a></div>-->
+</div>
+<!-- 栏目内容 -->
+<div class="container">
+<!-- 板块1 -->
+<div class="clear block1 news_block">
+    <!--left start-->
+    <div class="index_left" style="width:250px; overflow:hidden; float:left">
+        <!--今日开拍 start-->
+        <div class="today-k">
+            <div class="comm-subtitle m-t0">
+                <h4>今日开拍</h4>
+                <div class="right">
+                    <a rel="nofollow" class="more right" href="{:C(WEB_URL)}paimai/">更多</a>
+                </div>
+            </div>
+            <div class="today-kd">
+                <div class="i_kaipai"><a href="" id="auction_url"><img id="auction_img"  border="0" width="250" height="250"></a><i ><a class="k_left" style="cursor:pointer"></a>
+                </i><i><a class="k_right" style="cursor:pointer"></a></i></a>
+				
+				<span class="transparent" id="auction_name" style="cursor:pointer"></span>
+				
+				</div>
+                <ul>
+                    <li>当前价：<span class="red f16 m_l9" id="auction_cur_price"><b></b></span></li>
+                    <li>出价次数：<span class="m_l9" id="auction_bid_times"></span></li>
+                    <li>距结束<span class="m_l9 cd" ><b class="b_c0"></b></span><i style="display:none" id="leave_end"></i></li>
+                    <li><span class="b_t1 b_r1" >起拍价 ￥<span id="auction_start"></span></span><span class="b_t1" >加价幅度 ￥<span id="auction_per"></span></span><span id="auction_offset" style="display:none">0</span><span id="auction_length" style="display:none"></span></li>
+                </ul>
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    /*json数据 0:当前时间 1:活动结束时间 */
+                    homeAution(0);
+                    $(".k_right").click(function(){
+                        clearInterval(t);
+                        var offset = parseInt($("#auction_offset").text());
+                        var length = parseInt($("#auction_length").text());
+                        if(offset == length-1){
+                            offset = 0;
+                        }else{
+                            offset = offset+1;
+                        }
+                        homeAution(offset);
+                    });
+                    $(".k_left").click(function(){
+                        clearInterval(t);
+                        var offset = parseInt($("#auction_offset").text());
+                        var length = parseInt($("#auction_length").text());
+                        if(offset == 0){
+                            offset = length-1;
+                        }else{
+                            offset = offset-1;
+                        }
+                        homeAution(offset);
+                    });
+					$("#auction_name").click(function(){
+						location.href=$("#auction_url").attr("href");
+					});
+                });
+                function homeAution(offset){
+                    $.ajax({
+                        type : "GET",
+                        url : "{:U('/Home/Index/getTodayAuction')}",
+                        data : {offset:offset},
+                        success : function(data) {
+                            var result = $.parseJSON(data);
+                            $("#auction_name").html("<a href='{:U('/paimai/goods-','','')}"+result.goods_id+".html'>"+subString(result.goods_name,30)+"</a>");
+                            $("#auction_cur_price").text(result.goods_nowprice);
+                            $("#auction_bid_times").text(result.goods_bidtimes);
+                            $("#auction_start").text(result.goods_startprice);
+                            $("#auction_per").text(result.goods_everyprice);
+                            $("#auction_img").attr("src",result.thumb);
+                            $("#auction_length").text(result.length);
+                            $("#auction_offset").text(offset);
+                            $("#auction_url").attr("href","{:U('/paimai/goods-','','')}"+result.goods_id+'.html');
+							//$("#auction_urls").attr("href","{:U('/paimai/goods-','','')}"+result.goods_id+'.html');
+                            var countDownTime = {
+                                //1:["{1386245520|date='Y-m-d H:i:s',###}",'2014-08-15 13:54:25']
+                                1:[result.time,result.goods_endtime]
+                            };
+                            countDown(countDownTime[1][0],countDownTime[1][1],".cd",2);
+
+                            if(countDownTime[1][0]>=countDownTime[1][1]){
+                                $("#leave_end").hide();
+                            }else{
+                                $("#leave_end").show();
+                            }
+                        }
+                    });
+                }
+            </script>
+
+        </div>
+        <!--今日开拍 end-->
+        <!-- 精彩专题 start-->
+        <div class="splendid">
+            <div class="comm-subtitle m-t0">
+                <h4>精彩专题</h4>
+                <div class="right">
+                    <a rel="nofollow" class="more right" href="http://special.yishu.com">更多</a>
+                </div>
+            </div>
+            <div class="content">
+                <ul>
+                    <ys:indexpos name="list" posid="87" limit="0,1" thumb="1">
+                        <li>
+                            <a href="{$list.url}" class="hide dis">{$list.title|new_msubstr=###,0,17}</a>
+                            <div class="img">
+                                <a href="{$list.url}"><img src="{$list.thumb}" alt="" width="250" height="170" /></a>
+                                <p class="common-word">{$list.title|new_msubstr=###,0,17}</p>
+                            </div>
+                        </li>
+                    </ys:indexpos>
+                    <ys:indexpos name="list" posid="87" limit="1,2" thumb="1">
+                        <li>
+                            <a href="{$list.url}" class="dis">{$list.title|new_msubstr=###,0,17}</a>
+                            <div class="img hide">
+                                <a href="{$list.url}"><img src="{$list.thumb}" alt="" width="250" height="170" /></a>
+                                <p class="common-word">{$list.title|new_msubstr=###,0,17}</p>
+                            </div>
+                        </li>
+                    </ys:indexpos>
+                </ul>
+            </div>
+        </div>
+        <!--精彩专题 end-->
+    </div>
+    <!--left end-->
+    <!--c start-->
+    <div class="index_c">
+        <!-- 焦点图-->
+                <div id="focus">
+                        <ys:indexpos name="list" posid="80" limit="0,4" thumb="1">
+                                <a href="{$list.url}"><img src="{$list.thumb}" width="410" height="250" /><s></s><p><span class="text">{$list.title|new_msubstr=###,0,17}</span></p></a>
+                        </ys:indexpos>
+						<div id="ctr">
+							<span></span>
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+                </div>
+                <!--<div class="l-arrow arrow"><</div>
+                <div class="r-arrow arrow">></div>-->
+        <!--焦点图 end-->
+        <!--今日热点 start-->
+        <div class="today_hot clear">
+            <div class="today_hot_top"><span><a rel="nofollow" href="http://news.yishu.com/yishu/" class="today_hot_top4 select">艺术动态</a><a rel="nofollow" href="http://news.yishu.com/paimai/" class="today_hot_top1">拍卖资讯</a><a rel="nofollow" href="http://news.yishu.com/zhanlan/" class="today_hot_top2">展览时讯</a><a href="{:C('WEB_URL')}sc/" class="today_hot_top3">收藏知识</a></span>今日热点</div>
+            <div class="today_hot_down today_hot_down1 hide">
+				<volist name="paimai_news" id="vo" key="k">
+					<dl <if condition="$k eq 5">class="b-b0"</if>>
+                        <a href="{$vo.url}"><dt>{$vo.title|new_msubstr=###,0,20}</dt></a>
+                        <dd>{$vo.description|new_msubstr=###,0,50,'utf-8',1}<span><a rel="nofollow" href="{$vo.url}">详细</a></span></dd>
+                    </dl>
+				</volist>
+            </div>
+			<div class="today_hot_down today_hot_down2 hide">
+                <volist name="zhanlan_news" id="vo" key="k">
+					<dl <if condition="$k eq 5">class="b-b0"</if>>
+                        <a href="{$vo.url}"><dt>{$vo.title|new_msubstr=###,0,20}</dt></a>
+                        <dd>{$vo.description|new_msubstr=###,0,50,'utf-8',1}<span><a rel="nofollow" href="{$vo.url}">详细</a></span></dd>
+                    </dl>
+				</volist>
+            </div>
+			<div class="today_hot_down today_hot_down3 hide">
+                <ys:indexpos name="list" posid="83" limit="0,5" key="k">
+                    <dl <if condition="$k eq 5">class="b-b0"</if>>
+                        <a href="{$list.url}"><dt>{$list.title|new_msubstr=###,0,20}</dt></a>
+                        <dd>{$list.description|new_msubstr=###,0,50,'utf-8',1}<span><a rel="nofollow" href="{$list.url}">详细</a></span></dd>
+                    </dl>
+                </ys:indexpos>
+            </div>
+			<div class="today_hot_down today_hot_down4">
+                <ys:indexpos name="list" posid="82" limit="0,5" key="k">
+                    <dl <if condition="$k eq 5">class="b-b0"</if>>
+                        <a href="{$list.url}"><dt>{$list.title|new_msubstr=###,0,20}</dt></a>
+                        <dd>{$list.description|new_msubstr=###,0,50,'utf-8',1}<span><a rel="nofollow" href="{$list.url}">详细</a></span></dd>
+                    </dl>
+                </ys:indexpos>
+            </div>
+        </div>
+        <!--end 今日热点-->
+    </div>
+    <!--c end-->
+    <!--right start-->
+    <div class="index_right">
+        <!--新闻排行榜 start-->
+        <div class="week-rank2">
+            <div class="comm-subtitle m-t0">
+                <h4>新闻排行榜</h4>
+                <div class="right">
+                    <a rel="nofollow" class="more right" href="http://news.yishu.com">更多</a>
+                </div>
+            </div>
+            <div class="content">
+                <ul>
+                    <ys:indexpos name="list" posid="113" limit="0,8" key="k">
+                        <li>
+                            <p class="num <if condition='$k lt 4'>top3</if>">{$k}</p>
+                            <p><a href="{$list.url}" title="{$list.title}">{$list.title|new_msubstr=###,0,18}</a></p>
+                        </li>
+                    </ys:indexpos>
+
+
+                </ul>
+            </div>
+        </div>
+
+        <!--end 新闻排行榜-->
+        <!-- 臻品赏鉴-->
+        <div class="appreciate clear">
+            <div class="comm-subtitle">
+                <h4>臻品赏鉴</h4>
+                <div class="right">
+                    <a rel="nofollow" class="more right" href="{:C(CANG_URL)}">更多</a>
+                </div>
+            </div>
+            <div class="content">
+                <ul>
+                    <ys:indexposopus name="list" posid="85" limit="0,4" thumb="1" key="k">
+                        <li <if condition="$k eq 4">class="b-b0"</if>>
+                            <div class="left"><a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" alt="" width="100" height="65" /></a></div>
+                            <div class="right">
+                                <p class="title"><a rel="nofollow" href="{$list.url}">{$list.title|new_msubstr=###,0,10}</a></p>
+                                <p class="price">￥<if condition="$list.money eq 0">议价<else/>{$list.money}</if></p>
+                                <p class="qcc"><a rel="nofollow" href="{$list.url}">去查看&nbsp;&nbsp;&gt;</a></p>
+                            </div>
+                        </li>
+                    </ys:indexposopus>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 臻品赏鉴 end-->
+</div>
+<div class="advertis"><a href="#"><img src="{IMG_PATH}advertis/12.jpg"></a></div>
+<!-- 板块2 -->
+<div class="clear block2">
+    <div class="top clear">
+        <div class="comm-subtitle">
+            <h4><a href="http://artist.yishu.com/">艺术人物</a></h4>
+        </div>
+
+        <div class="b-left">
+            <!-- 艺术家栏目 -->
+            <div class="artist">
+                <div class="comm-subtitle2 nav b-0">
+                    <ul class="column">
+						<li class="nav-1 select"><a rel="nofollow" >艺术大师</a></li>
+                        <volist name="artist_category" id="vo" key="k">
+                            <li class="nav-{$k+1}"><a rel="nofollow" href="{:C('ARTIST_URL')}front_artist/lists/category/{$vo.id}">{$vo.name}</a></li>
+                        </volist>
+                    </ul>
+                </div>
+                <div class="content clear tab-content">
+					<div class="content-1">
+                    <ul>
+                        <volist name="artists" id="vo" offset="0" length="10">
+                            <li>
+                                <a rel="nofollow" href="{:C('ARTIST_URL')}{$vo.id}"><img src="http://i.yishu.com{$vo.thumb}" alt="" width="122" height="150" /></a>
+                                <p class="common-word"><a rel="nofollow" href="{:C('ARTIST_URL')}{$vo.id}">{$vo.name}</a></p>
+                            </li>
+                        </volist>
+                    </ul>
+					</div>
+					<div class="content-2 hide">
+                    <ul>
+                        <volist name="artists1" id="vo" offset="0" length="10">
+                            <li>
+                                <a rel="nofollow" href="{:C('ARTIST_URL')}{$vo.id}"><img src="http://i.yishu.com{$vo.thumb}" alt="" width="122" height="150" /></a>
+                                <p class="common-word"><a rel="nofollow" href="{:C('ARTIST_URL')}{$vo.id}">{$vo.name}</a></p>
+                            </li>
+                        </volist>
+                    </ul>
+					</div>
+					<div class="content-3 hide">
+                    <ul>
+                        <volist name="artists2" id="vo" offset="0" length="10">
+                            <li>
+                                <a rel="nofollow" href="{:C('ARTIST_URL')}{$vo.id}"><img src="http://i.yishu.com{$vo.thumb}" alt="" width="122" height="150" /></a>
+                                <p class="common-word"><a rel="nofollow" href="{:C('ARTIST_URL')}{$vo.id}">{$vo.name}</a></p>
+                            </li>
+                        </volist>
+                    </ul>
+					</div>
+					<div class="content-4 hide">
+                    <ul>
+                        <volist name="artists3" id="vo" offset="0" length="10">
+                            <li>
+                                <a rel="nofollow" href="{:C('ARTIST_URL')}{$vo.id}"><img src="http://i.yishu.com{$vo.thumb}" alt="" width="122" height="150" /></a>
+                                <p class="common-word"><a rel="nofollow" href="{:C('ARTIST_URL')}{$vo.id}">{$vo.name}</a></p>
+                            </li>
+                        </volist>
+                    </ul>
+					</div>
+					<div class="content-5 hide">
+                    <ul>
+                        <volist name="artists4" id="vo" offset="0" length="10">
+                            <li>
+                                <a rel="nofollow" href="{:C('ARTIST_URL')}{$vo.id}"><img src="http://i.yishu.com{$vo.thumb}" alt="" width="122" height="150" /></a>
+                                <p class="common-word"><a rel="nofollow" href="{:C('ARTIST_URL')}{$vo.id}">{$vo.name}</a></p>
+                            </li>
+                        </volist>
+                    </ul>
+					</div>
+					<div class="content-6 hide">
+                    <ul>
+                        <volist name="artists5" id="vo" offset="0" length="10">
+                            <li>
+                                <a rel="nofollow" href="{:C('ARTIST_URL')}{$vo.id}"><img src="http://i.yishu.com{$vo.thumb}" alt="" width="122" height="150" /></a>
+                                <p class="common-word"><a rel="nofollow" href="{:C('ARTIST_URL')}{$vo.id}">{$vo.name}</a></p>
+                            </li>
+                        </volist>
+                    </ul>
+					</div>
+					<div class="content-7 hide">
+                    <ul>
+                        <volist name="artists6" id="vo" offset="0" length="10">
+                            <li>
+                                <a rel="nofollow" href="{:C('ARTIST_URL')}{$vo.id}"><img src="http://i.yishu.com{$vo.thumb}" alt="" width="122" height="150" /></a>
+                                <p class="common-word"><a rel="nofollow" href="{:C('ARTIST_URL')}{$vo.id}">{$vo.name}</a></p>
+                            </li>
+                        </volist>
+                    </ul>
+					</div>
+					<div class="content-8 hide">
+                    <ul>
+                        <volist name="artists7" id="vo" offset="0" length="10">
+                            <li>
+                                <a rel="nofollow" href="{:C('ARTIST_URL')}{$vo.id}"><img src="http://i.yishu.com{$vo.thumb}" alt="" width="122" height="150" /></a>
+                                <p class="common-word"><a rel="nofollow" href="{:C('ARTIST_URL')}{$vo.id}">{$vo.name}</a></p>
+                            </li>
+                        </volist>
+                    </ul>
+					</div>
+                </div>
+
+            </div>
+        </div>
+        <div class="b-right">
+            <!-- 名家聚焦 -->
+            <div class="famous-gather">
+                <div class="comm-subtitle">
+                    <h4>名家聚焦</h4>
+                    <div class="right">
+                        <a rel="nofollow" class="more right" href="http://news.yishu.com/mingjia/">更多</a>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="ranking-list">
+                        <ul>
+                            <ys:indexpos name="list" posid="86" limit="0,10" thumb="1" key="k">
+                                <li>
+                                    <span class="num <if condition='$k lt 4'>top3</if>">{$k}</span>
+                                    <p class="intro <if condition='$k eq 1'>hide</if>">
+                                        <span class="name"><a href="{$list.url}">{$list.title|new_msubstr=###,0,20}</a></span>
+                                    </p>
+                                    <div class="detail <if condition='$k gt 1'>hide</if>">
+                                        <div class="left"><a href="{$list.url}"><img src="{$list.thumb}" alt="" width="90" height="60"/></a></div>
+                                        <div class="right">
+                                            <p><a href="{$list.url}">{$list.description|new_msubstr=###,0,30}</a></p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ys:indexpos>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="advertis"><a href="#"><img src="{IMG_PATH}advertis/13.jpg"></a></div>
+    <!-- 热门专场 -->
+    <div class="bottom">
+        <div class="comm-subtitle">
+            <h4>拍卖专场</h4>
+			<div class="right hide">
+				<a class="more right" href="http://cang.yishu.com/">更多</a>
+			</div>
+            <!--<div class="right rem"><a href="#">&gt;</a><a class="select" href="#">&lt;</a></div>-->
+        </div>
+        <div class="content">
+            <ul>
+                <volist name="hot_special" id="vo">
+                    <li><a href="{$vo.linkurl}"><img src="{$vo.imageurl}" alt="" width="128" height="128" /></a><a href="{$vo.linkurl}">{$vo.name}</a></li>
+					
+                </volist>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- 板块3 -->
+<div class="clear block3">
+    <div class="comm-subtitle">
+        <h4><a href="http://zx.yishu.com/">展览</a></h4>
+    </div>
+
+    <!-- 展览现场 -->
+    <div class="b-left show-pl">
+        <div class="content">
+            <div class="left">
+                <ys:indexpos name="list" posid="91" limit="0,1" thumb="1">
+                    <p class="title">{$list.title|new_msubstr=###,0,20}</p>
+                    <p class="disc">{$list.description|new_msubstr=###,0,60,'utf-8',1}<a href="{$list.url}" class="blue">[详细]</a></p>
+                </ys:indexpos>
+                <div class="comm-list">
+                    <ul>
+                        <ys:indexpos name="list" posid="91" limit="1,6" >
+                            <li><a href="{$list.url}">{$list.title|new_msubstr=###,0,20}</a></li>
+                        </ys:indexpos>
+                    </ul>
+                </div>
+            </div>
+            <div class="right">
+                <!-- 焦点图 -->
+                <div class="common-slideshow s-slideshow">
+                    <div class="slide-img">
+                        <ul>
+                            <ys:indexpos name="list" posid="92" limit="0,4" thumb="1">
+                                <li>
+                                    <a href="{$list.url}"><img src="{$list.thumb}" width="280" height="215" alt="" /></a>
+                                <p class="common-word"><a href="{$list.url}">{$list.title}</a></p>
+
+                                </li>
+                            </ys:indexpos>
+                        </ul>
+                    </div>
+                    <div class="l-arrow arrow">&lt;</div>
+                    <div class="r-arrow arrow">&gt;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 热门画廊 -->
+    <div class="b-right hot-draw">
+        <div class="comm-subtitle nav">
+            <h4>热门画廊</h4>
+            <div class="right">
+                <a rel="nofollow" class="more right" href="{:C('GALLERY_URL')}">更多</a>
+                <ul class="right column">
+                    <li class="select nav-1"><a rel="nofollow" href="{:C('GALLERY_URL')}front_gallery/home/id/2">上海</a></li>
+                    <li class="nav-2"><a rel="nofollow" href="{:C('GALLERY_URL')}front_gallery/home/id/3">北京</a></li>
+                    <li class="nav-3"><a rel="nofollow" href="{:C('GALLERY_URL')}front_gallery/home/id/21">广州</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="content tab-content">
+			<div class="content-1">
+            <ul>
+                <volist name="gallery1" id="vo">
+                    <li><a rel="nofollow" href="{:C('GALLERY_URL')}space_gallery/index/gid/{$vo.id}"><img src="http://i.yishu.com{$vo.thumb}" alt="" width="135" height="65" /></a></li>
+                </volist>
+            </ul>
+			</div>
+			<div class="content-2 hide">
+            <ul>
+                <volist name="gallery2" id="vo">
+                    <li><a rel="nofollow" href="{:C('GALLERY_URL')}space_gallery/index/gid/{$vo.id}"><img src="http://i.yishu.com{$vo.thumb}" alt="" width="135" height="65" /></a></li>
+                </volist>
+            </ul>
+			</div>
+			<div class="content-3 hide">
+            <ul>
+                <volist name="gallery3" id="vo">
+                    <li><a rel="nofollow" href="{:C('GALLERY_URL')}space_gallery/index/gid/{$vo.id}"><img src="http://i.yishu.com{$vo.thumb}" alt="" width="135" height="65" /></a></li>
+                </volist>
+            </ul>
+			</div>
+        </div>
+    </div>
+</div>
+<div class="advertis"><a href="#"><img src="{IMG_PATH}advertis/03.jpg"></a></div>
+<!-- 板块4 -->
+<div class="clear block4">
+    <div class="comm-subtitle">
+        <h4>展览推荐</h4>
+    </div>
+    <!-- 展览推荐 -->
+    <div class="b-left show-recom">
+        <div class="comm-subtitle nav b-0">
+            <ul class="left column">
+				<li class="select nav-1"><a rel="nofollow" >推荐</a></li>
+                <li class="nav-2"><a rel="nofollow" href="http://zx.yishu.com/c55/2rp1">北京市</a></li>
+                <li class="nav-3"><a rel="nofollow" href="http://zx.yishu.com/c55/3rp1">上海市</a></li>
+                <li class="nav-4"><a rel="nofollow" href="http://zx.yishu.com/c55/4rp1">天津市</a></li>
+                <li class="nav-5"><a rel="nofollow" href="http://zx.yishu.com/c55/5rp1">重庆市</a></li>
+                <li class="nav-6"><a rel="nofollow" href="http://zx.yishu.com/c55/13rp1">浙江省</a></li>
+                <li class="nav-7"><a rel="nofollow" href="http://zx.yishu.com/c55/12rp1">江苏省</a></li>
+                <li class="nav-8"><a rel="nofollow" href="http://zx.yishu.com/c55/21rp1">广东省</a></li>
+            </ul>
+
+            <div class="right">
+                <a class="more right" href="http://zx.yishu.com/c55/">更多</a>
+            </div>
+        </div>
+        <div class="content tab-content">
+			<div class="content-1">
+                <ul>
+                    <ys:indexposexhibition name="list" posid="90" limit="0,8" thumb="1">
+                        <li>
+                            <p><a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" width="155" height="155" alt="" /></a></p>
+                            <p class="name"><a rel="nofollow" href="{$list.url}">{$list.title|new_msubstr=###,0,10}</a></p>
+                            <p class="date">{$list.starttime} - {$list.endtime}</p>
+                        </li>
+                    </ys:indexposexhibition>
+                </ul>
+            </div>
+            <div class="content-2 hide">
+                <ul>
+                    <ys:indexposexhibition name="list" posid="90" limit="0,8" thumb="1" cityid="2">
+                        <li>
+                            <p><a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" width="155" height="155" alt="" /></a></p>
+                            <p class="name"><a rel="nofollow" href="{$list.url}">{$list.title|new_msubstr=###,0,10}</a></p>
+                            <p class="date">{$list.starttime} - {$list.endtime}</p>
+                        </li>
+                    </ys:indexposexhibition>
+                </ul>
+            </div>
+			<div class="content-3 hide">
+                <ul>
+                    <ys:indexposexhibition name="list" posid="90" limit="0,8" thumb="1" cityid="3">
+                        <li>
+                            <p><a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" width="155" height="155" alt="" /></a></p>
+                            <p class="name"><a rel="nofollow" href="{$list.url}">{$list.title|new_msubstr=###,0,10}</a></p>
+                            <p class="date">{$list.starttime} - {$list.endtime}</p>
+                        </li>
+                    </ys:indexposexhibition>
+                </ul>
+            </div>
+            <div class="content-4 hide">
+                <ul>
+                    <ys:indexposexhibition name="list" posid="90" limit="0,8" thumb="1" cityid="4">
+                        <li>
+                            <p><a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" width="155" height="155" alt="" /></a></p>
+                            <p class="name"><a rel="nofollow" href="{$list.url}">{$list.title|new_msubstr=###,0,10}</a></p>
+                            <p class="date">{$list.starttime} - {$list.endtime}</p>
+                        </li>
+                    </ys:indexposexhibition>
+                </ul>
+            </div>
+            <div class="content-5 hide">
+                <ul>
+                    <ys:indexposexhibition name="list" posid="90" limit="0,8" thumb="1" cityid="5">
+                        <li>
+                            <p><a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" width="155" height="155" alt="" /></a></p>
+                            <p class="name"><a rel="nofollow" href="{$list.url}">{$list.title|new_msubstr=###,0,10}</a></p>
+                            <p class="date">{$list.starttime} - {$list.endtime}</p>
+                        </li>
+                    </ys:indexposexhibition>
+                </ul>
+            </div>
+            <div class="content-6 hide">
+                <ul>
+                    <ys:indexposexhibition name="list" posid="90" limit="0,8" thumb="1" cityid="13">
+                        <li>
+                            <p><a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" width="155" height="155" alt="" /></a></p>
+                            <p class="name"><a rel="nofollow" href="{$list.url}">{$list.title|new_msubstr=###,0,10}</a></p>
+                            <p class="date">{$list.starttime} - {$list.endtime}</p>
+                        </li>
+                    </ys:indexposexhibition>
+                </ul>
+            </div>
+            <div class="content-7 hide">
+                <ul>
+                    <ys:indexposexhibition name="list" posid="90" limit="0,8" thumb="1" cityid="12">
+                        <li>
+                            <p><a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" width="155" height="155" alt="" /></a></p>
+                            <p class="name"><a rel="nofollow" href="{$list.url}">{$list.title|new_msubstr=###,0,10}</a></p>
+                            <p class="date">{$list.starttime} - {$list.endtime}</p>
+                        </li>
+                    </ys:indexposexhibition>
+                </ul>
+            </div>
+            <div class="content-8 hide">
+                <ul>
+                    <ys:indexposexhibition name="list" posid="90" limit="0,8" thumb="1" cityid="21">
+                        <li>
+                            <p><a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" width="155" height="155" alt="" /></a></p>
+                            <p class="name"><a rel="nofollow" href="{$list.url}">{$list.title|new_msubstr=###,0,10}</a></p>
+                            <p class="date">{$list.starttime} - {$list.endtime}</p>
+                        </li>
+                    </ys:indexposexhibition>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 展览日历 -->
+    <div class="b-right show-calendar">
+        <div class="comm-subtitle b-0">
+            <h4>展览日历</h4>
+            <div class="right">
+                <div class="date"></div>
+            </div>
+        </div>
+        <div class="content">
+            <div type="text" id="datepicker"></div>
+            <div class="remark">
+                <p class="local" id="remark_title">莫拉维茨中国首展</p>
+                <p id="remark_addr">地点：精辅画廊工作室</p>
+                <p id="remark_time">时间：2013-11-10 - 2014-01-06</p>
+            </div>
+        </div>
+        <!-- 展览搜索 -->
+        <div class="show-search">
+            <p class="title left">展览搜索</p>
+            <div class="right">
+                <div class="time">
+                    <p>时间：</p>
+                    <select id="year" class="comm-select">
+                        <option>选择</option>
+                    </select>
+                    <select id="month" class="comm-select">
+                        <option>选择</option>
+                    </select>
+                    <select id="date" class="comm-select">
+                        <option>选择</option>
+                    </select>
+                </div>
+                <div class="local">
+                    <p>名称：</p>
+                    <div class="exhibition-name">
+                        <input type="text" class="text" name="exhi_title" />
+                        <input type="submit" value="确定" class="search" id="exhi_search_btn"/>
+                    </div>
+                    <script type="text/javascript">
+                        $(function(){
+                            $("#exhi_search_btn").click(function(){
+                                var time = $("#year").val().replace(/<[^>].*?>/g,"")+'-'+$("#month").val().replace(/<[^>].*?>/g,"")+'-'+$("#date").val().replace(/<[^>].*?>/g,"");
+                                var title = $("input[name='exhi_title']").val();
+                                if(title == '请输入关键字...' || !title ){ title = 0; }
+                                var url = (title==0) ? 'http://zx.yishu.com/c55/r'+time+'p1' : 'http://zx.yishu.com/c55/r'+time+'p1?title='+title;
+                                window.open(url);
+                            });
+
+                        })
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="cb"><a href="#"><img src="{IMG_PATH}column-img/44.jpg" width="290" height="142"  alt="" /></a></div>
+    </div>
+</div>
+<div class="advertis"><a href="#"><img src="{IMG_PATH}advertis/14.jpg"></a></div>
+<!-- 板块5 -->
+<div class="clear block5 auction_block">
+    <div class="comm-subtitle">
+        <h4><a href="http://auction.yishu.com/">拍卖</a></h4>
+    </div>
+    <!-- 热门拍品 -->
+    <div class="b-right hot-sell">
+        <div class="comm-subtitle">
+            <h4>热门拍品</h4>
+            <div class="right">
+                <a rel="nofollow" class="more right" href="{:C('AUCTION_URL')}exhi/">更多</a>
+            </div>
+        </div>
+        <div class="content m-t10">
+            <ul>
+                <volist name="auctionHots" id="vo">
+                    <li>
+                        <a rel="nofollow" href="{:C('AUCTION_URL')}exhi/{$vo.id}"><img src="http://auction.yishu.com/{$vo.thumb}" width="125" height="125" alt="" /></a>
+                        <p class="common-word">
+                            <span>{$vo.name|new_msubstr=###,0,10}</span>
+                            <span>估价： {$vo.price}</span>
+                        </p>
+                    </li>
+                </volist>
+            </ul>
+        </div>
+    </div>
+    <!--end 热门拍卖-->
+    <!-- 拍卖收藏 -->
+    <div class="b-left sell-collect">
+        <div class="comm-subtitle nav m-b10" >
+            <h4>拍卖收藏</h4>
+            <div class="right">
+                <a rel="nofollow" class="more right" href="{:C('AUCTION_URL')}exhi/">更多</a>
+                <ul class="right column">
+                    <li class="select nav-1">拍卖预展</li>
+                    <li class="nav-2">拍卖结果</li>
+                </ul>
+            </div>
+        </div>
+        <div class="content tab-content">
+            <div class="content-1">
+                <ul>
+                    <li class="title">
+                        <p class="l">拍卖公司</p>
+                        <p class="c">拍卖会</p>
+                        <p class="r">拍卖时间</p>
+                    </li>
+                    <volist name="auctionCollection['preview']" id="vo">
+                        <li>
+                                <span class="l">{$vo.aName|new_msubstr=###,0,4}</span>
+                                <span class="c"><a rel="nofollow" href="http://auction.yishu.com/meet/{$vo.id}" title="{$vo.eName}">{$vo.eName}</a></span>
+                                <span class="r">{$vo.starttime|substr=###,0,10}</span>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+            <div class="content-2 hide">
+                <ul>
+                    <li class="title">
+                        <p class="l">拍卖公司</p>
+                        <p class="c">拍卖会</p>
+                        <p class="r">总成交额（万元）</p>
+                    </li>
+                    <volist name="auctionCollection['result']" id="vo">
+                        <li>
+                                <span class="l">{$vo.aName|new_msubstr=###,0,4}</span>
+                                <span class="c"><a rel="nofollow" href="http://auction.yishu.com/meet/{$vo.id}" title="{$vo.eName}">{$vo.eName}</a></span>
+                                <span class="r">{$vo.total}</span>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--end-->
+</div>
+<div class="advertis"><a href="#"><img src="{IMG_PATH}advertis/15.jpg"></a></div>
+<!-- 板块6 -->
+<div class="clear block6">
+
+    <!-- 在线拍卖 -->
+    <div class="sell-online">
+        <div class="comm-subtitle">
+            <h4><a href="{:C(WEB_URL)}paimai/">在线竞拍</a></h4>
+            <div class="right">
+                <a rel="nofollow" class="more right" href="{:C(WEB_URL)}paimai/">更多</a>
+            </div>
+        </div>
+        <div class="content">
+
+            <div class="r">
+                <div class="sell-tab">
+                    <div class="nav clear">
+                        <ul class="column">
+                            <li class="nav-1 select b-l0"><span>拍卖专场</span></li>
+                            <li class="nav-2"><span>拍卖预告</span></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="content-1">
+                            <ul>
+                                <volist name="auctionSpecial" id="vo">
+                                    <li style="padding-top:6px;">
+                                        <div class="left">
+                                            <a href="{:U('/paimai/zhuanchang-'.$vo['special_id'])}"><img src="{$vo.thumb}" width="88" height="88" alt="" /></a>
+                                        </div>
+                                        <div class="right">
+                                            <p><a href="{:U('/paimai/zhuanchang-'.$vo['special_id'])}">{$vo.special_name}</a></p>
+                                            <p >共<b class="red">{$vo.goods_num}</b>件<b class="red m_l9">{$vo.goods_people_num}</b>人参拍</p>
+                                            <p>开拍时间：<span class="grey">{$vo.special_starttime|date="m.d",###}-{$vo.special_endtime|date="m.d",###}</span></p>
+                                        </div>
+                                    </li>
+                                </volist>
+                            </ul>
+                            <!--start-->
+                            <div class="clear m-t10"><a><img src="{IMG_PATH}advertis/17.jpg" border="0" width="250" height="58"></a></div>
+                            <!---end-->
+                        </div>
+                        <div class="content-2 hide">
+                            <ul>
+                                <volist name="auctionSpecialPre" id="vo">
+                                    <li style="padding-top:6px;">
+                                        <div class="left">
+                                            <a href="{:U('/paimai/zhuanchang-'.$vo['special_id'])}"><img src="{$vo.thumb}" width="88" height="88" alt="" /></a>
+                                        </div>
+                                        <div class="right">
+                                            <p><a href="{:U('/paimai/zhuanchang-'.$vo['special_id'])}"><b>{$vo.special_name}</b></a></p>
+                                            <p class="grey">共<b class="red">{$vo.goods_num}</b>件<b class="red m_l9">{$vo.goods_people_num}</b>人参拍</p>
+                                            <p>开拍时间：<span class="grey">{$vo.special_starttime|date="m.d",###}-{$vo.specialendtime|date="m.d",###}</span></p>
+                                        </div>
+                                    </li>
+                                </volist>
+                            </ul>
+                            <!--start-->
+                            <div class="clear m-t10"><a href="#"><img src="{IMG_PATH}advertis/17.jpg" border="0" width="250" height="58"></a></div>
+                            <!---end-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--r end-->
+
+
+            <div class="c">
+                <ul>
+                    <volist name="auctionOnline" id="vo">
+                        <li>
+                            <a href="{:U('/paimai/goods-'.$vo['goods_id'])}"><img src="{$vo.thumb}" width="130" height="130" alt="" /></a>
+                            <div class="common-word">
+                                <a href="{:U('/paimai/goods-'.$vo['goods_id'])}">
+                                    <span>{$vo.goods_name|new_msubstr=###,0,10}</span>
+                                    <span>当前价格：￥{$vo.goods_nowprice}</span>
+                                    <span>起拍价：￥{$vo.goods_startprice}</span>
+                                    <span>出价次数：{$vo.goods_bidtimes}次</span>
+                                </a>
+                            </div>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+            <!--left-->
+        </div>
+    </div>
+</div>
+<div class="advertis"><a href="#"><img src="{IMG_PATH}advertis/16.jpg"></a></div>
+<!-- 板块7 -->
+<div class="clear block7 cang_block">
+<!-- 藏品商城 -->
+<div class="master-art">
+    <div class="comm-subtitle">
+        <h4><a href="{:C(CANG_URL)}">藏品商城</a></h4>
+        <div class="right nav ">
+            <a rel="nofollow" class="more right" href="{:C(CANG_URL)}">更多</a>
+            <ul class="right column">
+				<li class="nav-1 select"><a>推荐</a></li>
+                <li class="nav-2"><a rel="nofollow" href="{:C(CANG_URL)}t60/">国画</a></li>
+                <li class="nav-3"><a rel="nofollow" href="{:C(CANG_URL)}t62/">书法</a></li>
+                <li class="nav-4"><a rel="nofollow" href="{:C(CANG_URL)}t61/">油画</a></li>
+                <li class="nav-5"><a rel="nofollow" href="{:C(CANG_URL)}t65/">玉器</a></li>
+                <li class="nav-6"><a rel="nofollow" href="{:C(CANG_URL)}t64/">瓷器</a></li>
+                <li class="nav-7"><a rel="nofollow" href="{:C(CANG_URL)}t63/">木器</a></li>
+                <li class="nav-8"><a rel="nofollow" href="{:C(CANG_URL)}t131/">寿山石</a></li>
+            </ul>
+        </div>
+    </div>
+	<div class="content tab-content">
+	<div class="content-1" >
+        <div class="zpsc clear">
+            <div class="zpsc_left">
+                <ys:indexposopus name="list" posid="89" limit="0,2" thumb="1">
+                    <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="200" height="200"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                </ys:indexposopus></div>
+            <div class="zpsc_c">
+                <ys:indexposopus name="list" posid="89" limit="2,1" thumb="1">
+                    <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="290" height="416"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                </ys:indexposopus>
+            </div>
+            <div class="zpsc_r">
+                <ul>
+                    <li class="m-r15">
+                        <ys:indexposopus name="list" posid="89" limit="3,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="185px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+
+                        </ys:indexposopus>
+                    </li>
+                    <li>
+                        <ys:indexposopus name="list" posid="89" limit="4,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="260px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+
+                        </ys:indexposopus>
+                    </li>
+                    <li class="m-r15">
+                        <ys:indexposopus name="list" posid="89" limit="5,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="270px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                        </ys:indexposopus>
+                    </li>
+                    <li>
+                        <ys:indexposopus name="list" posid="89" limit="6,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="175px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                        </ys:indexposopus>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="content-2 hide" >
+        <div class="zpsc clear">
+            <div class="zpsc_left">
+                <ys:indexposopus name="list" posid="114" limit="0,2" thumb="1">
+                    <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="200" height="200"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                </ys:indexposopus></div>
+            <div class="zpsc_c">
+                <ys:indexposopus name="list" posid="114" limit="2,1" thumb="1">
+                    <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="290" height="416"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                </ys:indexposopus>
+            </div>
+            <div class="zpsc_r">
+                <ul>
+                    <li class="m-r15">
+                        <ys:indexposopus name="list" posid="114" limit="3,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="185px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+
+                        </ys:indexposopus>
+                    </li>
+                    <li>
+                        <ys:indexposopus name="list" posid="114" limit="4,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="260px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+
+                        </ys:indexposopus>
+                    </li>
+                    <li class="m-r15">
+                        <ys:indexposopus name="list" posid="114" limit="5,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="270px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                        </ys:indexposopus>
+                    </li>
+                    <li>
+                        <ys:indexposopus name="list" posid="114" limit="6,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="175px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                        </ys:indexposopus>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+	<div class="content-3 hide" >
+        <div class="zpsc clear">
+            <div class="zpsc_left">
+                <ys:indexposopus name="list" posid="115" limit="0,2" thumb="1">
+                    <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="200" height="200"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                </ys:indexposopus></div>
+            <div class="zpsc_c">
+                <ys:indexposopus name="list" posid="115" limit="2,1" thumb="1">
+                    <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="290" height="416"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                </ys:indexposopus>
+            </div>
+            <div class="zpsc_r">
+                <ul>
+                    <li class="m-r15">
+                        <ys:indexposopus name="list" posid="115" limit="3,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="185px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+
+                        </ys:indexposopus>
+                    </li>
+                    <li>
+                        <ys:indexposopus name="list" posid="115" limit="4,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="260px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+
+                        </ys:indexposopus>
+                    </li>
+                    <li class="m-r15">
+                        <ys:indexposopus name="list" posid="115" limit="5,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="270px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                        </ys:indexposopus>
+                    </li>
+                    <li>
+                        <ys:indexposopus name="list" posid="115" limit="6,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="175px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                        </ys:indexposopus>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+	<div class="content-4 hide" >
+        <div class="zpsc clear">
+            <div class="zpsc_left">
+                <ys:indexposopus name="list" posid="116" limit="0,2" thumb="1">
+                    <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="200" height="200"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                </ys:indexposopus></div>
+            <div class="zpsc_c">
+                <ys:indexposopus name="list" posid="116" limit="2,1" thumb="1">
+                    <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="290" height="416"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                </ys:indexposopus>
+            </div>
+            <div class="zpsc_r">
+                <ul>
+                    <li class="m-r15">
+                        <ys:indexposopus name="list" posid="116" limit="3,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="185px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+
+                        </ys:indexposopus>
+                    </li>
+                    <li>
+                        <ys:indexposopus name="list" posid="116" limit="4,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="260px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+
+                        </ys:indexposopus>
+                    </li>
+                    <li class="m-r15">
+                        <ys:indexposopus name="list" posid="116" limit="5,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="270px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                        </ys:indexposopus>
+                    </li>
+                    <li>
+                        <ys:indexposopus name="list" posid="116" limit="6,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="175px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                        </ys:indexposopus>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+	<div class="content-5 hide" >
+        <div class="zpsc clear">
+            <div class="zpsc_left">
+                <ys:indexposopus name="list" posid="117" limit="0,2" thumb="1">
+                    <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="200" height="200"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                </ys:indexposopus></div>
+            <div class="zpsc_c">
+                <ys:indexposopus name="list" posid="117" limit="2,1" thumb="1">
+                    <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="290" height="416"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                </ys:indexposopus>
+            </div>
+            <div class="zpsc_r">
+                <ul>
+                    <li class="m-r15">
+                        <ys:indexposopus name="list" posid="117" limit="3,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="185px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+
+                        </ys:indexposopus>
+                    </li>
+                    <li>
+                        <ys:indexposopus name="list" posid="117" limit="4,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="260px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+
+                        </ys:indexposopus>
+                    </li>
+                    <li class="m-r15">
+                        <ys:indexposopus name="list" posid="117" limit="5,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="270px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                        </ys:indexposopus>
+                    </li>
+                    <li>
+                        <ys:indexposopus name="list" posid="117" limit="6,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="175px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                        </ys:indexposopus>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+	<div class="content-6 hide" >
+        <div class="zpsc clear">
+            <div class="zpsc_left">
+                <ys:indexposopus name="list" posid="118" limit="0,2" thumb="1">
+                    <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="200" height="200"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                </ys:indexposopus></div>
+            <div class="zpsc_c">
+                <ys:indexposopus name="list" posid="118" limit="2,1" thumb="1">
+                    <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="290" height="416"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                </ys:indexposopus>
+            </div>
+            <div class="zpsc_r">
+                <ul>
+                    <li class="m-r15">
+                        <ys:indexposopus name="list" posid="118" limit="3,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="185px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+
+                        </ys:indexposopus>
+                    </li>
+                    <li>
+                        <ys:indexposopus name="list" posid="118" limit="4,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="260px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+
+                        </ys:indexposopus>
+                    </li>
+                    <li class="m-r15">
+                        <ys:indexposopus name="list" posid="118" limit="5,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="270px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                        </ys:indexposopus>
+                    </li>
+                    <li>
+                        <ys:indexposopus name="list" posid="118" limit="6,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="175px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                        </ys:indexposopus>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+	<div class="content-7 hide" >
+        <div class="zpsc clear">
+            <div class="zpsc_left">
+                <ys:indexposopus name="list" posid="119" limit="0,2" thumb="1">
+                    <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="200" height="200"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                </ys:indexposopus></div>
+            <div class="zpsc_c">
+                <ys:indexposopus name="list" posid="119" limit="2,1" thumb="1">
+                    <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="290" height="416"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                </ys:indexposopus>
+            </div>
+            <div class="zpsc_r">
+                <ul>
+                    <li class="m-r15">
+                        <ys:indexposopus name="list" posid="119" limit="3,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="185px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+
+                        </ys:indexposopus>
+                    </li>
+                    <li>
+                        <ys:indexposopus name="list" posid="119" limit="4,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="260px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+
+                        </ys:indexposopus>
+                    </li>
+                    <li class="m-r15">
+                        <ys:indexposopus name="list" posid="119" limit="5,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="270px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                        </ys:indexposopus>
+                    </li>
+                    <li>
+                        <ys:indexposopus name="list" posid="119" limit="6,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="175px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                        </ys:indexposopus>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+	<div class="content-8 hide" >
+        <div class="zpsc clear">
+            <div class="zpsc_left">
+                <ys:indexposopus name="list" posid="120" limit="0,2" thumb="1">
+                    <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="200" height="200"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                </ys:indexposopus></div>
+            <div class="zpsc_c">
+                <ys:indexposopus name="list" posid="120" limit="2,1" thumb="1">
+                    <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="290" height="416"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                </ys:indexposopus>
+            </div>
+            <div class="zpsc_r">
+                <ul>
+                    <li class="m-r15">
+                        <ys:indexposopus name="list" posid="120" limit="3,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="185px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+
+                        </ys:indexposopus>
+                    </li>
+                    <li>
+                        <ys:indexposopus name="list" posid="120" limit="4,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="260px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+
+                        </ys:indexposopus>
+                    </li>
+                    <li class="m-r15">
+                        <ys:indexposopus name="list" posid="120" limit="5,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="270px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                        </ys:indexposopus>
+                    </li>
+                    <li>
+                        <ys:indexposopus name="list" posid="120" limit="6,1" thumb="1">
+                            <a rel="nofollow" href="{$list.url}"><img src="{$list.thumb}" border="0" width="175px" height="200px"><span class="transparent">{$list.title|new_msubstr=###,0,10}</span></a>
+                        </ys:indexposopus>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+	</div>
+</div>
+<div class="advertis"><a href="#"><img src="{IMG_PATH}advertis/top-advertis.jpg"></a></div>
+<div class="clear block8 mall_block">
+    <div class="comm-subtitle">
+        <h4><a href="{:C(MALL_URL)}">古玩城</a></h4>
+        <div class="right">
+            <a rel="nofollow" class="more right" href="{:C(MALL_URL)}">更多</a>
+        </div>
+    </div>
+    <div class="gwandown">
+        <!--left start-->
+        <div class="gwandown_left">
+            <div><img src="{:(C(WEB_URL_R).$mall_stores[0]['store_banner'])}" width="230" height="130"></div>
+            <p><a href="{:(C(MALL_URL).'store-'.$mall_stores[0]['store_id'])}.html"><b>{$mall_stores[0].store_name}</b></a></p>
+            <p>地区：<span style="color:#333">{$mall_stores[0].name}</span></p>
+            <p>成立时间：<span style="color:#333">{$mall_stores[0].create_time|date="Y",###}年</span></p>
+            <p>主营项目：<span style="color:#333">{$mall_stores[0].store_category}</span></p>
+            <p  class="tjhl">{$mall_stores[0].store_desc}</p>
+        </div>
+        <!--left end-->
+        <!--c start-->
+        <div class="gwandown_c">
+            <p>
+                <volist name="mall_stores_category" id="vo">
+                    <a href="{:(C(MALL_URL).$vo['short_name'])}.html">{$vo.cate_name}</a>
+                </volist>
+            </p>
+            <ul>
+                <volist name="mall_stores_goods" id="vo">
+                    <li><a href="{:(C(MALL_URL).'goods-'.$vo['goods_id'])}.html"><img src="{:(C(WEB_URL_R).$vo['default_img'])}" width="90" height="90"><span class="transparent">{$vo.goods_name}</span></a></li>
+                </volist>
+            </ul>
+        </div>
+        <!--c end-->
+        <!--right start-->
+        <div class="gwandown_r">
+            <div><b>高级店铺</b></div>
+            <volist name="mall_stores_adv" id="vo">
+                <dl>
+                    <dt><img src="{:(C(WEB_URL_R).$vo['store_banner'])}" width="55" height="55"></dt>
+                    <dd><p><a href="{:(C(MALL_URL).'store-'.$vo['store_id'])}.html"><b>{$vo.store_name}</b></a></p><p>店主：{$vo.store_owner_name}</p><p>商品数：{$vo.goods_count}</p></dd>
+                </dl>
+            </volist>
+        </div>
+        <!--right end-->
+    </div>
+
+</div>
+
+<div class="advertis"><a href="#"><img src="{IMG_PATH}advertis/top-advertis.jpg"></a></div>
+</div>
+<!-- 板块8 -->
+<div class="clear block8">
+    <!-- 在线鉴定 -->
+    <div class="identify">
+        <div class="comm-subtitle nav">
+            <h4><a href="http://identify.yishu.com/">在线鉴定</a></h4>
+            <div class="right">
+                <a rel="nofollow" class="more right" href="http://identify.yishu.com/">更多</a>
+                <ul class="right column">
+                    <li class="select nav-1"><a>已鉴定</a></li>
+                    <li class="nav-2"><a>未鉴定</a></li>
+                </ul>
+            </div>
+        </div> 
+        <div class="content common-show-info tab-content">
+            <div class="content-1">
+                <ul>
+                    <volist name="identifyOnline" id="vo" key="k">
+                        <li>
+                            <span class="list <if condition='$k eq 1'>hide</if>">{$vo.name}</span>
+                            <div class="shows <if condition='$k gt 1'>hide</if>">
+                                <p class="title"><b><a rel="nofollow" href="http://identify.yishu.com/s{$vo.id}">{$vo.name}</a></b></p>
+                                <div class="con">
+                                    <div class="l"><img src="http://i.yishu.com{$vo.thumb}" width="60" height="60" alt="" /></div>
+                                    <div class="r">
+                                        <p class="clear">
+                                            <span class="left">上传日期：{$vo.createtime|date="Y-m-d",###}</span>
+                                            <span class="right">点击次数：{$vo.hits}</span>
+                                        </p>
+                                        <p class="word"><a rel="nofollow" href="http://identify.yishu.com/s{$vo.id}">{$vo.question|new_msubstr=###,0,34}</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+            <div class="content-2 hide">
+                <ul>
+                    <volist name="identifyOnlineN" id="vo" key="k">
+                        <li>
+                            <span class="list <if condition='$k eq 1'>hide</if>">{$vo.name|new_msubstr=###,0,22}</span>
+                            <div class="shows <if condition='$k gt 1'>hide</if>">
+                                <p class="title"><b><a rel="nofollow" href="http://identify.yishu.com/s{$vo.id}">{$vo.name|new_msubstr=###,0,22}</a></b></p>
+                                <div class="con">
+                                    <div class="l"><img src="http://i.yishu.com{$vo.thumb}" width="60" height="60" alt="" /></div>
+                                    <div class="r">
+                                        <p class="clear">
+                                            <span class="left">上传日期：{$vo.createtime|date="Y-m-d",###}</span>
+                                            <span class="right">点击次数：{$vo.hits}</span>
+                                        </p>
+                                        <p class="word"><a rel="nofollow" href="http://identify.yishu.com/s{$vo.id}">{$vo.question|new_msubstr=###,0,34}</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 问答 -->
+    <div class="faq">
+        <div class="comm-subtitle nav">
+            <h4><a href="{:U('/wenda/','','')}/">艺术问答</a></h4>
+            <div class="right">
+                <a rel="nofollow" class="more right" href="{:U('/wenda/','','')}/">更多</a>
+                <ul class="right column">
+                    <li class="select nav-1"><a>热门</a></li>
+                    <li class="nav-2"><a href="{:U('/wenda/cate')}">待解决</a></li>
+                    <li class="nav-3"><a href="{:U('/wenda/cate')}?status=besolved">已解决</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="content common-show-info tab-content">
+            <div class="content-1">
+                <ul>
+                    <volist name="askHot" id="vo" key="k">
+                        <li>
+                            <span class="list <if condition='$k eq 1'>hide</if>">{$vo.title|new_msubstr=###,0,22}</span>
+                            <div class="shows <if condition='$k gt 1'>hide</if>">
+                                <p class="ques"><b><a href="{:U('/wenda/question/'.$vo['id'])}">{$vo.title|new_msubstr=###,0,22}</a></b></p>
+                                <if condition=" $vo['reply']  neq '' "><p class="answer">答：{$vo.reply|new_msubstr=###,0,44,'utf-8',1}</p></if>
+                            </div>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+            <div class="content-2 hide">
+                <ul>
+                    <volist name="askUnsolved" id="vo" key="k">
+                        <li>
+                            <span class="list <if condition='$k eq 1'>hide</if>">{$vo.title|new_msubstr=###,0,22}</span>
+                            <div class="shows <if condition='$k gt 1'>hide</if>">
+                                <p class="ques"><b><a href="{:U('/wenda/question/'.$vo['id'])}">{$vo.title|new_msubstr=###,0,22}</a></b></p>
+                                <if condition=" $vo['reply']  neq '' "><p class="answer">答：{$vo.reply|new_msubstr=###,0,44,'utf-8',1}</p></if>
+                            </div>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+            <div class="content-3 hide">
+                <ul>
+                    <volist name="askSolved" id="vo" key="k">
+                        <li>
+                            <span class="list <if condition='$k eq 1'>hide</if>">{$vo.title|new_msubstr=###,0,22}</span>
+                            <div class="shows <if condition='$k gt 1'>hide</if>">
+                                <p class="ques"><b><a href="{:U('/wenda/question/'.$vo['id'])}">{$vo.title|new_msubstr=###,0,22}</a></b></p>
+                                <if condition=" $vo['reply']  neq '' "><p class="answer">答：{$vo.reply|new_msubstr=###,0,44,'utf-8',1}</p></if>
+                            </div>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 百科 -->
+    <div class="baike">
+        <div class="comm-subtitle">
+            <h4><a href="{:U('/baike/','','')}/">艺术百科</a></h4>
+            <div class="right">
+                <a rel="nofollow" class="more right" href="{:U('/baike/','','')}/">更多</a>
+            </div>
+        </div>
+        <div class="content">
+            <div class="tag">
+                <ul>
+                    <volist name="baike" id="vo" key="k">
+						<volist name="vo['child']" id="v" >
+							<li><a href="{:U('/baike/'.$vo['short_name'].'-'.$v['cid'])}">{$v.name}</a></li>
+						</volist>
+                    </volist>
+                </ul>
+            </div>
+            <!--<div class="personal-sell">
+                <a href="#"><img src="{IMG_PATH}column-img/57.jpg" width="280" height="80" alt="" /></a>
+            </div>-->
+        </div>
+    </div>
+</div>
+<div class="advertis"><a href="#"><img src="{IMG_PATH}advertis/14.jpg"></a></div>
+
+<!-- 板块9 -->
+<div class="clear block9">
+    <!-- 收藏知识 -->
+    <div class="artist-talks" id="artist-talk">
+        <div class="comm-subtitle">
+            <h4><a href="{:C(WEB_URL).'sc'}/">收藏知识</a></h4>
+            <div class="right">
+                <a rel="nofollow" class="more right" href="{:C(WEB_URL).'sc'}/">更多</a>
+                <ul class="right tjx">
+					<li rel='0' class="select"><a>推荐</a></li>
+                    <li rel='1'><a href="http://www.yishu.com/sc/fc/">翡翠</a></li>
+                    <li rel='2'><a href="http://www.yishu.com/sc/bs/">宝石</a></li>
+                    <li rel='3'><a href="http://www.yishu.com/sc/hp/">琥珀</a></li>
+                    <li rel='4'><a href="http://www.yishu.com/sc/bx/">碧玺</a></li>
+                    <li rel='5'><a href="http://www.yishu.com/sc/ysone/">玉髓</a></li>
+                    <li rel='6'><a href="http://www.yishu.com/sc/qb/">瓷器</a></li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="content">
+            <div class="sczs">
+				<div class="cc content-0">
+                <volist name="collection_know_pos" id="vo" key="k">
+                    <dl <if condition="$k eq 5">class="b-0"</if>>
+                        <dt>
+                            <a href="{$vo.url}"><img src="{$vo.thumb}" width="180" height="135"></a><a href="{$vo.url}" title="{$vo.title}"><b>{$vo.title|new_msubstr=###,0,10}</b></a>
+                        </dt>
+                        <dd>
+                            <if condition="$k eq 1">
+                                <volist name="collection_know" id="v" offset="0" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 2">
+                                <volist name="collection_know" id="v" offset="6" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 3">
+                                <volist name="collection_know" id="v" offset="12" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 4">
+                                <volist name="collection_know" id="v" offset="18" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 5">
+                                <volist name="collection_know" id="v" offset="24" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                        </dd>
+                </dl>
+                </volist>
+				</div>
+				<div class="cc content-1" style="display:none;"><volist name="collection_know_pos1" id="vo" key="k">
+                    <dl <if condition="$k eq 5">class="b-0"</if>>
+                        <dt>
+                            <a href="{$vo.url}"><img src="{$vo.thumb}" width="180" height="135"></a><a href="{$vo.url}" title="{$vo.title}"><b>{$vo.title|new_msubstr=###,0,10}</b></a>
+                        </dt>
+                        <dd>
+                            <if condition="$k eq 1">
+                                <volist name="collection_know1" id="v" offset="0" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 2">
+                                <volist name="collection_know1" id="v" offset="6" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 3">
+                                <volist name="collection_know1" id="v" offset="12" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 4">
+                                <volist name="collection_know1" id="v" offset="18" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 5">
+                                <volist name="collection_know1" id="v" offset="24" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                        </dd>
+                </dl>
+                </volist></div>
+				<div class="cc content-2" style="display:none;"><volist name="collection_know_pos2" id="vo" key="k">
+                    <dl <if condition="$k eq 5">class="b-0"</if>>
+                        <dt>
+                            <a href="{$vo.url}"><img src="{$vo.thumb}" width="180" height="135"></a><a href="{$vo.url}" title="{$vo.title}"><b>{$vo.title|new_msubstr=###,0,10}</b></a>
+                        </dt>
+                        <dd>
+                            <if condition="$k eq 1">
+                                <volist name="collection_know2" id="v" offset="0" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 2">
+                                <volist name="collection_know2" id="v" offset="6" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 3">
+                                <volist name="collection_know2" id="v" offset="12" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 4">
+                                <volist name="collection_know2" id="v" offset="18" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 5">
+                                <volist name="collection_know2" id="v" offset="24" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                        </dd>
+                </dl>
+                </volist></div>
+				<div class="cc content-3" style="display:none;"><volist name="collection_know_pos3" id="vo" key="k">
+                    <dl <if condition="$k eq 5">class="b-0"</if>>
+                        <dt>
+                            <a href="{$vo.url}"><img src="{$vo.thumb}" width="180" height="135"></a><a href="{$vo.url}" title="{$vo.title}"><b>{$vo.title|new_msubstr=###,0,10}</b></a>
+                        </dt>
+                        <dd>
+                            <if condition="$k eq 1">
+                                <volist name="collection_know3" id="v" offset="0" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 2">
+                                <volist name="collection_know3" id="v" offset="6" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 3">
+                                <volist name="collection_know3" id="v" offset="12" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 4">
+                                <volist name="collection_know3" id="v" offset="18" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 5">
+                                <volist name="collection_know3" id="v" offset="24" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                        </dd>
+                </dl>
+                </volist></div>
+				<div class="cc content-4" style="display:none;"><volist name="collection_know_pos4" id="vo" key="k">
+                    <dl <if condition="$k eq 5">class="b-0"</if>>
+                        <dt>
+                            <a href="{$vo.url}"><img src="{$vo.thumb}" width="180" height="135"></a><a href="{$vo.url}" title="{$vo.title}"><b>{$vo.title|new_msubstr=###,0,10}</b></a>
+                        </dt>
+                        <dd>
+                            <if condition="$k eq 1">
+                                <volist name="collection_know4" id="v" offset="0" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 2">
+                                <volist name="collection_know4" id="v" offset="6" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 3">
+                                <volist name="collection_know4" id="v" offset="12" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 4">
+                                <volist name="collection_know4" id="v" offset="18" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 5">
+                                <volist name="collection_know4" id="v" offset="24" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                        </dd>
+                </dl>
+                </volist></div>
+				<div class="cc content-5" style="display:none;"><volist name="collection_know_pos5" id="vo" key="k">
+                    <dl <if condition="$k eq 5">class="b-0"</if>>
+                        <dt>
+                            <a href="{$vo.url}"><img src="{$vo.thumb}" width="180" height="135"></a><a href="{$vo.url}" title="{$vo.title}"><b>{$vo.title|new_msubstr=###,0,10}</b></a>
+                        </dt>
+                        <dd>
+                            <if condition="$k eq 1">
+                                <volist name="collection_know5" id="v" offset="0" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 2">
+                                <volist name="collection_know5" id="v" offset="6" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 3">
+                                <volist name="collection_know5" id="v" offset="12" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 4">
+                                <volist name="collection_know5" id="v" offset="18" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 5">
+                                <volist name="collection_know5" id="v" offset="24" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                        </dd>
+                </dl>
+                </volist></div>
+				<div class="cc content-6" style="display:none;"><volist name="collection_know_pos6" id="vo" key="k">
+                    <dl <if condition="$k eq 5">class="b-0"</if>>
+                        <dt>
+                            <a href="{$vo.url}"><img src="{$vo.thumb}" width="180" height="135"></a><a href="{$vo.url}" title="{$vo.title}"><b>{$vo.title|new_msubstr=###,0,10}</b></a>
+                        </dt>
+                        <dd>
+                            <if condition="$k eq 1">
+                                <volist name="collection_know6" id="v" offset="0" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 2">
+                                <volist name="collection_know6" id="v" offset="6" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 3">
+                                <volist name="collection_know6" id="v" offset="12" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 4">
+                                <volist name="collection_know6" id="v" offset="18" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                            <if condition="$k eq 5">
+                                <volist name="collection_know6" id="v" offset="24" length="6">
+                                    <p><a href="{$v.url}" title="{$v.title}">{$v.title|new_msubstr=###,0,10}</a></p>
+                                </volist>
+                            </if>
+                        </dd>
+                </dl>
+                </volist></div>
+            </div>
+        </div>
+    </div></div>
+<div class="advertis"><a href="#"><img src="{IMG_PATH}advertis/top-advertis.jpg"></a></div>
+<!-- 板块9 -->
+<div class="clear block9 forum_block">
+    <!-- 艺友论坛 -->
+    <div class="artist-talk">
+        <div class="comm-subtitle">
+            <h4><a href="{:C(BBS_URL)}">中艺论坛</a></h4>
+            <div class="right">
+                <a rel="nofollow" class="more right" href="{:C(BBS_URL)}">更多</a>
+            </div>
+        </div>
+        <div class="content">
+            <!-- 论坛热贴 -->
+            <div class="hot-talk">
+                <div class="comm-ss-title">
+                    <h6>论坛热贴</h6>
+                    <hr />
+                </div>
+                <div class="content">
+                    <div class="img">
+                        <a rel="nofollow" href="{$forum_hots[img].url}"><img src="{$forum_hots[img].thumb}" width="235" height="230" alt="" /></a>
+                        <p class="common-word"><a rel="nofollow" href="{$forum_hots[img].url}">{$forum_hots[img].title}</a></p>
+                    </div>
+                    <div class="news">
+                        <p class="title"><a rel="nofollow" href="{$forum_hots[news][0].url}">{$forum_hots[news][0].title}</a></p>
+                        <div class="content">
+                            <div class="left">
+                                <ul>
+                                    <for start="1" end="7">
+                                        <li><a rel="nofollow" href="{$forum_hots[news][$i].url}">{$forum_hots[news][$i].title}</a></li>
+                                    </for>
+                                </ul>
+                            </div>
+                            <div class="right">
+                                <ul>
+                                    <for start="8" end="14">
+                                        <li><a rel="nofollow" href="{$forum_hots[news][$i].url}">{$forum_hots[news][$i].title}</a></li>
+                                    </for>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 一周排行 -->
+            <div class="week-rank">
+                <div class="comm-ss-title">
+                    <h6>一周排行</h6>
+                    <hr />
+                </div>
+                <div class="content">
+                    <ul>
+                        <volist name="week_top" id="vo" key="k">
+                            <li>
+                                <p class="num <if condition='$k lt 4'>top3</if>">{$k}</p>
+                                <p><a rel="nofollow" href="{$vo.url}">{$vo.subject}</a></p>
+                            </li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 板块10 -->
+<div class="clear block10">
+    <!-- 网友晒宝 -->
+    <div class="wf-share">
+        <div class="comm-subtitle">
+            <h4>网友晒宝</h4>
+            <div class="right">
+                <a rel="nofollow" class="more right" href="{:C(BBS_URL)}">更多</a>
+            </div>
+        </div>
+        <div class="content">
+            <ul>
+                <volist name="user_show" id="vo">
+                    <li>
+                        <a rel="nofollow" href="{$vo.url}"><img src="{$vo.img}" width="184" height="184" alt="" /></a>
+                        <p class="common-word"><a rel="nofollow" href="{$vo.url}">{$vo.title}</a></p>
+                    </li>
+                </volist>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<!--</div>-->
+<!-- 底部 -->
+	<div id="footer">
+	    <div class="lj">
+		<div class="foot_tjxxk"><a href="javascript:;"  class="select" id="tab_t1">友情链接<i></i></a><a href="javascript:;"  id="tab_t2">专家委员会<i></i></a><a href="javascript:;"  id="tab_t3" >艺术联盟<i></i></a></div>
+	    
+		<div class="lianjie" id="links_01">
+			<volist name="friend_links" id="vo">
+            <a href="{$vo.url}">{$vo.name}</a>
+            </volist>
+			<a href="http://service.yishu.com/links/" class="select">更多>></a>
+		</div>
+		<div class="lianjie hide"  id="links_02">
+				<ul>
+				 <li><img src="{IMG_PATH}icons/1yxy.jpg"><a rel="nofollow" href="http://artist.yishu.com/203">杨晓阳</a></li>
+				 <li><img src="{IMG_PATH}icons/2ldw.jpg"><a rel="nofollow" href="http://artist.yishu.com/212">刘大为</a></li>
+				 <li><img src="{IMG_PATH}icons/3zxg.jpg"><a rel="nofollow" href="http://artist.yishu.com/274">张晓刚</a></li>
+				 <li><img src="{IMG_PATH}icons/4wyx.jpg"><a rel="nofollow" href="http://artist.yishu.com/275">汪寅仙</a></li>
+				</ul>
+		  </div>
+		  <div class="lianjie hide"  id="links_03">
+			<a href="javascript:;">湖北省艺术品联盟</a>
+		  </div>
+
+
+		<div class="lj">
+		<!--left start-->
+		<div class="top">
+		<p class="line">
+                <volist name="footNav" id="vo" key="k">
+                    <a <if condition="$k lt 8">rel="nofollow"</if> href="{$vo.url}">{$vo.catname}</a> |
+                </volist>
+            </p>
+	<p class="footd">中国艺术网(www.yishu.com) 版权所有<br>Copyright Reserved 2000-{:date('Y',time())} <br> 电信与信息服务业务经营许可证 沪ICP备14002523号<br>未经授权禁止转载、摘编、复制或建立镜像，如有违反，追究法律责任。</p>
+        </div>
+		<!--left end-->
+		<!--right start-->
+		<div class="foot_right">
+		<div class="foot_righttop"><img src="{IMG_PATH}icons/foot_02.jpg"><span>中国艺术网<!-- <a href='/sitemap.html'>网站地图</a> --><a href='http://www.yishu.com/sitemap/'>网站地图</a></span><img src="{IMG_PATH}icons/foot_02.jpg"></div>
+		<volist name="category" id="vo" key="k"> 
+			<p><span>{$vo.title}</span>
+			<volist name="vo['data']" id="sub">
+				<a href="{$sub.url}">{$sub.title}</a>
+			</volist>
+		</volist>
+		</div>
+		<!--right end-->
+		</div>
+		</div>
+	</div>
+
+
+
+<!--<div class="t-b-advertise"></div>-->
+<!--
+<div class="adv-1 aadv">
+    <div class="in-con">
+        <a href="#"><img src="{IMG_PATH}column-img/53.jpg" width="120" height="260" alt="" /></a>
+        <div class="close">X</div>
+    </div>
+    <div class="oth-con clear hide">
+        <a class="recover" href="javascript:;"></a>
+        <a class="adv-img" href="#"><img src="{IMG_PATH}column-img/168.jpg" width="218" height="25" alt="" /></a>
+    </div>
+</div>
+<div class="adv-2 aadv">
+    <div class="in-con">
+        <a href="#"><img src="{IMG_PATH}column-img/54.jpg" width="120" height="260" alt="" /></a>
+        <div class="close">X</div>
+    </div>
+    <div class="oth-con clear hide">
+        <a class="recover" href="javascript:;"></a>
+        <a class="adv-img" href="#"><img src="{IMG_PATH}column-img/169.jpg" width="218" height="25" alt="" /></a>
+    </div>
+</div>
+<div class="adv-3 aadv">
+    <div class="in-con">
+        <a href="#"><img src="{IMG_PATH}column-img/55.jpg" width="120" height="260" alt="" /></a>
+        <div class="close">X</div>
+    </div>
+    <div class="oth-con clear hide">
+        <a class="recover" href="javascript:;"></a>
+        <a class="adv-img" href="#"><img src="{IMG_PATH}column-img/170.jpg" width="218" height="25" alt="" /></a>
+    </div>
+</div>
+<div class="adv-4 aadv">
+    <div class="in-con">
+        <a href="#"><img src="{IMG_PATH}column-img/56.jpg" width="120" height="260" alt="" /></a>
+        <div class="close">X</div>
+    </div>
+    <div class="oth-con clear hide">
+        <a class="recover" href="javascript:;"></a>
+        <a class="adv-img" href="#"><img src="{IMG_PATH}column-img/171.jpg" width="218" height="25" alt="" /></a>
+    </div>
+-->
+		<!--to top-->
+		<div class="totop">
+		<div class="totop_01"><a href="#" ></a></div>
+		<ul>
+		<li ><a href="javascript:;" value="news">资讯</a></li>
+		<li ><a href="javascript:;" value="cang">商城</a></li>
+		<li class="tjhot"><a href="javascript:;" value="auction">拍卖</a><i></i></li>
+		<li ><a href="javascript:;" value="mall">古玩城</a></li>
+		<li ><a href="javascript:;" value="forum">论坛</a></li>
+        </ul>
+		<div class="totop_02"><a href="javascript:;">回到顶部</a></div>
+				</div>
+		<!--to top-->
+		<script>
+		$(function(){
+			$("a").attr("target", "_blank");
+			$("#nav-local a, .s a, .totop a").attr("target", "_self");
+		})
+		</script>  
+		<div style="display:none;">
+		<script src="http://s13.cnzz.com/stat.php?id=5791326&web_id=5791326" type="text/javascript"></script>
+		</div> 
+
+</body>
+</html>
+<script type="text/javascript" src="{JS_PATH}jquery.ui.datepicker.min.js"></script>
+<script type="text/javascript" src="{JS_PATH}jquery.ui.datepicker-zh-CN.min.js"></script>
+<script type="text/javascript" src="{JS_PATH}common.js"></script>
+<script type="text/javascript" src="{JS_PATH}js.js"></script>
+<script type="text/javascript" src="{JS_PATH}jiameng.js"></script>
+<script type="text/javascript">
+    var offset = $('.main-container').offset();
+    var $marginL = offset.left;
+    function goBack(el,goback){
+        if(goback == 'go'){
+            el.find('.in-con').hide();
+            el.find('.oth-con').show();
+            el.css('position','absolute');
+        }
+        else{
+            el.find('.in-con').show();
+            el.find('.oth-con').hide();
+            el.css('position','fixed');
+        }
+    }
+    function __default(elNum,move,award,top,width,height,goback){
+        if(move == 'left'){
+            $('.adv-'+elNum).animate({
+                'left':award + 'px',
+                'top':top + 'px',
+                'width':width + 'px',
+                'height':height + 'px'
+            },function(){
+                goBack($(this),goback);
+            });
+        }
+        else if(move == 'right'){
+            $('.adv-'+elNum).animate({
+                'right':award + 'px',
+                'top':top + 'px',
+                'width':width + 'px',
+                'height':height + 'px'
+            },function(){
+                goBack($(this),goback);
+            });
+        }
+    }
+    function __animate(elNum){
+        var top;
+        var _left;
+        var _right;
+        switch(elNum){
+            case 1:
+                top = '-=40';
+                _left = '+='+$marginL;
+                break;
+            case 2:
+                top = '-=340';
+                _left = '+='+($marginL+245);
+                break;
+            case 3:
+                top = '-=40';
+                _right = '+='+$marginL;
+                break;
+            case 4:
+                top = '-=340';
+                _right = '+='+($marginL+245);
+                break;
+        }
+        if(elNum > 2){
+            __default(elNum,'right',_right,top,243,25,'go');
+        }
+        else{
+            __default(elNum,'left',_left,top,243,25,'go');
+        }
+    }
+    $(document).ready(function(){
+		t1 = new Tab("ctr", "span", "focus", "a", {
+			autoPlay : true,
+			timeout : 5000,
+			delay:200,
+			event : "mouseover"	
+		});		
+
+        $.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+        $('#datepicker').datepicker({
+            onSelect:function(dateText){
+                window.open('http://zx.yishu.com/c55/r'+dateText+'p1');
+            }
+        });
+        jumpPanel('.species','.species-jump',true,'.species-content','.species-val');
+        showInfo('.famous-gather .ranking-list','.intro','.detail');
+        showInfo('.identify .common-show-info','.list','.shows');
+        showInfo('.faq .common-show-info','.list','.shows');
+        commSelect('.comm-select');
+        navJump('.sell-online .c li','.common-word');
+        navJump('.sell-online .l','.common-word');
+        tabelTab('.sell-tab','.column');
+        tabelTab('.sell-collect','.column');
+        tabelTab('.show-recom','.column');
+        tabelTab('.identify','.column');       
+		tabelTab('.faq','.column');
+		tabelTab('.master-art','.column');
+		tabelTab('.artist','.column');
+		tabelTab('.hot-draw','.column');
+        navJump('.logined-select','.select');
+        arrSlide('.block1 .slideshow');
+        arrSlide('.block3 .s-slideshow');
+        navJump('.un-login .login','.jump');
+        abChange('.splendid .content','.art-index .splendid ul li','.dis','.img');
+        _chooseCity('#nav-local');
+        _setDate();
+        $('.ui-state-default').bind('mouseout',function(e){
+            $('.art-index .remark').hide();
+            e.stopPropagation();
+        });
+        var $Json = [
+            //{'url':'{IMG_PATH}advertis/big01.jpg'},
+            {'url':'{IMG_PATH}advertis/big02.jpg'}
+        ];
+        var num = $Json.length;
+        var html = '';
+        for(var i=0;i<num;i++){
+            html += '<a href="#" style="background:url('+$Json[i].url+') center center no-repeat"></a>';
+        };
+        var t = function(){
+            $('.t-b-advertise a').fadeOut();
+            $('.t-b-advertise a:eq(0)').appendTo($('.t-b-advertise'));
+            $('.t-b-advertise a').fadeIn();
+        }
+        setInterval(t,5000);
+        $('.t-b-advertise').html(html);
+        //var plusArea = '<div id="plus-area"><div class="c-1"><div id="all-close"></div></div></div>';
+        var k = function(){
+            $('#nav-tool').before(plusArea);
+            $('.t-b-advertise').css('top','85px');
+            __animate(1);
+            __animate(2);
+            __animate(3);
+            __animate(4);
+            $('#all-close').show();
+            $('.aadv').addClass('b-a');
+        }
+        var m = setTimeout(k,5000);
+        $('.aadv .recover').bind('click',function(){
+            $(this).parents('.aadv').removeClass('b-a');
+            var num = $(this).parents('.aadv').attr('class');
+            num = parseInt(num.replace('adv-',''));
+            switch(num){
+                case 1:
+                    __default(1,'left','-='+$marginL,'+=40',120,260,'back');
+                    break;
+                case 2:
+                    __default(2,'left','-='+($marginL+245),'+=340',120,260,'back');
+                    break;
+                case 3:
+                    __default(3,'right','-='+$marginL,'+=40',120,260,'back');
+                    break;
+                case 4:
+                    __default(4,'right','-='+($marginL+245),'+=340',120,260,'back');
+                    break;
+            }
+            if($('.b-a').length < 1){
+                $('#plus-area').remove();
+                $('.t-b-advertise').css('top','40px');
+            }
+            else if($('.b-a').length < 4){
+                $('#all-close').hide();
+            }
+        });
+        $('.aadv .close').bind('click',function(){
+            $(this).parents('.aadv').addClass('b-a');
+            var num = $(this).parents('.aadv').attr('class');
+            num = parseInt(num.replace('adv-',''));
+            clearTimeout(m);
+            if($('#plus-area').length == 0){
+                $('#nav-tool').before(plusArea);
+                $('.t-b-advertise').css('top','85px');
+            }
+            switch(num){
+                case 1:
+                    __default(1,'left','+='+$marginL,'-=40',243,25,'go');
+                    break;
+                case 2:
+                    __default(2,'left','+='+($marginL+245),'-=340',243,25,'go');
+                    break;
+                case 3:
+                    __default(3,'right','+='+$marginL,'-=40',243,25,'go');
+                    break;
+                case 4:
+                    __default(4,'right','+='+($marginL+245),'-=340',243,25,'go');
+                    break;
+            }
+            if($('.b-a').length > 3){
+                $('#all-close').show();
+            }
+            else{
+                $('#all-close').hide();
+            }
+        });
+        $('#all-close').live('click',function(){
+            $('#plus-area').remove();
+            $('.aadv').remove();
+            $('.t-b-advertise').css('top','40px');
+        });
+
+        $('.search-btn').bind('click',function(){
+            var search_type = $('.species-val').text();
+            var search_content = $('.search-content').val();
+            if(trim(search_content) == "" || trim(search_content) == "请输入搜索内容"){
+                alert('您未输入任何内容！');
+                return false;
+            }
+            //window.open("{:U('/Home/Search/index')}?search_type="+search_type+"&search_content="+search_content);
+            window.open("http://www.yishu.com/search/index.php?m=search&c=index&a=init&typeid="+search_type+"&siteid=1&q="+search_content);
+        })
+        $('.hot-search span').bind('click',function(){
+            var search_type = $('.species-val').text();
+            var search_content = $(this).text();
+            //window.open("{:U('/Home/Search/index')}?search_type="+search_type+"&search_content="+search_content);
+            window.open("http://www.yishu.com/search/index.php?m=search&c=index&a=init&typeid="+search_type+"&siteid=1&q="+search_content);
+        });
+		$('#set_city').click(function(){
+            $('.top .substation').load('/Home/Index/city/city/' + $('p.local-city span b').text(),function(){
+                $('.top .local-city span b').html($('p.local-city span b').text());
+                $('#nav-local').hide();
+            });
+        });
+		$('#tab_t1').mouseover(function(){
+			$('#links_01').show();
+			$('#links_02').hide();
+			$('#links_03').hide();
+			$(this).addClass("select");
+			$('#tab_t2').removeClass("select");
+			$('#tab_t3').removeClass("select");
+		});
+		$('#tab_t2').mouseover(function(){
+			$('#links_01').hide();
+			$('#links_02').show();
+			$('#links_03').hide();
+			$(this).addClass("select");
+			$('#tab_t1').removeClass("select");
+			$('#tab_t3').removeClass("select");
+		});
+		$('#tab_t3').mouseover(function(){
+			$('#links_01').hide();
+			$('#links_02').hide();
+			$('#links_03').show();
+			$(this).addClass("select");
+			$('#tab_t1').removeClass("select");
+			$('#tab_t2').removeClass("select");
+		});
+		$('.today_hot_top1').mouseover(function(){
+			$('.today_hot_down1').show();
+			$('.today_hot_down2').hide();
+			$('.today_hot_down3').hide();
+			$('.today_hot_down4').hide();
+			$(this).addClass("select");
+			$('.today_hot_top2').removeClass("select");
+			$('.today_hot_top3').removeClass("select");
+			$('.today_hot_top4').removeClass("select");
+		});
+		$('.today_hot_top2').mouseover(function(){
+			$('.today_hot_down2').show();
+			$('.today_hot_down1').hide();
+			$('.today_hot_down3').hide();
+			$('.today_hot_down4').hide();
+			$(this).addClass("select");
+			$('.today_hot_top1').removeClass("select");
+			$('.today_hot_top3').removeClass("select");
+			$('.today_hot_top4').removeClass("select");
+		});
+		$('.today_hot_top3').mouseover(function(){
+			$('.today_hot_down3').show();
+			$('.today_hot_down1').hide();
+			$('.today_hot_down2').hide();
+			$('.today_hot_down4').hide();
+			$(this).addClass("select");
+			$('.today_hot_top1').removeClass("select");
+			$('.today_hot_top2').removeClass("select");
+			$('.today_hot_top4').removeClass("select");
+		});
+		$('.today_hot_top4').mouseover(function(){
+			$('.today_hot_down4').show();
+			$('.today_hot_down1').hide();
+			$('.today_hot_down2').hide();
+			$('.today_hot_down3').hide();
+			$(this).addClass("select");
+			$('.today_hot_top1').removeClass("select");
+			$('.today_hot_top2').removeClass("select");
+			$('.today_hot_top3').removeClass("select");
+		});
+		$('#artist-talk ul li').mouseover(function(){
+			$('#artist-talk ul li').removeClass('select');
+			$(this).addClass('select');
+			$('#artist-talk .content .sczs .cc').hide();
+			$('#artist-talk .content .sczs .content-'+$(this).attr('rel')).show();
+		});
+    });
+	
+</script>
+<script>
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F2268268feca63a465a25bdc7fbedc202' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+

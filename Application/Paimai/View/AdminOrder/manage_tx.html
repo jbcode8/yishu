@@ -1,0 +1,124 @@
+<extend name="Admin@Public:base"/>
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css"/>
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css"/>
+</block>
+<block name="body">
+
+    注：点击打印时请先选择您要打印的信息！&nbsp;&nbsp;&nbsp;&nbsp;<a id="j_print"><b>--打印&nbsp;预览--</b></a>
+	</br>
+	</br>
+<!----搜索--begin-->
+<div style="margin:15px ">
+ <table>
+	<tr>
+		<form action="{:U('AdminOrder/manage_tx','')}" method="post">
+			<td>请输入手机号</td><td><input type="text" name="s_phone" /></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td>请输入用户名</td><td><input type="text" name="s_username" /></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td><input type="submit" value="搜索"/></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			<td><input id="input_clear" type="button" value="清空"/></td>
+		</form>
+	</tr>
+ </table>
+</div>
+<script type="text/javascript">
+	//用户点击清空按钮时，清空表单内容
+	$('#input_clear').click(function(){
+		$('input[name=s_phone]').attr('value', '');
+		$('input[name=s_username]').attr('value', '');
+	});
+
+	$('input[name=s_username]').change(function(){
+		$('input[name=s_phone]').attr('value', '');
+	});
+	$('input[name=s_phone]').change(function(){
+		$('input[name=s_username]').attr('value', '');
+	});
+</script>
+<!----搜索--end-->
+ <table class="m_table">
+       <tr>
+           <td><input id="checkAll" type="checkbox" /></td>
+           <td>id</td>
+       	   <td>用户姓名</td>
+		   <td>提现用户</td>
+		   <td>手机号码</td>
+		   <td>充值总额</td>
+		   <td>扣除保证金</td>
+		   <td>可提现金额</td>
+		   <td>已提现</td>
+		   <td>提现金额</td>
+		   <td>提现银行</td>
+		   <td>银行账号</td>
+		   <td>银行地区</td>
+		   <td>银行城市</td>
+		   <td>提现时间</td>
+		   <td>提现状态</td>
+		   <td>提现操作</td>
+	   </tr>
+        
+		<volist name='txs' id='v'>
+		<tr> 
+		   <td align="center"><input name="subBox" type="checkbox" /></td>
+           <td id="id">{$v['id']}</td>
+		   <td><a href="{:U('Paimai/AdminOrder/manage_tx_detail',array('id'=>$v['uid']))}" target="_blank">{$v['realname']}</a></td>
+           <td><a href="{:U('Paimai/AdminOrder/manage_tx_detail',array('id'=>$v['uid']))}" target="_blank">{:getUsername($v['uid'],0)}</a></td>
+           <td>{$v['mobile']}</td>
+           <td>
+           		<if condition="$v['all_amount']">
+           			{$v['all_amount']}元
+           		<else />
+           			0元
+           		</if>	
+           </td>
+           <td>
+           		<if condition="$v['cuted_money']">
+           			{$v['cuted_money']}元
+           		<else />
+           			0元
+           		</if>	
+           </td>
+           <td>{$v['ky_money']}元</td>
+           <td>{$v['tx_money']}元</td>
+		   <td>{$v.money}元</td>
+		   <td>{:C('BANK_CONF')[bank_info($v['bid'])['bankname']]}</td>
+		   <td>{:bank_info($v['bid'])['bankno']}</td>
+		   <td>{:bank_info($v['bid'])['bankarea']}</td>
+		   <td>{:bank_info($v['bid'])['bankcity']}</td>
+		   <td>{$v.time|date='Y-m-d H:i:s',###}</td>
+		   <td><if condition="$v['status'] eq 0">未审核<elseif condition="$v['status'] eq 1" />提现成功<elseif condition="$v['status'] eq 2" />不符合提现条件</if></td>
+		   <td>
+		   <if condition="$v['status'] eq 0">
+		   <a href="/Paimai/AdminOrder/ty/id/{$v.id}/uid/{$v['uid']}">同意提现</a> / 
+		   <a href="/Paimai/AdminOrder/bty/id/{$v.id}">不同意提现</a>
+		   <else />
+			已审核
+		   </if>
+		   </td>
+		   </tr>
+		</volist>
+        
+        <tr><td colspan="17">{$page}</td></tr>
+    </table>
+
+
+	<script type="text/javascript">
+        $(function(){
+          $("#checkAll").click(function() {
+                $('input[name="subBox"]').attr("checked",this.checked);
+            });
+          //点击打印取出id拼接成字符串
+          $("#j_print").click(function(){
+              var ids=[];
+              $("input[name=subBox]:checked").each(function(i){
+                  ids[i]=$(this).parent().siblings("#id").text();
+              });
+              //alert("{:U('Paimai/AdminOrder/manageprint',array('ids'=>"+ids+"))}")
+              window.open("{:U('Paimai/AdminOrder/manageprint')}?ids="+ids);
+          })
+        
+        })
+       
+</script>
+        
+</block>

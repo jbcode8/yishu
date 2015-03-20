@@ -1,0 +1,38 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{width:400px;}
+    </style>
+</block>
+<block name="body">
+    <form action="{:U('Message/Category/edit')}" method="post" class="editCategory">
+        <table class="form">
+            <tr>
+                <th class="w1">留言板名称:</th>
+                <td>
+                    <input type="text" name="name" value="{$vo.name}"/>
+                </td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+            <tr>
+                <th class="w1">留言板描述:</th>
+                <td>
+                   <textarea name="description">{$vo.description}</textarea>
+                </td>
+                <td class="tips">
+                    <i>可选</i>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <input type="hidden" name="id" value="{$vo.id}" />
+                    <button type="submit" class="btn ajax-post" target-form="editCategory">确认</button>
+                    <button type="reset" class="btn btn_gary">重填</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</block>

@@ -1,0 +1,72 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{width:580px;}
+    </style>
+</block>
+<block name="body">
+    <form action="{:U('Admin/Coupons/editHandler')}" id="coupons_submit" method="post" class="addCategory">
+        <table class="form">
+            <input type='hidden' name="id" value="{$coupons['id']}" />
+            <tr>
+                <th>优惠券码</th>
+                <td><input type="text" name="code" value="{$coupons['code']}"/></td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+            <tr>
+                <th>创建时间</th>
+                <td><input type="text" name="creatime" value="{:date('Y-m-d H:i:s',$coupons['creatime'])}"/></td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+            <tr>
+                <th>有效期：</th>
+                <td><input type="text" name="day" style="width:112px;" onkeyup="this.value=this.value.replace(/[^0-9]/,'')" value="{:floor(($coupons['endtime']-$coupons['creatime'])/86400)}"/>&nbsp;&nbsp;&nbsp;天</td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+	    	
+
+            <tr>
+                <th>金额:</th>
+                <td><input type="text" name="amount" onkeyup="this.value=this.value.replace(/[^0-9]/,'')" value="{$coupons['amount']}"/></td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+			<tr>
+                <th>描述:</th>
+                <td><textarea cols="30" rows="3" name="description">{$coupons['description']}</textarea></td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+            <tr>
+                <th>类型:</th>
+                <td>
+                    注册返现&nbsp;
+                    <if condition="$coupons['type'] eq 2">
+                        <input type="radio" name="type" value="1"/>&nbsp;普通优惠券&nbsp;<input type="radio" name="type" value="2" checked="checked"/>
+                    <else />
+                        <input type="radio" name="type" value="1" checked="checked"/>&nbsp;普通优惠券&nbsp;<input type="radio" name="type" value="2" />
+                    </if>
+                </td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <button type="submit" class="btn ajax-post" target-form="addCategory">确认</button>
+                </td>
+            </tr>
+
+        </table>
+    </form>
+</block>
+

@@ -1,0 +1,40 @@
+<extend name="Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{width:500px;}
+    </style>
+</block>
+<block name="body">
+    <form action="{:U('authorization')}" method="post" class="addGroup">
+        <input type="hidden" name="uid" value="{$_REQUEST['uid']}"/>
+        <input type="hidden" name="batch" value="true" />
+        <table class="form">
+            <tr>
+                <th class="w1">用户组列表:</th>
+                <td>
+                    <volist name="_groupList" id="vo">
+                        <label class="checkbox"><input type="checkbox" class="group_id" name="group_id[]" value="{$vo.id}"  />{$vo.title}</label>
+                    </volist>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <button type="submit" class="btn ajax-post" target-form="addGroup" >确认</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</block>
+<block name="javascript">
+    <script type="text/javascript">
+        $(function(){
+            var user_group = [{$user_group}];
+            $('.group_id').each(function(){
+                if( $.inArray( parseInt(this.value,10),user_group )!= -1 ){
+                    $(this).prop('checked',true);
+                }
+            });
+        });
+    </script>
+</block>

@@ -1,0 +1,26 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="{PLUGIN_PATH}treetable/css/treetable.css" />
+    <load file="{PLUGIN_PATH}treetable/js/jquery.treetable.js" />
+</block>
+<block name="body">
+<div class="container">
+    <ul class="header clear">
+    <li <eq name="ACTION_NAME" value="edit">class="current"</eq>><a href="{:U('Auction/AdminGoods/index')}">直播客户管理</a></li>
+    <li <eq name="ACTION_NAME" value="add">class="current"</eq>><a href="{:U('Auction/AdminGoods/add')}">添加直播客户</a></li>
+    </ul>
+    <form method="post">
+    <table class="table table-hover">
+        <thead><tr><th></th><th></th></tr></thead>
+        <tbody>
+            <tr><td>直播客户名称：</td><td><input type="text" name="name" value="{$data['name']}" size="50" /></td></tr>
+            <tr><td>客户图片：</td><td><Form function="images" parameter="thumb, thumb, $data['thumb'], auction" /></td></tr>
+            <tr><td>客户网址：</td><td><input type="text" value="{$data['website']}" name="website" size="30" /></td></tr>
+            <tr><td>是否显示：</td><td><select name="status"><option value="$data['status']"><if condition="$data['status']==0">显示<else />不显示</if></option><option value="0">显示</option><option value="1">不显示</option></select></td></tr>
+            <tr><td>&nbsp;</td><td><input type="hidden" name="id" value="{$data['id']}" /><input name="submit" type="submit" value="编辑信息" class="btn btn-primary" /></td></tr>
+        </tbody>
+    </table>
+    </form>
+    
+</div>
+</block>

@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>中国-艺术网</title>
+<link href="{CSS_PATH}site.css" rel="stylesheet" type="text/css" />
+<link href="{CSS_PATH}Auction/selling.css" rel="stylesheet" type="text/css" />
+<script src="{JS_PATH}jquery-1.7.2.min.js"></script>
+</head>
+<body class="selling-panel selling-index">
+	<!-- 头部 -->
+	<div id="header">
+		<div class="tool-bar clear">
+			<div class="content">
+				<div class="info-unlog left hide">
+					<p>
+						<span>欢迎光临中国艺术网！</span>
+						<span><a href="#">用户登陆</a></span>
+						<span> | </span>
+						<span><a href="#">免费注册</a></span>
+					</p>
+				</div>
+				<div class="info-log left">
+					<p class="wel-msg">欢迎回来！</p>
+					<p class="user-name red">yonglijob@163.com</p>
+					<p class="mail mail-h"><a href="#" class="red">(2)</a></p>
+					<p class="logo-out"><a href="#">安全退出</a></p>
+					<div class="pers-oper common-select">
+						<span>我的艺术网</span>
+						<div class="select hide">
+							<ul>
+								<li><a href="#">用户中心</a></li>
+								<li><a href="#">消息中心</a></li>
+								<li><a href="#">我的收藏</a></li>
+								<li><a href="#">我的好友</a></li>
+								<li><a href="#">账号管理</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="right">
+					<p class="right">
+						<span><a href="#">帮助中心</a></span>
+						<span> | </span>
+						<span><a href="#">设为首页</a></span>
+						<span> | </span>
+						<span><a href="#">收藏本站</a></span>
+						<span> | </span>
+						<span>客服热线:</span>
+						<span class="f14"><b>400-000-000</b></span>
+					</p>
+					<div class="location right">
+						<span class="now-city">上海站</span>
+						<div id="nav-local" class="hide">							
+							<p class="local-city">
+								当前城市：
+								<span><b>上海</b></span>
+								<a href="" class="red">[设为默认城市]</a>
+							</p>
+							<div class="country">
+								<ul>
+									<li><b><a href="#">全国</a></b></li>
+									<li><a href="#">北京</a></li>
+									<li><a href="#">上海</a></li>
+									<li><a href="#">广州</a></li>
+									<li><a href="#">深圳</a></li>
+									<li><a href="#">成都</a></li>
+									<li><a href="#">西安</a></li>
+									<li><a href="#">天津</a></li>
+									<li><a href="#">武汉</a></li>
+									<li><a href="#">重庆</a></li>
+									<li><a href="#">南京</a></li>
+								</ul>
+							</div>
+							<div class="search-city">
+								<p class="search"><input type="text" placeholder="输入城市名" /></p>
+								<p class="btn">搜 索</p>
+								<p class="red error hide">没有该城市！</p>
+							</div>
+							<div class="en-word">
+								<ul>
+									<li>A</li>
+									<li>B</li>
+									<li>C</li>
+									<li>D</li>
+									<li>E</li>
+									<li>F</li>
+									<li>G</li>
+									<li>H</li>
+									<li>J</li>
+									<li>K</li>
+									<li>L</li>
+									<li>M</li>
+									<li>N</li>
+									<li>P</li>
+									<li>Q</li>
+									<li>R</li>
+									<li>S</li>
+									<li>T</li>
+									<li>W</li>
+									<li>X</li>
+									<li>Y</li>
+									<li>Z</li>
+								</ul>
+							</div>
+							<div class="city-list">
+								<div class="content">
+									<div class="a num-rank">
+										<p class="en">A</p>
+										<ul>
+											<li>鞍山</li>
+											<li>安阳</li>
+											<li>安庆</li>
+										</ul>
+									</div>
+									<div class="b num-rank">
+										<p class="en">B</p>
+										<ul>
+											<li>北京</li>
+											<li>包头</li>
+											<li>保定</li>
+											<li>并州</li>
+											<li>宝鸡</li>
+											<li>宝洲</li>
+										</ul>
+									</div>
+									<div class="c num-rank">
+										<p class="en">C</p>
+										<ul>
+											<li>成都</li>
+											<li>长沙</li>
+											<li>重庆</li>
+											<li>长春</li>
+											<li>常州</li>
+											<li>常熟</li>
+											<li>常德</li>
+											<li>长治</li>
+											<li>沧州</li>
+											<li>承德</li>
+											<li>慈溪</li>
+											<li>擦州</li>
+										</ul>
+									</div>
+									<div class="d num-rank">
+										<p class="en">D</p>
+										<ul>
+											<li>大连</li>
+											<li>东莞</li>
+											<li>大庆</li>
+											<li>大同</li>
+											<li>德阳</li>
+											<li>东阳</li>
+											<li>达州</li>
+											<li>德州</li>
+										</ul>
+									</div>
+									<div class="e num-rank">
+										<p class="en">E</p>
+										<ul>
+											<li>鞍山1</li>
+											<li>安阳1</li>
+											<li>安庆1</li>
+										</ul>
+									</div>
+									<div class="f num-rank">
+										<p class="en">F</p>
+										<ul>
+											<li>北京1</li>
+											<li>包头1</li>
+											<li>保定1</li>
+											<li>并州1</li>
+											<li>宝鸡1</li>
+											<li>宝洲1</li>
+										</ul>
+									</div>
+									<div class="g num-rank">
+										<p class="en">G</p>
+										<ul>
+											<li>成都1</li>
+											<li>长沙1</li>
+											<li>重庆1</li>
+											<li>长春1</li>
+											<li>常州1</li>
+											<li>常熟1</li>
+											<li>常德1</li>
+											<li>长治1</li>
+											<li>沧州1</li>
+											<li>承德1</li>
+											<li>慈溪1</li>
+											<li>擦州1</li>
+										</ul>
+									</div>
+									<div class="h num-rank">
+										<p class="en">H</p>
+										<ul>
+											<li>大连1</li>
+											<li>东莞1</li>
+											<li>大庆1</li>
+											<li>大同1</li>
+											<li>德阳1</li>
+											<li>东阳1</li>
+											<li>达州1</li>
+											<li>德州1</li>
+										</ul>
+									</div>
+									<div class="j num-rank">
+										<p class="en">J</p>
+										<ul>
+											<li>鞍山2</li>
+											<li>安阳2</li>
+											<li>安庆2</li>
+										</ul>
+									</div>
+									<div class="k num-rank">
+										<p class="en">K</p>
+										<ul>
+											<li>北京2</li>
+											<li>包头2</li>
+											<li>保定2</li>
+											<li>并州2</li>
+											<li>宝鸡2</li>
+											<li>宝洲2</li>
+										</ul>
+									</div>
+									<div class="l num-rank">
+										<p class="en">L</p>
+										<ul>
+											<li>成都2</li>
+											<li>长沙2</li>
+											<li>重庆2</li>
+											<li>长春2</li>
+											<li>常州2</li>
+											<li>常熟2</li>
+											<li>常德2</li>
+											<li>长治2</li>
+											<li>沧州2</li>
+											<li>承德2</li>
+											<li>慈溪2</li>
+											<li>擦州2</li>
+										</ul>
+									</div>
+									<div class="m num-rank">
+										<p class="en">M</p>
+										<ul>
+											<li>大连2</li>
+											<li>东莞2</li>
+											<li>大庆2</li>
+											<li>大同2</li>
+											<li>德阳2</li>
+											<li>东阳2</li>
+											<li>达州2</li>
+											<li>德州2</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+		<p class="top-advertis"><a href="#"><img src="images/advertis/top-advertis.jpg" alt="advertis" width="980" height="70" /></a></p>
+		<div class="header-nav">
+			<span><a href="#">资讯</a></span>
+			<span> | </span>
+			<span><a href="#">大师</a></span>
+			<span> | </span>
+			<span><a href="#">画廊</a></span>
+			<span> | </span>
+			<span><a href="#">展讯</a></span>
+			<span> | </span>
+			<span><a href="#" class="select">专题</a></span>
+			<span> | </span>
+			<span><a href="#">赏鉴</a></span>
+			<span> | </span>
+			<span><a href="#">商城</a></span>
+			<span> | </span>
+			<span><a href="#">竞拍</a></span>
+			<span> | </span>
+			<span><a href="#">大师作品</a></span>
+			<span> | </span>
+			<span><a href="#">藏品专场</a></span>
+			<span> | </span>
+			<span><a href="#">在线鉴宝</a></span>
+			<span> | </span>
+			<span><a href="#">你问我答</a></span>
+			<span> | </span>
+			<span><a href="#">拍品征集</a></span>
+			<span> | </span>
+			<span><a href="#">艺友论坛</a></span>
+			<span> | </span>
+			<span><a href="#">作品代售</a></span>
+			<span> | </span>
+			<span><a href="#">推荐店铺</a></span>
+			<span> | </span>
+			<span><a href="#">在线展厅</a></span>
+			<span> | </span>
+			<span><a href="#">专场活动</a></span>
+		</div>
+	</div>
+	<!-- 页面内容 -->
+	<div class="main-container">
+		<!-- 栏目头部 -->
+		<div class="panel-header clear">
+			<div class="left top-bar">
+				<p><a href="#"><img src="images/logo.jpg" alt="logo" /></a></p>
+				<p class="panel-name">拍 卖<br />频 道</p>
+			</div>
+			<div class="main-web clear">
+				<div class="right">
+					<div id="main-search">
+						<div class="species">
+							<span class="species-content">全 部</span>
+							<span class="choose"><img src="images/icons/search-arrow.gif" alt="" /></span>
+							<div class="species-jump common-jump hide">
+								<ul>
+									<li>拍 卖</li>
+									<li>法 律</li>
+									<li>行 情</li>
+								</ul>
+							</div>
+						</div>
+						<div class="search">
+							<form>
+								<div class="search-input">
+									<input type="text" placeholder="中国最具影响力艺术门户" />
+								</div>
+								<p class="search-btn"><input type="submit" value="搜 索" /></p>
+							</form>
+						</div>
+					</div>
+					<div class="hot-search">
+						<span>热搜：</span>
+						<span><a href="#">乾隆通宝</a></span>
+						<span><a href="#">古典家具</a></span>
+						<span><a href="#">青铜器</a></span>
+						<span><a href="#">油版雕</a></span>
+						<span><a href="#">影像</a></span>
+						<span><a href="#">古籍善本</a></span>
+						<span><a href="#" class="red">紫砂壶</a></span>
+					</div>
+				</div>
+			</div>
+			<div class="main-navigate">
+				<ul>
+					<li><a href="#" class="select">首 页</a></li>
+					<li><a href="#">拍卖预展</a></li>
+					<li><a href="#">拍卖结果</a></li>
+					<li><a href="#">拍卖机构</a></li>
+					<li><a href="#">拍卖征集</a></li>
+					<li><a href="#">拍卖资讯</a></li>
+					<li><a href="#">拍卖专题</a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- 栏目内容 -->
+		<div class="container">
+			<div class="top-msg">
+				<b>藏品频道：</b>
+				<a href="#">国画</a>
+				<a href="#">书法</a>
+				<a href="#">油画</a>
+				<a href="#">玉器</a>
+				<a href="#">瓷器</a>
+				<a href="#">木器</a>
+				<a href="#">寿山石</a>
+			</div>
+			<div class="main-page">
+				<div class="top-side">
+					<div class="tt clear">
+						<div class="l-side">
+							<div class="slideshow">
+								<div class="slide-img">
+									<ul>
+										<li>
+											<a href="#">
+												<img src="images/column-img/78.gif" width="330" height="300" alt="" />
+												<p class="common-word">让徐悲鸿不安的对手与情敌</p>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<img src="images/column-img/78.gif" width="330" height="300" alt="" />
+												<p class="common-word">让徐悲鸿不安的对手与情敌</p>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<img src="images/column-img/78.gif" width="330" height="300" alt="" />
+												<p class="common-word">让徐悲鸿不安的对手与情敌</p>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<img src="images/column-img/78.gif" width="330" height="300" alt="" />
+												<p class="common-word">让徐悲鸿不安的对手与情敌</p>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<img src="images/column-img/78.gif" width="330" height="300" alt="" />
+												<p class="common-word">让徐悲鸿不安的对手与情敌</p>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<img src="images/column-img/78.gif" width="330" height="300" alt="" />
+												<p class="common-word">让徐悲鸿不安的对手与情敌</p>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="c-side">
+							<div class="comm-t clear">
+								<h2>焦点新闻</h2>
+								<a href="#" class="more">更多</a>
+							</div>
+							<div class="content">
+								<div class="main-news">
+									<p class="t"><a href="#">一台从月球返回地球的哈苏相机将会亮相</a></p>
+									<p class="article"><a href="#">在阿波罗工程中，很多具有标志性的太空历程照片被人们熟知。不过，有多少人了解这些照片是什么相机拍摄下来的呢......</a></p>
+								</div>
+								<div class="list-news">
+									<ul>
+										<li><a href="#">安萨斯：5-10年 法国的中国文物市场将告结束</a></li>
+										<li><a href="#">《功甫帖》之争 博物馆的“公信危机与救赎”</a></li>
+										<li><a href="#">2013年法国拍卖市场稳定成长 国际化发展凸显</a></li>
+										<li><a href="#">故宫30年来首次周一闭馆 业界为“歇气”叫好</a></li>
+										<li><a href="#">清雍正年弘治款青花龙纹碗 釉白质润造型规整</a></li>
+										<li><a href="#">回流瓷器骤然兴盛 价格与档次不成正比是原因</a></li>
+										<li><a href="#">故宫30年来首次周一闭馆 业界为“歇气”叫好</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="r-side">
+							<div class="comm-t clear">
+								<h2>今日开拍</h2>
+								<span class="right">2014-10-12</span>
+							</div>
+							<div class="content">
+								<ul class="hover-common-word">
+									<li>
+										<p><img src="images/column-img/79.jpg" width="130" height="130" alt="" /></p>
+										<div class="common-word">
+											<a href="#">
+												<p>黄皮白玉籽玉挂件</p>
+												<p>起拍价：￥5000</p>
+												<p>出价次数：2</p>
+											</a>
+										</div>
+									</li>
+									<li>
+										<p><img src="images/column-img/79.jpg" width="130" height="130" alt="" /></p>
+										<div class="common-word">
+											<a href="#">
+												<p>黄皮白玉籽玉挂件</p>
+												<p>起拍价：￥5000</p>
+												<p>出价次数：2</p>
+											</a>
+										</div>
+									</li>
+									<li>
+										<p><img src="images/column-img/79.jpg" width="130" height="130" alt="" /></p>
+										<div class="common-word">
+											<a href="#">
+												<p>黄皮白玉籽玉挂件</p>
+												<p>起拍价：￥5000</p>
+												<p>出价次数：2</p>
+											</a>
+										</div>
+									</li>
+									<li>
+										<p><img src="images/column-img/79.jpg" width="130" height="130" alt="" /></p>
+										<div class="common-word">
+											<a href="#">
+												<p>黄皮白玉籽玉挂件</p>
+												<p>起拍价：￥5000</p>
+												<p>出价次数：2</p>
+											</a>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="tb clear">
+						<a href="#"><img src="images/column-img/183.jpg" width="317" height="100" alt="" /></a>
+						<a href="#"><img src="images/column-img/184.jpg" width="317" height="100" alt="" /></a>
+						<a href="#"><img src="images/column-img/185.jpg" width="317" height="100" alt="" /></a>
+					</div>
+				</div>
+				<div class="hot-selling">
+					<div class="comm-t clear">
+						<h2>热门拍品</h2>
+						<a class="more" href="#">更多</a>
+					</div>
+					<div class="content clear">
+						<ul class="last-ele">
+							<li>
+								<a href="#" class="img"><img src="images/column-img/186.jpg" width="170" height="170" alt="" /></a>
+								<p><b>冬天街景</b></p>
+								<p>估价：<b class="red">￥4000.00</b></p>
+								<p>作者：南派三叔</p>
+								<p>开始时间：2013-12-08 09:00</p>
+							</li>
+							<li>
+								<a href="#" class="img"><img src="images/column-img/186.jpg" width="170" height="170" alt="" /></a>
+								<p><b>冬天街景</b></p>
+								<p>估价：<b class="red">￥4000.00</b></p>
+								<p>作者：南派三叔</p>
+								<p>开始时间：2013-12-08 09:00</p>
+							</li>
+							<li>
+								<a href="#" class="img"><img src="images/column-img/186.jpg" width="170" height="170" alt="" /></a>
+								<p><b>冬天街景</b></p>
+								<p>估价：<b class="red">￥4000.00</b></p>
+								<p>作者：南派三叔</p>
+								<p>开始时间：2013-12-08 09:00</p>
+							</li>
+							<li>
+								<a href="#" class="img"><img src="images/column-img/186.jpg" width="170" height="170" alt="" /></a>
+								<p><b>冬天街景</b></p>
+								<p>估价：<b class="red">￥4000.00</b></p>
+								<p>作者：南派三叔</p>
+								<p>开始时间：2013-12-08 09:00</p>
+							</li>
+							<li>
+								<a href="#" class="img"><img src="images/column-img/186.jpg" width="170" height="170" alt="" /></a>
+								<p><b>冬天街景</b></p>
+								<p>估价：<b class="red">￥4000.00</b></p>
+								<p>作者：南派三叔</p>
+								<p>开始时间：2013-12-08 09:00</p>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="brand">
+					<div class="comm-t clear">
+						<h2>品牌专区</h2>
+						<a href="#" class="more">更多</a>
+					</div>
+					<div class="content clear">
+						<ul>
+							<li><a href="#"><p><img src="images/column-img/187.jpg" width="75" height="40" alt="" /></p><p>香港苏富比</p></a></li>
+							<li><a href="#"><p><img src="images/column-img/187.jpg" width="75" height="40" alt="" /></p><p>香港苏富比</p></a></li>
+							<li><a href="#"><p><img src="images/column-img/187.jpg" width="75" height="40" alt="" /></p><p>香港苏富比</p></a></li>
+							<li><a href="#"><p><img src="images/column-img/187.jpg" width="75" height="40" alt="" /></p><p>香港苏富比</p></a></li>
+							<li><a href="#"><p><img src="images/column-img/187.jpg" width="75" height="40" alt="" /></p><p>香港苏富比</p></a></li>
+							<li><a href="#"><p><img src="images/column-img/187.jpg" width="75" height="40" alt="" /></p><p>香港苏富比</p></a></li>
+							<li><a href="#"><p><img src="images/column-img/187.jpg" width="75" height="40" alt="" /></p><p>香港苏富比</p></a></li>
+							<li><a href="#"><p><img src="images/column-img/187.jpg" width="75" height="40" alt="" /></p><p>香港苏富比</p></a></li>
+							<li><a href="#"><p><img src="images/column-img/187.jpg" width="75" height="40" alt="" /></p><p>香港苏富比</p></a></li>
+							<li><a href="#"><p><img src="images/column-img/187.jpg" width="75" height="40" alt="" /></p><p>香港苏富比</p></a></li>
+							<li><a href="#"><p><img src="images/column-img/187.jpg" width="75" height="40" alt="" /></p><p>香港苏富比</p></a></li>
+							<li><a href="#"><p><img src="images/column-img/187.jpg" width="75" height="40" alt="" /></p><p>香港苏富比</p></a></li>
+							<li><a href="#"><p><img src="images/column-img/187.jpg" width="75" height="40" alt="" /></p><p>香港苏富比</p></a></li>
+							<li><a href="#"><p><img src="images/column-img/187.jpg" width="75" height="40" alt="" /></p><p>香港苏富比</p></a></li>
+							<li><a href="#"><p><img src="images/column-img/187.jpg" width="75" height="40" alt="" /></p><p>香港苏富比</p></a></li>
+							<li><a href="#"><p><img src="images/column-img/187.jpg" width="75" height="40" alt="" /></p><p>香港苏富比</p></a></li>
+							<li><a href="#"><p><img src="images/column-img/187.jpg" width="75" height="40" alt="" /></p><p>香港苏富比</p></a></li>
+							<li><a href="#"><p><img src="images/column-img/187.jpg" width="75" height="40" alt="" /></p><p>香港苏富比</p></a></li>
+							<li><a href="#"><p><img src="images/column-img/187.jpg" width="75" height="40" alt="" /></p><p>香港苏富比</p></a></li>
+							<li><a href="#"><p><img src="images/column-img/187.jpg" width="75" height="40" alt="" /></p><p>香港苏富比</p></a></li>
+							<li><a href="#"><p><img src="images/column-img/187.jpg" width="75" height="40" alt="" /></p><p>香港苏富比</p></a></li>
+							<li><a href="#"><p><img src="images/column-img/187.jpg" width="75" height="40" alt="" /></p><p>香港苏富比</p></a></li>
+							<li><a href="#"><p><img src="images/column-img/187.jpg" width="75" height="40" alt="" /></p><p>香港苏富比</p></a></li>
+							<li><a href="#"><p><img src="images/column-img/187.jpg" width="75" height="40" alt="" /></p><p>香港苏富比</p></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="advertise">
+					<a href="#"><img src="images/advertis/02.jpg" alt="" /></a>
+				</div>
+				<div class="center-side clear">
+					<div class="l-side">
+						<div class="selling-preview">
+							<div class="comm-t clear">
+								<h2>拍卖预展</h2>
+								<a href="#" class="more">更多</a>
+							</div>
+							<div class="content">
+								<div class="tab">
+									<ul>
+										<li class="tt">
+											<span class="t1">拍卖行</span>
+											<span class="t2">拍卖会名称</span>
+											<span class="t3">预展时间</span>
+											<span class="t4">地点</span>
+										</li>
+										<li>
+											<a href="#">
+												<span class="t1">北京冠宸</span>
+												<span class="t2">北京冠宸春秋2014年精品拍卖会</span>
+												<span class="t3">2014-12-13 19:12 - 2014-12-14 19:12</span>
+												<span class="t4">北京京瑞酒店</span>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<span class="t1">北京恒盛鼎</span>
+												<span class="t2">2014春季艺术品拍卖会（北京恒盛鼎）</span>
+												<span class="t3">2014-03-21 16:03 - 2014-03-22 16:03</span>
+												<span class="t4">港澳中心瑞士酒店</span>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<span class="t1">北京冠宸</span>
+												<span class="t2">北京冠宸2014年精品拍卖会</span>
+												<span class="t3">2014-06-26 19:06 - 2014-06-27 19:06</span>
+												<span class="t4">北京京瑞酒店</span>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<span class="t1">雍和嘉诚</span>
+												<span class="t2">北京雍和嘉诚2014秋季艺术品拍卖会</span>
+												<span class="t3">2014-11-24 19:11 - 2014-11-29 19:11</span>
+												<span class="t4">北京汉华国际饭店</span>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<span class="t1">安徽三佳</span>
+												<span class="t2">安徽三佳2014春季艺术品拍卖会</span>
+												<span class="t3">2014-02-21 13:02 - 2014-02-22 13:02</span>
+												<span class="t4">天鹅湖大酒店一楼</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="selling-result">
+							<div class="comm-t clear">
+								<h2>拍卖预展</h2>
+								<a href="#" class="more">更多</a>
+							</div>
+							<div class="content">
+								<div class="tab">
+									<ul>
+										<li class="tt">
+											<span class="t1">拍卖行</span>
+											<span class="t2">拍卖会名称</span>
+											<span class="t3">总成交额</span>
+											<span class="t4">地点</span>
+										</li>
+										<li>
+											<a href="#">
+												<span class="t1">北京冠宸</span>
+												<span class="t2">北京冠宸春秋2014年精品拍卖会</span>
+												<span class="t3 red">登陆后查看</span>
+												<span class="t4">北京京瑞酒店</span>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<span class="t1">北京恒盛鼎</span>
+												<span class="t2">2014春季艺术品拍卖会（北京恒盛鼎）</span>
+												<span class="t3 red">登陆后查看</span>
+												<span class="t4">港澳中心瑞士酒店</span>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<span class="t1">北京冠宸</span>
+												<span class="t2">北京冠宸2014年精品拍卖会</span>
+												<span class="t3 red">登陆后查看</span>
+												<span class="t4">北京京瑞酒店</span>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<span class="t1">雍和嘉诚</span>
+												<span class="t2">北京雍和嘉诚2014秋季艺术品拍卖会</span>
+												<span class="t3 red">登陆后查看</span>
+												<span class="t4">北京汉华国际饭店</span>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<span class="t1">安徽三佳</span>
+												<span class="t2">安徽三佳2014春季艺术品拍卖会</span>
+												<span class="t3 red">登陆后查看</span>
+												<span class="t4">天鹅湖大酒店一楼</span>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="r-side">
+						<div class="selling-cellect">
+							<div class="comm-t clear">
+								<h2>拍品征集</h2>
+								<a href="#" class="more">更多</a>
+							</div>
+							<div class="content">
+								<a href="#"><img src="images/column-img/188.jpg" width="275" height="108" alt="" /></a>
+								<a href="#"><img src="images/column-img/188.jpg" width="275" height="108" alt="" /></a>
+								<a href="#"><img src="images/column-img/188.jpg" width="275" height="108" alt="" /></a>
+								<a href="#"><img src="images/column-img/188.jpg" width="275" height="108" alt="" /></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="advertise">
+					<a href="#"><img src="images/advertis/01.jpg" alt="" /></a>
+				</div>
+				<div class="selling-topic">
+					<div class="comm-t clear">
+						<h2>拍卖专题</h2>
+						<a href="#" class="more">更多</a>
+					</div>
+					<div class="content clear">
+						<ul class="last-ele">
+							<li>
+								<a class="img"><img src="images/column-img/189.jpg" width="220" height="150" alt="" /></a>
+								<div class="intro">
+									<p class="title">杭州文交所印石“4S服务”模式</p>
+									<p class="article">中国的传统春节刚刚过去，似乎年味还若隐若现的刺激着我们的味觉。此时，杭州文交所开年的....<a href="#">[详细]</a></p>
+								</div>
+							</li>
+							<li>
+								<a class="img"><img src="images/column-img/189.jpg" width="220" height="150" alt="" /></a>
+								<div class="intro">
+									<p class="title">杭州文交所印石“4S服务”模式</p>
+									<p class="article">中国的传统春节刚刚过去，似乎年味还若隐若现的刺激着我们的味觉。此时，杭州文交所开年的....<a href="#">[详细]</a></p>
+								</div>
+							</li>
+							<li>
+								<a class="img"><img src="images/column-img/189.jpg" width="220" height="150" alt="" /></a>
+								<div class="intro">
+									<p class="title">杭州文交所印石“4S服务”模式</p>
+									<p class="article">中国的传统春节刚刚过去，似乎年味还若隐若现的刺激着我们的味觉。此时，杭州文交所开年的....<a href="#">[详细]</a></p>
+								</div>
+							</li>
+							<li>
+								<a class="img"><img src="images/column-img/189.jpg" width="220" height="150" alt="" /></a>
+								<div class="intro">
+									<p class="title">杭州文交所印石“4S服务”模式</p>
+									<p class="article">中国的传统春节刚刚过去，似乎年味还若隐若现的刺激着我们的味觉。此时，杭州文交所开年的....<a href="#">[详细]</a></p>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 底部 -->
+	<div id="footer">
+		<div class="top">
+			<a href="#">关于我们</a> · 
+			<a href="#">广告业务</a> · 
+			<a href="#">人才招聘</a> · 
+			<a href="#">新闻动态</a> · 
+			<a href="#">联系我们</a> · 
+			<a href="#">客户投诉</a> · 
+			<a href="#">版权说明</a> · 
+			<a href="#">免责声明隐</a> · 
+			<a href="#">私权保护</a> · 
+			<a href="#">友情链接</a> · 
+			<a href="#">专家顾问</a> · 
+			<a href="#">法律顾问</a>
+		</div>
+		<div class="bottom">
+			<p>Copyright Reserved 2000-2013 中国艺术网 版权所有</p>
+			<p>电信与信息服务业务经营许可证（沪）B2-20030053广播电视制作经营许可证（沪）字第717号</p>
+			<p>京公网安备110113000792号信息网络传播视听节目许可证1909402号</p>
+			<p>网络文化经营许可证文网文［2009］086号互联网出版许可证［2010］445号可信网站验证服务证书2012040503023850号</p>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript" src="js/js.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			jumpPanel('.species','.species-jump',true,'.species-content');
+			commSelect('.info-log .common-select',20);
+			_chooseCity('#nav-local');
+			arrSlide('.slideshow');
+			$('.slideshow .num-page li:last').css('margin-right','0');
+			$('.top-side .r-side li:nth-child(2n)').css('margin-right','0');
+			$('.hover-common-word li').hover(
+				function(){
+					$(this).find('.common-word').show();
+				},
+				function(){
+					$(this).find('.common-word').hide();
+				}
+			);
+			$('.top-side .tb a:last').css('margin-right','0');
+			$('.brand li:nth-child(12n)').css('margin-right','0');
+			$('.brand li:eq(11)~li').css('margin-top','10px');
+		});
+	</script>
+</body>
+</html>

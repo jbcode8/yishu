@@ -1,0 +1,23 @@
+<extend name="Admin@Public:base"/>
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css"/>
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css"/>
+</block>
+<block name="body">
+   <table class="table treetable">
+       <tr><td>商品id</td><td>商品图片</td><td>商品名</td><td>商品货号</td><td>拍下价格</td><td>用户名</td><td>时间</td></tr>
+       <volist name="order_arr" id="v">
+        <tr>
+            <td>{$v.order_goodsid}</td> 
+            <td><img width="70" src="{$v.thumb}"></td>
+            <td>{$v.order_goodsname}</td>
+            <td>{$v.order_goodssn}</td>
+            <td>{$v.order_goodsnowprice}</td>
+            <td>{:getUsername($v['order_uid'],0)}</td>
+            <td>{$v.order_createtime|date='Y-m-d H:i:s',###}</td>
+        </tr>
+        </volist>
+        <tr><td colspan="7">{$page}</td></tr>
+    </table>
+        
+</block>

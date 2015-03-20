@@ -1,0 +1,40 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+    <load file="{PLUGIN_PATH}uploadify/jquery.uploadify.min.js" />
+</block>
+<block name="body">
+
+    <form method="post" enctype="multipart/form-data" action="{:U('Paimai/AdminRecruiter/insert')}" style="width: 700px;height: 300px; margin: auto;">
+    <table class="m_table">
+        <tr>
+            <td width="120">征集人员姓名:</td>
+            <td>
+                <input type="text" name="recruiter_name">
+            </td>
+        </tr>
+        <tr>
+            <td width="120">征集人员手机:</td>
+            <td>
+                <input type="text" name="recruiter_phone">
+            </td>
+        </tr>
+        <tr>
+            <td width="120">是否显示:</td>
+            <td>
+                <input type="radio" checked="checked" name="recruiter_isshow" value="0"/>&nbsp;是&nbsp;
+                <input type="radio" name="recruiter_isshow" value="1"/>&nbsp;否&nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td width="120">征集人描述:</td>
+            <td>
+                <textarea name="recruiter_desc"></textarea>
+                {:hook('adminEditor',array('name'=>'recruiter_desc'))}
+            </td>
+        </tr>
+        <tr><td colspan="2" align="center"><input class="m_submit" type="submit" value="添加"></td></tr>
+    </table>
+    </form>
+</block>

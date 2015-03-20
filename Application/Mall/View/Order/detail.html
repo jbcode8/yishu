@@ -1,0 +1,34 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{ width:650px}
+    </style>
+</block>
+<block name="body">
+    <table class="form">
+        <tr>
+            <th class="w1">订单号:</th><td>{$vo.order_sn}</td>
+        </tr>
+        <tr>
+            <th>店主:</th><td>{$vo.seller_name}</td>
+        </tr>
+        <tr>
+            <th>购买者:</th><td>{$vo.buyer_name}</td>
+        </tr>
+        <tr>
+            <th>购买者邮箱:</th><td>{$vo.buyer_mail}</td>
+        </tr>
+        <tr>
+            <th>添加时间:</th><td>{:date('Y-md H:i:s', $vo['add_time'])}</td>
+        </tr>
+        <tr>
+            <th>付款时间:</th><td>{:date('Y-md H:i:s', $vo['pay_time'])}</td>
+        </tr>
+        <tr>
+            <th>发货时间:</th><td>{:date('Y-md H:i:s', $vo['ship_time'])}</td>
+        </tr>
+        <tr>
+            <th>更多信息:</th><td>后续从产品库读取对应产品信息</td>
+        </tr>
+    </table>
+</block>

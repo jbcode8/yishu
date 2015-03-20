@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>中国艺术网后台管理中心 - By 中国艺术网</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <load file="__PUBLIC__/css/Admin/style.css"/>
+    <load file="__PUBLIC__/js/jquery-1.10.2.min.js"/>
+    <load file="__PUBLIC__/js/jquery-migrate-1.2.1.min.js"/>
+    <load file="__PUBLIC__/plugin/artdialog/jquery.artDialog.js?skin=magic" type="js"/>
+    <load file="__PUBLIC__/plugin/artdialog/iframeTools.js"/>
+    <load file="__PUBLIC__/js/Admin/common.js"/>
+    <block name="style"></block>
+</head>
+<body style="overflow-x: hidden;">
+
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul>
+            <li class="selected"><a href="{:U('Admin/Index/index')}">列表</a></li>
+            <li><a href="{:U('Admin/Index/index')}">未审核</a></li>
+            <li><a href="{:U('Admin/Index/index')}">已审核</a></li>
+        </ul>
+
+        <!--快捷按钮 开始-->
+        <div class="nav_btn">
+            <a href="#">启 用</a>
+            <a href="#">禁 用</a>
+            <a href="#">移 动</a>
+            <a href="#">复 制</a>
+            <a href="#">粘 贴</a>
+            <a href="#">删 除</a>
+            <a href="#">导入</a>
+        </div>
+        <!--快捷按钮 结束-->
+
+        <!--搜索 开始-->
+        <div class="advSearch">
+            <form>
+                <div class="row">
+                    <label>更新时间：</label>
+                    <input type="text" size="8" placeholder="起始时间"/> -
+                    <input type="text" size="8" placeholder="结束时间"/>
+                </div>
+                <div class="row">
+                    <label>创建者：</label>
+                    <input type="text" size="12" placeholder="请输入用户名">
+                </div>
+                <button class="btn">查 询</button>
+            </form>
+        </div>
+        <!--搜索 结束-->
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 -->
+    <div class="table">
+        <?php
+        $thead = array(
+            '_html'=>array(
+        '_th'=>'row-selected',
+        'th'=>'<input class="check-all" type="checkbox"/>',
+        'td'=>'<input class="ids" type="checkbox" name="ids[]" value="$id"/>',
+        ),
+        'id'=>'编号',
+        'title'=>array(
+        '_title'=>'标题',
+        'tag' =>'a',
+        'href' =>'Article/index?cate_id=$category_id&pid=$id',
+        ),
+        'pid'=>array(
+        '_title'=>'子文档',
+        'tag' =>'span',
+        'func' => 'get_subdocument_count($id)',
+        ),
+        'type'=>array(
+        '_title'=>'类型',
+        'tag' =>'span',
+        'func' => 'get_document_type($type)',
+        ),
+        'level'=>'优先级',
+        'uid' =>array(
+        '_title'=>'创建者',
+        'tag' =>'span',
+        'func' =>'get_username($uid)',
+        ),
+        'update_time'=>array(
+        '_title'=>'最后更新',
+        'tag' =>'span',
+        'func' => 'date("m-d H:i",$update_time)',
+        ),
+        'status_text'=>'状态',
+        'view'=>'浏览',
+        '操作'=>array(
+        '编辑'=>array( 'href' => 'Article/edit?cate_id=$category_id&id=$id',),
+        '审核'=>array( 'href' => 'Article/setStatus?status=1&ids=$id', 'class'=>'ajax-get', 'condition'=>'$status==2',),
+        '禁用'=>array( 'href' => 'Article/setStatus?status=0&ids=$id', 'class'=>'ajax-get', 'condition'=>'$status==1',),
+        '启用'=>array( 'href' => 'Article/setStatus?status=1&ids=$id', 'class'=>'ajax-get', 'condition'=>'$status==0',),
+        '删除'=>array( 'href' => 'Article/setStatus?status=-1&ids=$id', 'class'=>'confirm ajax-get' ),
+        ),
+        );
+        echo $_table_list = $__controller__->tableList($list,$thead);
+        ?>
+    </div>
+    <div class="page">
+        {$_page}
+    </div>
+    </div>
+</block>
+<!--主体内容 结束-->
+<block name="javascript"></block>
+
+</body>
+</html>

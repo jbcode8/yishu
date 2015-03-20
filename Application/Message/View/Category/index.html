@@ -1,0 +1,69 @@
+<extend name="Admin@Public:base" />
+
+<block name="style">
+    <load file="{PLUGIN_PATH}treetable/css/treetable.css" />
+</block>
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul>
+            <li class="selected">
+                <a href="{:U('Message/Category/index')}">留言板列表</a>
+            </li>
+        </ul>
+        <!--快捷按钮 开始-->
+        <div class="nav_btn">
+            <a id="addMessage" href="{:U('Message/Category/add')}" class="fa fa-plus-square">&nbsp;&nbsp;添加留言板</a>
+
+        </div>
+        <!--快捷按钮 结束-->
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 开始-->
+    <form action="{:U('listorder')}" method="post" class="authlistorder">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>排序</th>
+                <th>编号</th>
+                <th>留言板名称</th>
+                <th>留言板描述</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <volist name="list" id="vo">
+            <tr>
+                <td style="padding-left:10px;width:150px;text-align: left">
+                    <input type="text" name="listorder[{$vo.id}]" value="{$vo.listorder}" style="width:20px;height:18px;padding:0 4px;margin-left:53px;" />
+                </td>
+                <td>{$vo.id}</td>
+                <td>{$vo.name}</td>
+                <td>{$vo.description}</td>
+                <td style="width: 260px">
+                    <a id="editMessage" class="fa fa-edit" href="{:U('Message/Category/edit', array('id'=>$vo['id']))}"> 修改</a>
+                    <a href="{:U('Message/Category/delete', array('id'=>$vo['id']))}" class='confirm ajax-get fa fa-trash-o red'> 删除</a>
+                    <a id="addMessage" class="fa fa-plus-square" href="{:U('Message/Category/add',array('sid'=>$vo['id']))}"> 添加留言板</a>
+                </td>
+
+            </tr>
+            </volist>
+            </tbody>
+        </table>
+        <div class="paging">
+            <button type="submit" class="btn fa fa-reorder ajax-post" target-form="authlistorder"> 排 序</button>
+        </div>
+    </form>
+    <!-- 数据表格 结束-->
+</block>
+<!--主体内容 结束-->
+<block name="javascript">
+    <script type="text/javascript">
+        $(function(){
+            $('#editMessage').live('click',function(e){e.preventDefault();$.dialog.open(this.href, {title:'修改留言板', id:'newWindow'} );});
+            $('#addMessage').live('click',function(e){e.preventDefault();$.dialog.open(this.href, {title:'添加留言板', id:'newWindow'} );});
+        });
+    </script>
+</block>

@@ -1,0 +1,117 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="{PLUGIN_PATH}DatePicker/WdatePicker.js" />
+    <load file="{JS_PATH}bulkActionJs.js" />
+</block>
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul>
+            <li class="selected"><a href="{:U('Baike/Doc/index')}">所有词条</a></li>
+            <li><a href="{:U('Baike/Doc/index?type=1')}">推荐词条</a></li>
+            <li><a href="{:U('Baike/Doc/index?type=2')}">热门词条</a></li>
+            <li><a href="{:U('Baike/Doc/index?type=3')}">精彩词条</a></li>
+        </ul>
+
+        <!--快捷按钮 开始-->
+        <div class="nav_btn">
+            <a href="{:U('Baike/Edition/index')}" class="fa fa-file"> 版本库</a>
+        </div>
+        <!--快捷按钮 结束-->
+
+        <!--搜索 开始-->
+        <div class="advSearch">
+            <form name="doc_search_min" action="{:U('Baike/Doc/index')}" method="post">
+                <div class="row">
+                    <label>标题：</label>
+                    <input type="text" size="8" name="title" placeholder="请输入标题">
+                </div>
+                <div class="row">
+                    <label>更新时间：</label>
+                    <input type="text" size="6" placeholder="起始时间" name='start_time' id="starttime"  onfocus="WdatePicker({onpicked:function(){$('#endtime').focus();}})"/> -
+                    <input type="text" size="6" placeholder="结束时间" name='end_time' id="endtime" onfocus="WdatePicker({minDate:$('#starttime').val()})" />
+                </div>
+                <button class="btn fa fa-search"> 搜 索</button>
+                <button class="btn fa fa-search-plus" onclick="javascript:$.dialog.open('{:U(\'Baike/Doc/search\')}',{title:'词条检索','lock':true});return false;"> 高级搜索</button>
+            </form>
+        </div>
+        <!--搜索 结束-->
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 -->
+    <div class="table">
+        <?php
+        $thead = array(
+            '_html'=>array(
+        '_th'=>'row-selected',
+        'th'=>'<input class="check-all" type="checkbox"/>',
+        'td'=>'<input class="ids" type="checkbox" name="ids[]" value="$did" />',
+        ),
+        'title'=> array(
+            '_title' => '标题',
+            'tag' => 'a',
+            'href' => 'Baike/Index/terminal?did=$did',
+            'target' => '_blank',
+            'class' => 'success',
+        ),
+        'cid' => array(
+            '_title' => '分类',
+            'func'  => 'get_category($cid)',
+        ),
+        'type' => array(
+            '_title' => '属性',
+            'func' => 'get_doc_type($type)',
+        ),
+        'views' => '浏览次数',
+        'authorid' => array(
+            '_title' => '创建者',
+            'func' => 'get_username($authorid)',
+        ),
+        'time'=> array(
+            '_title' => '创建时间',
+            'func'  => 'date("Y-m-d H:i:s",$time)',
+        ),
+        'lastedit'=> array(
+        '_title' => '更新时间',
+        'func'  => 'date("Y-m-d H:i:s",$lastedit)',
+        ),
+        'visible'=> array(
+            '_title' => '审核',
+            'func' => 'get_visible($visible)',
+        ),
+        'locked' => array(
+            '_title' => '锁定',
+            'func' => 'get_locked($locked)',
+        ),
+        '操作'=> array(
+        ' 删除'=>array( 'href' => 'Baike/Doc/delete?did=$did&cid=$cid','class'=>'confirm ajax-get red fa fa-trash-o'),
+        ' 锁定'=>array( 'href' => 'Baike/Doc/alertlock?did=$did&locked=1', 'class'=>'ajax-get error fa fa-lock', 'condition'=>'$locked==0',),
+        ' 解锁'=>array( 'href' => 'Baike/Doc/alertlock?did=$did&locked=0', 'class'=>'ajax-get success fa fa-unlock', 'condition'=>'$locked==1',),
+        ' 版本库'=>array( 'href' => 'Baike/Edition/index?did=$did','class'=>'fa fa-file'),
+        ' 参考资料'=>array( 'href' => 'Baike/Material/index/?did=$did','class'=>'fa fa-book'),
+        ),
+        );
+        echo $_table_list = $__controller__->tableList($_list,$thead);
+        ?>
+    </div>
+
+    <div class="paging"  style="float: left;margin-top: 5px;">
+        <div class="page">
+            <a href="javascript:bulkUpdate('{:U(\'Baike/Doc/alertlock\')}','locked',1);" class="fa fa-lock"> 锁 定</a>
+            <a href="javascript:bulkUpdate('{:U(\'Baike/Doc/alertlock\')}','locked',0);" class="fa fa-unlock"> 解 锁</a>
+            <a href="javascript:bulkDelete('{:U(\'Baike/Doc/delete\')}','did');" id="delselected" class="confirm fa fa-trash-o"> 删 除</a>
+            <a href="javascript:bulkUpdate('{:U(\'Baike/Doc/audit\')}','visible',1);" class="fa fa-gavel"> 审 核</a>
+            <!--<a href="#" class="fa fa-move"> 移 动</a>-->
+            <a href="javascript:bulkUpdate('{:U(\'Baike/Doc/doctype\')}','type',0);" class="fa"> 普 通</a>
+            <a href="javascript:bulkUpdate('{:U(\'Baike/Doc/doctype\')}','type',1);" class="fa"> 推 荐</a>
+            <a href="javascript:bulkUpdate('{:U(\'Baike/Doc/doctype\')}','type',2);" class="fa"> 热 门</a>
+            <a href="javascript:bulkUpdate('{:U(\'Baike/Doc/doctype\')}','type',3);" class="fa"> 精 彩</a>
+        </div>
+    </div>
+
+    <div class="paging">
+        {$_page}
+    </div>
+
+</block>

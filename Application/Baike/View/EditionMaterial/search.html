@@ -1,0 +1,96 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/DatePicker/WdatePicker.js" />
+    <style type="text/css">
+        body{width:400px; }
+    </style>
+</block>
+<block name="body">
+    <form method="post" name="doc_search">
+        <table class="form">
+            <tr>
+                <th class="w1">分类:</th>
+                <td>
+                    <select name="cid">
+                        <option value="0">所有分类</option>
+                        <php> echo getMenu(0,false);</php>
+                    </select>
+                </td>
+                <td class="tips"></td>
+            </tr>
+            <tr>
+                <th>资料名称:</th>
+                <td><input type="text" name="name" placeholder="资料名称"/></td>
+            </tr>
+            <tr>
+                <th>创建者:</th>
+                <td><input type="text" name="author" placeholder="创建者名称"/></td>
+            </tr>
+            <tr>
+                <th>所属词条:</th>
+                <td><input type="text" name="doc" placeholder="词条名称"/></td>
+            </tr>
+            <tr>
+                <th>审核:</th>
+                <td>
+                    <select name='visible'>
+                        <option value="-1">不 限</option>
+                        <option value="0">未审核</option>
+                        <option value="1">已审核</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>优秀:</th>
+                <td>
+                    <select name='excellent'>
+                        <option value="-1">不 限</option>
+                        <option value="0">普通版本</option>
+                        <option value="1">优秀版本</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>更新时间:</th>
+                <td>
+                    <input type="text" size="8" placeholder="起始时间" name='start_time' id="starttime"  onfocus="WdatePicker({onpicked:function(){$('#endtime').focus();}})"/> -
+                    <input type="text" size="8" placeholder="结束时间" name='end_time' id="endtime" onfocus="WdatePicker({minDate:$('#starttime').val()})" />
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <button type="submit" class="btn fa fa-search-plus"> 搜 索 </button>
+                    <button type="reset" class="btn btn_gary fa fa-mail-reply-all"> 清 空 </button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</block>
+
+<block name="javascript">
+    <script type="text/javascript">
+        $(function(){
+            $('form').submit(function(){
+                var data = $('form').serializeArray();
+                var  where = '';
+                if(data[0].value > 0){ where += 'cid='+data[0].value; }
+                if(data[1].value != ''){ where += where==''?'name='+data[1].value:'&name='+data[1].value; }
+                if(data[2].value != ''){ where += where==''?'author='+data[2].value:'&author='+data[2].value; }
+                if(data[3].value != ''){ where += where==''?'doc='+data[3].value:'&doc='+data[3].value;}
+                if(data[4].value >= 0 ){ where += where==''?'visible='+data[4].value:'&visible='+data[4].value;}
+                if(data[5].value >= 0 ){ where += where==''?'excellent='+data[5].value:'&excellent='+data[5].value; }
+                if(data[6].value != ''){ where += where==''?'start_time='+data[6].value:'&start_time='+data[6].value; }
+                if(data[7].value != ''){ where += where==''?'end_time='+data[7].value:'&end_time='+data[7].value; }
+
+                var url = "{:U('index')}";
+                url.indexOf('?',url)>0?url = url+"&"+where:url = url+"?"+where;
+                $.dialog.opener.location.href = url;
+            });
+        });
+    </script>
+</block>

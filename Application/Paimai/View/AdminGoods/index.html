@@ -1,0 +1,487 @@
+<extend name="Admin@Public:base"/>
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" type="text/css" href="{JS_PATH}JqueryEasyui/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="{JS_PATH}JqueryEasyui/themes/icon.css"/>
+    <script type="text/javascript" src="{JS_PATH}JqueryEasyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="{JS_PATH}JqueryEasyui/locale/easyui-lang-zh_CN.js"></script>
+
+    
+</block>
+<block name="body">
+
+    <!--导航部分 开始-->
+    <div class="con_nav">
+
+        <!-- 批量修改 start -->
+        
+        <script type="text/javascript">
+            $(function(){
+                //专场输入框
+                $('#j_specailids').numberbox({    
+                    min:0,
+                    required:true,    
+                }); 
+                //修改专场下商品时间按钮
+                $('#charge_time_button').linkbutton({    
+                    iconCls: 'icon-edit',
+                    text:'修改',  
+                }); 
+                //批量修改专场下的商品
+                $('#j_charge_special_goods').panel({     
+                  title: '批量修改专场下属商品',    
+                }); 
+                //专卖开始时间
+                $('#j_starttime').datetimebox({    
+                    //value: '2015-01-01 22:00:00',    
+                    showSeconds: true,  
+                });
+                //批量修改专场下面输入框提示
+                $('.j_charge_special_goods_alert').tooltip({        
+                    content: '<span style="color:#fff">例如:2014-12-31 22:00:00,不填则默认和本专场时间相同</span>',    
+                    onShow: function(){      
+                        $(this).tooltip('tip').css({            
+                            backgroundColor: '#666',            
+                            borderColor: '#666'        
+                        });  
+                    }});
+                //专场结束时间
+                $('#j_endtime').datetimebox({    
+                    //value: '2015-01-03 22:00:00',       
+                    showSeconds: true, 
+                });
+                
+                //批量修改时间,
+                $("#charge_time_button").click(function(){
+                    var ids=[];
+                    $("input[name=subBox]:checked").each(function(i){
+                        ids[i]=$(this).parent().siblings("#id").text();
+                    });
+                    var special_id=$.trim($("#j_specailids").val());
+                    var starttime=$.trim($("#j_starttime").val());
+                    var endtime=$.trim($("#j_endtime").val());
+                    if(!confirm("你要修改的商品为"+ids.toString()+"确认修改?"))return ;
+                    $.post(
+                        "{:U('/Paimai/AdminGoods/batch_chargegoodstime')}",
+                        {ids:ids.toString(),special_id:special_id,starttime:starttime,endtime:endtime},
+                        function(data){
+                            alert(data);
+                            window.location.reload();
+                        },
+                        "html"
+                    );
+                })
+            
+            })
+        </script>
+        <!-- 批量修改end -->
+
+        <!-- 筛选 start-->
+         <!--   <style type="text/css">
+                #j_select_div input,select{border: 1px solid #95B8E7;height: 12px;}
+                #j_select_div select{height: 30px;}
+            </style>
+        <div id="j_select_div" style="padding:20px;">
+    
+            <span>分类筛选</span>
+            <select id="j_goods_cat" name="cat">
+                <option value="">全部</option>
+                {$cat_str}
+            </select>
+            <span>征集人员筛选</span>
+            <select id="j_goods_recruiter" name="recruiter">
+                <option value="">全部</option>
+                {$recruiter_str}
+            </select>
+            <span>商家筛选</span>
+            <select id="j_goods_seller" name="seller">
+                <option value="">全部</option>
+                {$seller_str}
+            </select>
+            <if condition="$adminuid eq 1">
+            <span>上传者筛选</span>
+            <input id="j_uploader" style="width:80px;" type="text" name="goodsname" value="{$adminname}"/>
+            </if>
+            <span>商品名称筛选</span>
+            <input id="j_goods_name" style="width:80px;" type="text" name="goodsname" value="{$goods_name}"/>
+            
+            <span>专场ID筛选</span>
+             <input id="j_so_specailid" style="width:50px;" type="text" value="{$goods_specialid}">
+
+            <span>货号筛选</span>
+            <input id="j_goods_sn" style="width:50px;" type="text" name="goodssn" value="{$goods_sn}"/>
+
+            <span>商品ID筛选</span>
+            <input id="j_goods_id" style="width:50px;" type="text" name="goodssn" value="{$goods_id}"/>
+            <a id="so_goods" type="button" value="搜索"/></a>
+
+        </div>
+        <script type="text/javascript">
+            $(function(){
+                //筛选商品
+                $('#j_select_div').panel({     
+                  title: '筛选',    
+                });
+                
+                $('#j_uploader').validatebox({    
+                       
+                }); 
+                //批量修改专场下面输入框提示
+                $('#j_goods_name').tooltip({        
+                    content: '<span style="color:#fff">支持模糊查询</span>',    
+                    onShow: function(){      
+                        $(this).tooltip('tip').css({            
+                            backgroundColor: '#666',            
+                            borderColor: '#666'        
+                        });  
+                    }});
+                $('#j_so_specailid').tooltip({        
+                    content: '<span style="color:#fff">支持多专场ID查询：234,456,789</span>',    
+                    onShow: function(){      
+                        $(this).tooltip('tip').css({            
+                            backgroundColor: '#666',            
+                            borderColor: '#666'        
+                        });  
+                    }});
+                $('#j_goods_sn').tooltip({        
+                    content: '<span style="color:#fff">支持货号模糊查询</span>',    
+                    onShow: function(){      
+                        $(this).tooltip('tip').css({            
+                            backgroundColor: '#666',            
+                            borderColor: '#666'        
+                        });  
+                    }});
+                $('#j_goods_id').tooltip({        
+                    content: '<span style="color:#fff">支持多商品ID查询：234,456,789</span>',    
+                    onShow: function(){      
+                        $(this).tooltip('tip').css({            
+                            backgroundColor: '#666',            
+                            borderColor: '#666'        
+                        });  
+                    }});
+                //筛选按钮
+                $('#so_goods').linkbutton({    
+                    iconCls: 'icon-search',
+                    text:'筛选',  
+                }); 
+            })
+        </script>-->
+        <!-- 筛选 end-->
+        
+        <!--快捷按钮 开始-->
+        <div class="nav_btn">
+            <a href="javascript:$.dialog.open('{:U(\'Paimai/AdminGoods/add\')}',{title:'添加商品',lock:true,width:'800px',height:'80%'})" class="fa fa-plus-square" style="padding:7px;">&nbsp;&nbsp;添加商品</a>
+			<a id="action_show" style="cursor:pointer">批量显示</a>
+			<a id="action_noshow" style="cursor:pointer">批量不显示</a>
+			<a id="action_copy" style="cursor:pointer">批量复制</a>
+
+			<!--<script type="text/javascript">
+
+             $(function(){
+			 $('.aui_main').height(($(window).height())*0.8)
+			 })
+
+			</script>-->
+
+            <span>分类筛选</span>
+            <select id="j_goods_cat" name="cat">
+                <option value="">全部</option>
+                {$cat_str}
+            </select>
+
+			<if condition="$admin eq 0">
+                        <span>征集人员筛选</span>
+            <select id="j_goods_recruiter" name="recruiter">
+                <option value="">全部</option>
+                {$recruiter_str}
+            </select>
+                        <span>商家筛选</span>
+            <select id="j_goods_seller" name="seller">
+                <option value="">全部</option>
+                {$seller_str}
+            </select>
+            </if>
+
+            <if condition="$adminuid eq 1">
+            <span>上传者筛选</span>
+            <input id="j_uploader" style="width:80px;" type="text" name="goodsname" value="{$adminname}"/>
+            </if>
+            <span>商品名称筛选</span>
+            <input id="j_goods_name" style="width:80px;" type="text" name="goodsname" value="{$goods_name}"/>
+            
+            <span>专场ID筛选</span>
+             <input id="j_so_specailid" style="width:50px;" type="text" value="{$goods_specialid}">
+            
+            <span>货号筛选</span>
+            <input id="j_goods_sn" style="width:50px;" type="text" name="goodssn" value="{$goods_sn}"/>
+            
+            <span>商品ID筛选</span>
+            <input id="j_goods_id" style="width:50px;" type="text" name="goodssn" value="{$goods_id}"/>
+            
+            <input id="so_goods" type="button" value="搜索"/>
+            <!-- <input style="width:80px;" type="text" class="date Wdate" onclick="WdatePicker()" name="starttime" id="front_index_preview_time" value="{$starttime}"/>
+            <span><a href="#" id="front_index_preview">首页预览</a></span> -->
+        </div>
+        <!--快捷按钮 结束-->
+        <script type="text/javascript">
+            $(function(){
+                var url=window.location.href;
+                if(!url.match(/\?/)){
+                    url=url+"?";
+                }
+                $("#front_index_preview").click(function(e){
+                    e.preventDefault();
+                    var preview_time=$("#front_index_preview_time").val();
+                    if($preview_time==""){
+                        alert("请选择预览时间");
+                        return false;
+                    }
+                    //alert(preview_time);
+                    window.open("http://www.yishu.com/Paimai/Index/adminpreview/previewtime/"+preview_time);
+                });
+                $("#so_goods").click(function(){
+                    url=url.match(/&p=(\d)*/)?url.replace(/&p=(\d)*/,''):url;
+                    //商品分类
+                    var goods_cat=$("#j_goods_cat").val();
+                    url=url.replace(/&cat=(\d)*/,'');
+                    //alert(url);
+                    if(goods_cat!=""){
+                        url+="&cat="+goods_cat;
+                    }
+					//征集人员
+                    var goods_recruiterid=$("#j_goods_recruiter").val();
+                      //alert(goods_recruiterid);
+                    url=url.replace(/&recruiter=(\d)*/,'');
+                    if(goods_recruiterid!=""){
+                        url+="&recruiter="+goods_recruiterid;
+                    }
+					//商家
+                    var goods_sellerid=$("#j_goods_seller").val();
+                    url=url.replace(/&seller=(\d)*/,'');
+                    if(goods_sellerid!=""){
+                        url+="&seller="+goods_sellerid;
+                    }
+                    //商品名称
+                    var goods_name=$("#j_goods_name").val();
+                    url=url.replace(/&goodsname=[\w0-9_%]*/,'');
+                    if(goods_name!=""){
+                        url+="&goodsname="+goods_name;
+                    }
+                    //专场ID
+                    var special_id=$("#j_so_specailid").val();
+                    url=url.replace(/&special=[\w0-9_,]*/,'');
+                    if(special_id!=""){
+                        url+="&special="+special_id;
+                    }
+                    //商品货号
+                    var goods_sn=$("#j_goods_sn").val();
+                    url=url.replace(/&goodssn=[\w0-9_]*/,'');
+                    if(goods_sn!=""){
+                        url+="&goodssn="+goods_sn;
+                    }
+                    //商品ID
+                    var goods_id=$("#j_goods_id").val();
+                    url=url.replace(/&goodsid=[\w0-9_,]*/,'');
+                    if(goods_id!=""){
+                        url+="&goodsid="+goods_id;
+                    }
+                    //上传者筛选
+                    <if condition="$adminuid eq 1">
+                    var adminname=$("#j_uploader").val();
+                    url=url.replace(/&adminname=[\w0-9_%]*/,'');
+                    if(adminname!=""){
+                        url+="&adminname="+adminname;
+                    }
+                    </if>
+                    window.location.href=url;
+                })
+               
+                
+            })
+        </script>
+
+    </div> 
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 开始-->
+    <form action="{:U('listorder')}" method="post" class="authlistorder">
+        <table class="table treetable">
+            <thead>
+            <tr>
+				<th><input id="checkAll" type="checkbox" /></th>
+                <th>商品ID</th>
+				<th>排序</th>
+                <th>上传者</th>
+                <th>商品名称</th>
+                <th>商品货号</th>
+                <th>专场ID</th>
+                <if condition="$admin eq 0">
+                <th>征集人员</th>
+                <th>所属商家</th>
+				</if>
+                <th>开拍时间</th>
+                <th>结束时间</th>
+                <th>商品原价</th>
+                <th>折扣</th>
+                <th>保留价</th>
+				<th>进货价</th>
+                <th>当前价格</th>
+                <th>竞拍次数</th>
+                <th>拍卖状态</th>
+				<if condition="$admin eq 0">
+                <th>用户跟踪明细</th>
+				</if>
+                <th>是否可用</th>
+                
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+                <volist name="lists" id="v">
+                    <tr>
+						<td><input name="subBox" type="checkbox" /></td>
+                        <td id="id">{$v.goods_id}</td>
+						<td>
+                            <input type='text' name='listorder[{$v.goods_id}]' value='{$v.goods_order}' style='width:20px;height:18px;padding:0 4px' />
+                        </td>
+                        <td>
+                            {:getadmin($v['goods_adminuid'])}
+                        </td>
+                        <td>
+                            <a target="_blank" href="{:U('/paimai/goods-','','')}{$v.goods_id}.html">{:substr_CN($v['goods_name'],25)}</a>
+                        </td>
+                        <td>{$v.goods_sn}</td>
+                        <td>{$v.goods_specialid}</td>
+						<if condition="$admin eq 0">
+                        <td>{:getrecruiter($v['goods_recruiterid'])}</td>
+						<td>{:getseller($v['goods_sellerid'])}</td>
+						</if>
+                        <td>{$v.goods_starttime|date='Y-m-d H:i:s',###}</td>
+                        <td>{$v.goods_endtime|date='Y-m-d H:i:s',###}</td>
+                        <td>{$v.goods_yuanjia}</td>
+                        <td>{$v.goods_zekou}</td>
+                        <td>{$v.goods_cost}</td>
+						<td>{$v.goods_stockprice}</td>
+                        <td>{$v.goods_nowprice}</td>
+                        <td id="j_bidtimes">{$v.goods_bidtimes}</td>
+                        <td>{$v.goods_status}</td>
+                       <if condition="$admin eq 0">
+                        <td><a target="_blank" href="{:U('Paimai/AdminGoods/goodsuserdetail',array('goods_id'=>$v['goods_id']))}">查看</a></td>
+					   </if>
+                        <td>{$v.goods_isshow}</td>
+                        <td>
+                            <a target="_blank" href="{:U('Paimai/FrontData/goodspreview',array('id'=>$v['goods_id']))}">预览</a>|
+                            <a class="j_edit" href="{:U('Paimai/AdminGoods/edit',array('goods_id'=>$v['goods_id']))}">编辑</a>|
+							<a class="ajax-get confirm" href="{:U('Paimai/AdminGoods/delete',array('goods_id'=>$v['goods_id']))}">删除</a>
+                        </td>
+                    </tr>
+                </volist>
+            </tbody>
+        </table>
+		<div class="paging">
+        <button type="submit" class="btn fa fa-reorder ajax-post" target-form="authlistorder"> 排 序</button><a id="down"  class="easyui-linkbutton" data-options="iconCls:'icon-search'">下载</a>
+		</div>
+    </form>
+    <style type="text/css">
+        #j_page div{display: inline;}
+    </style>
+	<div id="j_page" style="text-align: center;margin:15px;">{$page}第<input type="text" id="j_jump_p" style="width:50px;" name="p" value="{$p}">页
+            <input id="j_jump" type="button" value="跳转">
+        <!-- <form method="post" action="{:U('Paimai/AdminGoods/index')}" method="post">
+            第<input type="text" style="width:50px;" name="p" value="{$p}">页
+            <input type="submit" value="跳转">
+        </form> -->
+    </div>
+    <!-- <br/> -->
+    <!-- 数据表格 结束-->
+    <div id="j_charge_special_goods" style="padding:20px;">专场ID:
+            <input id="j_specailids" type="text">
+            <span class="j_charge_special_goods_alert">起始时间:
+                <input id="j_starttime" type="text"/>
+            </span>结束时间:
+            <span class="j_charge_special_goods_alert">
+                <input id="j_endtime" type="text">
+            </span>
+            <a id="charge_time_button"></a>
+        </div>
+
+<script>
+        
+		$(function() {
+           $("#checkAll").click(function() {
+                $('input[name="subBox"]').attr("checked",this.checked);
+            });
+            var $subBox = $("input[name='subBox']");
+            $subBox.click(function(){
+                $("#checkAll").attr("checked",$subBox.length == $("input[name='subBox']:checked").length ? true : false);
+            });
+			$("#action_show").click(function() {
+				var ids = '';
+				$("input[name='subBox']:checkbox").each(function(){
+					if ('checked' == $(this).attr("checked")) {
+						ids += $(this).parent().next().text()+',';
+					}
+				}); 
+				if(ids == ''){
+					alert('未选中任何商品');
+					return false;
+				}
+				window.location.href = "{:U('/Paimai/AdminGoods/action_show/')}?ids="+ids;
+			});
+			$("#action_noshow").click(function() {
+				var ids = '';
+				$("input[name='subBox']:checkbox").each(function(){
+					if ('checked' == $(this).attr("checked")) {
+						ids += $(this).parent().next().text()+',';
+					}
+				}); 
+				if(ids == ''){
+					alert('未选中任何商品');
+					return false;
+				}
+				window.location.href = "{:U('/Paimai/AdminGoods/action_noshow/')}?ids="+ids;
+			});
+			//copy
+			$("#action_copy").click(function() {
+				var ids = '';
+				$("input[name='subBox']:checkbox").each(function(){
+					if ('checked' == $(this).attr("checked")) {
+						ids += $(this).parent().next().text()+',';
+					}
+				}); 
+				if(ids == ''){
+					alert('未选中任何商品');
+					return false;
+				}
+				window.location.href = "{:U('/Paimai/AdminGoods/copy/')}?ids="+ids;
+			});
+			//点击下载
+			
+			$("#down").click(function(){
+				$.messager.confirm('确认对话框', '您确定要下载，下载前要先进行筛选？', function(r){
+					if (r){
+						// 确定;
+						var url=window.location.href;
+						url=url.replace(/&down=down/,'');
+						var down_url="";
+						down_url=url+"&down=down";
+						window.location.href=down_url;
+					}
+				});
+			});
+            //如果商品已经有人拍,则提示后台编辑此商品暂时不能编辑
+            $(".j_edit").each(function(){
+                return true;
+                $(this).click(function(e){
+                    var bidtimes=$.trim($(this).parent().parent().find("#j_bidtimes").text());
+                    if(bidtimes!=0){
+                        e.preventDefault();
+                        alert("此商品已经有人拍下,暂时不能进行编辑");
+                    }
+                })
+            })
+        });
+</script>
+</block>

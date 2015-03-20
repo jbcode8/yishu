@@ -1,0 +1,99 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+    <div class="nav_btn">
+        <a class="fa fa-plus-square" href="{:U('Paimai/AdminSpecial/add')}"> 添加专场</a>
+
+    </div>
+    <!--快捷按钮 结束-->
+<form action="{:U('listorder')}" method="post" class="authlistorder">
+    <table class="m_table">
+        <tr>
+            <!-- <th><input id="checkAll" type="checkbox" /></th> -->
+            <th>拍卖会ID</th>
+            <th>排序</th>
+            <th>拍卖会名称</th>
+            <th>开始时间</th>
+            <th>结束时间</th>
+            <th>主办单位</th>
+            <th>点击量</th>
+            <th>是否显示</th>
+            <th>操作</th>
+        </tr>
+        <volist name="lists" id="v">
+            <tr>
+                <!-- <td><input name="subBox" type="checkbox" /></td> -->
+                <td id="id">{$v.special_id}</td>
+                <td>
+                    <input type='text' name='listorder[{$v.special_id}]' value='{$v.special_order}' style='width:20px;height:18px;padding:0 4px;' />
+                </td>
+                <td>{$v.special_name}</td>
+                <td>{$v.special_starttime|date='Y-m-d H:i:s',###}</td>
+                <td>{$v.special_endtime|date='Y-m-d H:i:s',###}</td>
+                <td>{$v.special_sponsor_name}</td>
+                <td>{$v.special_hits}</td>
+                <td><if condition="$v['special_isshow'] eq 1">显示<else/>不显示</if></td>
+                <td><a href="{:U('Paimai/AdminSpecial/edit',array('special_id'=>$v['special_id']))}">编辑</a>|<a class="j_del" href="{:U('Paimai/AdminSpecial/delete',array('special_id'=>$v['special_id']))}">删除</a></td>
+            </tr>
+        </volist>
+		<tr><td colspan="9" align="center">{$page}</td></tr>
+    </table>
+    <div class="paging">
+        <button type="submit" class="btn fa fa-reorder ajax-post" target-form="authlistorder"> 排 序</button>
+    </div>
+</form>
+    <script>
+        $(function(){
+
+            //判断删除
+            $(".j_del").click(function(e){
+                if(!confirm("你确认删除!")){
+                    e.preventDefault();
+                }
+            });
+
+        })
+
+        $(function() {
+           $("#checkAll").click(function() {
+                $('input[name="subBox"]').attr("checked",this.checked);
+            });
+            var $subBox = $("input[name='subBox']");
+            $subBox.click(function(){
+                $("#checkAll").attr("checked",$subBox.length == $("input[name='subBox']:checked").length ? true : false);
+            });
+           
+           
+            //copy
+            $("#action_copy").click(function() {
+                var ids = '';
+                $("input[name='subBox']:checkbox").each(function(){
+                    if ('checked' == $(this).attr("checked")) {
+                        ids += $(this).parent().next().text()+',';
+                    }
+                }); 
+                if(ids == ''){
+                    alert('未选中任何商品');
+                    return false;
+                }
+                window.location.href = "{:U('/Paimai/AdminGoods/copy/')}?ids="+ids;
+            });
+            //如果商品已经有人拍,则提示后台编辑此商品暂时不能编辑
+            $(".j_edit").each(function(){
+                return true;
+                $(this).click(function(e){
+                    
+                    var bidtimes=$.trim($(this).parent().parent().find("#j_bidtimes").text());
+                    if(bidtimes!=0){
+                        e.preventDefault();
+                        alert("此商品已经有人拍下,暂时不能进行编辑");
+                    }
+                })
+            })
+        });
+    </script>
+</block>

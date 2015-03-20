@@ -1,0 +1,46 @@
+<extend name="detailBase"/>
+<block name="content">
+<!--content  start-->
+<div class="center">
+<!--投资指数 start-->
+<div class="investement">
+   <div class="winning_top">获奖收藏</div>
+   <!--荣誉奖项start-->
+        <div class="invest_down winning_d">
+    <div>荣誉奖项</div> 
+<ul>
+    <volist name="honor" id="vo">
+        <li><a href="#"><img src="{$vo.thumb}" border="0" width="180" height="130"/></a><p><a href="#">{$vo.title}</a></p></li>
+    </volist>
+</ul>
+</div>
+   <!--end 荣誉奖项-->
+   <!--start 获奖作品-->
+           <div class="invest_down winning_d">
+    <div>获奖作品</div> 
+<ul>
+    <volist name="award" id="vo">
+        <li>
+            <a href="#"><img src="{$vo.thumb}" border="0" width="180" height="130"/></a>
+            <p><a href="#">《妙龄愿望》</a></p><p class="winning_grey">荣誉1995年最具影像油画</p>
+        </li>
+    </volist>
+</ul>
+   </div>
+<!--end 获奖作品-->
+    <div class="winning_font">收藏记录</div> 
+   <div class="winning_c">
+       <volist name="collect" id="vo">
+
+           <p <if condition="$i%2 eq 0"> class="winning_black"</if>><span>{$vo.createtime|date='Y',###}</span><a href="#">{$vo.brief|new_msubstr=###,0,80}</a></p>
+
+       </volist>
+
+
+   </div>
+  </div>
+<!--end 投资指数-->
+
+</div>
+<!--content end-->
+</block>

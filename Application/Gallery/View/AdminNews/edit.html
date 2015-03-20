@@ -1,0 +1,73 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{width:800px;}
+    </style>
+</block>
+<block name="body">
+    <form action="{:U('Gallery/AdminNews/update')}" method="post" class="editNews">
+        <table class="form">
+            <tr>
+                <th class="w1">标题:</th>
+                <td>
+                    <input type="text" name="title" value="{$vo.title}"/>
+                </td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+            <tr>
+                <th class="w1">来源:</th>
+                <td>
+                    <input type="text" name="copyfrom" value="{$vo.copyfrom}"/>
+                </td>
+                <td class="tips">
+                    <i>可选</i>
+                </td>
+            </tr>
+            <tr>
+                <th class="w1">状态:</th>
+                <td>
+                    <select name="status">
+                        <option value="0" <if condition="($vo['status'] eq 0) ">selected="selected"</if>>未审核</option>
+                        <option value="1" <if condition="($vo['status'] eq 1) ">selected="selected"</if>>已审核</option>
+                    </select>
+                </td>
+                <td class="tips">
+                    <i>可选</i>
+                </td>
+            </tr>
+            <tr>
+                <th class="w1">画廊:</th>
+                <td>
+                    {:tagSelectGallery($vo['gid'])}
+                </td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+			<tr>
+                <th>简介</th>
+                <td>
+                   <textarea name="description">{$vo.description}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <th>内容:</th>
+                <td>
+                    <div style="width: 85%;height:360px;">
+                        <textarea name="content">{$vo.content}</textarea>{:hook('adminEditor',array('name'=>'content'))}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <input type="hidden" name="id" value="{$vo.id}" />
+                    <button type="submit" class="btn ajax-post" target-form="editNews">确认</button>
+                    <button type="reset" class="btn btn_gary">重填</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</block>

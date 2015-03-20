@@ -1,0 +1,40 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+<style type="text/css">
+body{width:600px}
+</style>
+</block>
+<block name="body">
+    <form action="{:U('Mall/Delivery/add')}" method="post" class="addDelivery">
+    <table class="form">
+        <tr>
+            <th>配送方式名称:</th>
+            <td><input name="delivery_name" type="text" style="width:300px" /></td>
+            <td class="tips"><i class="red">* 必填</i></td>
+        </tr>
+        <tr>
+            <th>配送方式描述:</th>
+            <td><textarea name="delivery_desc" style="width:350px;height:60px"></textarea></td>
+            <td class="tips"><i class="red">* 必填</i></td>
+        </tr>
+        <tr>
+            <th>配送方式价格:</th>
+            <td><input name="delivery_price" type="text" style="width:300px" /></td>
+            <td class="tips"><i class="red">* 必填</i></td>
+        </tr>
+        <tr>
+            <th>排列顺序:</th>
+            <td><input name="listorder" type="text" value="0" /></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <td>
+                <button type="submit" class="btn ajax-post" target-form="addDelivery">确认</button>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+    </form>
+</block>
+

@@ -1,0 +1,66 @@
+<tr>
+    <th>图片组:</th>
+    <td>
+        <button type="button" id="uploadPics" class="btn">上传图片</button>
+        <style type="text/css">
+            .uploadify-button.btn{padding:0;}
+            #uploadPics-queue {margin: 10px 0;}
+            #uploadPics-queue .uploadify-queue-item{width:100px;position: relative;float: left;margin-right: 1px;border:1px solid #ccc;margin-bottom:5px;}
+            #uploadPics-queue .uploadify-queue-item img,#uploadPics-queue .uploadify-queue-item input {float: left;}
+            #uploadPics-queue .uploadify-queue-item input {border:none;padding:0;width: 100%;padding:5px 0;}
+            .removeImg {position: absolute;right: 3px;top:2px;color:#000;cursor: pointer}
+        </style>
+        <script type="text/javascript">
+            var nindex = 0;
+            $(function(){
+                $('#uploadPics').uploadify({
+                    'buttonText'  : '上传图片',
+                    'buttonClass' : 'btn',
+                    'width'       : 100,
+                    'height'      : 30,
+                    'removeTimeout' : 10000,
+                    'swf'         : '{PLUGIN_PATH}uploadify/uploadify.swf',
+                    'uploader'    : '{:addons_url('Attachment://Upload/upload')}',
+                    'fileTypeDesc' : 'Image Files',
+                    'fileTypeExts' : '*.gif; *.jpg; *.png',
+                    'itemTemplate' : '<div id="${fileID}" class="uploadify-queue-item">\
+                        <div class="uploadify-progress-bar" style="height: 100px;background-color: #5978A4;position: absolute;z-index: 9999;opacity: 0.3"></div>\
+                    </div>',
+                    'onUploadSuccess' : uploadSuccessPics
+                });
+
+                /*添加原有图组*/
+                $.each({$vo.pictureurls|default=''|json_encode},function(index,value){
+                    var img = '<a class="removeImg">X</a><img src="'+value.url+'" width="100" height="100" />';
+                    img += '<input type="hidden" name="pictureurls['+nindex+'][url]" value="'+value.url+'"/>';
+                    img += '<input type="text" name="pictureurls['+nindex+'][alt]" value="'+value.alt+'"/>';
+                    $('#uploadPics-queue').append('<div class="uploadify-queue-item">'+img+'</div>');
+                    nindex++;
+                });
+
+                /*删除图片*/
+                $('.removeImg').live('click',function(e){
+                    $(this).parent().remove();
+                });
+            });
+
+            function uploadSuccessPics(file, data, response){
+                var top_alert = window.top.$('#top-alert');
+                var res = JSON.parse(data);
+                if(res.status == false){
+                    updateAlert(res.error);
+                    setTimeout(function(){
+                        top_alert.find('.close').click();
+                    },1500);
+                }else{
+                    var DomId = file.id;
+                    var img = '<a class="removeImg">X</a><img src="'+res.url+'" width="100" height="100" />';
+                    img += '<input type="hidden" name="pictureurls['+nindex+'][url]" value="'+res.url+'"/>';
+                    img += '<input type="text" name="pictureurls['+nindex+'][alt]" value="'+res.name+'"/>';
+                    $('#'+DomId).html(img);
+                    nindex++;
+                }
+            }
+        </script>
+    </td>
+</tr>

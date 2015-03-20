@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>中国艺术网商户后台登录中心  - By 中国艺术网</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <load file="__PUBLIC__/js/jquery-1.10.2.min.js" />
+    <load file="__PUBLIC__/js/jquery-migrate-1.2.1.min.js" />
+    <load file="__PUBLIC__/css/Admin/login.css" />
+</head>
+<body>
+
+<style>
+*{ margin:0; padding:0;}
+body{ background:#2472B0;}
+.content{ width:970px; height:550px; background:url(__PUBLIC__/img/Admin/logbg.jpg) no-repeat top center; margin:180px auto;}
+.content form{ width:370px; height:235px; margin:142px 0 0 264px; display:inline-block; padding-left:70px; padding-top:20px;}
+.content form p{font:normal 14px/50px '微软雅黑';color:#1870AF;}
+.content form p img{ display:inline-block; vertical-align:middle; margin-left:10px;margin-top:10px;}
+.content form input{ height:36px; border:1px solid #B4C2CD; width:206px; background:#fff; text-indent:10px; }
+.content form input.yanzheng{ width:107px;}
+.content form .btn{ border:0; width:120px; background:url(__PUBLIC__/img/Admin/logs.png) no-repeat; height:37px; cursor:pointer; margin:8px 0 0 106px; display:inline-block;}
+</style>
+
+
+<div class="content">
+    <form action="{:U('login')}" method="post" class="loginform">
+         <p>用户名：<input name="username" type="text" id="account" placeholder="请输入用户名"></p>
+         <p>　密码：<input name="password" type="password" id="password" placeholder="请输入密码"></p>
+         <p>验证码：<input name="verify" type="text" id="verify" placeholder="验证码"><img class="verifyimg reloadverify" alt="点击切换" src="{:U('Public/verify')}"></a></p>
+        <button type="submit" class="btn">
+                    <span class="in">登录中...</span>
+                    <span class="on">登 录</span>
+       </button>
+	   <span class="check-tips"></span>
+    </form>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        //刷新验证码
+        var verifyimg = $(".verifyimg").attr("src");
+        $(".reloadverify").click(function(){
+            if( verifyimg.indexOf('?')>0){
+                $(".verifyimg").attr("src", verifyimg+'&random='+Math.random());
+            }else{
+                $(".verifyimg").attr("src", verifyimg.replace(/\?.*$/,'')+'?'+Math.random());
+            }
+        });
+
+        $(document).ajaxStart(function () {
+            $("button:submit").addClass("log-in").attr("disabled", true);
+        }).ajaxStop(function () {
+            $("button:submit").removeClass("log-in").attr("disabled", false);
+        });
+
+        $("form").submit(function(){
+            var self = $(this);
+            $.post(self.attr("action"), self.serialize(), success, "json");
+            return false;
+
+            function success(data){
+                if(data.status){
+                    window.location.href = data.url;
+                } else {
+                    self.find(".check-tips").text(data.info);
+                    //刷新验证码
+                    $(".reloadverify").click();
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

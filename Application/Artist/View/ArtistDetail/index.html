@@ -1,0 +1,80 @@
+<extend name="detailBase"/>
+<block name="content">
+<style>
+.slideshow {width: 648px; height: 344px; overflow: hidden; position: relative; zoom: 1;}
+.slideshow .num-page {position: absolute; right: 280px; top: 320px;}
+.slideshow .num-page ul li {overflow:hidden; cursor: pointer; text-indent: 999em; width: 10px; height: 10px; float: left; background: #999; margin-right: 10px;}
+.slideshow .num-page ul li.select {background: #FF8500;}
+.slideshow .slide-img {position: absolute; left: 0; top: 0;}
+.slideshow .slide-img ul li {float: left;}
+.slideshow .l-arrow {position: absolute; left: 0; top: 100px;}
+.slideshow .r-arrow {position: absolute; right: 0; top: 100px;}
+.slideshow .arrow {width:40px; height: 80px; line-height: 80px; text-align: center; font-size: 36px; color: #fff; filter:alpha(opacity=10,finishOpacity=0,style=0); -moz-opacity:0.8; -khtml-opacity: 0.8; opacity: 0.8; background: #000; font-family: 'simsun'; cursor: pointer;}
+.slideshow .arrow:hover {background: #666;}
+</style>
+<!--content  start-->
+<div class="center">
+    <!--简介 start-->
+    <div class="intro">
+        <p><i></i><b>{$detail.name}</b>，{$detail.description|new_msubstr=###,0,80}<a href="{:U('Artist/ArtistDetail/details',array('id'=>$detail['id']))}" class="yellow">...[详细]</a></p>
+    </div>
+    <!--end 简介-->
+    <!--banner_c start-->
+    <div class="banner_c">
+        <!--banner st art-->
+        <div class="banner left">
+            <div class="common-slideshow slideshow">
+                <div class="slide-img">
+                    <ul>
+                        <ys:pics name="list" recordid="$detail['recordid']" type='image'>
+                        <li>
+                            <a href="{:U('Artist/ArtistDetail/work',array('id'=>$detail['id']))}"><img src="{$list.savepath}{$list.savename}" width="648" height="344" alt="" /></a>
+                        </li>
+                            <?php if($i==4) break;?>
+                        </ys:pics>
+                    </ul>
+                </div>
+                <div class="l-arrow arrow"><</div>
+                <div class="r-arrow arrow">></div>
+            </div>
+        </div>
+        <!--banner end-->
+        <!--banner_list start-->
+        <div class="banner_list right">
+            <ul>
+                <volist name="news" id="vo">
+                <li><i></i><a href="{:U('Artist/ArtistDetail/news',array('id'=>$detail['id']))}">{$vo.title|new_msubstr=###,0,20}</a></li>
+                </volist>
+            </ul>
+        </div>
+        <!--banner_list end-->
+
+    </div>
+    <!--banner_c end-->
+    <!--start 展厅-->
+    <div class="gallery">
+        <ul>
+            <volist name="exhibit" id="vo">
+                <li><a href="{:U('Artist/ArtistDetail/work',array('id'=>$detail['id']))}"><img src="{$vo.thumb}" border="0" width="180" height="230"/></a><p><a href="#">《{$vo.title}》</a></p></li>
+            </volist>
+        </ul>
+    </div>
+    <!--end 展厅-->
+    <!--start 相册-->
+    <div class="photo">
+        <ul>
+            <volist name="album" id="vo">
+            <li><a href="{:U('Artist/ArtistDetail/album',array('id'=>$detail['id']))}"><img src="{$vo.thumb}" border="0" width="180" height="130"/></a><p><a href="#">《{$vo.title}》</a></p></li>
+            </volist>
+        </ul>
+    </div>
+    <!--end 相册-->
+</div>
+<!--content end-->
+<script type="text/javascript" src="{JS_PATH}common.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        arrSlide('.slideshow');
+    });
+</script>
+</block>

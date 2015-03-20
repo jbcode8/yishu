@@ -1,0 +1,30 @@
+<extend name="Admin@Public:base" />
+<block name="body">
+<div class="container">
+    <ul class="header clear">
+    <li <eq name="ACTION_NAME" value="index">class="current"</eq>><a href="{:U('Auction/AdminGoods/index')}">拍卖产品管理</a></li>
+    <li <eq name="ACTION_NAME" value="add">class="current"</eq>><a href="{:U('Auction/AdminGoods/add')}">添加拍卖产品</a></li>
+    <li><a href="{:U('Auction/AdminCategory/index')}">拍卖类别管理</a></li>
+    </ul>
+    <form method="post">
+    <table class="table table-hover">
+        <thead><tr><th></th><th></th></tr></thead>
+        <tbody>
+            <tr><td>产品名称：</td><td><input type="text" name="name" size="50" /></td></tr>
+            <tr><td>产品分类：</td><td>{:selectAuctionCategory()}</td></tr>
+            <tr><td>产品尺寸：</td><td><input type="text" name="size" size="30" /></td></tr>
+            <tr><td>产品重量：</td><td><input type="text" name="weight" size="20" /></td></tr>
+            <tr><td>产品价格：</td><td><input type="text" onKeyUp="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" name="price" size="30" /></td></tr>
+            <tr><td>产品库存：</td><td><input type="text" onKeyUp="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" name="stock" size="20" /></td></tr>
+            <tr><td>产品关键字：</td><td><input type="text" name="keywords" size="40" /></td></tr>
+            <tr><td>产品简述：</td><td><textarea name="brief" rows="4" style="width:500px"></textarea></td></tr>
+            <tr><td>产品详细：</td><td><textarea name="content" rows="7" style="width:600px"></textarea></td></tr>
+            <tr><td>产品缩略图：</td><td><Form function="images" parameter="thumb, thumb, , auction" /></td></tr>
+            <tr><td>产品组图：</td><td><Form function="moreimages" parameter="pics, pics, , auction" /></td></tr>
+            <tr><td>&nbsp;</td><td><input name="submit" type="submit" value="提交信息" class="btn btn-primary" /></td></tr>
+        </tbody>
+    </table>
+    </form>
+    
+</div>
+</block>

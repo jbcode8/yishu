@@ -1,0 +1,61 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+   
+    <!--快捷按钮 结束-->
+    <style type="text/css">
+        .j_background{
+            background-color: #5978A4;
+            color: #FFF;
+        }
+        .j_juli{
+            margin: 10px;
+            
+        }
+        .j_big{
+            font-size: 15px;
+            color: #087C0A;
+        }
+    </style>
+    <table class="m_table">
+
+        <tr>
+            <th align="left" class="j_background">前台商品统计</th>
+            <th align="left" >数量(单位:件)</th>
+            <th align="left" >金额(单位:万元)</th>
+        </tr>
+        <tr>
+            <th width="100">未开拍拍品</th><td>{$frontstartbefore_count}件</td><td>{$frontstartbefore_nowpricesum/1000}</td>
+        </tr>
+        <tr>
+            <th width="100">正在进行拍品</th><td>{$frontstarting_count}件</td><td>{$frontstarting_nowpricesum/10000}</td>
+        </tr>
+        <tr>
+            <th width="100">已经结束拍品</th><td>{$frontstartafter_count}件</td><td>{$frontstartafter_nowpricesum/10000}</td>
+        </tr>
+        <tr>
+            <th width="100">前台总拍品</th><td>{$frontgoods_count}件</td><td>{$frontgoods_nowpricesum/10000}</td>
+        </tr>
+        <tr>
+            <th align="left" class="j_background">前台竞拍统计</th>
+            <th align="left" >数量(单位:次或人)</th>
+            <th align="left" >金额(单位:万元)</th>
+        </tr>
+        <tr>
+            <th>出价总次</th><td><div class="j_juli">1:{$_BidCount}次</div><div class="j_juli j_big">2:{$BidCount}次</div><div class="j_juli">差:{$_BidCount-$BidCount}次</div></td><td></td>
+        </tr>
+        <tr>
+            <th>参拍总人数</th><td><div class="j_juli">1:{$_JoinerCount}人</div><div class="j_juli j_big">2:{$JoinerCount}人</div><div class="j_juli">差:{$_JoinerCount-$JoinerCount}人</div></td><td></td>
+        </tr>
+        <tr>
+            <th>总成交次数</th><td>{$FinishCount}次</td><td></td>
+        </tr>
+        <tr>
+            <th>总成交额</th><td></td><td>{$FinishMoney/10000}</td>
+        </tr>
+    </table>
+</block>

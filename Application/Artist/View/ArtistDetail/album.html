@@ -1,0 +1,23 @@
+<extend name="detailBase"/>
+<block name="content">
+<!--content  start-->
+<div class="center">
+<!--投资指数 start-->
+<div class="investement">
+   <div class="photo_top">个人相册</div>
+   <!--个人画展start-->
+        <div class="photo_d">
+<ul>
+    <volist name="album" id="vo">
+   <li><i>185</i><a href="{:U('Artist/ArtistDetail/albumList',array('id'=>$detail['id'],'albumid'=>$vo['id']))}"><img src="{$vo.thumb}" border="0" /></a><p><a href="#">{$vo.title}</a></p></li>
+    </volist>
+</ul>
+</div>
+   <!--end 个人画展-->
+
+  </div>
+<!--end 投资指数-->
+
+</div>
+<!--content end-->
+</block>

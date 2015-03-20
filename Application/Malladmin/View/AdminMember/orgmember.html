@@ -1,0 +1,24 @@
+<extend name="Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{width:300px;padding-top:20px;}
+    </style>
+</block>
+<block name="body">
+    <form action="{:U('orgmember')}" method="post" class="addAdmin">
+        <table class="form">
+            <tr>
+                <th>用户名:</th>
+                <td>
+                    <input name="username" type="text" placeholder="用户名"/>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <button type="submit" class="btn ajax-post fa fa-check" target-form="addAdmin" >确认</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</block>

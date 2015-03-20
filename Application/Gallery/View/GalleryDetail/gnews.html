@@ -1,0 +1,47 @@
+<extend name="galleryDetailBase"/>
+<block name='content'>
+<!--center start-->
+<div class="center cb">
+<!--left start-->
+<div class="gallery_left">
+<!--top start-->
+    <div  class="gallery_lefttop">
+        <h3>{$gInfo.name}</h3>
+        <img src="{$gInfo.gthumb}" width="210" height="200"/>
+        <p><span>作品<a href="#">{$workcount}</a></span><span>展览<a href="#">{$exhibitcount}</a></span><span class="gallery_l_r">艺术家<a href="#">{$artistcount}</a></span></p>
+    </div>
+    <!--end top-->
+    <!---->
+    <div class="gallery_leftc">
+        <p>地区：<a href="#">{$gInfo.address}</a></p>
+        <p>成立时间：<a href="#">{$gInfo.found}</a></p>
+        <p>艺术家：<volist name="artist" id="vo"><a href="{:U('/Artist/ArtistDetail/index',array('id'=>$vo['id']))}">{$vo.name}</a>&nbsp;</volist><a href="#" class="yellow right">更多&gt;&gt;</a></p>
+        <p>关键字：<a href="#">{$gInfo.keywords}</a></p>
+    </div>
+<!---->
+
+</div>
+<!--end left-->
+<!--right start-->
+<div class="gallery_right">
+<!--最近展览 start-->
+<div class="gallery_arts">
+<div class="gallery_artstop">新闻</div>
+<div class="gallery_newsd">
+<ul class="last-ele">
+<volist name="lists" id="vo">
+<li><span>{$vo.create_time|date='Y-m-d',###}</span><p><a href="{:U('Gallery/GalleryDetail/show/',array('to'=>'news','id'=>$vo['id'],'gid'=>$gInfo['id']))}">{$vo.title}</a></p></li>
+</volist>
+</ul>
+</div>
+     <!--more s tart-->
+   <div class="more gb_more">{$page}</div>
+   <!--more end-->
+
+</div>
+<!--end 最近展览-->
+</div>
+<!--right end-->
+</div>
+<!--center end-->
+</block>

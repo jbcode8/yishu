@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>中国艺术网后台登录中心  - By 中国艺术网</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <load file="__PUBLIC__/js/jquery-1.10.2.min.js" />
+    <load file="__PUBLIC__/js/jquery-migrate-1.2.1.min.js" />
+    <load file="__PUBLIC__/css/Admin/login.css" />
+</head>
+<body>
+<div class="login">
+    <div class="container">
+        <div class="logo"><img src="__PUBLIC__/img/Admin/logo.gif"/></div>
+        <form action="{:U('login')}" method="post" class="loginform">
+            <p>
+                <label>用户名</label>
+                <input name="username" type="text" id="account" placeholder="请输入用户名">
+            </p>
+            <p>
+                <label>密　码</label>
+                <input name="password" type="password" id="password" placeholder="请输入密码">
+            </p>
+            <p>
+                <label>验证码</label>
+                <input name="verify" type="text" id="verify" placeholder="验证码"><img class="verifyimg reloadverify" alt="点击切换" src="{:U('Public/verify')}">
+            </p>
+            <p>
+                <button type="submit" class="btn">
+                    <span class="in">登录中...</span>
+                    <span class="on">登 录</span>
+                </button>
+                <span class="check-tips"></span>
+            </p>
+        </form>
+    </div>
+</div>
+<div class="footer">Copyright &COPY; 中国艺术网 . All Rights Reserved . </div>
+<script type="text/javascript">
+    $(function(){
+        //刷新验证码
+        var verifyimg = $(".verifyimg").attr("src");
+        $(".reloadverify").click(function(){
+            if( verifyimg.indexOf('?')>0){
+                $(".verifyimg").attr("src", verifyimg+'&random='+Math.random());
+            }else{
+                $(".verifyimg").attr("src", verifyimg.replace(/\?.*$/,'')+'?'+Math.random());
+            }
+        });
+
+        $(document).ajaxStart(function () {
+            $("button:submit").addClass("log-in").attr("disabled", true);
+        }).ajaxStop(function () {
+            $("button:submit").removeClass("log-in").attr("disabled", false);
+        });
+
+        $("form").submit(function(){
+            var self = $(this);
+            $.post(self.attr("action"), self.serialize(), success, "json");
+            return false;
+
+            function success(data){
+                if(data.status){
+                    window.location.href = data.url;
+                } else {
+                    self.find(".check-tips").text(data.info);
+                    //刷新验证码
+                    $(".reloadverify").click();
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

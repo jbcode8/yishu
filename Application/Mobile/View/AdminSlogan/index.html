@@ -1,0 +1,39 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+    <div class="nav_btn">
+        <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Paimai/AdminSlogan/add')}', {title:'添加口号', id:'adoArticle'})"> 添加口号</a>
+
+    </div>
+    <!--快捷按钮 结束-->
+
+    <table class="m_table">
+        <tr><th>口号ID</th><th>口号名称</th><th>是否可用</th><th>顺序</th><th>操作</th></tr>
+        <volist name="lists" id="v">
+            <tr>
+                <td id="id">{$v.slogan_id}</td>
+                <td>{$v.slogan_name}</td>
+                <td>{$v.slogan_isshow}</td>
+                <td>{$v.slogan_order}</td>
+
+                <td><a href="{:U('Paimai/AdminSlogan/edit',array('slogan_id'=>$v['slogan_id']))}">编辑</a>|<a class="j_del" href="{:U('Paimai/AdminSlogan/delete',array('slogan_id'=>$v['slogan_id']))}">删除</a></td>
+            </tr>
+        </volist>
+    </table>
+    <script>
+        $(function(){
+
+            //判断删除
+            $(".j_del").click(function(e){
+                if(!confirm("你确认删除这个口号!")){
+                    e.preventDefault();
+                }
+            });
+
+        })
+    </script>
+</block>

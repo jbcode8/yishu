@@ -1,0 +1,59 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_OTHER_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+    <div class="nav_btn">
+        <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Jianding/AdminExpert/expAdd',array('gtype_id'=>$gtype['gtype_id']))}', {title:'添加专家', id:'adoArticle'})" style='padding:5px 10px;margin:0px 0 10px 0;border:solid 1px #888;border-radius:3px;'> 添加专家</a>
+
+    </div>
+    <!--快捷按钮 结束-->
+
+	<empty name='experts_data'>
+			没有属性分类值
+		<else/>
+    <table class="m_table">
+        <tr><th>专家名</th><th>专家头像</th><th>鉴定费用</th><th>是否可用</th><th>鉴定器类</th><th>好评数</th><th>操作</th></tr>
+		
+        <volist name="experts_data" id="v">
+            <tr>
+                <td id="id">{$v.expert_name}</td>
+                <td><img height="75" width="75" src="{$v.portrait_img_path}{$v.portrait_img_name}" title="{$v.expert_name}"/></td>
+				<td>{$v.eval_fee}</td>
+				<td>
+				<if condition = "$v.is_use eq 1">
+					可用
+				<else />
+					不可用
+				</if>
+				</td>
+				<td>{$v.cat_name}</td>
+				<td>{$v.favorable}</td>
+                
+
+                <td>
+				<a href="javascript:$.dialog.open('{:U('Jianding/AdminExpert/expUpdate',
+					array('expert_id'=>$v['expert_id']))}', 
+					{title:'修改专家信息', id:'adoArticle'})">编辑</a>
+				&nbsp;|&nbsp;<a class="j_del" href="{:U('Jianding/AdminExpert/expDelete',array('expert_id'=>$v['expert_id']))}">删除</a>
+				</td>
+            </tr>
+        </volist>
+		 </table>
+		</empty>
+   
+    <script>
+        $(function(){
+
+            //判断删除
+            $(".j_del").click(function(e){
+                if(!confirm("确认删除该专家!")){
+                    e.preventDefault();
+                }
+            });
+
+        })
+    </script>
+</block>

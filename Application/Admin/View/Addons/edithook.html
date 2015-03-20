@@ -1,0 +1,103 @@
+<extend name="Public/base" />
+<block name="style">
+    <style type="text/css">
+        body{width:500px;}
+        .dragsort {width:350px;}
+        .dragsort li {background-color: #eee; margin-bottom: 5px;padding: 0 6px;height: 30px;line-height: 30px;border: 1px solid #eee;overflow: hidden;}
+        .dragsort li em {font-style: normal;}
+        .dragsort li b {display: none;float: right;padding: 0 6px;font-weight: bold;color: #000;}
+        .dragsort li:hover b {display: block;}
+        .dragsort .draging-place {border-style: dashed;border-color: #ccc;}
+    </style>
+</block>
+<block name="body">
+    <form action="{:U('updateHook')}" method="post" class="updateHook">
+        <input type="hidden" name="id" value="{$data.id}">
+        <table class="form">
+            <tr>
+                <th>钩子名称:</th>
+                <td>
+                    <input name="name" type="text" value="{$data.name}" placeholder="钩子标识,英文字符"/>
+                </td>
+                <td>
+                    <i class="red">*</i> 需要在程序中先添加钩子，否则无效
+                </td>
+            </tr>
+            <tr>
+                <th>钩子类型:</th>
+                <td>
+                    <select name="type">
+                        <option value="1" <eq name="data.type" value="1"> selected</eq>>视图</option>
+                        <option value="2" <eq name="data.type" value="2"> selected</eq>>控制器</option>
+                    </select>
+                </td>
+                <td>
+                    <i class="red">*</i> 区分钩子的主要用途
+                </td>
+            </tr>
+            <tr>
+                <th>钩子描述:</th>
+                <td>
+                    <textarea name="description">{$data.description}</textarea>
+                </td>
+                <td>
+                    <i class="red">*</i> 钩子的描述信息
+                </td>
+            </tr>
+            <present name="data">
+                <tr>
+                    <th></th>
+                    <td colspan="2">钩子挂载的插件（拖动后保存顺序,插件执行先后顺序）</td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td colspan="2">
+                        <input type="hidden" name="addons" value="{$data.addons}" readonly>
+                        <empty name="data.addons">
+                            暂无插件，无法排序
+                        <else />
+                        <ul id="sortUl" class="dragsort">
+                            <volist name=":explode(',',$data['addons'])" id="addons_vo">
+                                <li class="getSort"><b>&times;</b><em>{$addons_vo}</em></li>
+                            </volist>
+                        </ul>
+                        <load file="__PUBLIC__/plugin/jquery.dragsort-0.5.1.min.js" />
+                        <script type="text/javascript">
+                                $(function(){
+                                    $("#sortUl").dragsort({
+                                        dragSelector:'li',
+                                        placeHolderTemplate: '<li class="draging-place">&nbsp;</li>',
+                                        dragEnd:function(){
+                                            updateVal();
+                                        }
+                                    });
+
+                                    $('#sortUl li b').click(function(){
+                                        $(this).parent().remove();
+                                        updateVal();
+                                    });
+
+                                    // 更新排序后的隐藏域的值
+                                    function updateVal() {
+                                        var sortVal = [];
+                                        $('#sortUl li').each(function(){
+                                            sortVal.push($('em',this).text());
+                                        });
+                                        $("input[name='addons']").val(sortVal.join(','));
+                                    }
+                                })
+                            </script>
+                        </empty>
+                    </td>
+                </tr>
+            </present>
+            <tr>
+                <th></th>
+                <td>
+                    <button type="submit" class="btn ajax-post" target-form="updateHook" >确认</button>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
+</block>

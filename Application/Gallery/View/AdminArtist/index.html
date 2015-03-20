@@ -1,0 +1,65 @@
+<extend name="Admin@Public:base" />
+
+<block name="style">
+    <load file="{PLUGIN_PATH}treetable/css/treetable.css" />
+</block>
+
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul><li class="selected"><a href="{:U('index')}">艺术家列表</a></li></ul>
+
+        <!--快捷按钮 开始-->
+        <div class="nav_btn">
+            <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('add')}', {title:'新增艺术家', id:'newWindow'})"> 新增艺术家</a>
+        </div>
+        <!--快捷按钮 结束-->
+
+    </div>
+    <!--导航部分 结束-->
+
+    <form action="{:U('listorder')}" method="post" class="listorder">
+        <!-- 数据表格 开始-->
+        <?php
+        $thead = array(
+            '_html' => array('_th'=>'row-selected', 'th'=>'排序', 'td'=>'<input class="u-order" type="text" name="listorder[$id]" value="$listorder" />'),
+            'id' => '编号',
+            'name' => '艺术家姓名',
+            'gid' => array('_title'=>'画廊名称','func'=>'getGallery($gid)'),
+            'create_time' => array('_title'=>'添加时间','tag'=>'span', 'func'=>'date("Y-m-d H:i:s", $create_time)'),
+            '状态'=>array(
+                '正常'=>array('class'=>'success', 'condition'=>'$status==1'),
+                '推荐'=>array('class'=>'red', 'condition'=>'$status==2'),
+                '待审'=>array('class'=>'error','condition'=>'$status==0'),
+            ),
+            '操作'=>array(
+            ' 修改'=>array('href' => 'edit?id=$id', 'class'=>'editInfo fa fa-edit'),
+            ' 删除'=>array('href' => 'delete?id=$id', 'class'=>'confirm ajax-get fa fa-trash-o red'),
+            ' 正常'=>array('href' => 'status?id=$id&val=1', 'class'=>'ajax-get fa fa-flag-o success'),
+            ' 推荐'=>array('href' => 'status?id=$id&val=2', 'class'=>'ajax-get fa fa-thumbs-up red'),
+            ' 设为待审'=>array('href' => 'status?id=$id&val=0', 'class'=>'ajax-get fa fa-lock red'),
+            ),
+        );
+        echo $_table_list = $__controller__->tableList($_list, $thead);
+        ?>
+        <!-- 数据表格 结束-->
+        <div class="paging">
+            <if condition="$_list">
+                <button type="submit" class="btn fa fa-list ajax-post" target-form="listorder"> 排 序</button>
+                {$_page}
+            </if>
+        </div>
+    </form>
+
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+    <script type="text/javascript">
+        $(function(){
+            $('.editInfo').live('click',function(e){e.preventDefault();$.dialog.open(this.href, {title:'编辑类别', id:'newWindow'} );});
+            $('.u-order').css({'width':'15px','font':'12px/15px Arial','padding':'2px 5px'});
+        });
+    </script>
+</block>

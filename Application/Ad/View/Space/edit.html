@@ -1,0 +1,65 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{width:400px;}
+    </style>
+</block>
+<block name="body">
+    <form action="{:U('Ad/Space/edit')}" method="post" class="editSpace">
+        <table class="form">
+            <tr>
+                <th class="w1">版位名称:</th>
+                <td>
+                    <input type="text" name="spacename" value="{$vo.spacename}"/>
+                </td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+            <tr>
+                <th class="w1">版位宽度:</th>
+                <td>
+                    <input type="text" name="spacewidth" value="{$vo.spacewidth}"/>
+                </td>
+                <td class="tips">
+                    <i class="red">*必填，单位为px</i>
+                </td>
+            </tr>
+            <tr>
+                <th class="w1">版位高度:</th>
+                <td>
+                    <input type="text" name="spaceheight" value="{$vo.spaceheight}"/>
+                </td>
+                <td class="tips">
+                    <i class="red">*必填，单位为px</i>
+                </td>
+            </tr>
+            <tr>
+                <th class="w1">展示广告数:</th>
+                <td>
+                    <input type="text" name="adshow" value="{$vo.adshow}"/>
+                </td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+            <tr>
+                <th class="w1">版位描述:</th>
+                <td>
+                    <input type="textarea" name="spaceintro" value="{$vo.spaceintro}"/>
+                </td>
+                <td class="tips">
+                    <i class="red">可选</i>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <input type="hidden" name="id" value="{$vo.id}" />
+                    <button type="submit" class="btn ajax-post" target-form="editSpace">确认</button>
+                    <button type="reset" class="btn btn_gary">重填</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</block>

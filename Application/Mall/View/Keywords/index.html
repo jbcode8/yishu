@@ -1,0 +1,87 @@
+<extend name="Admin@Public:base" />
+
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+</block> 
+
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul><li class="selected"><a href="{:U('Mall/Keywords/index')}">搜索关键字列表</a></li></ul>
+
+        <!--快捷按钮 开始-->
+        <div class="nav_btn">
+            <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Mall/Keywords/add')}',{title:'添加关键字',id:'doKeywords'})"> 添加关键字</a>
+        </div>
+		<form method="post" action="{:U('Mall/Keywords/import')}" enctype="multipart/form-data">
+		<div class="nav_btn">
+		
+         批量导入关键字：<input  type="file" name="excel" />
+
+           <input type="submit"  value="导入" />
+
+        </div>
+		</form>
+        <!--快捷按钮 结束-->
+
+        <!--搜索 开始-->
+        <div class="advSearch">
+            <form method="post" action="{:U(index)}">
+                <div class="row">
+                    <label>关键字：</label>
+                    <input type="text" size="10" name="kw" placeholder="请输入关键字" style="padding:2px 5px" value="{$kw}" />
+                </div>
+                <button type="submit" class="btn fa fa-search"> 搜 索</button>
+            </form>
+        </div>
+        <!--搜索 结束-->
+
+    </div>
+    <!--导航部分 结束-->
+
+    <form action="{:U('listorder')}" method="post" class="keylistorder">
+        <!-- 数据表格 开始-->
+        <?php
+        $thead = array(
+            '_html' => array(
+        '_th' => 'row-selected',
+        'th' => '排序',
+        'td' => '<input type="text" name="listorder[$key_id]" value="$listorder" style="width:20px;height:18px;padding:0 4px">',
+        ),
+        'key_id' => '编号',
+        'words' => '关键字',
+        'hits' => '搜索次数',
+        '状态'=>array(
+        ' 正常'=>array('class' =>'success','condition'=>'$status==0'),
+        ' 推荐'=>array('class' =>'red','condition'=>'$status==1'),
+        ' 锁定'=>array('class' =>'red fa fa-lock','condition'=>'$status==2'),
+        ),
+        '操作'=>array(
+        ' 推荐'=>array('href' => 'Mall/Keywords/editstatus?key_id=$key_id&status=1','class' =>'ajax-get success fa fa-check-circle'),
+        ' 锁定'=>array('href' => 'Mall/Keywords/editstatus?key_id=$key_id&status=2','class' =>'ajax-get red fa fa-lock'),
+        ' 修改'=>array('href' => 'Mall/Keywords/edit?key_id=$key_id', 'class'=>'editKeywords fa fa-edit'),
+        ' 删除'=>array('href' => 'Mall/Keywords/delete?key_id=$key_id', 'class'=>'ajax-get fa fa-trash-o red'),
+        ),
+        );
+        echo $_table_list = $__controller__->tableList($_list, $thead);
+        ?>
+        <!-- 数据表格 结束-->
+        <div class="paging">
+            <button type="submit" class="btn fa fa-list ajax-post" target-form="keylistorder"> 排 序</button>
+            {$_page}
+        </div>
+    </form>
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+    <script type="text/javascript">
+        $(function() {
+            $(".editKeywords").on('click',function(e){
+                e.preventDefault();
+                $.dialog.open(this.href, {title:'修改关键字', id:'doKeywords'} );
+            });
+        });
+    </script>
+</block>

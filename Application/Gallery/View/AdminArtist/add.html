@@ -1,0 +1,41 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+<style type="text/css">body{width:550px}.u-brief{width:380px;height:54px;font:12px/1.5 Microsoft YaHei}</style>
+</block>
+<block name="body">
+    <load file="{PLUGIN_PATH}uploadify/jquery.uploadify.min.js" />
+    <form action="{:U('add')}" method="post" class="addInfo">
+        <table class="form">
+            <tr>
+                <th>选择画廊:</th>
+                <td>{:tagSelectGallery()}</td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+            <tr>
+                <th>艺术家名称:</th>
+                <td><input name="name" type="text" /></td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+            <tr>
+                <th>艺术家头像:</th>
+                <td>{:hook('upload',array('model'=>'galleryArtist','type'=>'thumb','height'=>80,width=>150,'uploadify'=>'swfone'))}</td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+            <tr>
+                <th>艺术家简介:</th>
+                <td><textarea name="brief" class="u-brief"></textarea></td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+            <tr>
+                <th>排列顺序:</th>
+                <td><input name="listorder" type="text" value="0" /></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>&nbsp;</th>
+                <td><button type="submit" class="btn ajax-post" target-form="addInfo">确认</button></td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
+</block>

@@ -1,0 +1,53 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+    <div class="nav_btn">
+        <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Paimai/AdminRecruiter/add')}', {title:'添加征集人员', id:'adoArticle',width:'1000px',height:'600px'})"> 添加征集人员</a>
+
+    </div>
+	</br>
+	
+	
+    <!--快捷按钮 结束-->
+
+    <table class="m_table">
+        <tr><th>征集人员ID</th><th>征集人员姓名</th><th>征集人员描述</th><th>征集人员手机</th><th>是否显示</th><th>记录创建时间</th><th>排序</th><th>操作</th></tr>
+        <volist name="recr" id="v">
+            <tr>
+                <td id="id" style="text-align:center">{$v.recruiter_id}</td>
+                <td style="text-align:center">{$v.recruiter_name}</td>
+                <td style="text-align:center">{$v.recruiter_desc}</td>
+                <td style="text-align:center">{$v.recruiter_phone}</td>
+				<td style="text-align:center">
+				<if condition="$v.recruiter_isshow eq 0">
+				显示
+				<else />
+				不显示
+				</if>
+				</td>
+                <td style="text-align:center">{$v.recruiter_createtime|date="Y-m-d H:i:s",###}</td>
+				<td style="text-align:center">{$v.recruiter_order}</td>
+                <td style="text-align:center">
+				<a href="{:U('Paimai/AdminRecruiter/edit',array('recruiter_id'=>$v['recruiter_id']))}">编辑</a>
+				&nbsp&nbsp|&nbsp&nbsp
+				<a class="j_del" href="{:U('Paimai/AdminRecruiter/delete',array('recruiter_id'=>$v['recruiter_id']))}">删除</a></td>
+            </tr>
+        </volist>
+    </table>
+    <script>
+        $(function(){
+
+            //判断删除
+            $(".j_del").click(function(e){
+                if(!confirm("你是否确认删除这个征集人员信息？")){
+                    e.preventDefault();
+                }
+            });
+
+        })
+    </script>
+</block>

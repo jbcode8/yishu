@@ -1,0 +1,54 @@
+<extend name="Admin@Public:base" />
+
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+</block>
+
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul><li class="selected"><a href="{:U('Mall/AttrValue/index')}">属性值列表</a></li></ul>
+
+        <!--快捷按钮 开始-->
+        <div class="nav_btn">
+            <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Mall/AttrValue/add')}',{title:'添加属性值',id:'doAttrValue'})"> 添加属性值</a>
+        </div>
+        <!--快捷按钮 结束-->
+
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 开始-->
+    <?php
+        $thead = array(
+            'attr_val_id'=>'编号',
+            'val_name' => '属性值',
+            'attr_id' => array(
+                '_title' => '所属属性名',
+                'func' => 'getAttrName($attr_id)',
+            ),
+            '操作'=>array(
+                ' 修改属性值'=>array('href' => 'Mall/AttrValue/edit?attr_val_id=$attr_val_id', 'class'=>'editAttrValue fa fa-edit'),
+                ' 删除属性值'=>array('href' => 'Mall/AttrValue/delete?attr_val_id=$attr_val_id', 'class'=>'ajax-get fa fa-trash-o red'),
+            ),
+        );
+        echo $_table_list = $__controller__->tableList($_list, $thead);
+    ?>
+    <!-- 数据表格 结束-->
+    <div class="paging">
+        {$_page}
+    </div>
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+<script type="text/javascript">
+$(function() {
+    $(".editAttrValue").on('click',function(e){
+        e.preventDefault();
+        $.dialog.open($(this).attr('href'), {title:'修改属性值',id:'doAttrValue'} );
+    });
+});
+</script>
+</block>

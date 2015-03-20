@@ -1,0 +1,34 @@
+<include file="Admin@Public:header" />
+<div class="container">
+    <ul class="header clear">
+    <li <eq name="ACTION_NAME" value="index">class="current"</eq>><a href="{:U('Identify/AdminExpert/index')}">鉴定专家管理</a></li>
+    <li <eq name="ACTION_NAME" value="add">class="current"</eq>><a href="{:U('Identify/AdminExpert/add')}">添加鉴定专家</a></li>
+    </ul>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>专家姓名</th>
+                <th>分类</th>
+                <th>添加时间</th>
+                <th>管理操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        <volist name="list" id="v">
+            <tr>
+                <td>{$v['id']}</td>
+                <td>{$v['username']}</td>
+                <td>{:getIdentifyCategoryName($v['category'])}</td>
+                <td>{:date('Y-m-d H:i:s',$v['createtime'])}</td>
+                <td>
+                    <a href="{:U('Identify/AdminExpert/edit',array('id' => $v['id']))}">编辑</a>
+                    <a href="{:U('Identify/AdminExpert/delete',array('id' => $v['id']))}" onclick="if(confirm('确定要删除吗？')){return true;};return false;">删除</a>
+                </td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+    <div class="page">{$page}</div>
+</div>
+<include file="Admin@Public:footer" />

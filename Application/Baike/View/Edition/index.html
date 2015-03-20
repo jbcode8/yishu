@@ -1,0 +1,97 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="{PLUGIN_PATH}DatePicker/WdatePicker.js" />
+    <load file="{JS_PATH}bulkActionJs.js" />
+</block>
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+
+        <ul>
+            <li class="selected"><a href="{:U('Baike/Edition/index')}">词条版本库</a></li>
+        </ul>
+
+        <!--搜索 开始-->
+        <div class="advSearch">
+            <form method="post" action="{:U('Baike/Edition/index')}">
+                <div class="row">
+                    <label>标题：</label>
+                    <input type="text" name="title" size="12" placeholder="请输入词条标题">
+                </div>
+                <div class="row">
+                    <label>创建时间：</label>
+                    <input type="text" size="6" placeholder="起始时间" name='start_time' id="starttime"  onfocus="WdatePicker({onpicked:function(){$('#endtime').focus();}})"/> -
+                    <input type="text" size="6" placeholder="结束时间" name='end_time' id="endtime" onfocus="WdatePicker({minDate:$('#starttime').val()})" />
+                </div>
+                <button class="btn fa fa-search"> 搜 索</button>
+                <button class="btn fa fa-search-plus" onclick="javascript:$.dialog.open('{:U(\'Baike/Edition/search\')}',{title:'词条检索','lock':true});return false;"> 高级搜索</button>
+            </form>
+        </div>
+        <!--搜索 结束-->
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 -->
+    <div class="table">
+        <?php
+        $thead = array(
+            '_html'=>array(
+        '_th'=>'row-selected',
+        'th'=>'<input class="check-all" type="checkbox"/>',
+        'td'=>'<input class="ids" type="checkbox" name="ids[]" value="$eid" />',
+        ),
+        'title'=>'词条名称',
+        'cid' => array(
+        '_title' => '分类',
+        'func'  => 'get_category($cid)',
+        ),
+        'time'=> array(
+            '_title' => '创建时间',
+            'func'  => 'date("Y-m-d",$time)',
+        ),
+        'authorid'=> array(
+            '_title' => '创建者',
+            'func' => 'get_username($authorid)',
+        ),
+        'visible' => array(
+            '_title' => '审核',
+            'func' => 'get_visible($visible)',
+        ),
+        'excellent' =>  array(
+            '_title' => '优秀',
+            'func' => 'get_edition_excellent($excellent)',
+        ),
+        'reason' => array(
+            '_title' => '修改原因',
+            'func' => 'get_edition_reason($type,$reason)',
+        ),
+        '操作'=> array(
+        ' 版本对比'=>array( 'href' => 'Baike/Edition/contrast?did=$did&eid=$eid','class'=>'success version-diff fa fa-columns')
+        ),
+        );
+        echo $_table_list = $__controller__->tableList($_list,$thead);
+        ?>
+    </div>
+    <div class="paging"  style="float: left;margin-top: 5px;">
+        <div class="page">
+            <a href="javascript:bulkUpdate('{:U(\'Baike/Edition/alertexcellent\')}','excellent',1);" class="fa fa-flag"> 优 秀</a>
+            <a href="javascript:bulkUpdate('{:U(\'Baike/Edition/alertexcellent\')}','excellent',0);" class="fa fa-flag-o"> 取消优秀</a>
+            <a href="javascript:bulkDelete('{:U(\'Baike/Edition/delete\')}','eid');" id="delselected" class="confirm fa fa-trash-o"> 删 除</a>
+            <a href="javascript:bulkUpdate('{:U(\'Baike/Edition/audit\')}','visible',1);" class="fa fa-gavel"> 审 核</a>
+        </div>
+    </div>
+
+    <div class="paging">
+        {$_page}
+    </div>
+</block>
+<block name="javascript">
+    <script type="text/javascript">
+        $(function(){
+           $('.version-diff').click(function(e){
+                e.preventDefault();
+                $.dialog.open(this.href,{title:'版本对比', lock:'true', width:'1000px', height:'500px'});
+            })
+        })
+    </script>
+</block>

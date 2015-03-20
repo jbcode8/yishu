@@ -1,0 +1,41 @@
+<extend name="Admin@Public:base" />
+<block name="body">
+<div class="container">
+    <ul class="header clear">
+    <li <eq name="ACTION_NAME" value="meeting_show">class="current"</eq>><a href="{:U('Auction/AdminMeeting/index')}">拍卖会管理</a></li>
+    <li <eq name="ACTION_NAME" value="meeting_add">class="current"</eq>><a href="{:U('Auction/AdminMeeting/meeting_add')}">添加拍卖会</a></li>
+    <li <eq name="ACTION_NAME" value="meeting_special_add">class="current"</eq>><a href="{:U('Auction/AdminMeeting/meeting_special_add')}">添加拍卖会专场</a></li>
+    </ul>
+    <script type="text/javascript" src="http://www.yishu.com/statics/js/DatePicker/WdatePicker.js"></script>
+    <form action="{:U('Auction/AdminMeeting/meeting_update', array('id' => $list[0]['id']))}" method="post">
+    <table class="table table-hover">
+        <thead><tr><th></th><th></th></tr></thead>
+        <tbody>
+            <tr><td>拍卖会名称：</td><td><input type="text" name="name" size="50" value="{$list[0]['name']}" /></td></tr>
+            <tr><td>拍卖会公告：</td><td><textarea name="introduce" rows="4" style="width:500px">{$list[0]['introduce']}</textarea></td></tr>
+            <tr><td>所属机构：</td><td><select name="agencyid"><option value="{$agency_name[0]['id']}">{$agency_name[0]['name']}</option><volist name="agency_list" id="vo"><option value="{$vo.id}">{$vo.name}</option></volist></select></td></tr>
+            <tr><td>拍卖城市：</td><td><select name="areaid"><option value="{$list[0]['areaid']}">{:getAreaName($list[0]['areaid'])}</option><volist name="area_list" id="vo"><option value="{$vo.id}">{$vo.name}</option></volist></select></td></tr>
+			<tr><td>成交额：</td><td><input type="text" name="money" value="{$list[0]['money']}" /></td></tr>
+            <tr><td>拍卖会缩略图：</td><td><Form function="images" parameter="thumb, thumb, $list[0]['thumb'], auction" /></td></tr>
+            <tr><td>拍卖会视屏：</td><td><input type="text" name="video" value="{$list[0]['video']}" /></td></tr>
+            <tr><td>预展开始时间：</td><td>
+                <input type="text" name='pre_starttime' id='pre_starttime' value="{$list[0]['pre_starttime']|date='Y-m-d H:m', ###}" class="input-big Wdate" placeholder="预展开始时间" onFocus="var end = $dp.$('pre_endtime');WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',alwaysUseStartDate:true,onpicked:function(){end.focus();}});" />
+            </td></tr>
+            <tr><td>预展结束时间：</td><td>
+                <input type="text" name='pre_endtime' id='pre_endtime' value="{$list[0]['pre_endtime']|date='Y-m-d H:m', ###}" class="input-big Wdate" placeholder="预展结束时间"  onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',alwaysUseStartDate:true,minDate:'#F{$dp.$D(pre_starttime)}'});" /></td></tr>
+
+			<tr><td>预展地点：</td><td><input type="text" value="{$list[0]['pre_address']}" name="pre_address" size="50" /></td></tr>
+            
+			<tr><td>拍卖开始时间：</td><td>
+			<input type="text" name='starttime' id='starttime' value="{$list[0]['starttime']}" class="input-big Wdate" placeholder="拍卖开始时间" onFocus="var end = $dp.$('endtime');WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',alwaysUseStartDate:true,onpicked:function(){end.focus();}});" />
+			                </td></tr>
+			<tr><td>拍卖截止时间：</td><td>
+			<input type="text" name='endtime' id='endtime' value="{$list[0]['endtime']}" class="input-big Wdate" placeholder="拍卖结束时间"  onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',alwaysUseStartDate:true,minDate:'#F{$dp.$D(starttime)}'});" /></td></tr>
+
+            <tr><td>拍卖地点：</td><td><input type="text" name="address" size="50" value="{$list[0]['address']}" /></td></tr>
+            <tr><td>&nbsp;</td><td><input name="submit" type="submit" value="编辑信息" class="btn btn-primary" /></td></tr>
+        </tbody>
+    </table>
+    </form>
+</div>
+</block>

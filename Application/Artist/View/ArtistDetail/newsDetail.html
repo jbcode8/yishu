@@ -1,0 +1,44 @@
+<extend name="detailBase"/>
+<block name="content">
+<!--content  start-->
+<div class="center">
+<!--投资指数 start-->
+<div class="investement">
+   <div class="dynamics_top">个人动态</div>
+   <!--个人画展start-->
+<div class="dynamics_d">
+<h3>{$newsDetail.title}</h3>
+<div class="dynamics_sbar">{$newsDetail.updatetime|date='Y-m-d H:i:s',###}</div>
+{$newsDetail.content}
+<div class="dynamics_zhu"><span class="yellow">注：</span>本站上发表的所有内容，均为原作者的观点，不代表中国艺术网的立场，也不代表中国艺术网的价值判断。</div>
+         <div class="dynamicsxxy_fx">
+     <!-- Baidu Button BEGIN -->
+    <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+        <span class="bds_more">分享到：</span>
+        <a class="bds_tsina"></a>
+        <a class="bds_tqq"></a>
+        <a class="bds_qzone"></a>
+        <a class="bds_renren"></a>
+        <a class="bds_msn"></a>
+        <a class="bds_douban"></a>
+        <a class="bds_kaixin001"></a>
+		<a class="shareCount"></a>
+    </div>
+<script type="text/javascript" id="bdshare_js" data="type=tools" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+	document.getElementById("bdshell_js").src = "http://share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+</script>
+<!-- Baidu Button END -->
+         </div>
+</div>
+   <!--end 个人画展-->
+   <!--more s tart-->
+   <div class="more">{$page}</div>
+   <!--more end-->
+  </div>
+<!--end 投资指数-->
+
+</div>
+<!--content end-->
+</block>

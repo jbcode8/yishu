@@ -1,0 +1,35 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_OTHER_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+    <!--快捷按钮 结束-->
+
+	<empty name='mem_info'>
+        无法提取到用户的信息error
+		<else/>
+    <table class="m_table">
+        <tr><th>用户名:</th><th>{$mem_info.username}</th></tr>
+        <tr><th>昵称:</th><th>{$mem_info.nickname}</th></tr>
+        <tr><th>真实姓名:</th><th>{$mem_info.realname}</th></tr>
+        <tr><th>手机号:</th><th>{$mem_info.mobile}</th></tr>
+        <tr><th>email:</th><th>{$mem_info.email}</th></tr>
+		
+		 </table>
+		</empty>
+   
+    <script>
+        $(function(){
+
+            //判断删除
+            $(".j_del").click(function(e){
+                if(!confirm("你确认删除这个类型,如果删除这个商品类型下面的所有属性都将被删除!")){
+                    e.preventDefault();
+                }
+            });
+
+        })
+    </script>
+</block>

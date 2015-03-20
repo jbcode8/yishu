@@ -1,0 +1,130 @@
+<extend name="artistBase"/>
+<block name='content'>
+    <!-- 栏目内容 -->
+    <div class="master-index master-new-opus">
+    <div class="container clear">
+    <div class="time-choose clear">
+        <div class="filter">
+            <dl>
+                <dt><a href="{:U('/Artist/ArtistCategory/works')}">全部作品 {$works_total}</a></dt>
+                <volist name="artist_category" id="vo" key="k">
+                    <dd><a href="{:U('/Artist/ArtistCategory/works',array('cid'=>$vo['id']))}">{$vo.name} <b>{$vo.works_num}</b></a></dd>
+                </volist>
+
+            </dl>
+        </div>
+        <!--
+        <div class="year-month">
+            <span class="arr l-arr"><</span>
+            <span class="year-con">2014年2月</span>
+            <span class="arr r-arr">></span>
+            <div class="right" id="datepicker"></div>
+        </div>
+        -->
+    </div>
+    <div class="content" id="list-content">
+    <ul id="list" class="clear">
+        <volist name="list" id="vo">
+            <li>
+                <a href="{:U('Artist/ArtistDetail/work',array('id'=>$vo['aid'],'wid'=>$vo['id']))}"><img src="{$vo.thumb}" class="img" width="230" alt="" /></a>
+                <div class="dis">
+                    <p class="text">
+                        {$vo.description}
+                    </p>
+                    <div class="user clear">
+                        <a class="avatar" href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['aid']))}">
+                            <img src="{$vo.artist.thumb}" width="35" height="35" alt="" />
+                        </a>
+                        <p class="name">
+                            <span><b>{$vo.artist.name}</b></span>
+                            <span>{$vo.artist.description|new_msubstr=###,0,12}</span>
+                        </p>
+                    </div>
+                </div>
+            </li>
+        </volist>
+    </ul>
+    </div>
+        <!-- 分页 -->
+        <div class="common-page clear">
+            <div class="t-center">
+                <div id="f-page">
+                    <if condition="$pages gt 1">{$page} 共{$pages}页 　到第 <select id="select">{$select}<select> 页 </if>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <style>
+        #f-page {font: 12px/15px Tahoma, Arial, SimSun; text-align: center;}
+        #f-page .page{ display: inline;}
+        #f-page a, #f-page span {display: inline-block;_display: inline;_zoom: 1;padding: 5px 10px;border: 1px solid #ddd;color: #111;text-decoration: none; margin: 0 3px;}
+        #f-page span, #f-page a:hover {border: 1px solid #a51318;color: #fff;background: #a51318;}
+    </style>
+
+    <script type="text/javascript" src="{JS_PATH}jquery.ui.datepicker.min.js"></script>
+    <script type="text/javascript" src="{JS_PATH}jquery.ui.datepicker-zh-CN.min.js"></script>
+    <script type="text/javascript" src="{JS_PATH}common.js"></script>
+    <script type="text/javascript" src="{JS_PATH}js.js"></script>
+    <script type="text/javascript" src="{JS_PATH}jquery.wookmark.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            jumpPanel('.species','.species-jump',true,'.species-content');
+            commSelect('.info-log .common-select',20);
+            _chooseCity('#nav-local');
+            $(window).manhuatoTop({
+                showHeight : 100,
+                speed : 500
+            });
+            $.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+            $('#datepicker').datepicker({
+                onSelect:function(dateText){
+                    $('.ui-datepicker').addClass('hider');
+                    //alert(dateText);
+                }
+            });
+            $('.ui-datepicker').addClass('hider');
+            $('#datepicker').bind('click',function(){
+                $('.ui-datepicker').removeClass('hider');
+            });
+            $(document).live('click',function(e){
+                if(!$('.ui-datepicker').hasClass('hider')){
+                    var target = $(e.target);
+                    if(target.closest('#datepicker').length == 0){
+                        $('.ui-datepicker').addClass('hider');
+                    }
+                }
+            });
+            function loadImg(){
+                var options = {
+                    container: $('#list-content'),
+                    offset: 18,
+                    itemWidth: 230
+                };
+                var handler = $('#list li');
+                handler.wookmark(options);
+                handler.click(function(){
+                    var newHeight = $('img', this).height() + Math.round(Math.random()*300+30);
+                    $(this).css('height', newHeight+'px');
+                    handler.wookmark();
+                });
+            }
+            if($.browser.msie){
+                loadImg();
+            }
+            else{
+                $('img').load(function(){
+                    loadImg();
+                });
+            }
+
+            $("#select").live("change",function(){
+                var p = $("#select option:selected").val();
+                window.location.href = "{:U('/Artist/ArtistCategory/works/')}"+"?p="+p;
+            })
+        });
+    </script>
+
+
+</block>

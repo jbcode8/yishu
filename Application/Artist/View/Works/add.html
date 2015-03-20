@@ -1,0 +1,79 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">
+        /* 头像 */
+        #form_right{ position: absolute; top:55px; left: 360px;}
+    </style>
+</block>
+<!--主体内容 开始-->
+<block name="body">
+    <load file="{PLUGIN_PATH}uploadify/jquery.uploadify.min.js" />
+    <!-- 数据表格 开始-->
+    <form action="{:U('Artist/Works/add')}" method="post" class="addCategory">
+        <table class="form">
+            <tr>
+                <th width="150px"><i class="red">* </i>类别:</th>
+                <td>
+                    {:getArtistCategory()}
+                </td>
+            </tr>
+            <tr>
+                <th><i class="red">* </i>艺术家姓名:</th>
+                <td>
+                    <input type="text" name="artistName" id="_artist_name" readonly="readonly" required="required" maxLength="10" />
+                    {:R('Library/names',array('_artist_name'))}
+                </td>
+            </tr>
+            <tr>
+                <th><i class="red">* </i>作品名称:</th>
+                <td><input type="text" name="name" required="required" maxLength="100" /></td>
+            </tr>
+
+            <tr>
+                <th><i class="red">* </i>材质:</th>
+                <td><input type="text" name="material" maxLength="100" /></td>
+                <td class="tips">  </td>
+            </tr>
+            <tr>
+                <th>尺寸:</th>
+                <td><input type="text" name="size" required="required" maxLength="100" /></td>
+                <td class="tips"> </td>
+            </tr>
+            <tr>
+                <th>创作年代</th>
+                <td><input type="number" name="years" class="date" onfocus="WdatePicker({dateFmt:'yyyy'});" /></td>
+            </tr>
+            <tr>
+                <th>获奖名称:</th>
+                <td>
+                    <input type="text" name="awardName" id="_award_name" readonly="readonly" />
+                    {:R('Award/awards',array('_award_name'))}
+                </td>
+            </tr>
+            <tr>
+                <th>作品组图:</th>
+                <td>
+                    {:hook('upload',array('model'=>'works','type'=>'image','height'=>30,'uploadify'=>'swf'))}
+                </td>
+            </tr>
+            <tr>
+                <th><i class="red">* </i>作品简介:</th>
+                <td>
+                    <textarea name="description" required="required" cols="80" rows="3"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <button type="submit" class="btn" target-form="addCategory">确认</button>
+                    <button type="reset" class="btn btn_gary">重填</button>
+                </td>
+            </tr>
+            <div id="form_right">
+                {:hook('upload',array('model'=>'works','type'=>'thumb','height'=>120,width=>150,'uploadify'=>'swfone'))}
+            </div>
+    </form>
+    <!-- 数据表格 结束-->
+</block>
+<!--主体内容 结束-->
+

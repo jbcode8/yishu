@@ -1,0 +1,51 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">body{width:550px}.u-brief{width:380px;height:54px;font:12px/1.5 Microsoft YaHei}</style>
+</block>
+<block name="body">
+    <load file="{PLUGIN_PATH}uploadify/jquery.uploadify.min.js" />
+    <form action="{:U('add')}" method="post" class="addInfo">
+        <table class="form">
+            <tr>
+                <th>选择画廊:</th>
+                <td>{:tagSelectGallery()}</td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+            <tr>
+                <th>访谈标题:</th>
+                <td><input name="title" type="text" /></td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+            <tr>
+                <th>选择类别:</th>
+                <td>{:tagSelectCate()}</td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+            <tr>
+                <th>关键字:</th>
+                <td><input name="keywords" type="text" /></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>缩略图:</th>
+                <td>{:hook('upload',array('model'=>'galleryVisit','type'=>'thumb','height'=>80,width=>150,'uploadify'=>'swfone'))}</td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+            <tr>
+                <th>访谈简介:</th>
+                <td><textarea name="brief" class="u-brief"></textarea></td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+            <tr>
+                <th>视频地址:</th>
+                <td><input name="video" type="text" /></td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+            <tr>
+                <th>&nbsp;</th>
+                <td><button type="submit" class="btn ajax-post" target-form="addInfo">确认</button></td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
+</block>

@@ -1,0 +1,40 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+    <div class="nav_btn">
+        <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Paimai/AdminAttribute/add')}', {title:'添加属性', id:'adoArticle'})"> 添加属性</a>
+
+    </div>
+    <!--快捷按钮 结束-->
+
+    <table class="m_table">
+        <tr><th>属性ID</th><th>属性名称</th><th>所属类型</th><th>检索类型</th><th>是否可用</th><th>顺序</th><th>操作</th></tr>
+        <volist name="lists" id="v">
+            <tr>
+                <td id="id">{$v.attr_id}</td>
+                <td>{$v.attr_name}</td>
+                <td>{$v.goodstype_name}</td>
+                <td>{$v.attr_index}</td>
+                <td>{$v.attr_isshow}</td>
+                <td>{$v.attr_order}</td>
+                <td><a href="{:U('Paimai/AdminAttribute/edit',array('attr_id'=>$v['attr_id']))}">编辑</a>|<a class="j_del" href="{:U('Paimai/AdminAttribute/delete',array('attr_id'=>$v['attr_id']))}">删除</a></td>
+            </tr>
+        </volist>
+    </table>
+    <script>
+        $(function(){
+
+            //判断删除
+            $(".j_del").click(function(e){
+                if(!confirm("你确认删除这个类型,如果删除这个商品类型下面的所有属性都将被删除!")){
+                    e.preventDefault();
+                }
+            });
+
+        })
+    </script>
+</block>

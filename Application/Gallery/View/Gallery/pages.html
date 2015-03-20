@@ -1,0 +1,270 @@
+<extend name="galleryBase"/>
+<block name='content'>
+<!-- 栏目内容 -->
+<div class="container clear">
+<div class="gallery-yellow-page-con">
+    <div class="gallery-recommend">
+        <h2>画廊推荐</h2>
+        <div class="con">
+            <ul class="last-ele">
+                <volist name="gallery_list" id="vo">
+                    <li>
+                        <a href="{:U('Gallery/GalleryDetail/gallery',array('gid'=>$vo['id']))}" class="img"><img src="{$vo.thumb}" alt="" width="170" height="170"/></a>
+                        <a href="{:U('Gallery/GalleryDetail/gallery',array('gid'=>$vo['id']))}" class="t">{$vo.name}</a>
+                        <a href="{:U('Gallery/GalleryDetail/gallery',array('gid'=>$vo['id']))}" class="sub-t">创立时间:{$vo.found}</a>
+                    </li>
+                </volist>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="main-con clear">
+<div class="left-column">
+<div class="gallery-search">
+    <h2>画廊搜索</h2>
+    <div class="con">
+        <form action="{:U('Gallery/Gallery/pages')}" method="get">
+            <p>展览城市</p>
+            <label>
+                <select name="region_id">
+                    <option>全部</option>
+                    <volist name="area" id="vo">
+                        <option value="{$vo.id}">{$vo.name}</option>
+                    </volist>
+                </select>
+            </label>
+            <p class="m-t20">画廊名称</p>
+            <label><input type="text" class="text" name="keyword"/></label>
+            <input type="submit" class="red-btn" value="提 交" />
+        </form>
+    </div>
+</div>
+<!--
+<div class="gallery-information comm-list">
+    <div class="t clear">
+        <h2>画廊资讯</h2>
+        <a href="javascript:;" class="more">更多</a>
+    </div>
+    <div class="con">
+        <ul>
+            <ys:list name="list" catid="7" order="view DESC" limit="0,10" thumb="1">
+            <li>
+                <div class="title top3">
+                    <span class="num">{$i}</span>
+                    <a href="{:U('/Content/Content/detail/',array('category'=>'exhibit_gallery','id'=>$list['id']))}">{$list.title|new_msubstr=###,0,12}</a>
+                </div>
+                <div class="detail">
+                    <a class="img" href="{:U('/Content/Content/detail/',array('category'=>'exhibit_gallery','id'=>$list['id']))}"><img src="{$list.url}" alt="{$list.title}" width="70" height="70"/></a>
+                    <a class="text" href="{:U('/Content/Content/detail/',array('category'=>'exhibit_gallery','id'=>$list['id']))}">{$list.description|new_msubstr=###,0,30}....</a>
+                </div>
+            </li>
+            </ys:list>
+        </ul>
+    </div>
+</div>
+-->
+<div class="gallery-interview">
+    <div class="t clear">
+        <h2>画廊访谈</h2>
+        <a class="more" href="#">更多</a>
+    </div>
+    <div class="con">
+        <ul>
+            <volist name="gallery_visit" id="vo">
+            <li>
+                <a href="{:U('Gallery/GalleryDetail/show',array('to'=>'visit','id'=>$vo['id'],'gid'=>$vo['gid']))}" class="img"><img src="{$vo.thumb}" alt="" width="81"/></a>
+                <div class="art">
+                    <h3><a href="{:U('Gallery/GalleryDetail/show',array('to'=>'visit','id'=>$vo['id'],'gid'=>$vo['gid']))}">{$vo.title|new_msubstr=###,0,12}</a></h3>
+                    <p><a href="{:U('Gallery/GalleryDetail/show',array('to'=>'visit','id'=>$vo['id'],'gid'=>$vo['gid']))}">{$vo.brief|new_msubstr=###,0,30}....</a></p>
+                </div>
+            </li>
+            </volist>
+
+        </ul>
+    </div>
+</div>
+<!--
+<div class="hot-ranking">
+    <h2>热榜</h2>
+    <div class="con">
+        <ul>
+            <ys:list name="list" catid="8" order="view DESC" limit="0,10">
+            <li>
+                <div class="title top3">
+                    <span class="num">{$i}</span>
+                    <a href="{:U('/Content/Content/detail/',array('category'=>'exhibit_personal','id'=>$list['id']))}">{$list.title|new_msubstr=###,0,15}</a>
+                </div>
+            </li>
+            </ys:list>
+
+        </ul>
+    </div>
+</div>
+-->
+<div class="advertise"><a href="#"><img src="{IMG_PATH}column-img/136.jpg" alt="" /></a></div>
+</div>
+<div class="right-column">
+<div class="city-classify">
+    <h2>画廊城市分类</h2>
+    <ul>
+        <li><a href="{:U('Gallery/Gallery/pages')}">全国<span class="grey">({$sum})</span></a></li>
+        <volist name="area" id="vo">
+            <li><a href="{:U('Gallery/Gallery/pages',array('region_id'=>$vo['id']))}">{$vo.name|new_msubstr=###,0,2}<span class="grey">({$vo.count})</span></a></li>
+        </volist>
+
+
+    </ul>
+</div>
+<empty name="kindBj">
+    <div class="gallery-block">
+        <div class="sub-t clear">
+            <empty name="cityName">
+                <h3>搜索结果</h3>
+                <else/>
+                <h3>{$cityName}({$count})</h3>
+            </empty>
+
+        </div>
+        <div class="con">
+            <div class="top clear">
+                <ul class="last-ele">
+                    <volist name="searchList" id="vo" offset="0" length='4'>
+                        <li>
+                            <a href="{:U('Gallery/GalleryDetail/gallery',array('gid'=>$vo['id']))}">
+                                <span class="img"><img src="{$vo.thumb}" alt="{$vo.name}" width="160" height="160"/></span>
+                                <span class="name">{$vo.name}</span>
+                            </a>
+                        </li>
+                    </volist>
+
+                </ul>
+            </div>
+            <div class="bottom clear">
+                <ul>
+                    <volist name="kindBj" id="vo" offset="4" >
+                        <li><a href="{:U('Gallery/GalleryDetail/gallery',array('gid'=>$vo['id']))}">>{$vo.name} </a></li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+    </div>
+<else />
+    <div class="gallery-block">
+        <div class="sub-t clear">
+            <h3>北京画廊({$area[0]['count']})</h3>
+        </div>
+        <div class="con">
+            <div class="top clear">
+                <ul class="last-ele">
+                    <volist name="kindBj" id="vo" offset="0" length='4'>
+                        <li>
+                            <a href="{:U('Gallery/GalleryDetail/gallery',array('gid'=>$vo['id']))}">
+                                <span class="img"><img src="{$vo.thumb}" alt="{$vo.name}" width="160" height="160"/></span>
+                                <span class="name">{$vo.name}</span>
+                            </a>
+                        </li>
+                    </volist>
+
+                </ul>
+            </div>
+            <div class="bottom clear">
+                <ul>
+                    <volist name="kindBj" id="vo" offset="4" >
+                        <li><a href="{:U('Gallery/GalleryDetail/gallery',array('gid'=>$vo['id']))}">>{$vo.name} </a></li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="gallery-block">
+        <div class="sub-t clear">
+            <h3>上海画廊({$area[2]['count']})</h3>
+        </div>
+        <div class="con">
+            <div class="top clear">
+                <ul class="last-ele">
+                    <volist name="kindSh" id="vo" offset="0" length='4'>
+                        <li>
+                            <a href="{:U('Gallery/GalleryDetail/gallery',array('gid'=>$vo['id']))}">
+                                <span class="img"><img src="{$vo.thumb}" alt="{$vo.name}" width="160" height="160"/></span>
+                                <span class="name">{$vo.name}</span>
+                            </a>
+                        </li>
+                    </volist>
+
+                </ul>
+            </div>
+            <div class="bottom clear">
+                <ul>
+                    <volist name="kindBj" id="vo" offset="4" >
+                        <li><a href="{:U('Gallery/GalleryDetail/gallery',array('gid'=>$vo['id']))}">>{$vo.name} </a></li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="gallery-block">
+        <div class="sub-t clear">
+            <h3>广东画廊({$area[19]['count']})</h3>
+        </div>
+        <div class="con">
+            <div class="top clear">
+                <ul class="last-ele">
+                    <volist name="kindGd" id="vo" offset="0" length='4'>
+                        <li>
+                            <a href="{:U('Gallery/GalleryDetail/gallery',array('gid'=>$vo['id']))}">
+                                <span class="img"><img src="{$vo.thumb}" alt="{$vo.name}" width="160" height="160"/></span>
+                                <span class="name">{$vo.name}</span>
+                            </a>
+                        </li>
+                    </volist>
+
+                </ul>
+            </div>
+            <div class="bottom clear">
+                <ul>
+                    <volist name="kindBj" id="vo" offset="4" >
+                        <li><a href="{:U('Gallery/GalleryDetail/gallery',array('gid'=>$vo['id']))}">>{$vo.name} </a></li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+    </div>
+</empty>
+
+
+
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript" src="{JS_PATH}common.js"></script>
+<script type="text/javascript" src="{JS_PATH}js.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        jumpPanel('.species','.species-jump',true,'.species-content');
+        commSelect('.info-log .common-select',20);
+        _chooseCity('#nav-local');
+        $(window).manhuatoTop({
+            showHeight : 100,
+            speed : 500
+        });
+        $('.comm-list').each(function(){
+            var key = $(this);
+            key.find('li:first .detail').show();
+            key.find('li:first').css('background','#eee');
+            key.find('li').mouseenter(
+                    function(){
+                        key.find('.detail').hide();
+                        key.find('li').css('background','#fff');
+                        $(this).find('.detail').show();
+                        $(this).css('background','#eee');
+                    }
+            );
+        });
+    });
+</script>
+</block>
+
+

@@ -1,0 +1,628 @@
+<include file="./Template/Public/header.html" />
+<link href="{CSS_PATH}Content/style.css" rel="stylesheet" type="text/css" />
+<!-- 主内容 -->
+<div class="main-container">
+<!-- 左栏 -->
+<div class="left-column">
+<div class="sub-header clear">
+    <p class="logo"><a href="#"><img src="{IMG_PATH}s-logo.jpg" alt="logo" /></a></p>
+    <p class="bread-crumbs">
+        <span><a href="#">中国艺术网</a></span> > <span><a href="{:U('/Content/Content/index/category/news')}">资讯频道</a></span> > <span><a href="{:U('/Content/Content/lists/category/'.$category['name'])}">{$category['title']}</a></span> > <span>正文</span>
+    </p>
+</div>
+<!-- 文章内容栏 -->
+<div class="article-column">
+    <!-- 文章标题区域 -->
+    <div class="title">
+        <h1>{$info.title}</h1>
+        <div class="title-info">
+            <div class="left">
+                <span class="date">{$info.update_time|date='Y年m月d日',###}</span>
+                来源：
+                <span class="source">{$info.copyfrom}</span>
+                责任编辑：
+                <span class="editor">{:get_author($info.uid)}</span>
+            </div>
+            <div class="right">
+                <p class="left people" >
+                    {:hook('viewnum',array('model'=>'document','field'=>'view','id'=>$info['id']))}
+                    人参与
+                </p>
+                <p class="font-num left">
+                    <span>字号：</span>
+                    <span class="s"></span>
+                    <span class="b"></span>
+                </p>
+                <div class="share right">
+                    <!-- Baidu Button BEGIN -->
+                    <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+                        <span class="bds_more">分享到：</span>
+                    </div>
+                    <script type="text/javascript" id="bdshare_js" data="type=tools&amp;mini=1&amp;uid=6871782" ></script>
+                    <script type="text/javascript" id="bdshell_js"></script>
+                    <script type="text/javascript">
+                        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+                    </script>
+                    <!-- Baidu Button END -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 文章内容区域 -->
+    <div class="discription">
+        <div class="summary">
+            <p class="title">本文摘要</p>
+            <p class="content">
+                {$info.description}
+            </p>
+        </div>
+    </div>
+    <div class="article f14 clear">
+        {$info.content|htmlspecialchars_decode=###}
+    </div>
+    <!-- 分页 -->
+    <notempty name="page">
+        <div class="common-page clear">
+            <div class="t-center">
+                <div id="page">
+                    {$page}
+                </div>
+                <p class="all-page" id="allPage"><a href="{:U('detail',array('category'=>$category['name'],'id'=>$info['id'],'type'=>'all'))}">在本页阅读全文</a></p>
+            </div>
+        </div>
+    </notempty>
+    <!-- 作者 来源出处 -->
+    <div class="author clear">
+        <p class="left">
+            <span class="red">*</span>
+            本文为中国艺术网原创内容，版权所有，转载请注明出处和原文链接。
+        </p>
+        <p class="right">[ 责任编辑：{:get_author($info.uid)} ]</p>
+    </div>
+    <!-- 标签 分享 -->
+    <div class="other-info clear">
+        <div class="left tag">
+            <dl>
+                <dt>
+                    <span>标</span>
+                    <span>签</span>
+                </dt>
+                <ys:tags name="list" id="$info['id']">
+                <dd><a href="{:U('/Content/Tag/index/',array('tag'=>$list))}">{$list}</a></dd>
+                </ys:tags>
+            </dl>
+        </div>
+        <div class="right share">
+            <!-- Baidu Button BEGIN -->
+            <div id="bdshare" class="bdshare_b" style="line-height: 12px;">
+                <img src="http://bdimg.share.baidu.com/static/images/type-button-1.jpg?cdnversion=20120831" />
+                <a class="shareCount"></a>
+            </div>
+            <script type="text/javascript" id="bdshare_js" data="type=button&amp;uid=6871782" ></script>
+            <script type="text/javascript" id="bdshell_js"></script>
+            <script type="text/javascript">
+                document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+            </script>
+            <!-- Baidu Button END -->
+        </div>
+    </div>
+    <!-- 相关其他文章 -->
+    <div class="related-article">
+        <p class="left arrow"><</p>
+        <div class="content">
+            <ul>
+                <li>
+                    <ys:list name="list" catid="$category['catid']" field='id,title' order='update_time DESC'  limit="0,2">
+                    <p><a href="{:U('/Content/Content/detail/',array('category'=>$category['name'],'id'=>$list['id']))}">{$list.title}</a></p>
+                </ys:list>
+                </li>
+                <li>
+                    <ys:list name="list" catid="$category['catid']" field='id,title' order='update_time DESC'  limit="2,2">
+                        <p><a href="{:U('/Content/Content/detail/',array('category'=>$category['name'],'id'=>$list['id']))}">{$list.title}</a></p>
+                    </ys:list>
+                </li>
+                <li>
+                    <ys:list name="list" catid="$category['catid']" field='id,title' order='update_time DESC'  limit="4,2">
+                        <p><a href="{:U('/Content/Content/detail/',array('category'=>$category['name'],'id'=>$list['id']))}">{$list.title}</a></p>
+                    </ys:list>
+                </li>
+            </ul>
+        </div>
+        <p class="right arrow">></p>
+    </div>
+</div>
+<!-- 文章相关阅读 -->
+<div class="related-read">
+    <h3>相关阅读</h3>
+    <div class="common-dal">
+        <ul>
+            <ys:list name="list" catid="$category['catid']" field='id,title,update_time' order='update_time DESC'  limit="6,5">
+            <li>
+                <p class="left"><a href="{:U('/Content/Content/detail/',array('category'=>$category['name'],'id'=>$list['id']))}">{$list.title}</a></p>
+                <p class="right">{$list.update_time|date='Y-m-d',###}</p>
+            </li>
+            </ys:list>
+        </ul>
+    </div>
+</div>
+<!-- 艺友评论 -->
+<div class="comment">
+    {:hook('comment')}
+    <!--
+    <div class="clear">
+        <h3 class="left">艺友热评</h3>
+        <p class="right">
+            已有<span class="red">121</span>条评论，<a href="#">点击查看全部</a>
+        </p>
+    </div>
+    <div class="talk">
+        <p class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/19.gif" alt="avatar" /></p>
+        <p class="right"><textarea placeholder="文明上网，理性发言..."></textarea></p>
+    </div>
+    <div class="publish clear">
+        <label class="left"><input type="text" class="account" placeholder="账号" /></label>
+        <label class="left"><input type="text" class="password" placeholder="密码" /></label>
+        <label class="left auto-login"><span><input type="checkbox" /></span> 自动登录</label>
+        <input type="submit" class="pub-btn" value="登录并发表" />
+    </div>
+    -->
+</div>
+<!-- 其他栏目新闻选项卡 -->
+<div class="info-tab">
+<div class="nav">
+    <ul class="column">
+        <li class="nav-1 select"><span>资讯</span></li>
+        <li class="nav-2"><span>拍卖</span></li>
+        <li class="nav-3"><span>展览</span></li>
+        <li class="nav-4"><span>大师</span></li>
+        <li class="nav-5"><span>古玩城</span></li>
+        <li class="nav-6"><span>鉴定</span></li>
+        <li class="nav-7"><span>论坛</span></li>
+    </ul>
+</div>
+<div class="tab-content">
+<div class="content-1">
+    <div class="left mt15">
+        <ul>
+            <ys:list name="list" catid="16" order="view DESC" limit="0,2" thumb="1">
+            <li>
+                <a href="{:U('/Content/Content/detail/',array('category'=>'zonghe','id'=>$list['id']))}"><img src="{$list.url}" alt="{$list.title}" width="240" height="160"/></a>
+                <p class="common-word">{$list.title|new_msubstr=###,0,11}</p>
+            </li>
+            </ys:list>
+        </ul>
+    </div>
+    <div class="right mt15 common-dal">
+
+        <dl>
+            <ys:list name="list" catid="16" order="view DESC" limit="0,1">
+            <dt><a href="{:U('/Content/Content/detail/',array('category'=>'zonghe','id'=>$list['id']))}">{$list.title|new_msubstr=###,0,21}</a></dt>
+            </ys:list>
+            <ys:list name="list" catid="16" order="view DESC" limit="1,5">
+            <dd><a href="{:U('/Content/Content/detail/',array('category'=>'zonghe','id'=>$list['id']))}">{$list.title|new_msubstr=###,0,21}</a></dd>
+            </ys:list>
+        </dl>
+
+        <ul>
+            <ys:list name="list" catid="16" order="view DESC" limit="5,6">
+            <li><a href="{:U('/Content/Content/detail/',array('category'=>'zonghe','id'=>$list['id']))}">{$list.title|new_msubstr=###,0,21}</a></li>
+            </ys:list>
+        </ul>
+    </div>
+</div>
+<div class="content-2 hide">
+    <div class="left mt15">
+        <ul>
+            <ys:list name="list" catid="12" order="view DESC" limit="0,2" thumb="1">
+                <li>
+                    <a href="{:U('/Content/Content/detail/',array('category'=>'paimai','id'=>$list['id']))}"><img src="{$list.url}" alt="{$list.title}" width="240" height="160"/></a>
+                    <p class="common-word">{$list.title|new_msubstr=###,0,11}</p>
+                </li>
+            </ys:list>
+        </ul>
+    </div>
+    <div class="right mt15 common-dal">
+
+        <dl>
+            <ys:list name="list" catid="12" order="view DESC" limit="0,1">
+                <dt><a href="{:U('/Content/Content/detail/',array('category'=>'paimai','id'=>$list['id']))}">{$list.title|new_msubstr=###,0,21}</a></dt>
+            </ys:list>
+            <ys:list name="list" catid="12" order="view DESC" limit="1,5">
+                <dd><a href="{:U('/Content/Content/detail/',array('category'=>'paimai','id'=>$list['id']))}">{$list.title|new_msubstr=###,0,21}</a></dd>
+            </ys:list>
+        </dl>
+
+        <ul>
+            <ys:list name="list" catid="12" order="view DESC" limit="5,6">
+                <li><a href="{:U('/Content/Content/detail/',array('category'=>'paimai','id'=>$list['id']))}">{$list.title|new_msubstr=###,0,21}</a></li>
+            </ys:list>
+        </ul>
+    </div>
+</div>
+<div class="content-3 hide">
+    <div class="left mt15">
+        <ul>
+            <ys:list name="list" catid="18" order="view DESC" limit="0,2" thumb="1">
+                <li>
+                    <a href="{:U('/Content/Content/detail/',array('category'=>'zhanlan','id'=>$list['id']))}"><img src="{$list.url}" alt="{$list.title}" width="240" height="160"/></a>
+                    <p class="common-word">{$list.title|new_msubstr=###,0,11}</p>
+                </li>
+            </ys:list>
+        </ul>
+    </div>
+    <div class="right mt15 common-dal">
+
+        <dl>
+            <ys:list name="list" catid="18" order="view DESC" limit="0,1">
+                <dt><a href="{:U('/Content/Content/detail/',array('category'=>'zhanlan','id'=>$list['id']))}">{$list.title|new_msubstr=###,0,21}</a></dt>
+            </ys:list>
+            <ys:list name="list" catid="18" order="view DESC" limit="1,5">
+                <dd><a href="{:U('/Content/Content/detail/',array('category'=>'zhanlan','id'=>$list['id']))}">{$list.title|new_msubstr=###,0,21}</a></dd>
+            </ys:list>
+        </dl>
+
+        <ul>
+            <ys:list name="list" catid="18" order="view DESC" limit="5,6">
+                <li><a href="{:U('/Content/Content/detail/',array('category'=>'zhanlan','id'=>$list['id']))}">{$list.title|new_msubstr=###,0,21}</a></li>
+            </ys:list>
+        </ul>
+    </div>
+</div>
+<div class="content-4 hide">
+    <div class="left mt15">
+        <ul>
+            <ys:list name="list" catid="14" order="view DESC" limit="0,2" thumb="1">
+                <li>
+                    <a href="{:U('/Content/Content/detail/',array('category'=>'mingjia','id'=>$list['id']))}"><img src="{$list.url}" alt="{$list.title}" width="240" height="160"/></a>
+                    <p class="common-word">{$list.title|new_msubstr=###,0,11}</p>
+                </li>
+            </ys:list>
+        </ul>
+    </div>
+    <div class="right mt15 common-dal">
+
+        <dl>
+            <ys:list name="list" catid="14" order="view DESC" limit="0,1">
+                <dt><a href="{:U('/Content/Content/detail/',array('category'=>'mingjia','id'=>$list['id']))}">{$list.title|new_msubstr=###,0,21}</a></dt>
+            </ys:list>
+            <ys:list name="list" catid="14" order="view DESC" limit="1,5">
+                <dd><a href="{:U('/Content/Content/detail/',array('category'=>'mingjia','id'=>$list['id']))}">{$list.title|new_msubstr=###,0,21}</a></dd>
+            </ys:list>
+        </dl>
+
+        <ul>
+            <ys:list name="list" catid="14" order="view DESC" limit="5,6">
+                <li><a href="{:U('/Content/Content/detail/',array('category'=>'mingjia','id'=>$list['id']))}">{$list.title|new_msubstr=###,0,21}</a></li>
+            </ys:list>
+        </ul>
+    </div>
+</div>
+<div class="content-5 hide">
+    <div class="left mt15">
+        <ul>
+            <li>
+                <a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/20.jpg" alt="" /></a>
+                <p class="common-word">大品牌 各种品牌电脑网络</p>
+            </li>
+            <li>
+                <a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/20.jpg" alt="" /></a>
+                <p class="common-word">大品牌 各种品牌电脑网络</p>
+            </li>
+        </ul>
+    </div>
+    <div class="right mt15 common-dal">
+        <dl>
+            <dt><a href="#">塞努斯基博物78978978首亮相及收藏特点</a></dt>
+            <dd><a href="#">厉以宁：建议政府采购建房取代土地拍卖慧奎屯收一</a></dd>
+            <dd><a href="#">统计局：居民收入34年增71倍没扣除价格影响</a></dd>
+            <dd><a href="#">沃尔沃首入政府采购名单 国产后再获突破村有的迥圬顺是</a></dd>
+            <dd><a href="#">南京区域地王易主停工更名 折腾6年终入市自卫队</a></dd>
+            <dd><a href="#">华润信托理财产品蹊跷身世：当事人集体否认顶天我</a></dd>
+        </dl>
+        <ul>
+            <li><a href="#">厉以宁：建议政府采购建房取代土地拍卖</a></li>
+            <li><a href="#">统计局：居民收入34年增71倍没扣除价格影响加喝下旧</a></li>
+            <li><a href="#">沃尔沃首入政府采购名单 国产后再获突破本</a></li>
+            <li><a href="#">南京区域地王易主停工更名 折腾6年终入市墄城下</a></li>
+            <li><a href="#">华润信托理财产品蹊跷身世：当事人集体否认奎屯</a></li>
+            <li><a href="#">厉以宁：建议政府采购建房取代土地拍卖在在一蝇火车立</a></li>
+        </ul>
+    </div>
+</div>
+<div class="content-6 hide">
+    <div class="left mt15">
+        <ul>
+            <li>
+                <a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/20.jpg" alt="" /></a>
+                <p class="common-word">大品牌 各种品牌电脑网络</p>
+            </li>
+            <li>
+                <a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/20.jpg" alt="" /></a>
+                <p class="common-word">大品牌 各种品牌电脑网络</p>
+            </li>
+        </ul>
+    </div>
+    <div class="right mt15 common-dal">
+        <dl>
+            <dt><a href="#">塞努斯基博物馆青铜器百年来首亮相及收藏特点</a></dt>
+            <dd><a href="#">厉以宁：建议政府采购建房取代土地拍卖慧奎屯收一</a></dd>
+            <dd><a href="#">统计局：居民收入34年增71倍没扣除价格影响</a></dd>
+            <dd><a href="#">沃尔沃首入政府采购名单 国产后再获突破村有的迥圬顺是</a></dd>
+            <dd><a href="#">南京区域地王易主停工更名 折腾6年终入市自卫队</a></dd>
+            <dd><a href="#">华润信托理财产品蹊跷身世：当事人集体否认顶天我</a></dd>
+        </dl>
+        <ul>
+            <li><a href="#">厉以宁：建议政府采购建房取代土地拍卖</a></li>
+            <li><a href="#">统计局：居民收入34年增71倍没扣除价格影响加喝下旧</a></li>
+            <li><a href="#">沃尔沃首入政府采购名单 国产后再获突破本</a></li>
+            <li><a href="#">南京区域地王易主停工更名 折腾6年终入市墄城下</a></li>
+            <li><a href="#">华润信托理财产品蹊跷身世：当事人集体否认奎屯</a></li>
+            <li><a href="#">厉以宁：建议政府采购建房取代土地拍卖在在一蝇火车立</a></li>
+        </ul>
+    </div>
+</div>
+<div class="content-7 hide">
+    <div class="left mt15">
+        <ul>
+            <li>
+                <a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/20.jpg" alt="" /></a>
+                <p class="common-word">大品牌 各种品牌电脑网络</p>
+            </li>
+            <li>
+                <a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/20.jpg" alt="" /></a>
+                <p class="common-word">大品牌 各种品牌电脑网络</p>
+            </li>
+        </ul>
+    </div>
+    <div class="right mt15 common-dal">
+        <dl>
+            <dt><a href="#">塞努斯基博物馆青铜器百年来首亮相及收藏特点</a></dt>
+            <dd><a href="#">厉以宁：建议政府采购建房取代土地拍卖慧奎屯收一</a></dd>
+            <dd><a href="#">统计局：居民收入34年增71倍没扣除价格影响</a></dd>
+            <dd><a href="#">沃尔沃首入政府采购名单 国产后再获突破村有的迥圬顺是</a></dd>
+            <dd><a href="#">南京区域地王易主停工更名 折腾6年终入市自卫队</a></dd>
+            <dd><a href="#">华润信托理财产品蹊跷身世：当事人集体否认顶天我</a></dd>
+        </dl>
+        <ul>
+            <li><a href="#">厉以宁：建议政府采购建房取代土地拍卖</a></li>
+            <li><a href="#">统计局：居民收入34年增71倍没扣除价格影响加喝下旧</a></li>
+            <li><a href="#">沃尔沃首入政府采购名单 国产后再获突破本</a></li>
+            <li><a href="#">南京区域地王易主停工更名 折腾6年终入市墄城下</a></li>
+            <li><a href="#">华润信托理财产品蹊跷身世：当事人集体否认奎屯</a></li>
+            <li><a href="#">厉以宁：建议政府采购建房取代土地拍卖在在一蝇火车立</a></li>
+        </ul>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<!-- 右栏 -->
+<div class="right-column">
+<!-- 文章搜索 -->
+<div class="search clear">
+    <form action="{:U('Search/index')}" method="get">
+        <input type="text"  name="q" placeholder="曾梵志作品拍出1.2亿" class="input" />
+        <input type="submit" value="" class="post" />
+    </form>
+
+</div>
+<!-- 艺术专题 -->
+<div class="art-topic common-rc">
+    <h6>艺术专题</h6>
+    <div class="content">
+        <volist name="special" id="vo">
+        <p <if condition="$i eq 2"> class="mt15"</if>>
+            <a href="{:U('Special/Special/index/',array('special'=>$vo['name']))}">
+                <img src="{$vo.thumb}" alt="{$vo.title}" width="233" height="107"/>
+                <span class="word">{$vo.title}</span>
+            </a>
+        </p>
+        </volist>
+
+    </div>
+</div>
+<div class="ranking common-rc">
+    <h6>排行榜</h6>
+    <div class="content">
+        <div class="ranking-tab">
+            <div class="nav">
+                <ul class="column">
+                    <li class="nav-1 select"><span>拍卖</span></li>
+                    <li class="nav-2"><span>展讯</span></li>
+                    <li class="nav-3"><span>大师</span></li>
+                    <li class="nav-4"><span>藏品</span></li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <div class="content-1">
+                    <ul>
+                        <li>
+                            <span class="num top3">1</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num top3">2</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num top3">3</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num">4</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num">5</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num">6</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num">7</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num">8</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="content-2 hide">
+                    <ul>
+                        <li>
+                            <span class="num top3">1</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num top3">2</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num top3">3</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num">4</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num">5</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num">6</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num">7</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num">8</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="content-3 hide">
+                    <ul>
+                        <li>
+                            <span class="num top3">1</span>
+                            <span><a href="#">260公5山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num top3">2</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num top3">3</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num">4</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num">5</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num">6</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num">7</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num">8</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="content-4 hide">
+                    <ul>
+                        <li>
+                            <span class="num top3">1</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num top3">2</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num top3">3</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num">4</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num">5</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num">6</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num">7</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                        <li>
+                            <span class="num">8</span>
+                            <span><a href="#">260公斤新疆糖白玉山料500万成交</a></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="advertis"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/21.jpg" alt="" /></a></div>
+<div class="essence common-rc">
+    <h6>精华推荐</h6>
+    <div class="content">
+        <ul>
+            <ys:position name="list" catid="$category['catid']" posid="7" type="1" thumb="1" limit="0,5">
+            <li>
+                <p class="left"><a href="{:U('/Content/Content/detail/',array('category'=>$category['name'],'id'=>$list['id']))}"><img src="{$list.url}" alt="" width="80" height="52" /></a></p>
+                <p class="right"><a href="{:U('/Content/Content/detail/',array('category'=>$category['name'],'id'=>$list['id']))}">{$list.description|new_msubstr=###,0,20,'utf-8',true}</a></p>
+            </li>
+            </ys:position>
+
+        </ul>
+    </div>
+</div>
+<div class="hot-forum common-rc">
+    <h6>论坛热帖</h6>
+    <div class="content common-dal">
+        <ul>
+            <volist name="forumList" id="vo">
+                <li><a href="http://bbs.yishu.com/thread-{$vo.tid}-1-1.html">{$vo.subject|new_msubstr=###,0,16,'utf-8',true} </a></li>
+            </volist>
+
+        </ul>
+    </div>
+</div>
+<div class="advertis"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/22.gif" alt="" /></a></div>
+</div>
+</div>
+<!-- 底部 -->
+<script type="text/javascript" src="{JS_PATH}common.js"></script>
+<script type="text/javascript" src="{JS_PATH}js.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        commSelect('.info-log .common-select',20);
+        navJump('.art-topic p','.word');
+        tabelTab('.info-tab','.column');
+        tabelTab('.ranking-tab','.column');
+        fontZoom('.font-num .s','.font-num .b','.article-detail .article');
+        marquee('.related-article p.left','.related-article p.right','.related-article .content ul');
+    });
+</script>
+<include file="./Template/Public/footer.html" />
+

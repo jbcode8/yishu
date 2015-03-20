@@ -1,0 +1,89 @@
+<include file="./Template/Public/header.html" />
+<link href="{CSS_PATH}Content/information.css" rel="stylesheet" type="text/css" />
+<link href="{CSS_PATH}Artist/master-pannel.css" rel="stylesheet" type="text/css" />
+<!-- 页面内容 -->
+<div class="main-container">
+    <!-- 栏目头部 -->
+    <div class="panel-header clear">
+        <div class="left top-bar">
+            <p><a href="#"><img src="{IMG_PATH}logo.jpg" alt="logo" /></a></p>
+            <p class="panel-name">大 师<br />频 道</p>
+        </div>
+        <div class="main-web clear">
+            <div class="right">
+                <div id="main-search"  style="width: 390px">
+                    <div class="species">
+                        <span class="species-content">资讯</span>
+                        <span class="choose"><img src="{IMG_PATH}icons/search-arrow.gif" alt="" /></span>
+                        <div class="species-jump common-jump hide">
+                            <ul>
+                                <li>资讯</li>
+                                <li>展讯</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="search">
+                        <form>
+                            <div class="search-input">
+                                <input type="text" placeholder="请输入搜索内容" class="search-content" />
+                            </div>
+                            <p class="search-btn"><input type="submit" value="" /></p>
+                        </form>
+                    </div>
+                </div>
+                <div class="hot-search">
+                    热搜：
+                    <span>乾隆通宝</span>
+                    <span>古典家具</span>
+                    <span>青铜器</span>
+                    <span>油版雕</span>
+                    <span>影像</span>
+                    <span>古籍善本</span>
+                    <span>紫砂壶</span>
+                </div>
+            </div>
+        </div>
+        <div class="main-navigate">
+            <ul>
+                <li><a href="{:U('Artist/ArtistCategory/index')}"  <if condition="ACTION_NAME eq 'index'">class="select"</if>>首 页</a></li>
+                <li><a href="{:U('Artist/ArtistCategory/artist')}" <if condition="ACTION_NAME eq 'artist'">class="select"</if>>艺术家库</a></li>
+                <li><a href="{:U('Artist/ArtistCategory/space')}" <if condition="ACTION_NAME eq 'space'">class="select"</if>>大师空间</a></li>
+                <li><a href="{:U('Artist/ArtistCategory/exhibit')}" <if condition="ACTION_NAME eq 'exhibit'">class="select"</if>>艺术家展览</a></li>
+                <li><a href="{:U('Artist/ArtistCategory/works')}" <if condition="ACTION_NAME eq 'works'">class="select"</if>>最新作品</a></li>
+                <li><a href="{:U('Artist/ArtistCategory/dynamic')}" <if condition="ACTION_NAME eq 'dynamic'">class="select"</if>>人物动态</a></li>
+                <li><a href="{:U('Artist/ArtistCategory/interview')}" <if condition="ACTION_NAME eq 'interview'">class="select"</if>>独家专访</a></li>
+                <li class="art-login"><a href="{:U('/Member/Passport/')}" target="_blank">管理我的官网</a></li>
+
+            </ul>
+        </div>
+    </div>
+    <!-- 头部附加分类 -->
+    <div class="overhead-info">
+        <b>藏品频道：</b>
+        <a href="http://cang.yishu.com/t60" target="_blank">国画</a>
+        <a href="http://cang.yishu.com/t62" target="_blank">书法</a>
+        <a href="http://cang.yishu.com/t61" target="_blank">油画</a>
+        <a href="http://cang.yishu.com/t65" target="_blank">玉器</a>
+        <a href="http://cang.yishu.com/t64" target="_blank">瓷器</a>
+        <a href="http://cang.yishu.com/t63" target="_blank">木器</a>
+        <a href="http://cang.yishu.com/t131" target="_blank">寿山石</a>
+    </div>
+    <block name='content'></block>
+    <script type="text/javascript">
+    $('.search-btn').bind('click',function(){
+        var search_type = $('.species-content').text();
+        var search_content = $('.search-content').val();
+        if(trim(search_content) == "" || trim(search_content) == "请输入搜索内容"){
+            alert('您未输入任何内容！');
+            return false;
+        }
+        window.open("{:U('/Home/Search/index')}?search_type="+search_type+"&search_content="+search_content);
+    })
+    $('.hot-search span').bind('click',function(){
+        var search_type = $('.species-content').text();
+        var search_content = $(this).text();
+        window.open("{:U('/Home/Search/index')}?search_type="+search_type+"&search_content="+search_content);
+    })
+    </script>
+<include file="./Template/Public/footer.html" />
+

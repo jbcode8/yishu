@@ -1,0 +1,72 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="{PLUGIN_PATH}DatePicker/WdatePicker.js" />
+    <load file="{JS_PATH}bulkActionJs.js" />
+</block>
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul></ul>
+        <!--快捷按钮 开始-->
+        <div class="nav_btn">
+            <a href="javascript:$.dialog.open('{:U(\'Artist/Award/add\')}',{title:'添加奖项',lock:true,width:'570px',height:'150px'})" class="fa fa-plus-square">&nbsp;&nbsp;添 加</a>
+        </div>
+        <!--快捷按钮 结束-->
+
+        <!--搜索 开始-->
+        <div class="advSearch">
+            <form name="doc_search_min" action="{:U('Artist/Award/index')}" method="post">
+                <div class="row">
+                    <label>奖名：</label>
+                    <input type="text" size="8" name="name" <if condition="isset($name)">value="{$name}"</if> placeholder="请输入名称">
+                </div>
+                <button class="btn fa fa-search"> 搜 索</button>
+            </form>
+        </div>
+        <!--搜索 结束-->
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 -->
+    <div class="table">
+        <?php
+        $thead = array(
+            '_html'=>array(
+        '_th'=>'row-selected',
+        'th'=>'<input class="check-all" type="checkbox"/>',
+        'td'=>'<input class="ids" type="checkbox" name="ids[]" value="$id" />',
+        ),
+        'name'=> array(
+        '_title' => '奖项名称',
+        'class' => 'success',
+        ),
+        '操作'=> array(
+        ' 删除'=>array( 'href' => 'Artist/Award/delete?id=$id','class'=>'confirm ajax-get red fa fa-trash-o'),
+        ' 编辑'=>array( 'href' => 'Artist/Award/edit?id=$id', 'class'=>'editArtist fa fa-unlock'),
+        ),
+        );
+        echo $_table_list = $__controller__->tableList($_list,$thead);
+        ?>
+    </div>
+
+    <div class="paging"  style="float: left;margin-top: 5px;">
+        <div class="page">
+            <a href="javascript:bulkDelete('{:U(\'Artist/Award/delete\')}');" id="delselected" class="confirm fa fa-trash-o"> 删 除</a>
+        </div>
+    </div>
+
+    <div class="paging">
+        {$_page}
+    </div>
+
+    <block name="javascript">
+        <script type="text/javascript">
+            $(function() {
+                $(".editArtist").on('click',function(e){
+                    e.preventDefault();
+                    $.dialog.open(this.href, {title:'编辑奖项信息',lock:true, width:'40%',height:'20%'});
+                });
+            });
+        </script>
+    </block>
+</block>

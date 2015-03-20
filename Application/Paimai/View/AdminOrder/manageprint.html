@@ -1,0 +1,87 @@
+<extend name="Admin@Public:base"/>
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css"/>
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="{JS_PATH}jquery.jqprint-0.3.js"></script>
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+	
+
+    <!--快捷按钮 结束-->
+    <style type="text/css">
+        .j_green{
+            color: #59B638;
+        }
+        .j_background{
+            background: #5978A4;
+            color: #fff;
+
+        }
+        .j_print{
+            font-size: 9px;
+        }
+    </style>
+    
+    <table class="m_table j_print" style="font-size: 1px;">
+        <center style="margin:10px;"><input type="button" onclick="print()" value="点击打印"></center>
+       <tr>
+	       <td>提现ID</td>
+       	   <td>用户姓名</td>
+		   <td>提现用户</td>
+		   <td>手机号码</td>
+		   <td>充值总额</td>
+		   <td>扣除保证金</td>
+		   <td>可提现金额</td>
+		   <td>已提现</td>
+		   <td>提现金额</td>
+		   <td>提现银行</td>
+		   <td>银行账号</td>
+		   <td>银行地区</td>
+		   <td>银行城市</td>
+		   <td>提现时间</td>
+		   <td>提现状态</td>
+	   </tr>
+       <volist name="txs" id="v">
+         <tr>
+		   <td class="j_background">{$v.id}</td>
+           <!--<td class="j_background">{$v.orderinfo_id}</td>-->
+           <td>{$v['realname']}</td>
+           <td>{:getUsername($v['uid'],0)}</td>
+           <td>{$v['mobile']}</td>
+           <td>
+           		<if condition="$v['all_amount']">
+           			{$v['all_amount']}元
+           		<else />
+           			0元
+           		</if>	
+           </td>
+           <td>
+           		<if condition="$v['cuted_money']">
+           			{$v['cuted_money']}元
+           		<else />
+           			0元
+           		</if>	
+           </td>
+           <td>{$v['ky_money']}元</td>
+           <td>{$v['tx_money']}元</td>
+		   <td>{$v.money}元</td>
+		   <td>{:C('BANK_CONF')[bank_info($v['bid'])['bankname']]}</td>
+		   <td>{:bank_info($v['bid'])['bankno']}</td>
+		   <td>{:bank_info($v['bid'])['bankarea']}</td>
+		   <td>{:bank_info($v['bid'])['bankcity']}</td>
+		   <td>{$v.time|date='Y-m-d H:i:s',###}</td>
+		   <td><if condition="$v['status'] eq 0">未审核<elseif condition="$v['status'] eq 1" />提现成功<elseif condition="$v['status'] eq 2" />不符合提现条件</if></td>
+         </tr>
+        </volist>
+            <tr>
+                <th colspan="15" align="center">打印时间:{:date("Y-m-d H:i:s")}</th>
+            </tr>
+    </table>
+    <script type="text/javascript">
+        function  print(){
+            $(".m_table").jqprint();
+        }
+    </script>
+    
+</block>

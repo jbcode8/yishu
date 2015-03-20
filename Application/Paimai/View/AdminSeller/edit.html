@@ -1,0 +1,45 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+    <load file="{PLUGIN_PATH}uploadify/jquery.uploadify.min.js" />
+</block>
+<block name="body">
+
+    <form method="post" action="{:U('Paimai/AdminSeller/update')}" style="width: 700px;height: 300px; margin: auto;">
+        <input type="hidden" name="seller_id" value="{$seller.seller_id}">
+        <table class="m_table">
+            <tr><td width="150">商家名字:</td>
+			<td><input type="text" name="seller_name" value="{$seller.seller_name}"/></td></tr>
+			<tr><td width="150">商家简称:</td>
+			<td><input type="text" name="seller_brief" value="{$seller.seller_brief}"/></td></tr>
+			<tr><td width="150">商家联系人:</td>
+			<td><input type="text" name="seller_person" value="{$seller.seller_person}"/></td></tr>
+			<tr><td width="150">商家QQ号码:</td>
+			<td><input type="text" name="seller_qq" value="{$seller.seller_qq}"/></td></tr>
+			<tr><td width="150">商家座机:</td>
+			<td><input type="text" name="seller_mobile" value="{$seller.seller_mobile}"/></td></tr>
+			<tr><td width="150">商家手机(联系人手机):</td>
+			<td><input type="text" name="seller_phone" value="{$seller.seller_phone}"/></td></tr>
+			<tr><td width="150">商家地址:</td>
+			<td><input type="text" name="seller_address" value="{$seller.seller_address}"/></td></tr>
+			<tr><td width="150">商家网址:</td>
+			<td><input type="text" name="seller_net" value="{$seller.seller_net}"/></td></tr>
+            <tr>
+                <td>是否显示:</td>
+                <td>
+                    <input type="radio" <if condition="$seller['seller_isshow'] eq 0">checked="checked"</if>  name="seller_isshow" value="0"/>&nbsp;是&nbsp;
+                    <input type="radio" <if condition="$seller['seller_isshow'] eq 1">checked="checked"</if> name="seller_isshow" value="1"/>&nbsp;否&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>商家描述:</td>
+                <td>
+                    <textarea name="seller_desc">{$seller.seller_desc}</textarea>
+                    {:hook('adminEditor',array('name'=>'seller_desc'))}
+                </td>
+            </tr>
+            <tr><td colspan="2" align="center"><input class="m_submit" type="submit" value="修改信息"></td></tr>
+        </table>
+    </form>
+</block>

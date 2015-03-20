@@ -1,0 +1,51 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+<style type="text/css">
+body{ width:440px}
+</style>
+</block>
+<block name="body">
+    
+    <form action="{:U('Paimai/AdminNews/newsadd')}" method="post">
+    <table class="form">
+        <tr>
+            <th style="width:80px; float:left;"><i class="red">(* 必选)</i> 所属分类:</th>
+            <td style="width:800px;">
+                <select name="cid">
+                    <option value="0">选择所属分类...</option>
+                    <volist name='cates' id='v'>
+						<option value="{$v.id}">{$v.html} {$v.name}</option>
+					</volist>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th style="width:80px; float:left;"><i class="red">(* 必填)</i> 新闻名称:</th>
+            <td><input name="title" type="text" /></td>
+        </tr>
+        <tr>
+            <th style="width:80px; float:left;">关键词:</th>
+            <td><input name="keyword" type="text" /></td>
+        </tr>
+		<tr>
+            <th style="width:80px; float:left;">描述:</th>
+            <td><textarea cols="80" rows="3" name="dis"></textarea></td>
+        </tr>
+		<tr>
+            <th><i class="red">(* 必填)</i> 内容:</th>
+            <td style="height:100px; overflow:hidden"><textarea name="content"></textarea>
+			{:hook('adminEditor',array('name'=>'content'))}
+			</td>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <td>
+                <input type="submit" class="btn" value="确认" />
+                <button type="reset" class="btn btn_gary">重填</button>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+    </form>
+</block>
+

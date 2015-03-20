@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>中国艺术网后台管理中心 - By 中国艺术网</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <load file="__PUBLIC__/css/Admin/index.css" />
+    <load file="__PUBLIC__/js/jquery-1.10.2.min.js" />
+    <load file="__PUBLIC__/js/jquery-migrate-1.2.1.min.js" />
+    <load file="__PUBLIC__/js/jquery.nicescroll.min.js" />
+    <load file="__PUBLIC__/plugin/artdialog/jquery.artDialog.js?skin=magic" type="js"/>
+</head>
+<body scroll="no" style="overflow:hidden;">
+
+<div class="header">
+    <!--logo-->
+    <div class="top">
+        <!--提示 开始-->
+        <div id="top-alert" class="alert-error" style="display: none;">
+            <a class="close" style="margin-top: 4px;">×</a>
+            <div class="alert-content">请输入内容</div>
+        </div>
+        <!--提示 结束-->
+
+        <img src="__PUBLIC__/img/Admin/top_logo.gif" height="70"/>
+        <ul>
+            <li><a href="{:U('Malladmin/Index/index')}">后台首页</a><a href="javascript:void(0);">更新缓存</a><a href="" target="_blank">网站首页</a><a href="{:U('Malladmin/Public/logout')}">退出</a></li>
+            <li>欢迎您 <strong>{:session('admin_auth.nickname')}</strong>回来!</li>
+            <li class="gary">最后登录时间:{:date('Y-m-d H:i:s',session('admin_auth.last_login_time'))}</li>
+        </ul>
+    </div>
+    <!--头部菜单-->
+    <div class="top_nav">
+        <ul id="topmenu">
+        </ul>
+        <div class="current icon-home">
+            <span>中国艺术网 &gt; 用户管理 &gt; 系统首页</span>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <!--左侧菜单-->
+    <div class="accordion">
+        <h4 id="l_title"></h4>
+        <div id="leftMenu">
+
+        </div>
+    </div>
+    <!--主体内容-->
+    <div class="content ">
+        <div class="option">
+            <a href="" class="refresh" title="{:L('LANG_REFRESH')}"></a>
+            <a href="" id="win" class="expand" title="{:L('LANG_EXPAND')}"></a>
+        </div>
+        <div id="loading"><img src="__PUBLIC__/img/loading.gif" /><span>加载中...</span></div>
+        <iframe name="main" id="main" src="{:U('main')}" frameborder="false" scrolling="auto" style="border: none;" width="100%" height="100%" allowtransparency="true"></iframe>
+    </div>
+</div>
+<php>$menu = json_encode(list_to_tree($__controller__->getMenus()));</php>
+<script type="text/javascript">
+    //调整DOM大小
+    $(window).resize(function () {
+        resize();
+    });
+    resize();
+    function resize() {
+        var height = $(window).height();
+        var width = $(window).width();
+        if (width < 1024) {
+            $("body").width(1024);
+        } else {
+            $("body").width("auto")
+        }
+        /*主内容*/
+        if($('.content').hasClass('fullscreen')){
+            $(".content").height(height);
+        }else{
+            $(".content").height(height-110);
+        }
+        resetMenu();
+    }
+    /*重新设置菜单高度*/
+    function resetMenu(){
+        var height = $(window).height();
+        var menuheight = $("#leftMenu dl").height()*$("#leftMenu dl").length; //菜单总高度
+        /*左侧菜单*/
+        if(height-141 < menuheight){
+            $("#leftMenu").height(height-140);
+        }else{
+            $("#leftMenu").height('auto');
+        }
+    }
+
+    $('#main').load(function(){
+        $('#loading').hide();
+    });
+    //左侧菜单点击
+    $('.accordion a').bind('click',function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        $('#loading').show();
+        $('#main').attr('src', $(this).attr('href'));
+    });
+    //刷新
+    $('.refresh').click(function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $('#loading').show();
+        main.location.reload();
+    });
+    //窗口大小化
+    $('#win').toggle(function () {
+        $('.content').addClass('fullscreen').height($(window).height());
+        $(this).attr('title',"收缩").addClass('collapse').removeClass('expand');
+        $(".content").width($(window).width()-20);
+    }, function () {
+        $('.content').removeClass('fullscreen').height($(window).height()-110);
+        $(this).attr('title',"展开").addClass('expand').removeClass('collapse');
+        $(".content").width('auto');
+    });
+    //左侧菜单超过高度调出滚动条
+    $("#leftMenu").niceScroll({touchbehavior:false,cursorcolor:"#404D5E",cursoropacitymax:0.5,cursorwidth:4,autohidemode:false});
+    //菜单
+    var menu = {$menu};
+    $(function(){
+        //一级菜单
+        $.each(menu,function(k,v){
+            $('#topmenu').append('<li><a href data-id = "'+k+'">'+v.title+'</a></li>');
+        });
+        $('#topmenu li:first > a').click();
+    });
+
+
+    //一级菜单点击
+    $('#topmenu').on('click','a',function(e){
+        //取消事件的默认动作
+        e.preventDefault();
+        //终止事件 不再派发事件
+        e.stopPropagation();
+        $(this).parent().addClass('selected').siblings().removeClass('selected');
+        //定义
+        var data_id = $(this).attr('data-id'), data_list = menu[data_id],left_data_id = $('#leftMenu'),html=[],html_child=[];
+        if(left_data_id.attr('data-id') == data_id) return false;
+        show_left_menu(data_list['_child']);
+        left_data_id.html(html.join('')).attr('data-id',data_id);
+        resize();
+        //显示左侧菜单
+        function show_left_menu(data){
+            $('#l_title').html(menu[data_id].title);
+            for(var x in data){
+                if(!data[x].url){
+                    $.each(data[x]._child,function(k,v){
+                        html_child.push('<dd><a href=\''+ v.url+'\' data-id=\''+ v.id+'\'>'+v.title+'</a></dd>');
+                    })
+                    html.push('<dl><dt><i></i> <span>'+ data[x].title+'</span></dt>'+html_child.join('')+'</dl>');
+                    html_child = [];
+                }else{
+                    html.push('<dl><dd><a href=\''+ data[x].url+'\' data-id=\''+ data[x].id+'\'>'+data[x].title+'</a></dd></dl>');
+                }
+            }
+        }
+    });
+
+    //左侧菜单点击
+    $('#leftMenu').on('click','a',function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        $('#loading').show();
+        main.location.href=$(this).attr('href');
+        $('#leftMenu dl').find('.current').removeClass('current');
+        $(this).parent().addClass('current');
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{width:580px;}
+    </style>
+</block>
+<block name="body">
+    <form action="{:U('Baike/Category/edit')}" method="post" class="addCategory">
+        <table class="form">
+            <tr>
+                <input type="hidden" name='cid' value="{$vo.cid}"/>
+                <th>分类名称:</th>
+                <td><input type="text" name="name" value="{$vo.name}" /></td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+            <tr>
+                <th>分类导航:</th>
+                <td><input type="checkbox" name="navigation" value="1" <if condition="($vo['navigation'] eq 1)">checked="checked"</if> /></td>
+                <td class="tips">
+                    可选
+                </td>
+            </tr>
+            <tr>
+                <th>分类排序:</th>
+                <td><input type="text" name="listorder" value="{$vo.listorder}" /></td>
+                <td class="tips">
+                    <i class="red">*必填</i> 0-100 之间的数字，小的排前
+                </td>
+            </tr>
+             <tr>
+                <th>分类关键词:</th>
+                <td><input type="text" name="keywords" value="{$vo.keywords}" /></td>
+                <td class="tips">
+                    <i class="red">*必填</i> 0-80 之间的字符
+                </td>
+            </tr>
+
+            <tr>
+                <th>分类描述:</th>
+                <td><textarea cols="30" rows="3" name="description">{$vo.description}</textarea></td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+			<tr>
+                <th>路径简称:</th>
+                <td><input type="text" name="short_name" value="{$vo.short_name}" /></td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <button type="submit" class="btn ajax-post" target-form="addCategory">确认</button>
+                    <button type="reset" class="btn btn_gary">重填</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</block>

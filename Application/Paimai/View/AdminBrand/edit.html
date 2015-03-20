@@ -1,0 +1,42 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+    <load file="{PLUGIN_PATH}uploadify/jquery.uploadify.min.js" />
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+    <!-- <div class="nav_btn">
+         <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Paimai/AdminCat/add')}', {title:'添加文章', id:'adoArticle'})"> 添加文章</a>
+         <a class="fa fa-plus-square" href="{:U('Mall/ArticleCategory/index')}"> 分类管理</a>
+     </div>-->
+    <!--快捷按钮 结束-->
+    <form method="post" action="{:U('Paimai/AdminBrand/update')}" style="width: 700px;height: 300px; margin: auto;">
+        <input type="hidden" name="brand_id" value="{$brand.brand_id}">
+        <table class="m_table">
+            <tr><td width="200">品牌名称:</td><td><input name="brand_name" value="{$brand.brand_name}"/>(越简短越好)</td></tr>
+            <tr><td>品牌网址:</td><td><input type="text" name="site_url" value="{$brand.site_url}"></td></tr>
+            <tr>
+                <td>是否可用:</td>
+                <td>
+                    <input type="radio" <if condition="$brand['brand_isshow'] eq 1">checked="checked"</if>  name="brand_isshow" value="1"/>&nbsp;是&nbsp;
+                    <input type="radio" <if condition="$brand['brand_isshow'] eq 0">checked="checked"</if> name="brand_isshow" value="0"/>&nbsp;否&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>品牌logo:</td>
+                <td style="height: 100px;">
+                    {:hook('upload',array('model'=>'paimaibrand','type'=>'thumb','height'=>30,'uploadify'=>'swfone'))}
+                </td>
+            </tr>
+            <tr>
+                <td>品牌描述:</td>
+                <td>
+                    <textarea name="brand_desc">{$brand.brand_desc}</textarea>
+                    {:hook('adminEditor',array('name'=>'brand_desc'))}
+                </td>
+            </tr>
+            <tr><td colspan="2" align="center"><input class="m_submit" type="submit" value="修改"></td></tr>
+        </table>
+    </form>
+</block>

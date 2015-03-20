@@ -1,0 +1,50 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="{PLUGIN_PATH}treetable/css/treetable.css" />
+    <load file="{PLUGIN_PATH}treetable/js/jquery.treetable.js" />
+</block>
+<!--主体内容 开始-->
+<block name="body">
+
+    <!--导航部分 开始-->
+    <div class="con_nav">
+
+        <!--快捷按钮 开始-->
+        <div class="nav_btn">
+            <a href="javascript:$.dialog.open('{:U(\'Artist/Category/add\')}',{title:'添加分类',lock:true,width:'500px',height:'180px'})" class="fa fa-plus-square">&nbsp;&nbsp;添 加</a>
+        </div>
+        <!--快捷按钮 结束-->
+
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 开始-->
+    <form action="{:U('Artist/Category/listorder')}" method="post" class="authlistorder">
+        <table class="table treetable">
+            <thead>
+            <tr>
+                <td>排序</td>
+                <td>编号</td>
+                <td>分类名称</td>
+                <td>操作</td>
+            </tr>
+            </thead>
+            <tbody>
+            {$list}
+            </tbody>
+        </table>
+        <div class="paging">
+            <button type="submit" class="btn fa fa-reorder ajax-post" target-form="authlistorder"> 排 序</button>
+        </div>
+    </form>
+    <!-- 数据表格 结束-->
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+    <script type="text/javascript">
+        $(function() {
+            $(".table").treetable({expandable: true});
+        });
+    </script>
+</block>

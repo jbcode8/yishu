@@ -1,0 +1,65 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+    <!-- <div class="nav_btn">
+         <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Paimai/AdminCat/add')}', {title:'添加文章', id:'adoArticle'})"> 添加文章</a>
+         <a class="fa fa-plus-square" href="{:U('Mall/ArticleCategory/index')}"> 分类管理</a>
+     </div>-->
+    <!--快捷按钮 结束-->
+    <form method="post" action="{:U('Paimai/AdminAttribute/update')}" style="width: 500px;height: 300px; margin: auto;">
+        <input type="hidden" name="attr_id" value="{$attr.attr_id}">
+        <table class="m_table">
+            <tr><td width="200">属性名称:</td><td><input type="text" name="attr_name" value="{$attr.attr_name}">(必填)</td></tr>
+			<tr><td>属性拼音:</td><td><input type="text" name="attr_spell" value="{$attr.attr_spell}">(必填)</td></tr>
+            <tr>
+                <td>所属类型:</td>
+                <td>
+                    <select name="attr_goodstypeid">
+                        <option value="0">--请选择--</option>
+                        <volist name="goodstype" id="v">
+
+                            <if condition="$attr['attr_goodstypeid'] eq $v['goodstype_id']">
+                                <option selected value="{$v.goodstype_id}">{$v.goodstype_name}</option>
+                            <else/>
+                                <option value="{$v.goodstype_id}">{$v.goodstype_name}</option>
+                            </if>
+
+                        </volist>
+                    </select>(必填)
+                </td>
+            </tr>
+            <tr>
+                <td>是否检索:</td>
+                <td>
+                    <input type="radio" <if condition="$attr['attr_index'] eq 0"> checked="checked"</if> name="attr_index" value="0"/>&nbsp;不检索&nbsp;
+                    <input type="radio" <if condition="$attr['attr_index'] eq 1"> checked="checked"</if> name="attr_index" value="1"/>&nbsp;关键字检索&nbsp;
+                    <input type="radio" <if condition="$attr['attr_index'] eq 2"> checked="checked"</if> name="attr_index" value="2"/>&nbsp;范围检索&nbsp;
+                    <span class="m_notice">如果检索的话，可以通过该属性找到有该属性的商品'</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>是否可用:</td>
+                <td>
+                    <input type="radio" <if condition="$attr['attr_isshow'] eq 1"> checked="checked"</if> name="attr_isshow" value="1"/>&nbsp;是&nbsp;
+                    <input type="radio" name="attr_isshow" <if condition="$attr['attr_isshow'] eq 0"> checked="checked"</if> value="0"/>&nbsp;否&nbsp;<span class="m_notice">如果不可用则在添加商品的时候不可选</span>
+                </td>
+            </tr>
+            <tr>
+                <td>是否关联:</td>
+                <td>
+                    {$attr.attr_islink}
+                    <input type="radio" name="attr_islink" <if condition="$attr['attr_islink'] eq 1"> checked="checked"</if> value="1"/>&nbsp;是&nbsp;
+                    <input type="radio" <if condition="$attr['attr_islink'] eq 0"> checked="checked"</if> name="attr_islink" value="0"/>&nbsp;否&nbsp;
+                    <span class="m_notice">如果关联，那么用户在购买该商品时，具有有该属性相同值的商品将被推荐给用户</span>
+                </td>
+            </tr>
+
+            <tr><td colspan="2" align="center"><input class="m_submit" type="submit" value="更新"></td></tr>
+        </table>
+    </form>
+</block>

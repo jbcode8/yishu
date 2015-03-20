@@ -1,0 +1,65 @@
+<extend name="Public:base" />
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul>
+            <li class="selected"><a href="{:U('index')}">推荐位管理</a></li>
+        </ul>
+
+        <!--快捷按钮 开始-->
+        <div class="nav_btn">
+            <a href="javascript:$.dialog.open('{:U('add')}',{title:'添加管理员组',id:'addGroup'});" class='fa fa-plus-square'> 添 加</a>
+        </div>
+        <!--快捷按钮 结束-->
+
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 开始-->
+    <form action="{:U('listorder')}" method="post" class="poslistorder">
+    <?php
+        $thead = array(
+            '_html'=>array(
+                '_th'=>'row-selected',
+                'th'=>'排序',
+                'td'=>'<input type="text" name="listorder[$posid]" value="$listorder" size="3">',
+            ),
+            'posid'  => 'POSID',
+            'name'=>'推荐位名称',
+            'catid'=>array(
+                '_title' => '所属栏目',
+                'tag'   =>'span',
+                'func'	=>	'get_category($catid,"title")',
+            ),
+            'modelid'=>array(
+                '_title' => '所属模型',
+                'tag'   =>'span',
+                'func'	=>	'get_document_model($modelid,"title")',
+            ),
+            '操作'=>array(
+                '信息管理'=>array( 'href' => 'Admin/Position/items?posid=$posid', 'class'=>'fa fa-list',),
+                '编辑'=>array( 'href' => 'Admin/Position/edit?posid=$posid', 'class'=>'ajax-get fa fa-edit dialog-edit', ),
+                '删除'=>array( 'href' => 'Admin/Position/delete?posid=$posid', 'class'=>'confirm ajax-get fa fa-trash-o', ),
+            ),
+        );
+        echo $_table_list = $__controller__->tableList($_list,$thead);
+    ?>
+    <!-- 数据表格 开始-->
+    <div class="paging">
+        <button type="submit" class="btn fa fa-list ajax-post" target-form="poslistorder"> 排 序</button>
+        {$_page}
+    </div>
+    </form>
+</block>
+
+<block name="javascript">
+    <script type="text/javascript">
+        $(function(){
+            $('.dialog-edit').click(function(e){
+                e.preventDefault();
+                $.dialog.open(this.href,{title:'编辑推荐位',id:'positionedit'});
+            })
+        });
+    </script>
+</block>

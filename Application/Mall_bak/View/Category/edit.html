@@ -1,0 +1,44 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+<style type="text/css">
+body{ width:440px}
+</style>
+</block>
+<block name="body">
+    
+    <form action="{:U('Mall/Category/edit')}" method="post" class="editCategory">
+    <table class="form">
+        <tr>
+            <th class="w1">上级类别:</th>
+            <td class="w2">
+                <select name="parent_id">
+                    <option value="">请选择...</option>
+                    <option value="0" <if condition="$vo['parent_id'] eq '0'">elected="selected"</if>>顶级类别</option>
+                    {:selectCategory($vo['parent_id'])}
+                </select>
+            </td>
+            <td class="tips"><i class="red"> * 必选</i></td>
+        </tr>
+        <tr>
+            <th>类别名称:</th>
+            <td><input name="cate_name" type="text" value="{$vo.cate_name}" /></td>
+            <td class="tips"><i class="red">* 必填</i></td>
+        </tr>
+        <tr>
+            <th>排列顺序:</th>
+            <td><input name="listorder" type="text" value="{$vo.listorder}" /></td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <td>
+                <input type="hidden" name="cate_id" value="{$vo.cate_id}" />
+                <button type="submit" class="btn ajax-post" target-form="editCategory">确认</button>
+                <button type="reset" class="btn btn_gary">重填</button>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+    </form>
+</block>
+

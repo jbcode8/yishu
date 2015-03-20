@@ -1,0 +1,96 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+<style type="text/css">
+body{width:650px}
+</style>
+</block>
+<block name="body">
+    <form action="{:U('Mall/Brand/add')}" method="post" class="addBrand">
+    <table class="form">
+        <tr>
+            <th class="w1">所属类别:</th>
+            <td><div id="cateTag"></div><input type="hidden" id="cate_id" name="cate_id" value="" /></td>
+            <td class="tips"><i class="red">* 必选</i></td>
+        </tr>
+        <tr>
+            <th>品牌名称:</th>
+            <td><input name="brand_name" type="text" /></td>
+            <td class="tips"><i class="red">* 必填</i></td>
+        </tr>
+        <tr>
+            <th>排列顺序:</th>
+            <td><input name="listorder" type="text" value="0" /></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <td>
+                <button type="submit" class="btn ajax-post" target-form="addBrand">确认</button>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+    </form>
+</block>
+<block name="javascript">
+<script type="text/javascript">
+// 类别的JSON数据
+var arrCate = {:jsonCategory()}, lastCateLevel = 0;
+
+// 默认输出一级分类
+createSelectTag(getCateByParentId(0), 0);
+
+function removeSelect(i){
+    for(i; i < 5; i++){
+        if($('#cateLevel_' + i)){
+            $('#cateLevel_' + i).remove();
+        }
+    }
+}
+
+function getCateByParentId(pid){
+    var _list = {};
+    $.each(arrCate, function(i, data){
+        if(parseFloat(data['parent_id']) === parseFloat(pid)){
+           _list[i] = data;
+        }
+    });
+    return _list;
+}
+
+function createSubSelect(level){
+    
+    var pid = $('#cateLevel_' + level).find('option:selected').val();
+    if(pid !== ''){
+        var subCate = getCateByParentId(pid);
+        createSelectTag(subCate, (level + 1)); 
+    }else{
+        removeSelect(level + 1);
+        lastCateLevel = level;
+    }
+    
+    // 赋值给类别的隐藏域
+    $('#cate_id').attr('value', $('#cateLevel_' + lastCateLevel).find('option:selected').val());
+}
+
+function createSelectTag(arr, level){
+    var _option = '';
+    // 新建前先清除所有的子级
+    removeSelect(level);
+    
+    // 循环获取选择项
+    $.each(arr, function(k, v){
+        _option += '<option value="'+ v['cate_id'] +'">'+ v['cate_name'] +'</option>';
+    });
+    
+    // 不为空则新建Select控件
+    if(_option !== ''){
+        lastCateLevel = level;
+        $('#cateTag').append('<select onchange="createSubSelect('+ level +')" id="cateLevel_'+ level +'"><option value=""> -- 请选择</option>'+ _option +'</select>');
+    }else{
+        lastCateLevel = level - 1;
+    }
+}
+</script>
+</block>
+

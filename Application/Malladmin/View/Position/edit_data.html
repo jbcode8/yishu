@@ -1,0 +1,89 @@
+<extend name="Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{width:400px;}
+        .thumb{position: relative;}
+        .thumb .thumb_img{position: absolute;top:0;}
+        .thumb #upload_thumb-queue {position: absolute;top:0;width:190px;height:113px;}
+    </style>
+</block>
+<block name="body">
+    <form action="{:U('edit_data')}" method="post" class="add">
+        <input type="hidden" name="model_id" value="{$vo.model_id}" />
+        <input type="hidden" name="posid" value="{$vo.posid}" />
+        <input type="hidden" name="id" value="{$vo.id}" />
+        <table class="form">
+            <tr>
+                <th>推荐位标题:</th>
+                <td>
+                    <input name="data[title]" type="text" placeholder="推荐位标题" value="{$vo.data.title}" size="40" />
+                </td>
+            </tr>
+            <tr>
+                <th>推荐时间:</th>
+                <td>
+                    <input name="data[update_time]" type="text" value="{$vo.data.update_time|date='Y-m-d H:i:s',###}" size="30" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+                </td>
+            </tr>
+            <tr>
+                <th>描述:</th>
+                <td>
+                    <textarea name="data[description]" rows="5" cols="30">{$vo.data.description}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <th>推荐位图片:</th>
+                <td>
+                    <input name="data[thumb]" id="thumb" type="hidden" value="{$vo.data.thumb}"/>
+                    <div class="thumb">
+                        <a id="upload_thumb"></a>
+                        <img class="thumb_img" src="<empty name='vo["data"]["thumb"]'>__PUBLIC__/img/Admin/upload-pic.png<else/>{$vo.data.thumb}</empty>" width="135" height="113"/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <button type="submit" class="btn ajax-post" target-form="add" >确认</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</block>
+<block name="javascript">
+    <load file="__PUBLIC__/plugin/DatePicker/WdatePicker.js" />
+    <load file="__PUBLIC__/plugin/uploadify/jquery.uploadify.min.js" />
+    <script type="text/javascript">
+        $(function(){
+            $('#upload_thumb').uploadify({
+                'width'       : 190,
+                'height'      : 113,
+                'buttonText'  : '',
+                'removeTimeout' : 1,
+                'formData'      : {'auth_key' : ''},
+                'swf'         : '__PUBLIC__/plugin/uploadify/uploadify.swf',
+                'uploader'    : '{:addons_url("Attachment://Upload/image")}',
+                'fileTypeDesc' : 'Image Files',
+                'fileTypeExts' : '*.gif; *.jpg; *.png',
+                'itemTemplate' : '<div id="${fileID}">\
+                                    <div class="uploadify-progress-bar" style="height: 113px;background-color: #5978A4;position: absolute;z-index: 9999;opacity: 0.3"></div>\
+                                </div>',
+                'onUploadSuccess' : uploadSuccessPic
+            });
+        });
+
+        function uploadSuccessPic(file, data, response){
+            var top_alert = window.top.$('#top-alert');
+            var res = JSON.parse(data);
+            if(res.status == false){
+                updateAlert(res.error);
+                setTimeout(function(){
+                    top_alert.find('.close').click();
+                },1500);
+            }else{
+                $('.thumb_img').attr({'src':res.url,'width':190});
+                $('#thumb').val(res.url);
+            }
+        }
+    </script>
+</block>

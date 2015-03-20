@@ -1,0 +1,60 @@
+<extend name="Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{width:300px;}
+    </style>
+</block>
+<block name="body">
+    <form action="{:U('add')}" method="post" class="addAdmin">
+        <table class="form">
+            <tr>
+                <th>用户名:</th>
+                <td>
+                    <input name="username" type="text" placeholder="用户名"/>
+                </td>
+            </tr>
+            <tr>
+                <th>密码:</th>
+                <td>
+                    <input name="password" type="password" placeholder="密码至少6个字符以上"/>
+                </td>
+            </tr>
+            <tr>
+                <th>确认密码:</th>
+                <td>
+                    <input name="repassword" type="password" placeholder="密码至少6个字符以上"/>
+                </td>
+            </tr>
+            <tr>
+                <th>Email地址:</th>
+                <td>
+                    <input name="email" type="text" placeholder="email地址"/>
+                </td>
+            </tr>
+			<tr>
+				<th>账号类型:</th>
+				<td>
+					<input type="radio" checked="checked" name="admintype" value="0"/>&nbsp;管理员&nbsp;
+					<input type="radio" name="admintype" value="1"/>&nbsp;商家
+				</td>
+            </tr>
+			<tr>
+				<th>账号所属商家:</th>
+				<td>
+					<select name="goods_sellerid">
+						<option value="0">--请选择--</option>
+						<volist name="seller" id="v">
+							<option value="{$v.seller_id}">{$v.seller_name}</option>
+						</volist>
+					</select>
+				</td>
+			</tr>
+            <tr>
+                <th></th>
+                <td>
+                    <button type="submit" class="btn ajax-post" target-form="addAdmin" >确认</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</block>

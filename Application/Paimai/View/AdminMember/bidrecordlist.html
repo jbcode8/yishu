@@ -1,0 +1,120 @@
+<extend name="Admin@Public:base"/>
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/search/statics/js/DatePicker/WdatePicker.js"></script>
+</block>
+<block name="body">
+
+    <!--导航部分 开始-->
+    <div class="con_nav">
+
+        <!--快捷按钮 开始-->
+        <!-- <div class="nav_btn">
+            <a href="javascript:$.dialog.open('{:U(\'Paimai/AdminGoods/add\')}',{title:'添加商品',lock:true,width:'800px',height:'600px'})" class="fa fa-plus-square">&nbsp;&nbsp;添加商品</a>
+                    <a id="action_show" style="cursor:pointer">批量显示</a>
+                    <a id="action_noshow" style="cursor:pointer">批量不显示</a>
+            
+        </div> -->
+        <!--快捷按钮 结束-->
+        
+
+    </div> 
+    <!--导航部分 结束-->
+    <style type="text/css">
+        th{text-align: center;}
+        .j_slidaction{position: relative;}
+        .j_slidaction p{position: absolute;left: 100px;top: 20px;background: #E9E9E9;padding:10px 15px 0 10px;}
+        .input_radius{border-radius:5px;color: #fff;border: none;}
+        /*分页*/
+        #j_page a{padding: 5px;}
+    </style>
+    <script type="text/javascript">
+        $(function(){
+            //隐藏
+            $(".j_slidaction").find("p").css("display","none");
+            //鼠标移上显示
+            $(".j_slidaction").mouseenter(function(){
+                $(this).find("p").css("display","block");
+            })
+            //鼠标移走隐藏
+            $(".j_slidaction").mouseleave (function(){
+                $(this).find("p").css("display","none");
+            })
+            /*筛选*/
+            var url=window.location.href;
+            if(!url.match(/\?/)){
+                url=url+"?";
+            }
+            url=url.match(/&p=(\d)*/)?url.replace(/&p=(\d)*/,''):url;
+            //日历
+            $("#so_time").click(function(){
+                var this_val=$("#j_time_val").val();
+                //alert(this_val)
+                url=url.replace(/&starttime=[0-9-]*/,'');
+                //起始时间
+                if(this_val!=""){
+                    url+="&starttime="+this_val;
+                }
+                window.location.href=url;
+            })
+            //出价金额排序
+            $("#j_price a").click(function(e){
+                e.preventDefault();
+                var this_val=$(this).attr("href");
+                url=url.replace(/&price=(\d)*/,"");
+                url+="&price="+this_val;
+                window.location.href=url
+            })
+            //结果
+            $("#j_bidresult a").click(function(e){
+                e.preventDefault();
+                var this_val=$(this).attr("href");
+                url=url.replace(/&status=(\d)*/,"");
+                url+="&status="+this_val;
+                window.location.href=url
+            })
+            
+        })
+    </script>
+    <!-- 数据表格 开始-->
+        <table class="table treetable">
+            <thead>
+            <tr>
+				<th><input id="j_time_val" type='text' class="date Wdate" onclick="WdatePicker()" name="time" value='{$starttime}'><input type="button" id="so_time" value="搜"></th>
+                <th>用户ID</th>
+				<th><div class="j_slidaction"><a>出价金额</a><p id="j_price"><a href="2">由高到低</a><br/><a href="1">由低到高</a></p></div></th>
+                <th>产品编号</th>
+                <th><div class="j_slidaction"><a>参拍状态</a><p id="j_bidresult"><a href="1">已出价</a><br/><a href="2">已拍得</a><br/><a href="3">已付款</a></p></div></th> 
+            </tr>
+            </thead>
+            <tbody>
+                <volist name="bidrecordlist_arr" id="v">
+                    <tr>
+                        <td>{$v.bidrecord_time}</td>
+                        <td>{$v.user_name}</td>
+                        <td>{$v.bidrecord_price}</td>
+                        <td>{$v.goods_name}</td>
+                        <td>
+                            <if condition="$v['order_status'] eq '已拍得'">
+                                <input class="input_radius" style="background: #008000;" type="button" name="" value="{$v.order_status}"/>
+                            <elseif condition="$v['order_status'] eq '已付款'"/>
+                                <input class="input_radius" style="background: #F00;" type="button" name="" value="{$v.order_status}"/>
+                            <else/>
+                                <input class="input_radius" style="background: #CCCCCC;" type="button" name="" value="{$v.order_status}"/>
+                            </if>
+                        </td>
+                        
+                    </tr>
+                </volist>
+            </tbody>
+        </table>
+		<div class="paging">
+        <!-- <button type="submit" class="btn fa fa-reorder ajax-post" target-form="authlistorder"> 排 序</button> -->
+		</div>
+    </form>
+	<div id="j_page" style="float:right;">{$page}
+    </div>
+    <br/>
+
+</block>

@@ -1,0 +1,86 @@
+<extend name="Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{width:400px;}
+    </style>
+</block>
+<block name="body">
+    <form action="{:U('add')}" method="post" class="addmenu">
+        <table class="form">
+            <tr>
+                <th>模型标识:</th>
+                <td>
+                    <input name="name" type="text" placeholder="模型标识"/>
+                </td>
+                <td class="tips">
+                    <i class="red">*必填</i> 文档模型标识
+                </td>
+            </tr>
+            <tr>
+                <th>模型名称:</th>
+                <td>
+                    <input name="title" type="text" placeholder="模型名称"/>
+                </td>
+                <td class="tips">
+                    <i class="red">*必填</i> 文档模型标识
+                </td>
+            </tr>
+            <tr>
+                <th>模型类型:</th>
+                <td>
+                    <select name="extend">
+                        <option value="0">独立模型</option>
+                        <volist name="extendList" id="eo">
+                            <option value="{$eo.id}">{$eo.title}</option>
+                        </volist>
+                    </select>
+                </td>
+                <td class="tips">
+                    <i class="red">*必选</i> 模型是否继承
+                </td>
+            </tr>
+            <tr>
+                <th>列表模板:</th>
+                <td>
+                    <input name="template_list" type="text" placeholder="列表模板"/>
+                </td>
+                <td class="tips">
+                    模型默认列表模板
+                </td>
+            </tr>
+            <tr>
+                <th>新增模板:</th>
+                <td>
+                    <input name="template_add" type="text" placeholder="新增模板"/>
+                </td>
+                <td class="tips">
+                    模型默认新增模板
+                </td>
+            </tr>
+            <tr>
+                <th>编辑模板:</th>
+                <td>
+                    <input name="template_edit" type="text" placeholder="编辑模板"/>
+                </td>
+                <td class="tips">
+                    模型默认编辑模板
+                </td>
+            </tr>
+            <tr>
+                <th>推荐位字段:</th>
+                <td>
+                    <input name="position_field" type="text" placeholder="多个以,分开"/>
+                </td>
+                <td class="tips">
+                    模型默认编辑模板
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <button type="submit" class="btn ajax-post" target-form="addmenu" >确认</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</block>

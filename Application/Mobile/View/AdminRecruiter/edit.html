@@ -1,0 +1,31 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+    <load file="{PLUGIN_PATH}uploadify/jquery.uploadify.min.js" />
+</block>
+<block name="body">
+
+    <form method="post" action="{:U('Paimai/AdminRecruiter/update')}" style="width: 700px;height: 300px; margin: auto;">
+        <input type="hidden" name="recruiter_id" value="{$recruiter.recruiter_id}">
+        <table class="m_table">
+            <tr><td width="200">征集人员姓名:</td><td><input name="recruiter_name" value="{$recruiter.recruiter_name}"/></td></tr>
+            <tr><td>征集人员手机:</td><td><input type="text" name="recruiter_phone" value="{$recruiter.recruiter_phone}"></td></tr>
+            <tr>
+                <td>是否显示:</td>
+                <td>
+                    <input type="radio" <if condition="$recruiter['recruiter_isshow'] eq 0">checked="checked"</if>  name="recruiter_isshow" value="0"/>&nbsp;是&nbsp;
+                    <input type="radio" <if condition="$recruiter['recruiter_isshow'] eq 1">checked="checked"</if> name="recruiter_isshow" value="1"/>&nbsp;否&nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>征集人描述:</td>
+                <td>
+                    <textarea name="recruiter_desc">{$recruiter.recruiter_desc}</textarea>
+                    {:hook('adminEditor',array('name'=>'recruiter_desc'))}
+                </td>
+            </tr>
+            <tr><td colspan="2" align="center"><input class="m_submit" type="submit" value="修改信息"></td></tr>
+        </table>
+    </form>
+</block>

@@ -1,0 +1,45 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{ width:600px}
+    </style>
+</block>
+<block name="body">
+    <form action="{:U('Mall/Category/edit')}" method="post" class="editAttr">
+        <table class="form">
+            <tr>
+                <th style="width:80px">当前类别:</th>
+                <td><b>{$info.cate_name}</b></td>
+                <td width="180"></td>
+            </tr>
+            <tr>
+                <th>选择属性:</th>
+                <td>{:attrCheckBox($info['cate_id'], $info['attribute'])}<input id="attribute" name="attribute" type="hidden" value="{$info.attribute}" /></td>
+                <td class="tips"><i class="red"> 红色属性为继承父级，不可编辑</i></td>
+            </tr>
+            <tr>
+                <th>&nbsp;</th>
+                <td>
+                    <input type="hidden" name="cate_id" value="{$info.cate_id}" />
+                    <button type="submit" class="btn ajax-post" target-form="editAttr">确认</button>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
+</block>
+<block name="javascript">
+<script type="text/javascript">
+    $(':checkbox').on('click', function(){
+        $('#attribute').attr('value', getAttribute());
+    });
+    function getAttribute(){
+        var attr = '';
+        $(':checkbox:checked').not(':disabled').each(function(i, tag){
+            attr += ',' + tag.value;
+        });
+        attr = attr.substring(1);
+        return attr;
+    }
+</script>
+</block>

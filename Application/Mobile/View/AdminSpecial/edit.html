@@ -1,0 +1,65 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+    <load file="{PLUGIN_PATH}uploadify/jquery.uploadify.min.js" />
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+    <!-- <div class="nav_btn">
+         <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Paimai/AdminCat/add')}', {title:'添加文章', id:'adoArticle'})"> 添加文章</a>
+         <a class="fa fa-plus-square" href="{:U('Mall/ArticleCategory/index')}"> 分类管理</a>
+     </div>-->
+    <!--快捷按钮 结束-->
+    <form method="post" action="{:U('Paimai/AdminSpecial/update')}" style="width: 500px;height: 300px; margin: auto;">
+        <input type="hidden" name="special_id" value="{$special.special_id}">
+        <table class="m_table">
+            <caption>添加专场</caption>
+            <tr><td width="100">专场名称:</td><td><input type="text" name="special_name" value="{$special.special_name}">(必填)</td></tr>
+            <tr>
+                <td>专场时间:</td>
+                <td>
+                    开始时间:<input type="text" name="special_starttime" value="{$special.special_starttime|date='Y-m-d H:i:s',###}"><br/><br/>
+                    结束时间:<input type="text" name="special_endtime" value="{$special.special_endtime|date='Y-m-d H:i:s',###}">
+                </td>
+            </tr>
+            <tr>
+                <td>视频链接:</td>
+                <td>
+                    <input type="text" name="special_video" value="{$special.special_video}">
+                </td>
+            </tr>
+            <tr>
+                <td>主办方名字:</td>
+                <td>
+                    <input type="text" name="special_sponsor_name" value="{$special.special_sponsor_name}">
+                </td>
+            </tr>
+
+            <tr>
+                <td>大型海报图片:</td>
+                <td style="height: 50px;">
+                    {:hook('upload',array('model'=>'paimaispecial','type'=>'thumb','height'=>30,'uploadify'=>'swfone'))}
+                </td>
+            </tr>
+	    <tr>
+                <td>关键字:</td>
+                <td>
+                    <input type="text" name="special_keywords" value="{$special.special_keywords}"/>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td>专场详情描述:</td>
+                <td>
+                    <textarea name="special_intro">{$special.special_intro}</textarea>
+
+                </td>
+            </tr>
+
+            <tr><td>是否显示:</td><td><input type="radio" <if condition="$special['special_isshow'] eq 1"> checked="checked"</if> name="special_isshow" value="1"/>&nbsp;是&nbsp;<input type="radio" <if condition="$special['special_isshow'] eq 0"> checked="checked"</if> name="special_isshow" value="0"/>&nbsp;否&nbsp;</td></tr>
+            <tr><td colspan="2" align="center"><input class="m_submit" type="submit" value="更改"></td></tr>
+        </table>
+    </form>
+</block>

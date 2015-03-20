@@ -1,0 +1,115 @@
+<!DOCTYPE  html>
+<html>
+	<head>
+		<title>none</title>
+		<meta http-equiv='content-type' content='text/html;charset=utf-8'>
+		<link rel="stylesheet" type="text/css" href="/Public/easyui/themes/default/easyui.css">
+		<link rel="stylesheet" type="text/css" href="/Public/easyui/themes/icon.css">
+		<script type="text/javascript" src="/Public/easyui/jquery.min.js"></script>
+		<script type="text/javascript" src="/Public/easyui/jquery.easyui.min.js"></script>
+	</head>
+	<body>
+		<div class='easyui-tabs' >	
+			<div title="待确认鉴定品">
+				<table class='easyui-datagrid'
+					data-options="url:'{:U('Jianding/AdminGoodsManage/getConfirmGoods',array('type'=>1))}',fitColumns:true,
+						striped:false,
+						method:'post',
+						idField:'goods_id',
+						loadMsg:'开始获取数据',
+						pagination:true,
+						showFooter:false,
+						scrollbarSize:30,
+						autoRowHeight:false,
+						pageNumber:1,
+						pageSize:20,
+						singleSelect:true,
+						sortName:'goods_price',
+					"
+				>
+					<thead>
+						<tr>
+							<th data-options="field:'goods_id'">id</th>
+							<th data-options='field:"username"'>上传用户</th>
+							<th data-options='field:"goods_name",align:"left",halign:"center"'>商品名</th>
+							<th data-options='field:"goods_sn"' style='width:200px'>商品编号</th>
+							<th data-options='field:"goods_price"'>商品价格</th>
+							<th data-options='field:"appraise_type"'>鉴定类型</th>
+							<th data-options='field:"uppeople_mobile"'>预留电话</th>
+							<th data-options='field:"goods_atime"'>添加时间</th>
+							<th data-options='field:"handle",align:"left",width:150'>操作</th>
+						</tr>
+					</thead>
+					
+				</table>
+			</div>
+			<div title='已通过的鉴定品'>
+				<table class='easyui-datagrid'
+					data-options="url:'{:U('Jianding/AdminGoodsManage/hasConfirmGoods',array('type'=>1))}',fitColumns:true,
+						striped:false,
+						method:'post',
+						idField:'goods_id',
+						loadMsg:'开始获取数据',
+						pagination:true,
+						showFooter:false,
+						scrollbarSize:30,
+						autoRowHeight:false,
+						pageNumber:1,
+						pageSize:20,
+						singleSelect:true,
+						sortName:'goods_price',
+					"
+				>
+					<thead>
+						<tr>
+							<th data-options="field:'goods_id'">id</th>
+							<th data-options='field:"username"'>上传用户</th>
+							<th data-options='field:"goods_name",align:"left",halign:"center"'>商品名</th>
+							<th data-options='field:"goods_sn"' style='width:200px'>商品编号</th>
+							<th data-options='field:"goods_price"'>商品价格</th>
+							<th data-options='field:"appraise_type"'>鉴定类型</th>
+							<th data-options='field:"uppeople_mobile"'>预留电话</th>
+							<th data-options='field:"goods_atime"'>添加时间</th>
+							<th data-options='field:"handle",align:"left",width:150'>操作</th>
+						</tr>
+					</thead>
+					
+				</table>
+			</div>
+
+			<div title='未通过审核的鉴定品'>
+				<table class='easyui-datagrid'
+					data-options="url:'{:U('Jianding/AdminGoodsManage/hasConfirmGoods',array('type'=>2))}',fitColumns:true,
+						striped:false,
+						method:'post',
+						idField:'goods_id',
+						loadMsg:'开始获取数据',
+						pagination:true,
+						showFooter:false,
+						scrollbarSize:30,
+						autoRowHeight:false,
+						pageNumber:1,
+						pageSize:20,
+						singleSelect:true,
+						sortName:'goods_price',
+					"
+				>
+					<thead>
+						<tr>
+							<th data-options="field:'goods_id'">id</th>
+							<th data-options='field:"username"'>上传用户</th>
+							<th data-options='field:"goods_name",align:"left",halign:"center"'>商品名</th>
+							<th data-options='field:"goods_sn"' style='width:200px'>商品编号</th>
+							<th data-options='field:"goods_price"'>商品价格</th>
+							<th data-options='field:"appraise_type"'>鉴定类型</th>
+							<th data-options='field:"uppeople_mobile"'>预留电话</th>
+							<th data-options='field:"goods_atime"'>添加时间</th>
+							<th data-options='field:"handle",align:"left",width:150'>操作</th>
+						</tr>
+					</thead>
+					
+				</table>
+			</div>
+		</div>
+	</body>
+</html>

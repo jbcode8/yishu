@@ -1,0 +1,26 @@
+<?php
+
+// +----------------------------------------------------------------------
+// | 用户资料
+// +----------------------------------------------------------------------
+// | Author: Ethan <838777565@qq.com>
+// +----------------------------------------------------------------------
+namespace Paimai\Controller;
+use Paimai\Controller\PaimaiPublicController;
+
+class TestController extends PaimaiPublicController {
+	private $v9_prefix = 'v9_';
+    private $v9_children_catids = array(); 
+    public function _initialize()
+    {
+        parent::_initialize();
+        /*//11为陶器,3钱币,$ee为这个分类下面的最底层分类的字符串，如137,138,139,140,141,142,143
+        $ceshi=new \Mall\Model\CategoryModel();
+        $ee=$ceshi->getSubCategoryId(3);*/
+    }
+	
+    public function index(){
+	echo "test";
+       exit;	
+    }
+}

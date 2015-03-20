@@ -1,0 +1,28 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{width:380px;}
+    </style>
+</block>
+<block name="body">
+    <form action="{:U('Baike/Category/move')}" method="post" class="addCategory">
+        <table class="form">
+            <tr>
+                <th class="w2">将 <font color='red'>{$name}</font> 转移到：</th>
+                <td>
+                    <select name="pid">
+                        <option value="0">顶级分类</option>
+                        <php>echo getMenu(I('get.pid',0,'intval'));</php>
+                    </select>
+                </td>
+                <input type="hidden" name="cid" value="{$cid}">
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    　　　　　　　<button type="submit" class="btn ajax-post" target-form="addCategory">转移</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</block>

@@ -1,0 +1,22 @@
+<extend name="Admin@Public:base" />
+<block name="body">
+<div class="container">
+    <ul class="header clear">
+    <li <eq name="ACTION_NAME" value="index">class="current"</eq>><a href="{:U('Auction/AdminCollect/index')}">拍卖征集管理</a></li>
+    <li <eq name="ACTION_NAME" value="add">class="current"</eq>><a href="{:U('Auction/AdminCollect/add')}">添加拍卖征集</a></li>
+    </ul>
+    <table class="table table-hover">
+        <thead><tr><th></th><th></th></tr></thead>
+        <tbody>
+        		<tr><td>序号</td><td>征集标题：</td><td>添加时间</td><td>显示状态</td><td>修改时间</td><td>操作</td></tr>
+        	<volist name="collect_list" key="k" id="vo">
+        		<php>$updatetime = $vo['updatetime'];</php>
+            	<tr><td>{$k}</td><td>{$vo.title}</td><td>{$vo.createtime|date='Y-m-d H:i:s',###}</td><td><if condition="($vo['show'] eq 0)"><span style="color:#008000">显示 </span><else /><span style="color:red">不显示</span></if></td><td><notempty name="updatetime">{$vo.updatetime|date='Y-m-d H:i:s',###}</notempty><empty name="updatetime">无</empty></td><td><a href="{:U('Auction/AdminCollect/show', array('id' => $vo['id']))}">审核</a> | <a href="{:U('Auction/AdminCollect/edit', array('id' => $vo['id']))}">编辑</a> | <a href="{:U('Auction/AdminCollect/delete', array('id' => $vo['id']))}" onclick="if(confirm('确定要删除吗？')){return true;};return false;">删除</a></td></tr>
+            </volist>
+           
+        </tbody>
+       
+    </table>
+     <div class="page">{$page}</div>
+</div>
+</block>

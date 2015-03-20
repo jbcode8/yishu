@@ -1,0 +1,31 @@
+<extend name="Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{width:300px;}
+    </style>
+</block>
+<block name="body">
+    <form action="{:U('edit')}" method="post" class="addGroup">
+        <input type="hidden" name="id" value="{$vo.id}"/>
+        <table class="form">
+            <tr>
+                <th>组名称:</th>
+                <td>
+                    <input name="title" type="text" placeholder="用户组名称" value="{$vo.title}"/>
+                </td>
+            </tr>
+            <tr>
+                <th style="vertical-align: top;">描述:</th>
+                <td>
+                    <textarea name="description" type="text" placeholder="用户组描述..." cols="25">{$vo.description}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <button type="submit" class="btn ajax-post" target-form="addGroup" >确认</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</block>

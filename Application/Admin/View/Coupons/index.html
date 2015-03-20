@@ -1,0 +1,121 @@
+<extend name="Admin@Public:base" />
+
+<block name="style">
+   
+  <style type="text/css">
+    table { width:100%; color:#808080; margin-top:8px; border-collapse:collapse;  }
+    table tr th { width:100px; height:36px;line-height:36px; background:#e7e7e7; }
+    table tr td { width:100px; height:28px;line-height:28px; text-align:center;}
+    .tabletr { background:#ebebeb; }
+    table a:hover { color:red; }
+  </style>
+</block>
+
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul>
+            <li class="selected"><a>优惠券</a></li>
+            <div class="nav_btn">
+                <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U(\'Admin/Coupons/add\')}',{title:'修改优惠券',lock:true})">添加</a>
+            </div>
+        </ul>
+
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 开始-->
+    <table>
+        <tr>
+            <th>优惠券ID</th>
+            <th>券码</th>
+            <th>类型</th>
+            <th>开始时间</th>
+            <th>结束时间</th>
+            <th>描述</th>
+            <th>金额</th>
+            <th>状态</th>
+            <th>开启/关闭</th>
+            <th>操作</th>
+        </tr>
+        <volist name='list' id="vo">
+            <tr>
+                <td>{$vo['id']}</td>
+                <td>{$vo['code']}</td>
+                <td>
+                    <if condition="$vo['type'] eq 1">
+                        注册返现
+                    <else />
+                        普通优惠券
+                    </if>
+                </td>
+                <td>{:date("Y-m-d H:i:s",$vo['creatime'])}</td>
+                <td>{:date("Y-m-d H:i:s",$vo['endtime'])}</td>
+                <td>{$vo['description']}</td>
+                <td>{$vo['amount']}</td>
+                <td class="status">
+                    <if condition="$vo['status'] eq 1">
+                        开启
+                    <else />
+                        关闭
+                    </if>
+                </td>
+                <td>
+                    <if condition="$vo['status'] eq 0">
+                        <a class="coupons_start" id="{$vo['id']}" status="{$vo['status']}" style="cursor:pointer;">开启</a>
+                    <else />
+                        <a class="coupons_start" id="{$vo['id']}" status="{$vo['status']}" style="cursor:pointer;">关闭</a>
+                    </if>
+                </td>
+                <td><a href="javascript:$.dialog.open('{:U('Admin/Coupons/edit/',array('id'=>$vo['id']))}',{title:'添加优惠券',lock:true})" style="cursor:pointer;">编辑</a><a href="{:U('Admin/Coupons/del',array('id'=>$vo['id']))}" class="coupons_del" style="cursor:pointer;">&nbsp;&nbsp;&nbsp;删除</a></td>
+            </tr>
+        </volist>
+    </table>
+    <!-- 数据表格 结束-->
+    <div class="paging">
+        <!-- {$_page} -->
+    </div>
+     <script type="text/javascript">
+        $(function(){
+            //优惠券开启关闭功能
+            $('.coupons_start').live('click', function(){
+                var coupons_up = $(this).parent().parent().find('.status');
+                var coupons_id = $(this).attr('id');//优惠券状态id
+                var coupons_status = $(this).attr('status');//优惠券状态
+                var coupons_div = $(this).parent();//优惠券节点
+                $.post("{:U('Admin/Coupons/start')}",{'status': coupons_status, 'id':coupons_id},function(r){
+                    if(r.status == 1){ 
+                        coupons_div.html('');
+                        if(coupons_status == 1){
+                            coupons_div.html('<a class="coupons_start" id="'+coupons_id+'" status="0"  style="cursor:pointer;">开启</a>');
+                            coupons_up.html('');coupons_up.html('关闭');
+                        } else {
+                            coupons_div.html('<a class="coupons_start" id="'+coupons_id+'" status="1"  style="cursor:pointer;">关闭</a>');
+                            coupons_up.html('');coupons_up.html('开启');
+                        } 
+                    }
+                },'json');
+            });
+            //确认删除
+            $('.coupons_del').each(function(){
+
+                $(this).click(function(){
+                    if(confirm("你确定要删除吗？")){
+                        return true;
+                    } else {
+                        return false;
+                    }
+                });
+            })
+            
+        })
+        
+    </script>
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+   
+    <load file="__PUBLIC__/plugin/DatePicker/WdatePicker.js" />
+</block>

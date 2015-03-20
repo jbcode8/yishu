@@ -1,0 +1,94 @@
+<extend name="Admin@Public:base" />
+
+<block name="style">
+    <load file="{PLUGIN_PATH}treetable/css/treetable.css" />
+</block>
+
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul><li class="selected"><a href="{:U('index')}">艺术家列表</a></li></ul>
+
+        <!--快捷按钮 开始-->
+        <div class="nav_btn">
+            <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('add')}', {title:'新增作品', id:'newWindow'})"> 新增作品</a>
+        </div>
+        <!--快捷按钮 结束-->
+
+        <!--搜索 开始-->
+        <div class="advSearch">
+            <form method="post" action="{:U(index)}">
+                <div class="row">
+                    <label>关键字：</label>
+                    <input type="text" size="8" name="kw" placeholder="请输入关键字" style="padding:2px 5px" value="{$kw}" />
+                    {:searchSelect(array('name' => '作品名称', 'brief' => '作品简介', 'size' => '作品尺寸', 'material' => '作品材质'), $opt)}
+                </div>
+                <div class="row">
+                    <label>时间：</label>
+                    <input style="padding:2px 5px" value="{$start_time}" type="text" size="6"
+                           placeholder="起始时间" name='start_time' id="starttime"  onfocus="WdatePicker({onpicked:function(){$('#endtime').focus();}})"/> -
+                    <input style="padding:2px 5px" value="{$end_time}" type="text" size="6" placeholder="结束时间" name='end_time' id="endtime" onfocus="WdatePicker({minDate:$('#starttime').val()})" />
+                </div>
+                <button type="submit" class="btn fa fa-search"> 搜 索</button>
+            </form>
+        </div>
+        <!--搜索 结束-->
+
+    </div>
+    <!--导航部分 结束-->
+
+    <form action="{:U('batch')}" method="post" class="batch">
+        <!-- 数据表格 开始-->
+        <?php
+        $thead = array(
+        '_html'=>array('_th'=>'row-selected','th'=>'<input id="u-ck-f" type="checkbox" />','td'=>'<input type="checkbox" class="ids" name="ids[]" value="$id" />'),
+        'id' => '编号',
+        'name' => '作品名称',
+        'gid' => array('_title'=>'画廊名称','func'=>'getGallery($gid)'),
+        'aid' => array('_title'=>'艺术家名称','func'=>'getArtist($aid)'),
+        'size' => '作品尺寸',
+        'material' => '作品材质',
+        'creation' => '创作年份',
+        'create_time' => array('_title'=>'添加时间','tag'=>'span', 'func'=>'date("Y-m-d H:i:s", $create_time)'),
+        '状态'=>array(
+        '正常'=>array('class'=>'success', 'condition'=>'$status==1'),
+        '推荐'=>array('class'=>'red', 'condition'=>'$status==2'),
+        '锁定'=>array('class'=>'error','condition'=>'$status==0'),
+        ),
+        '操作'=>array(
+        ' 修改'=>array('href' => 'edit?id=$id', 'class'=>'editInfo fa fa-edit'),
+        ' 删除'=>array('href' => 'delete?id=$id', 'class'=>'confirm ajax-get fa fa-trash-o red'),
+        ' 正常'=>array('href' => 'status?id=$id&val=1', 'class'=>'ajax-get fa fa-flag-o success'),
+        ' 推荐'=>array('href' => 'status?id=$id&val=2', 'class'=>'ajax-get fa fa-thumbs-up red'),
+        ' 锁定'=>array('href' => 'status?id=$id&val=0', 'class'=>'ajax-get fa fa-lock red'),
+        ),
+        );
+        echo $_table_list = $__controller__->tableList($_list, $thead);
+        ?>
+        <!-- 数据表格 结束-->
+        <div class="paging">
+            <if condition="$_list">
+                <input type="radio" name="act" value="1" /> 正常&nbsp;&nbsp;
+                <input type="radio" name="act" value="2" /> 推荐&nbsp;&nbsp;
+                <input type="radio" name="act" value="0" /> 锁定&nbsp;&nbsp;
+                <input type="radio" name="act" value="4" /> 删除&nbsp;&nbsp;
+                <button type="submit" class="btn fa ajax-post" target-form="batch"> 提交操作</button>
+                {$_page}
+            </if>
+        </div>
+    </form>
+
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+<script type="text/javascript">
+$(function(){
+    $('.editInfo').live('click',function(e){e.preventDefault();$.dialog.open(this.href, {title:'编辑信息', id:'newWindow'} );});
+    $('.u-order').css({'width':'15px','font':'12px/15px Arial','padding':'2px 5px'});
+    $('#u-ck-f').click(function(){if($('#u-ck-f').is(':checked')){$('.ids').attr('checked','true');}else{ $('.ids').removeAttr("checked");}});
+    $("[name='act']").click(function(){if($(this).val() == '4'){alert('数据删除后不可恢复，请谨慎操作！')}});
+});
+</script>
+</block>

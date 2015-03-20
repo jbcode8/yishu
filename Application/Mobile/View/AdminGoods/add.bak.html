@@ -1,0 +1,377 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+
+    <form method="post" action="{:U('Paimai/AdminGoods/insert')}" style="width: 500px;height: 300px; margin: auto;">
+
+        <table class="m_table">
+        <caption>添加商品</caption>
+        <tr><td width="100">拍品名称:</td><td><input type="text" name="goods_name">(必填)</td></tr>
+        <tr>
+            <td>所属分类:</td>
+            <td>
+                <select name="goods_catid">
+                    <option value="0">--请选择--</option>
+                    <volist name="category" id="v">
+                    <option value="{$v.cat_id}">{$v.cat_name}</option>
+                    </volist>
+                </select>(不填则默认是其它分类)
+            </td>
+        </tr>
+        <tr>
+            <td>扩展分类:</td>
+            <td>
+                <select name="goods_extcatid">
+                    <option value="0">--请选择--</option>
+                    <volist name="category" id="v">
+                        <option value="{$v.cat_id}">{$v.cat_name}</option>
+                    </volist>
+                </select>(可添可不添)
+            </td>
+        </tr>
+
+        <tr>
+            <td>拍卖时间:</td>
+            <td>
+                开始时间:<input type="text" name="goods_starttime" value="{$v.time|date='Y-m-d H:i:s',###}"><br/><br/>
+                结束时间:<input type="text" name="goods_endtime" value="{$v.time|date='Y-m-d H:i:s',###}">
+            </td>
+        </tr>
+        <tr>
+            <td>拍卖价格:</td>
+            <td>
+                起始价:<input type="text" name="goods_startprice" value="1000"><br/><br/>
+                终止价:<input type="text" name="goods_endprice" value="2000">
+            </td>
+        </tr>
+        <tr>
+            <td>加价幅度:</td>
+            <td>
+                <input type="text" name="goods_everyprice" value="100">
+
+            </td>
+        </tr>
+        <tr>
+            <td>参拍保证金:</td>
+            <td>
+                <input type="text" name="goods_needmoney" value="200">
+
+            </td>
+        </tr>
+        <tr>
+            <td>所属专场:</td>
+            <td>
+               <input type="text" name="goods_needmoney" value="200">
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>重量:</td>
+            <td>
+                <input type="text" name="goods_weight" value="200">(如50g,1公斤)
+
+            </td>
+        </tr>
+        <tr>
+            <td>拍品关键字:</td>
+            <td>
+                <input type="text" name="goods_keywords" value="">(用空格隔开)
+            </td>
+        </tr>
+        <tr>
+            <td>拍品简述:</td>
+            <td>
+                <textarea name="goods_brief"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>所属拍卖专场:</td>
+            <td>
+                <select name="goods_specialid">
+                    <option value="0">--请选择拍卖专场--</option>
+                    <volist name="special" id="v">
+                        <option value="{$v.special_id}">{$v.special_name}</option>
+                    </volist>
+                </select>
+
+            </td>
+        </tr>
+        <tr>
+            <td>拍品品牌:</td>
+            <td>
+                <select name="goods_catid">
+                    <option value="0">--请选择拍品品牌--</option>
+                    <volist name="brand" id="v">
+                        <option value="{$v.brand_id}">{$v.brand_name}</option>
+                    </volist>
+                </select>
+
+            </td>
+        </tr>
+        <tr id="j_slogan">
+            <td>拍品口号:</td>
+            <td>
+                <span id="j_add">+</span>
+                <div class="j_select">
+                    <select id="slogan" name="slogan[]">
+                        <option value="0">--请选择拍品口号--</option>
+                        <volist name="slogan" id="v">
+                            <option value="{$v.slogan_id}">{$v.slogan_name}</option>
+                        </volist>
+                    </select>
+                </div>
+                <span id="j_down">-</span>
+            </td>
+        </tr>
+        <script>
+            $(function(){
+            //拍品口号
+                //增加
+                $("#j_slogan #j_add").click(function(){
+                    $("#j_slogan .j_select").last().clone(true).insertAfter($(" #j_slogan .j_select").last());
+                });
+                //减少
+                $("#j_slogan #j_down").click(function(){
+                    if($("#j_slogan .j_select").size()>1){
+                        $("#j_slogan .j_select").last().detach();
+                    }
+                });
+            })
+        </script>
+        <tr id="goods_attr">
+            <td>可筛选属性:</td>
+            <td>
+                <div class="j_select">
+                    商品类型:<select class="j_goodstype" name="goods_goodstypeid">
+                        <option value="0">--请选择商品类型--</option>
+                        <volist name="goodstype" id="v">
+                            <option value="{$v.goodstype_id}">{$v.goodstype_name}</option>
+                        </volist>
+                    </select>
+                </div>
+            </td>
+        </tr>
+
+        <script>
+            $(function(){
+                //ajax请求数据传入商品类型id返回这个id对应的属性
+                $("#goods_attr .j_goodstype").change(function(){
+                   var obj=$("#goods_attr .j_select");
+                    obj.next().detach();
+                   $.get(
+                            "{:U('Paimai/AdminGoods/ajax_getattrbygoodstype','','')}",
+                            {'goodstype_id': $.trim($(this).val())},
+                            function(data){
+                                if(data){
+                                    var str="<table class='m_table'>";
+                                    for(var i=0;i<data.length;i++){
+                                        str+="<tr><td>"+data[i].attr_name+"<input type='hidden' name='goods_att_key[]' value='"+data[i].attr_id+"'></td><td><input type='text' name='goods_att_val[]'></td></tr>";
+                                    }
+                                    str+="</table>";
+                                    obj.after(str);
+                                }else{
+                                    alert("此分类下还没有属性");
+                                }
+
+                            },
+                            'json'
+                    )
+                })
+            })
+        </script>
+        <tr>
+            <td>拍品缩略图:</td>
+            <td>
+                <input type="file" name="goods_thumb">
+            </td>
+        </tr>
+        <tr>
+            <td>拍品细节图:</td>
+            <td>
+                <input type="file" name="goods_pics">
+            </td>
+        </tr>
+        <tr>
+            <td>拍品详情描述:</td>
+            <td>
+                <textarea name="goods_intro"></textarea>
+                {:hook('adminEditor',array('name'=>'goods_intro'))}
+            </td>
+        </tr>
+        <tr>
+            <td>拍品备注:</td>
+            <td>
+                <textarea name="goods_note"></textarea><span class="m_notice">此项只是发布者对本拍品的备注,不会在前台显示</span>
+            </td>
+        </tr>
+        <tr><td>是否显示:</td><td><input type="radio" checked="checked" name="goods_isshow" value="1"/>&nbsp;是&nbsp;<input type="radio" name="attr_isshow" value="0"/>&nbsp;否&nbsp;<span class="m_notice">如果不可用则在添加商品的时候不可选</span></td></tr>
+        <tr><td>是否关联:</td><td><input type="radio" name="attr_islink" value="1"/>&nbsp;是&nbsp;<input type="radio" name="attr_islink" checked="checked" value="0"/>&nbsp;否&nbsp;<span class="m_notice">如果关联，那么用户在购买该商品时，具有有该属性相同值的商品将被推荐给用户</span></td></tr>
+
+        <tr><td colspan="2" align="center"><input class="m_submit" type="submit" value="添加"></td></tr>
+    </table>
+    </form>
+
+
+    <style type="text/css">
+        .uploadify-progress-bar{
+            height:10px;
+            width:10px;
+            background:#fff;
+            position:absolute;
+            top:0;
+            left:0;
+            opacity:0.5
+        }
+        #attachment{position:relative}
+        #button{position: absolute;top:0;left:0}
+        #buttons{position: absolute;top:0;left:0}
+        #addonDesc{width:91px;}
+        .lists{
+            position: relative;
+            top:0px;
+            float: left;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 5px;
+            margin-right: 2px;
+            width: 100px;
+            overflow: hidden;
+        }
+        .removeImg {
+            position: absolute;
+            right: 1px;
+            top:1px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #008000;
+            z-index: 2;
+        }
+        .removeImg:hover{color:red;}
+    </style>
+    <div id="attachment">
+        <a id="{$param['uploadify']}"></a>
+        <if condition="$param['type'] eq 'image'">
+            <div id="button" class="uploadify-button btn"><span class="uploadify-button-text">上传图片</span></div>
+            <div id="show"></div>
+            <elseif condition="$param['type'] eq 'file'" />
+            <div id="button" class="uploadify-button btn"><span class="uploadify-button-text">上传文件</span></div>
+            <div id="show"></div>
+            <else />
+            <div id="thumb">
+                <empty name="param['thumbPic']">
+                    <img id='buttons' src='{IMG_PATH}Admin/upload-pic.png' height="{$param['height']}"/>
+                    <else />
+                    <img id='buttons' src="{IMG_PATH}{$param['thumbPic']}" height="{$param['height']}"/>
+                </empty>
+                <input type='hidden' id='is_thumb' name='thumb' value='0'>
+            </div>
+        </if>
+        <input type='hidden' id='hashs' name='hashs' value=''>
+    </div>
+    <script type="text/javascript">
+        /* 文件上传 */
+        var url = "{:addons_url('Attachment://Attachment/upload',array('model'=>$param['model'],'recordid'=>$param['recordid'],'type'=>$param['type']))}";
+        var height = "{$param['height']}";
+        var width = "{$param['width']}";
+        var uploadify = "{$param['uploadify']}";
+        $("#"+uploadify+"").uploadify({
+            'height': height,
+            'buttonText': '',
+            "swf"             : "{PLUGIN_PATH}/uploadify/uploadify.swf",
+            "fileObjName"     : "attachment",
+            "uploader"        : url,
+            "width"           : width,
+            'itemTemplate': '<div id="${fileID}" class="uploadify-queue-item"><div class="uploadify-progress-bar"></div></div>',
+            "onUploadSuccess" : uploadSuccess
+        });
+        /* 文件上传成功回调函数 */
+        function uploadSuccess(file, data){
+            var data = $.parseJSON(data);
+            if(data.savepath  && data.savename){
+                if(data.type == 'image'){
+                    hashs = $('#hashs').val();
+                    if(hashs.indexOf(data.hash) != -1){
+                        alert('请勿重复上传');return false;
+                    }
+                    hashs += data.hash;
+                    $('#hashs').val(hashs);
+                    v = "<div class='lists'><input type='hidden' name='sourceid[]' value='"+data._id+"'><input type='hidden' name='recordid' value='"+data.recordid+"'/> <a class='removeImg fa fa-times-circle-o' onclick='removeOne(this,"+data._id+",0)'></a><img height='80px' width='100px' src='"+data.savepath+data.savename+"'/><div><input id='addonDesc' type='text' name='addonDesc[]'/> </div> </div>";
+                    $('#show').append(v);
+                } else if(data.type == 'file') {
+                    hashs = $('#hashs').val();
+                    if(hashs.indexOf(data.hash) != -1){
+                        alert('请勿重复上传');return false;
+                    }
+                    hashs += data.hash;
+                    $('#hashs').val(hashs);
+                    v = "<div class='lists'><input type='hidden' name='sourceid[]' value='"+data._id+"'><input type='hidden' name='recordid' value='"+data.recordid+"'/><a class='removeImg fa fa-times-circle-o' onclick='removeOne(this,"+this._id+",0)'></a><img height='80px' width='100px' src='{IMG_PATH}Admin/upload-pic.jpg'/><div><input id='addonDesc' type='text' name='addonDesc[]'/> </div></div>";
+                    $('#show').append(v);
+                }else{
+                    v = "<div id='buttons'><input type='hidden' id='is_thumb' name='thumb' value='1'><input type='hidden' name='sourceid[]' value='"+data._id+"'><input type='hidden' name='recordid' value='"+data.recordid+"'/><a class='removeImg fa fa-times-circle-o' onclick='removeOne(this,"+data._id+",1)'></a><img height='80px' width='100px' src='"+data.savepath+data.savename+"'/><input id='addonDesc' type='hidden' name='addonDesc[]'/></div>";
+                    $('#thumb').html(v);
+                }
+            }
+            //alert(data.info);
+        }
+        /* 列出附件 */
+        var uri = "{:addons_url('Attachment://Attachment/show',array('recordid'=>$param['recordid'],'type'=>$param['type']))}";
+        $.ajax({
+            url:uri, type:'get', dataType:'jsonp', jsonp: "backfunc",
+            success: function(json){
+                var vv = '';
+                var i = 0;
+                var hashs = new Array();
+                var recordid = "{$param['recordid']}";
+                $(json).each(function(){
+                    if(this.type == 'image'){
+                        vv += "<div class='lists'><input type='hidden' name='sourceid[]' value='"+this._id+"'><input type='hidden' name='recordid' value='"+recordid+"'/><a class='removeImg fa fa-times-circle-o' onclick='removeOne(this,"+this._id+",0)'></a><img height='80px' width='100px' src='"+this.savepath+this.savename+"'/><div><input id='addonDesc' type='text' name='addonDesc[]'  value='"+this.addonDesc+"'/> </div></div>";
+                        hashs[i] = this.hash;
+                        $('#hashs').val(hashs);
+                        i++;
+                        $('#show').html(vv);
+
+                    } else if(this.type == 'file') {
+                        vv += "<div class='lists'><input type='hidden' name='sourceid[]' value='"+this._id+"'><input type='hidden' name='recordid' value='"+recordid+"'/><a class='removeImg fa fa-times-circle-o' onclick='removeOne(this,"+this._id+",0)'></a><img height='100px' width='80px'src='{IMG_PATH}Admin/upload-pic.jpg'/><div><input id='addonDesc' type='text' name='addonDesc[]' value='"+this.addonDesc+"'/> </div></div>";
+                        hashs[i] = this.hash;
+                        $('#hashs').val(hashs);
+                        i++;
+                        $('#show').html(vv);
+                    } else {
+                        vv += "<div id='buttons'><input type='hidden' id='is_thumb' name='thumb' value='1'><input type='hidden' name='sourceid[]' value='"+this._id+"'><input type='hidden' name='recordid' value='"+recordid+"'/><a class='removeImg fa fa-times-circle-o' onclick='removeOne(this,"+this._id+",1)'></a><img height='80px' width='100px' src='"+this.savepath+this.savename+"'/><input id='addonDesc' type='hidden' name='addonDesc[]'/></div>";
+                        $('#thumb').html(vv);
+                        $('#is_thumb').attr('value','1');
+                    }
+                });
+
+            }
+        });
+        /* 移除附件 */
+        function removeOne(o,id,past){
+            var uri = "{:addons_url('Attachment://Attachment/remove')}";
+            var obj = $(o);
+            if(past) {
+                $("#thumb").html("<input type='hidden' id='is_thumb' name='thumb' value='0'><img id='buttons' src='{IMG_PATH}Admin/upload-pic.png' height='80px'/>");
+
+            }
+            $.ajax({
+                url:uri, type:'get',data:{'_id':parseFloat(id)}, dataType:'jsonp', jsonp: "backfunc",
+                success: function(json){
+                    if(json == 1){
+                        alert('参数错误，删除失败');
+                    }else if(json == 2){
+                        alert('文件不存在,删除失败')
+                    }else{
+                        alert('删除成功');
+                        obj.parent().remove();
+                    }
+                }
+            });
+        }
+    </script>
+
+
+</block>

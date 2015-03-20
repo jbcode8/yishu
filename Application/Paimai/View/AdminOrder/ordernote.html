@@ -1,0 +1,35 @@
+<extend name="Admin@Public:base"/>
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css"/>
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" type="text/css" href="{JS_PATH}JqueryEasyui/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="{JS_PATH}JqueryEasyui/themes/icon.css"/>
+    <script type="text/javascript" src="{JS_PATH}JqueryEasyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="{JS_PATH}JqueryEasyui/jquery.easyui.min.js"></script>
+
+</block>
+<block name="body">
+    <style type="text/css">
+        #j_page a{padding: 5px;}
+    </style>
+
+
+<div id="tt" class="easyui-tabs" data-options="fit:true" style="">   
+    <div title="修改订单号{$orderinfoid}的备注信息" style="padding:20px;">   
+        <table id="j_auto_order"></table>
+    </div>   
+    
+</div> 
+
+
+    <script type="text/javascript">
+        $(function(){
+            
+
+
+           
+        })
+    </script>
+        
+</block>

@@ -1,0 +1,14 @@
+<tr>
+    <th>内容来源:</th>
+    <td>
+        <input type="text" name="copyfrom" value="{$vo.copyfrom}" size="50" />
+    </td>
+</tr>
+<tr>
+    <th>内容:</th>
+    <td>
+        <div style="width: 85%;">
+            <textarea name="content">{$vo.content}</textarea>{:hook('adminEditor',array('name'=>'content'))}
+        </div>
+    </td>
+</tr>

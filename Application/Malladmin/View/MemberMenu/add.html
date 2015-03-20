@@ -1,0 +1,70 @@
+<extend name="Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{width:500px;}
+    </style>
+</block>
+<block name="body">
+    <form action="{:U('add')}" method="post" class="addmenu">
+        <table class="form">
+            <tr>
+                <th class="w1">上级菜单:</th>
+                <td style="width:167px">
+                    <select name="pid">
+                        <option value="">请选择...</option>
+                        <option value="0">顶级菜单</option>
+                        {:getMemberMenu(I('get.pid','0','intval'))}
+                    </select>
+                </td>
+                <td class="tips">
+                    <i class="red">*必选</i>
+                </td>
+            </tr>
+            <tr>
+                <th>菜单名称:</th>
+                <td>
+                    <input name="name" type="text" placeholder="中文名称"/>
+                </td>
+                <td class="tips">
+                    <i class="red">*必填</i> 中文名称
+                </td>
+            </tr>
+            <tr>
+                <th>Url:</th>
+                <td>
+                    <input name="name" type="text" placeholder="Url"/>
+                </td>
+                <td class="tips">
+                    <i class="red">*必填</i> U方法内容
+                </td>
+            </tr>
+            <tr>
+                <th>排序:</th>
+                <td>
+                    <input name="listorder" type="text" placeholder="值越小越靠前 不支持负数"/>
+                </td>
+                <td class="tips">
+                    提示:值越小越靠前
+                </td>
+            </tr>
+            <tr>
+                <th>状态:</th>
+                <td>
+                    <select name="status">
+                        <option value="1">正常</option>
+                        <option value="0">禁用</option>
+                    </select>
+                </td>
+                <td class="tips">
+                    <i class="red">*必选</i>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <button type="submit" class="btn ajax-post" target-form="addmenu" >确认</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</block>

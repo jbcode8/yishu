@@ -1,0 +1,67 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{width: 600px;height: 300px;}
+    </style>
+</block>
+<!--主体内容 开始-->
+<block name="body">
+    <!-- 数据表格 开始-->
+    <form method="post" class="addCategory">
+        <div id="form_left">
+            <table class="form">
+                <tr>
+                    <th width="100px">标题：</th>
+                    <td><input type="text" name="title" maxLength="10" /></td>
+                </tr>
+                <tr>
+                    <th>艺术家：</th>
+                    <td>
+                        <input type="text" name="artistName" id="_artist_name" readonly="readonly" required="required" maxLength="10" />
+                        {:R('Library/names',array('_artist_name'))}
+                    </td>
+                </tr>
+                <tr>
+                    <th> 状态：</th>
+                    <td>
+                       <php>  $arr = getArtistStatus(false); </php>
+                        <select name="status">
+                            <option value=""> ---请选择--- </option>
+                            <volist name="arr" id="vo">
+                                <option value="{$key}">{$vo}</option>
+                            </volist>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <button type="submit" class="btn" target-form="addCategory">确认</button>
+                        <button type="reset" class="btn btn_gary">重填</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </form>
+    <!-- 数据表格 结束-->
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+    <load file="{PLUGIN_PATH}DatePicker/WdatePicker.js"/>
+    <script type="text/javascript">
+        $(function(){
+            $('form').submit(function(){
+                var data = $('form').serializeArray();
+                var  where = '';
+                if(data[0].value != ''){ where += 'title='+data[0].value; }
+                if(data[2].value != ''){ where += where==''?'aid='+data[2].value:'&aid='+data[2].value; }
+                if(data[3].value != '' ){ where += where==''?'status='+data[3].value:'&status='+data[3].value;}
+                var url = "{:U('Artist/Events/index')}";
+                url.indexOf('?',url)>0?url = url+"&"+where:url = url+"?"+where;
+                $.dialog.opener.location.href = url;
+            });
+        });
+    </script>
+</block>

@@ -1,0 +1,62 @@
+<extend name="Admin@Public:base" />
+
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+</block>
+
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul><li class="selected"><a href="{:U('Mall/Collect/index')}">收藏列表</a></li></ul>
+
+        <!--快捷按钮 开始-->
+        <div class="nav_btn">
+            <a class="fa fa-home" href="{:U('Mall/Collect/index?type=1')}"> 店铺收藏</a>
+            <a class="fa fa-inbox" href="{:U('Mall/Collect/index?type=0')}"> 商品收藏</a>
+        </div>
+        <!--快捷按钮 结束-->
+
+        <!--搜索 开始-->
+        <div class="advSearch">
+            <form method="post" action="{:U(index)}">
+                <div class="row">
+                    <label>关键字：</label>
+                    <input type="text" size="10" name="kw" placeholder="请输入关键字" style="padding:2px 5px" value="{$kw}" />
+                </div>
+                <button type="submit" class="btn fa fa-search"> 搜 索</button>
+            </form>
+        </div>
+        <!--搜索 结束-->
+
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 开始-->
+    <?php
+    $thead = array(
+        'collect_id' => '编号',
+        'collect_title' => '收藏标题',
+        'uid' => array(
+            '_title' => '会员',
+            'func' => 'getUserInfo($uid)',
+        ),
+        '收藏类型' => array(
+            '产品收藏' => array('tag' => 'span', 'condition' => '$collect_type==0'),
+            '店铺收藏' => array('tag' => 'span', 'condition' => '$collect_type==1'),
+        ),
+        '操作'=>array(
+            ' 删除收藏'=>array('href' => 'Mall/Collect/delete?collect_id=$collect_id', 'class'=>'ajax-get fa red fa-trash-o'),
+        ),
+    );
+    echo $_table_list = $__controller__->tableList($_list, $thead);
+    ?>
+    <!-- 数据表格 结束-->
+    <div class="paging">
+        {$_page}
+    </div>
+</block>
+<!--主体内容 结束-->
+<block name="javascript">
+<load file="__PUBLIC__/plugin/DatePicker/WdatePicker.js" />
+</block>

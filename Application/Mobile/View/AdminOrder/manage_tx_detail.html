@@ -1,0 +1,57 @@
+<extend name="Admin@Public:base"/>
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css"/>
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css"/>
+</block>
+<block name="body">
+   <table class="m_table">
+       <tr>
+       	   <td>单号</td>
+		   <td>充值金额</td>
+		   <td>资金来源</td>
+		   <td>支付状态</td>
+		   <td>时间</td>
+	   </tr>
+        
+
+		
+	   <volist name="list" id="vo">
+		   <tr> 
+	        	<td>{$vo['recharge_sn']}</td>
+	        	<td>{$vo['recharge_money']}</td>
+	        	<td>
+	        		<if condition="$vo['recharge_style'] eq 1">
+	        			支付宝充值
+					<elseif condition="$vo['recharge_style'] eq 2"/>
+						退还的保证金
+					<elseif condition="$vo['recharge_style'] eq 3"/>
+						商品到期没有付款扣除的保证金
+					<elseif condition="$vo['recharge_style'] eq 4"/>
+						拍商品时候扣除的保证金
+					<elseif condition="$vo['recharge_style'] eq 5"/>
+						超过限额增加的保证金
+					<elseif condition="$vo['recharge_style'] eq 6"/>
+						网银在线充值
+					<elseif condition="$vo['recharge_style'] eq 7"/>
+						在线提现
+					<else /> 
+						充值失败
+					</if>
+	        	</td>
+	        	<td>
+	        		<if condition="$vo['recharge_status'] eq 2">
+	        			支付成功
+	        		<else />
+	        			未支付
+	        		</if>
+	        	</td>
+	        	<td>{:date('Y-m-d H:i:s', $vo['recharge_createtime'])}</td>
+	        </tr>
+    	</volist>
+		
+
+        
+       <!--  <tr><td colspan="15">{$page}</td></tr> -->
+    </table>
+        
+</block>

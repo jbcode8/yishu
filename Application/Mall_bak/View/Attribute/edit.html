@@ -1,0 +1,25 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+<style type="text/css">
+    body{width:350px}
+</style>
+</block>
+<block name="body">
+    <form action="{:U('Mall/Attribute/edit')}" method="post" class="editAttribute">
+        <table class="form">
+            <tr>
+                <th>属性类型名称:</th>
+                <td><input name="attr_name" type="text" value="{$vo.attr_name}" /></td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+            <tr>
+                <th>&nbsp;</th>
+                <td>
+                    <input type="hidden" name="attr_id" value="{$vo.attr_id}" />
+                    <button type="submit" class="btn ajax-post" target-form="editAttribute">确认</button>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
+</block>

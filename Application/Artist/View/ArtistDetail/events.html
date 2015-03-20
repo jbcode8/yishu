@@ -1,0 +1,39 @@
+<extend name="detailBase"/>
+<block name="content">
+<!--content  start-->
+<div class="center cb">
+<!--个人简介 start-->
+<div class="personal_intro">
+<!--left start-->
+ <div class="personal_left">
+  <div class="personal_left_top"><i></i>TA的大事记</div>
+  <volist name="events" id="vo">
+      <!---->
+      <div class="personal_day">
+          <div class="per_day_left" id="nav{$key|date='Y年',###}">{$key|date='Y年',###}</div>
+          <div class="per_day_right">
+          <i></i>
+          <h3>{$vo.title}</h3>
+              {$vo.content|htmlspecialchars_decode=###}
+           </div>
+      </div>
+      <!---->
+   </volist>
+  <!---->
+  <!--
+<div class="per_more"><a href="#">点击展开更多&gt;&gt;</a></div>
+-->
+ </div>
+<!--left end-->
+<!--right start-->
+ <div class="personal_right">
+ <volist name="events" id="vo">
+ <a href="#nav{$key|date='Y年',###}" id="s">{$key|date='Y年',###}</a>
+ </volist>
+ </div>
+<!--right end-->
+</div>
+<!--end 个人简介-->
+</div>
+<!--content end-->
+</block>

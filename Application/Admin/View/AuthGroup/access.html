@@ -1,0 +1,90 @@
+<extend name="Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/zTree/css/zTreeStyle.css" />
+    <load file="__PUBLIC__/plugin/zTree/js/jquery.ztree.all-3.5.min.js" />
+    <style type="text/css">
+        body{width:300px;height: 400px;padding-top: 27px;}
+        #treeDemo{padding-bottom: 40px;}
+        .topBtn{height:25px;width:100%;background-color: #eee;position: fixed;top:0;line-height: 25px;}
+        .topBtn a{color:#000;margin:0 5px;}
+        .bottomBtn{background-color: #eee;position: fixed;bottom: 0;height:35px;line-height: 35px;width: 100%;padding-left: 10px;}
+    </style>
+    <SCRIPT type="text/javascript">
+        <!--
+        var setting = {
+            check: {
+                enable: true
+            },
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+            callback: {
+                onCheck: onCheck
+            }
+        };
+
+        function onCheck(e, treeId, treeNode) {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+                    checkCount = zTree.getCheckedNodes(true);
+            var checkNode = [];
+            $.each(checkCount,function(k,v){
+                checkNode.push(checkCount[k].id);
+            });
+            $('#rules').val(checkNode.toString());
+        }
+        var zNodes ={$rules};
+
+        function expandNode(e) {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+                    type = e.data.type;
+            if (type == "expandAll") {
+                zTree.expandAll(true);
+            } else if (type == "collapseAll") {
+                zTree.expandAll(false);
+            }
+        }
+
+        /**
+         * 选择节点
+         * @param e
+         */
+        function checkNode(e){
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+                    type = e.data.type;
+            if (type == "checkAllTrue") {
+                zTree.checkAllNodes(true);
+                onCheck();
+            } else if (type == "checkAllFalse") {
+                zTree.checkAllNodes(false);
+                onCheck();
+            }
+        }
+
+        $(document).ready(function(){
+            $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+            $("#checkAllTrue").bind("click", {type:"checkAllTrue"}, checkNode);
+            $("#checkAllFalse").bind("click", {type:"checkAllFalse"}, checkNode);
+            $("#expandAllBtn").bind("click", {type:"expandAll"}, expandNode);
+            $("#collapseAllBtn").bind("click", {type:"collapseAll"}, expandNode);
+        });
+        //-->
+    </SCRIPT>
+</block>
+<block name="body">
+    <div class="topBtn">
+        <a href="javascript:void(0);" id="checkAllTrue">全选</a>
+        <a href="javascript:void(0);" id="checkAllFalse">取消全选</a>
+        <a href="javascript:void(0);" id="expandAllBtn">全部展开</a>
+        <a href="javascript:void(0);" id="collapseAllBtn">全部收缩</a>
+    </div>
+    <ul id="treeDemo" class="ztree"></ul>
+    <div class="bottomBtn">
+        <form action="{:U('access')}" method="post" class="accessAuth">
+            <input id="id" name="id" type="hidden" value="{$_REQUEST['id']}"/>
+            <input id="rules" name="rules" type="hidden" />
+            <button type="submit" class="btn ajax-post" target-form="accessAuth">确 定</button>
+        </form>
+    </div>
+</block>

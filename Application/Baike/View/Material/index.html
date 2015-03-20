@@ -1,0 +1,97 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/DatePicker/WdatePicker.js" />
+</block>
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul>
+            <li class="selected"><a href="{:U('index')}">资料列表</a></li>
+        </ul>
+
+        <!--快捷按钮 开始-->
+        <div class="nav_btn">
+            <a href="{:U('Baike/EditionMaterial/index')}" class="fa fa-file"> 版本库</a>
+        </div>
+        <!--快捷按钮 结束-->
+
+        <!--搜索 开始-->
+        <div class="advSearch">
+            <form method='post' action="{:U('index')}">
+                <div class="row">
+                    <label>资料名称：</label>
+                    <input type="text" name='name' size="12" placeholder="请输入用户名">
+                </div>
+                <div class="row">
+                    <label>创建时间：</label>
+                    <input type="text" size="6" placeholder="起始时间" name='start_time' id="starttime"  onfocus="WdatePicker({onpicked:function(){$('#endtime').focus();}})"/> -
+                    <input type="text" size="6" placeholder="结束时间" name='end_time' id="endtime" onfocus="WdatePicker({minDate:$('#starttime').val()})" />
+                </div>
+                <button class="btn fa fa-search"> 搜 索</button>
+                <button class="btn fa fa-search-plus" onclick="javascript:$.dialog.open('{:U(\'search\')}',{title:'参考资料检索','lock':true});return false;"> 高级搜索</button>
+            </form>
+        </div>
+        <!--搜索 结束-->
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 -->
+    <div class="table">
+        <?php
+        $thead = array(
+            '_html'=>array(
+        '_th'=>'row-selected',
+        'th'=>'<input class="check-all" type="checkbox"/>',
+        'td'=>'<input class="ids" type="checkbox" name="ids[]" value="$mid" />',
+        ),
+        'name'=>'资料名称',
+        'cid' => array(
+                    '_title' => '分类',
+                    'func'  => 'get_category($cid)',
+                    ),
+        'time'=> array(
+                    '_title' => '创建时间',
+                    'func'  => 'date("Y-m-d",$time)',
+                    ),
+        'authorid'=> array(
+                    '_title' => '创建者',
+                    'func' => 'get_username($authorid)',
+                    ),
+        'url' => array(
+                    '_title'=>'链接',
+                    ),
+        'locked' => array(
+                    '_title' => '锁定',
+                    'func' => 'get_locked($locked)',
+                    ),
+        'visible' => array(
+                    '_title' => '审核',
+                    'func' => 'get_visible($visible)',
+                    ),
+        '操作' => array(
+                ' 删除'=>array( 'href' => 'Baike/Material/delete?mid=$mid','class'=>'confirm ajax-get red fa fa-trash-o'),
+                ' 版本库'=>array( 'href' => 'Baike/EditionMaterial/index?mid=$mid','class'=>'fa fa-file'),
+                ),
+        );
+        echo $_table_list = $__controller__->tableList($_list,$thead);
+        ?>
+    </div>
+
+    <div class="paging"  style="float: left;margin-top: 5px;">
+        <div class="page">
+            <a href="javascript:alertlock(1);return false;" class="fa fa-lock"> 锁 定</a>
+            <a href="javascript:alertlock(0);return false;" class="fa fa-unlock"> 解 锁</a>
+            <a href="javascript:delselected();return false;" class="confirm fa fa-trash-o"> 删 除</a>
+            <a href="javascript:audit();return false;" class="fa fa-gavel"> 审 核</a>
+        </div>
+    </div>
+
+    <div class="paging">
+        {$_page}
+    </div>
+
+    <block name="javascript">
+        {:bulkActionJS()}
+    </block>
+
+</block>

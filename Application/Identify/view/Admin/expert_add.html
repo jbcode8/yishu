@@ -1,0 +1,20 @@
+<include file="Admin@Public:header" />
+<div class="container">
+    <ul class="header clear">
+    <li <eq name="ACTION_NAME" value="index">class="current"</eq>><a href="{:U('Identify/AdminExpert/index')}">鉴定专家管理</a></li>
+    <li <eq name="ACTION_NAME" value="add">class="current"</eq>><a href="{:U('Identify/AdminExpert/add')}">添加鉴定专家</a></li>
+    </ul>
+    <form method="post">
+    <table class="table table-hover">
+        <thead><tr><th></th><th></th></tr></thead>
+        <tbody>
+            <tr><td>专家姓名：</td><td><input type="text" name="username" /></td></tr>
+            <tr><td>分类：</td><td>{:selectIdentifyCategory()}</td></tr>
+            <tr><td>专家头像：</td><td><Form function="images" parameter="thumb, thumb, , identify" /></td></tr>
+            <tr><td>专家简介：</td><td><textarea name="brief" rows="7" style="width: 500px"></textarea></td></tr>
+            <tr><td>&nbsp;</td><td><input name="submit" type="submit" value="提交信息" class="btn btn-primary" /></td></tr>
+        </tbody>
+    </table>
+    </form>
+</div>
+<include file="Admin@Public:footer" />

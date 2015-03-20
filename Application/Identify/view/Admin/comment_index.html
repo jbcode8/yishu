@@ -1,0 +1,42 @@
+<include file="Admin@Public:header" />
+<div class="container">
+    <ul class="header clear">
+    <li class="current"><a href="{:U('Identify/AdminComment/index')}">鉴定评论管理</a></li>
+    </ul>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>评论者ID</th>
+                <th>内容</th>
+                <th>状态</th>
+                <th>添加时间</th>
+                <th>管理操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        <volist name="list" id="v">
+            <tr>
+                <td>{$v['id']}</td>
+                <td>{$v['mid']}</td>
+                <td>{$v['content']}</td>
+                <td>
+                <if condition="$v['isopen'] eq 1">
+                    <span style="color:#008000">显示</span> | 
+                    <a href="{:U('Identify/AdminComment/update', array('id' => $v['id'], 'isopen' => '0'))}">设为不显示</a>
+                <else/>
+                    <span style="color:#f00">不显示</span>
+                    <a href="{:U('Identify/AdminComment/update', array('id' => $v['id'], 'isopen' => '1'))}">设为显示</a>
+                </if></td>
+                <td>{:date('Y-m-d H:i:s',$v['createtime'])}</td>
+                <td>
+                    <a href="{:U('Identify/AdminComment/detail',array('id' => $v['id']))}">详细</a>
+                    <a href="{:U('Identify/AdminComment/delete',array('id' => $v['id']))}" onclick="if(confirm('确定要删除吗？')){return true;};return false;">删除</a>
+                </td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+    <div class="page">{$page}</div>
+</div>
+<include file="Admin@Public:footer" />

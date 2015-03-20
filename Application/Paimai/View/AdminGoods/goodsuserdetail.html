@@ -1,0 +1,84 @@
+<extend name="Admin@Public:base"/>
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+
+    <!--导航部分 开始-->
+    <div class="con_nav">
+
+
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 开始-->
+        <style type="text/css">
+            .j_padding-left{
+                padding-left:50px;
+            }
+        </style>
+        <table class="table treetable">
+            <thead>
+            <tr>
+                <td colspan=4>
+                    <table>
+                        <tr>
+                            <th>统计</th>
+                            <th>数量(次)</th>
+                            <th>统计</th>
+                            <th>数量(次)</th>
+                            <th>统计</th>
+                            <th>数量(次)</th>
+                        </tr>
+                        <tr>
+                            <td class="j_padding-left">点击出价,然后点击取消</td>
+                            <td>{:getuserbidstatus($goods_id,1)}</td>
+                            <td class="j_padding-left">点击出价,然后点击确认</td>
+                            <td>{:getuserbidstatus($goods_id,2)}</td>
+                            <td class="j_padding-left">提示用户去初次充值,没有出价成功</td>
+                            <td>{:getuserbidstatus($goods_id,3)}</td>
+                        </tr>
+                        <tr>
+                             <td class="j_padding-left">提示用户去再次充值,没有出价成功</td>
+                            <td>{:getuserbidstatus($goods_id,4)}</td>
+                            <td class="j_padding-left">有最高出价提示用户再次出价</td>
+                            <td>{:getuserbidstatus($goods_id,5)}</td>
+                            <td class="j_padding-left">出价成功</td>
+                            <td>{:getuserbidstatus($goods_id,9)}</td>
+                        </tr>
+                    
+                    </table>
+                </td>
+                
+            </tr>
+            <tr>
+				<!-- <th><input id="checkAll" type="checkbox" /></th> -->
+                <th>商品ID:{$goods_id}</th>
+                <th>用户名</th>
+                <th>出价类型</th>
+                <th>出价时间</th>
+                
+            </tr>
+            <if condition="$bidstatus_arr neq ''">
+            <volist name="bidstatus_arr" id="v">
+            <tr>
+                <td>id</td>
+                <td>{:getUsername($v['bidstatus_uid'],0)}</td>
+                <td>{$v.style}</td>
+                <td>{$v.bidstatus_time|date="y-m-d H:i:s",###}</td>
+            </tr>
+            </volist>
+            <else/>
+             <tr>
+                <td colspan="4">暂无记录信息</td>
+            </tr>
+            </if>
+            
+            </thead>
+            <tbody>
+               
+            </tbody>
+        </table>
+
+</block>

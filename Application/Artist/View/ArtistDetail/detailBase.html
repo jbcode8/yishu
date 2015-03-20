@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="{CSS_PATH}Artist/artistDetail.css" type="text/css" rel="stylesheet" />
+<script src="{JS_PATH}jquery-1.7.2.min.js"></script>
+<title>大师首页</title>
+</head>
+<body>
+<!--topsnav start-->
+<div class="topsnav">
+    <div class="center">
+ <div class="topsnav_left"><a class="m_r10" href="#"><img src="{IMG_PATH}Artist/logo.jpg" border="0" /></a> <a href="{:C(WEB_URL)}">艺术网首页</a>&gt;<a href="{:C(ARTIST_URL)}">艺术家频道</a>&gt;<a href="#">{$detail.name}的空间</a><span><a href="{:C(ARTIST_URL)}artist">艺术家库</a>|<a href="{:C(ARTIST_URL)}works">作品大全</a></span></div>
+ <div class="topsnav_right"><a href="{:U('/Member/Passport/')}" class="topsanv_gl">空间管理</a><a href="{:U('/Member/Passport/register')}">申请加入</a></div>
+    </div>
+</div>
+<!--topsnav end-->
+<!--head nav start-->
+<div class="head_nav">
+ <!--head start-->
+    <div class="head">
+	   <dl>
+	      <dt><img src="{$detail.thumb}" width="206" height="266"/> </dt>
+		  <dd><p class="head_font">{$detail.name}</p><p>出生年月：{$detail.birthday|date='Y',###}年</p><p>所在地域：{:getCity($detail['provinceid'])}</p><p>擅&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长：{$detail.goodat|new_msubstr=###,0,10,'utf-8',true}</p></dd>
+	   </dl>
+	</div>
+ <!--head end-->
+ <!--nav start-->
+  <div class="nav">
+    <div class="nav_font">
+            <a href="{:U('Artist/ArtistDetail/index',array('id'=>$detail['id']))}" <if condition="ACTION_NAME eq 'index'">class="select"</if>>首页</a><a href="{:U('Artist/ArtistDetail/events',array('id'=>$detail['id']))}" <if condition="ACTION_NAME eq 'events'">class="select"</if>>个人简介</a><a href="{:U('Artist/ArtistDetail/work',array('id'=>$detail['id']))}" <if condition="ACTION_NAME eq 'work'">class="select"</if>>在线展厅</a><a href="{:U('Artist/ArtistDetail/index',array('id'=>$detail['id']))}">投资指数</a><a href="{:U('Artist/ArtistDetail/award',array('id'=>$detail['id']))}" <if condition="ACTION_NAME eq 'award'">class="select"</if>>获奖收藏</a><a href="{:U('Artist/ArtistDetail/exhibit',array('id'=>$detail['id']))}" <if condition="ACTION_NAME eq 'exhibit'">class="select"</if>>个人画展</a><a href="{:U('Artist/ArtistDetail/news',array('id'=>$detail['id']))}" <if condition="ACTION_NAME eq 'news' or ACTION_NAME eq 'newsDetail'">class="select"</if>>个人动态</a><a href="{:U('Artist/ArtistDetail/album',array('id'=>$detail['id']))}" <if condition="ACTION_NAME eq 'album'">class="select"</if>>个人相册</a><a href="{:U('Artist/ArtistDetail/message',array('id'=>$detail['id']))}" <if condition="ACTION_NAME eq 'message'">class="select"</if>>留言板</a>
+     </div>
+   </div>
+ <!--nav end-->
+</div>
+<!--head nav end-->
+<block name="content"></block>
+<!--foot start-->
+<div class="foot">
+  <div class="center foot_font">
+  <p><a href="#">人才招聘</a>|<a href="#">免责声明</a>|<a href="#">隐私政策</a>|<a href="#">友情链接</a>|<a href="#">网站地图</a>|<a href="#">帮助中心</a>|<a href="#">客户投诉</a>|<a href="#">广告业务</a>|<a href="#">关于我们</a>|<a href="#">联系我们</a>|<a href="#">版权声明</a></p>
+  <p>Copyright Reserved 2013 YISHU.com 版权所有</p>
+  <p>电信与信息服务业务经营许可证 沪ICP备14002523</p>
+  </div>
+</div>
+<!--foot end-->
+</body>
+</html>

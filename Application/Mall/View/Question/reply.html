@@ -1,0 +1,34 @@
+<extend name="Admin@Public:base" />
+
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <load file="__PUBLIC__/plugin/treetable/js/jquery.treetable.js" />
+    <style type="text/css">
+        body{width:800px}
+    </style>
+</block>
+
+<!--主体内容 开始-->
+<block name="body">
+    <!-- 数据表格 开始-->
+    <?php
+        $thead = array(
+            'question_id' => '编号',
+            'content' => '回复内容',
+            'create_time' => array(
+                '_title' => '回复时间',
+                'tag' => 'span',
+                'func' => 'date("Y-m-d H:i:s", $create_time)',
+            ),
+            '操作'=>array(
+                ' 删除'=>array('href' => 'Mall/Question/delete?question_id=$question_id&q_id=$q_id', 'class'=>'ajax-get fa fa-trash-o red'),
+            ),
+        );
+        echo $_table_list = $__controller__->tableList($_list, $thead);
+    ?>
+    <!-- 数据表格 结束-->
+    <div class="paging">
+        {$_page}
+    </div>
+</block>
+<!--主体内容 结束-->

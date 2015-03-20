@@ -1,0 +1,108 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+    <div class="nav_btn">
+        <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('News/AdminNewslist/add')}', {title:'添加新闻', id:'adoArticle',width:'1000px',height:'600px'})">添加新闻</a>
+
+    </div>
+	</br>	
+    <!--快捷按钮 结束-->
+
+    <table class="m_table">
+        <tr><th>新闻id</th><th>新闻标题</th><th>新闻摘要</th><th>新闻作者</th><th>新闻来源</th><th>新闻类型</th><th>来源链接</th><th>是否推荐</th><th>推荐位</th><th>是否显示</th><th>记录创建时间</th><th>排序</th><th>操作</th></tr>
+        <volist name="news" id="v">
+            <tr>
+                <td id="id" style="text-align:center">{$v.news_id}</td>
+                <td style="text-align:center"><a target="_blank" href="/news/{$v['news_createtime']|date="Ymd",###}/{$v['news_id']}.html">{:substr_CN($v['news_name'],10)}</a></td>
+                <td style="text-align:center">{:substr_CN($v['news_summary'],10)}</td>
+                <td style="text-align:center">{$v.news_author}</td>
+                <td style="text-align:center">{$v.news_source}</td>
+				<td style="text-align:center">
+				<if condition="$v.news_type eq 1">
+				行业热点
+				<elseif condition="$v.news_type eq 2"/>
+				拍卖新闻
+				<elseif condition="$v.news_type eq 3"/>
+				名家大师
+				<elseif condition="$v.news_type eq 4"/>
+				展览动态 
+				<elseif condition="$v.news_type eq 5"/>
+				艺术趣闻
+				<elseif condition="$v.news_type eq 6"/>
+				人文艺术 
+				<elseif condition="$v.news_type eq 7"/>
+				图片新闻推荐位
+				<elseif condition="$v.news_type eq 8"/>
+				独家专题
+				<elseif condition="$v.news_type eq 9"/>
+				收藏知识(暂不用)
+				<elseif condition="$v.news_type eq 10"/>
+				百叶窗图片推荐位
+				<elseif condition="$v.news_type eq 11"/>
+				头条新闻推荐位
+				<elseif condition="$v.news_type eq 12"/>
+				要闻推荐位
+				<else />
+				全部
+				</if>
+				</td>
+				<td style="text-align:center">{$v.news_url}</td>
+				<td style="text-align:center">
+				<if condition="$v.news_recommend eq 1">
+				推荐
+				<else />
+				不推荐
+				</if>
+				</td>
+				<td style="text-align:center">
+				<if condition="$v.news_arrposid eq 1">
+				艺术网首页图片推荐
+				<elseif condition="$v.news_arrposid eq 2" />
+				咨询中心图片新闻推荐
+				<elseif condition="$v.news_arrposid eq 3" />
+				新闻首页百叶窗推荐
+				<elseif condition="$v.news_arrposid eq 4" />
+				新闻首页头条新闻推荐
+				<elseif condition="$v.news_arrposid eq 5" />
+				新闻首页要闻推荐
+				<elseif condition="$v.news_arrposid eq 5" />
+				艺术网首页文字推荐
+				<else />
+				不推荐
+				</if>
+				</td>
+				<td style="text-align:center">
+				<if condition="$v.news_isshow eq 0">
+				显示
+				<else />
+				不显示
+				</if>
+				</td>
+                <td style="text-align:center">{$v.news_createtime|date="Y-m-d H:i:s",###}</td>
+				<td style="text-align:center">{$v.news_order}</td>
+                <td style="text-align:center">
+				<a href="{:U('News/AdminNewslist/edit',array('news_id'=>$v['news_id']))}">编辑</a>
+				&nbsp&nbsp|&nbsp&nbsp
+				<a class="j_del" href="{:U('News/AdminNewslist/delete',array('news_id'=>$v['news_id']))}">删除</a></td>
+            </tr>
+        </volist>
+		<tr><td colspan="13" align="center">{$page}</td></tr>
+    </table>
+     
+    <script>
+        $(function(){
+
+            //判断删除
+            $(".j_del").click(function(e){
+                if(!confirm("你是否确认删除这条新闻信息？")){
+                    e.preventDefault();
+                }
+            });
+
+        })
+    </script>
+</block>

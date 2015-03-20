@@ -1,0 +1,87 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{width: 600px;height: 300px;}
+    </style>
+</block>
+<!--主体内容 开始-->
+<block name="body">
+    <!-- 数据表格 开始-->
+    <form method="post" class="addCategory">
+        <div id="form_left">
+            <table class="form">
+                <tr>
+                    <th width="100px">姓名：</th>
+                    <td><input type="text" name="name" maxLength="10" /></td>
+                </tr>
+                <tr>
+                    <th>性别：</th>
+                    <td>
+                        <select name="sex">
+                            <option value="">---请选择---</option>
+                            <option value=1> 男 </option>
+                            <option value=0> 女 </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>E-mail：</th>
+                    <td><input type="email" name="email" maxLength="100" /></td>
+                </tr>
+                <tr>
+                    <th> 所在地区：</th>
+                    <td>{:hook('region')}</td>
+                </tr>
+                <tr>
+                    <th>类别：</th>
+                    <td>  {:getArtistCategory()} </td>
+                </tr>
+                <tr>
+                    <th>标志：</th>
+                    <td>
+                        <php> $type = getArtistType(); </php>
+                        <select name="type">
+                            <option value="">---请选择---</option>
+                            <volist name="type" id="t" key="k">
+                                <option value="{$k-1}">{$t}</option>
+                            </volist>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <button type="submit" class="btn" target-form="addCategory">确认</button>
+                        <button type="reset" class="btn btn_gary">重填</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </form>
+    <!-- 数据表格 结束-->
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+    <load file="{PLUGIN_PATH}DatePicker/WdatePicker.js"/>
+    <script type="text/javascript">
+        $(function(){
+            $('form').submit(function(){
+                var data = $('form').serializeArray();
+                var  where = '';
+                if(data[0].value != ''){ where += 'name='+data[0].value; }
+                if(data[1].value != ''){ where += where==''?'sex='+data[1].value:'&sex='+data[1].value; }
+                if(data[2].value != ''){ where += where==''?'email='+data[2].value:'&email='+data[2]; }
+                if(data[3].value > 0 ){ where += where==''?'provinceid='+data[3].value:'&provinceid='+data[3].value;}
+                if(data[4].value > 0 ){ where += where==''?'cityid='+data[4].value:'&cityid='+data[4].value;}
+                if(data[5].value > 0 ){ where += where==''?'areaid='+data[5].value:'&areaid='+data[5].value; }
+                if(data[6].value != ''){ where += where==''?'cid='+data[6].value:'&cid='+data[6].value; }
+                if(data[7].value != ''){ where += where==''?'type='+data[7].value:'&type='+data[7].value; }
+                var url = "{:U('Artist/Library/index')}";
+                url.indexOf('?',url)>0?url = url+"&"+where:url = url+"?"+where;
+                $.dialog.opener.location.href = url;
+            });
+        });
+    </script>
+</block>

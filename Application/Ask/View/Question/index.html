@@ -1,0 +1,72 @@
+<extend name="Admin@Public:base" />
+
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+</block>
+
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul><li class="selected"><a href="{:U('Ask/Question/index')}">问题列表</a></li></ul>
+
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 开始-->
+    <?php
+        $thead = array(
+            'id' => '问题编号',
+    'title' => array(
+        '_title' => '问题标题',
+    ),
+    'cate_id' => array(
+        '_title' => '问题分类',
+        'func' => 'getCateName($cate_id)',
+    ),
+    'user_id' => array(
+        '_title' => '提问者',
+    ),
+
+    'input_time' => array(
+        '_title' => '提问时间',
+        'tag' => 'span',
+        'func' => 'date("Y-m-d H:i:s", $input_time)',
+    ),
+    'add_content' => array(
+        '_title' => '回答次数',
+        'func'=> 'reply_num($id)',
+    ),
+    'tag' => array(
+        '_title' => '标签',
+        'func'=> 'check_tag($tag)',
+    ),
+
+    '操作'=>array(
+        ' 回答管理'=>array('href' => 'Ask/Question/reply?id=$id', 'class'=>'editQuestion fa fa-edit'),
+        ' 设为精彩'=>array('href' => 'Ask/Question/hot_set?status=jc&id=$id', 'class'=>'ajax-get fa fa-thumbs-o-up'),
+        ' 设为热门'=>array('href' => 'Ask/Question/hot_set?status=rm&id=$id', 'class'=>'ajax-get fa fa-fire'),
+        ' 删除'=>array('href' => 'Ask/Question/delete?id=$id', 'class'=>'ajax-get fa fa-trash-o red'),
+        //' 删除'=>array('href' => 'Ask/Question/delete?id=$id', 'class'=>''),
+    ),
+    );
+    echo $_table_list = $__controller__->tableList($_list, $thead);
+    ?>
+    <!-- 数据表格 结束-->
+    <div class="paging">
+        {$_page}
+    </div>
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+    <script type="text/javascript">
+        $(function() {
+            $(".listReply").on('click', function(e){
+                e.preventDefault();
+                $.dialog.open(this.href, {title:'查看回复', id:'listReply'} );
+            });
+        });
+    </script>
+    <load file="__PUBLIC__/plugin/DatePicker/WdatePicker.js" />
+</block>

@@ -1,0 +1,101 @@
+<extend name="Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{width:500px;}
+    </style>
+</block>
+<block name="body">
+    <form action="{:U('add')}" method="post" class="addmenu">
+        <table class="form">
+            <tr>
+                <th class="w1">上级菜单:</th>
+                <td style="width:167px">
+                    <select name="pid">
+                        <option value="">请选择...</option>
+                        <option value="0">顶级菜单</option>
+                        {:getMenu(I('get.pid','0','intval'))}
+                    </select>
+                </td>
+                <td class="tips">
+                    <i class="red">*必选</i>
+                </td>
+            </tr>
+            <tr>
+                <th>控制组:</th>
+                <td>
+                    <input name="module" type="text" placeholder="后台请填写 admin"/>
+                </td>
+                <td class="tips">
+                    <i class="red">*必填</i> 格式:  后台请填写 admin
+                </td>
+            </tr>
+            <tr>
+                <th>类型:</th>
+                <td>
+                    <select name="type">
+                        <option value="">请选择类型...</option>
+                        <option value="1">URL</option>
+                        <option value="2">分组菜单</option>
+                    </select>
+                </td>
+                <td class="tips">
+                    <i class="red">*必选</i> 格式: 实际操作链接选择URL 类型
+                </td>
+            </tr>
+            <tr>
+                <th>标识:</th>
+                <td>
+                    <input name="name" type="text" placeholder="Admin/Member/add"/>
+                </td>
+                <td class="tips">
+                    <i class="red">*必填</i> 格式: Admin/Member/add?id=1
+                </td>
+            </tr>
+            <tr>
+                <th>菜单名称:</th>
+                <td>
+                    <input name="title" type="text" placeholder="中文名称"/>
+                </td>
+                <td class="tips">
+                    <i class="red">*必填</i> 中文名称
+                </td>
+            </tr>
+            <tr>
+                <th>权限条件:</th>
+                <td>
+                    <input name="condition" type="text" placeholder="{score}>5  and {score}<100"/>
+                </td>
+                <td class="tips">
+                    提示:没有特殊请勿填写
+                </td>
+            </tr>
+            <tr>
+                <th>排序:</th>
+                <td>
+                    <input name="listorder" type="text" placeholder="值越小越靠前 不支持负数"/>
+                </td>
+                <td class="tips">
+                    提示:值越小越靠前
+                </td>
+            </tr>
+            <tr>
+                <th>状态:</th>
+                <td>
+                    <select name="status">
+                        <option value="1">正常</option>
+                        <option value="0">禁用</option>
+                    </select>
+                </td>
+                <td class="tips">
+                    <i class="red">*必选</i>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <button type="submit" class="btn ajax-post" target-form="addmenu" >确认</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</block>

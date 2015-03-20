@@ -1,0 +1,55 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{ background-color: #F0F0F0; }
+        #form_left{ width:1000px; margin: 0 auto; }
+        .operate { width:100%; height:30px;background-color: #5978A4; position: fixed;bottom: 0;z-index: 1000; }
+        .operate p { float: right; margin-right: 100px; }
+        .operate button{ background-color: #FF7F50; width: 100px; border: 0px; color: #000; font-family: 微软雅黑; font-size: 16px; font-weight: 800; }
+    </style>
+</block>
+<!--主体内容 开始-->
+<block name="body">
+    <!-- 数据表格 开始-->
+    <form action="{:U('Artist/Events/add')}" method="post" class="addCategory">
+        <div id="form_left">
+            <table class="form">
+                <tr>
+                    <th width="15%"><i class="red">* </i>艺术家姓名：</th>
+                    <td>
+                        <input type="text" name="artistName" id="_artist_name" readonly="readonly" required="required" maxLength="10" />
+                        {:R('Library/names',array('_artist_name'))}
+                    </td>
+                </tr>
+                <tr>
+                    <th><i class="red">* </i>日期：</th>
+                    <td><input name="eventtime" class="date" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'});" required="required"/></td>
+                </tr>
+                <tr>
+                    <th><i class="red">* </i>标题：</th>
+                    <td><input type="text"  name="title" required="required" ></td>
+                </tr>
+                <tr>
+                    <th><i class="red">* </i>详情：</th>
+                    <td>
+                        <div style="width: 80%">
+                            <textarea name="content"></textarea>{:hook('adminEditor',array('name'=>'content'))}
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="operate">
+            <p>
+                <button type="submit" class="btn" target-form="addCategory">　确　认　</button>
+                <button type="reset" class="btn btn_gary">　重　填　</button>
+            </p>
+        </div>
+    </form>
+    <!-- 数据表格 结束-->
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+    <load file="{PLUGIN_PATH}DatePicker/WdatePicker.js"/>
+</block>

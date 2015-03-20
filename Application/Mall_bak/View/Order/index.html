@@ -1,0 +1,83 @@
+<extend name="Admin@Public:base" />
+
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+</block>
+
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul><li class="selected"><a href="{:U('Mall/Order/index')}">订单列表</a></li></ul>
+
+        <!--搜索 开始-->
+        <div class="advSearch">
+            <form method="post" action="{:U(index)}">
+                <div class="row">
+                    <label>关键字：</label>
+                    <input type="text" size="8" name="kw" placeholder="请输入关键字" style="padding:2px 5px" value="{$kw}" />
+                    {:searchSelect(array('order_sn' => '订单号','seller_name' => '店主','buyer_name' => '购买者','order_desc'=>'备注'), $type)}
+                </div>
+                <div class="row">
+                    <label>时间：</label>
+                    <input style="padding:2px 5px" value="{$start_time}" type="text" size="6" placeholder="起始时间" name='start_time' id="starttime"  onfocus="WdatePicker({onpicked:function(){$('#endtime').focus();}})"/> -
+                    <input style="padding:2px 5px" value="{$end_time}" type="text" size="6" placeholder="结束时间" name='end_time' id="endtime" onfocus="WdatePicker({minDate:$('#starttime').val()})" />
+                </div>
+                <button type="submit" class="btn fa fa-search"> 搜 索</button>
+            </form>
+        </div>
+        <!--搜索 结束-->
+
+    </div>
+    <!--导航部分 结束-->
+
+    <form action="{:U('listorder')}" method="post">
+        <!-- 数据表格 开始-->
+        <?php
+        $thead = array(
+        'order_id' => '编号',
+        'order_sn' => '订单号',
+        'seller_name' => '店主',
+        'buyer_name' => '购买者',
+        'buyer_mail' => '购买者邮箱',
+        'add_time' => array(
+        '_title' => '添加时间',
+        'tag' => 'span',
+        'func' => 'date("Y-m-d H:i:s", $add_time)',
+        ),
+        'pay_time' => array(
+        '_title' => '付款时间',
+        'tag' => 'span',
+        'func' => 'date("Y-m-d H:i:s", $pay_time)',
+        ),
+        'ship_time' => array(
+        '_title' => '发货时间',
+        'tag' => 'span',
+        'func' => 'date("Y-m-d H:i:s", $ship_time)',
+        ),
+        'order_desc' => '订单备注',
+        '操作'=>array(
+        ' 订单详情'=>array('href' => 'Mall/Order/detail?order_id=$order_id', 'class'=>'showOrder fa fa-edit'),
+        ),
+        );
+        echo $_table_list = $__controller__->tableList($_list, $thead);
+        ?>
+        <!-- 数据表格 结束-->
+        <div class="paging">
+            {$_page}
+        </div>
+    </form>
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+    <script type="text/javascript">
+        $(function() {
+            $(".showOrder").on('click',function(e){
+                e.preventDefault();
+                $.dialog.open(this.href, {title:'订单详情', id:'showOrder'} );
+            });
+        });
+    </script>
+    <load file="__PUBLIC__/plugin/DatePicker/WdatePicker.js" />
+</block>

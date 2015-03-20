@@ -1,0 +1,24 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{ width:650px}
+    </style>
+</block>
+<block name="body">
+    <table class="form">
+        <tr><th class="w1">店铺名称:</th><td>{$vo.store_name}</td></tr>
+        <tr><th>店主姓名:</th><td>{$vo.store_owner_name}</td></tr>
+        <tr><th>店铺地址:</th><td>{$vo.store_address}</td></tr>
+        <tr><th>店铺简述:</th><td>{$vo.store_desc}</td></tr>
+        <tr><th>电话:</th><td>{$vo.store_tel}</td></tr>
+        <tr><th>传真:</th><td>{$vo.store_fax}</td></tr>
+        <tr><th>邮编:</th><td>{$vo.store_code}</td></tr>
+        <tr><th>网址:</th><td>{$vo.store_website}</td></tr>
+        <tr><th>在线联系:</th><td>QQ:{$vo.im_qq} | MSN:{$vo.im_msn} | 旺旺:{$vo.im_ww} </td></tr>
+        <tr><th>申请时间:</th><td>{:date('Y-md H:i:s', $vo['create_time'])}</td></tr>
+        <tr><th>通过时间:</th><td>{:date('Y-md H:i:s', $vo['allow_time'])}</td></tr>
+        <tr>
+            <th>更多信息:</th><td>后续从店铺相关的拓展库读取对应信息</td>
+        </tr>
+    </table>
+</block>

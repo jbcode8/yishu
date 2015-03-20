@@ -1,0 +1,98 @@
+<extend name="Admin@Public:base" />
+
+<block name="style">
+   
+  <style type="text/css">
+    table { width:100%; color:#808080; margin-top:8px; border-collapse:collapse;  }
+    table tr th { width:100px; height:36px;line-height:36px; background:#e7e7e7; }
+    table tr td { width:100px; height:28px;line-height:28px; text-align:center;}
+    .tabletr { background:#ebebeb; }
+    table a:hover { color:red; }
+  </style>
+</block>
+
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul>
+            <li class="selected"><a>用户充值信息</a></li>
+           <!--  <div class="nav_btn">
+                <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U(\'Admin/Coupons/add\')}',{title:'修改优惠券',lock:true})">添加</a>
+            </div> -->
+        </ul>
+
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 开始-->
+    <table>
+        <tr>
+            <th>订单号</th>
+            <th>拍卖物品</th>
+            <th>发货时间</th>
+            <th>成交时间</th>
+            <th>是否成功</th>
+            <th>所在何地</th>
+        </tr>
+        <volist name="list" id="vo">
+            <tr>
+                
+                    <td>{$vo['orderinfo_sn']}</td>
+                    <td>{$vo['goodsname']}</td>
+                    <td>
+                        <if condition="($vo['orderinfo_sendtime'] eq '0')">
+                            没发货
+                        <else />
+                            {:date('Y-m-d H:i:s', $vo['orderinfo_sendtime'])}
+                        </if>
+                    </td>
+                    <td>
+                        <if condition="($vo['orderinfo_receivetime'] eq '0')">
+                            没确认收货
+                        <else />
+                            {:date('Y-m-d H:i:s', $vo['orderinfo_receivetime'])}
+                        </if>
+                    </td>
+                    <td>
+                        <if condition="$vo['orderinfo_status'] eq 0">
+                            未确认
+                        <elseif condition="$vo['orderinfo_status'] eq 3" />
+                            已过期
+                        <elseif condition="$vo['orderinfo_status'] eq 4" />
+                            退货
+                        <elseif condition="$vo['orderinfo_status'] eq 5" />
+                            订单已提交
+                        <elseif condition="$vo['orderinfo_status'] eq 6" />
+                            已发货
+                        <elseif condition="$vo['orderinfo_status'] eq 7" />
+                            已收货
+                        <elseif condition="$vo['orderinfo_status'] eq 8" />
+                            退货审核中
+                        </if>
+                    </td>
+                    <td>{$vo['orderinfo_provincename']}{$vo['orderinfo_cityname']}{$vo['orderinfo_address']}</td>
+                
+            </tr>
+        </volist>
+        <tr>
+           <!--  <td colspan="4" id="j_a_fenye" style="background:#E7E7E7"><div style="width:800px;float:right;">{$page}</div></td> -->
+        </tr>
+    </table>
+    <!-- 数据表格 结束-->
+    <div class="paging">
+        <!-- {$_page} -->
+    </div>
+    <script type="text/javascript">
+        window.onload = function() {
+            $("#j_a_fenye").find("a").css({'margin': '0 5px'});
+            $("#j_a_fenye").find(".current").css({'margin': '0 5px', 'color': 'red'})
+        }
+    </script>  
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+   
+    <load file="__PUBLIC__/plugin/DatePicker/WdatePicker.js" />
+</block>

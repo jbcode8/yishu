@@ -1,0 +1,142 @@
+<extend name="artistBase"/>
+<block name='content'>
+<!-- 栏目内容 -->
+<div class="main-container info-list" >
+<div class="container clear">
+<!-- 头部图片展示 -->
+<div class="top-landing">
+    <volist name="lists" id="vo" key="k">
+        <p class="c{$k}">
+            <a href="{:U('/Artist/ArtistDetail/newsDetail/',array('nid'=>$vo['id'],'id'=>$vo['artistid']))}"><img src="{$vo.thumb}"></a>
+            <span class="common-word">{$vo.title}</span>
+        </p>
+    </volist>
+</div>
+<!-- 页面主要内容部分 -->
+<div class="il-con">
+<div class="left" style="width: 692px">
+<div class="hot-view">
+    <b>热点关注：</b>
+    <volist name="news_list" id="vo" key="k" offset="0" length="3">
+        <span><a href="{$vo.url}" <if condition="$k eq 1">class="red"</if>>{$vo.title}</a></span>
+    </volist>
+</div>
+<div class="il-list">
+<ul>
+<volist name="news_list" id="vo">
+<li>
+    <div class="left">
+        <a href="{$vo.url}"><img src="{$vo.thumb}" alt="" /></a>
+    </div>
+    <div class="right">
+        <h3><a href="{$vo.url}">{$vo.title}</a></h3>
+        <p>{$vo.description}<a href="{$vo.url}" class="red">[详情]</a></p>
+        <div class="operate clear">
+            <p class="tag">
+                标签：
+                <span>{$vo.keywords}</span>
+            </p>
+        </div>
+    </div>
+</li>
+</volist>
+</ul>
+</div>
+<div class="common-apage">
+    <div class="content">
+        <div id="f-page">
+            <if condition="$pages gt 1">{$page} 共{$pages}页 　到第 <select id="select">{$select}<select> 页 </if>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    #f-page {font: 12px/15px Tahoma, Arial, SimSun; text-align: center;}
+    #f-page .page{ display: inline;}
+    #f-page a, #f-page span {display: inline-block;_display: inline;_zoom: 1;padding: 5px 10px;border: 1px solid #ddd;color: #111;text-decoration: none; margin: 0 3px;}
+    #f-page span, #f-page a:hover {border: 1px solid #a51318;color: #fff;background: #a51318;}
+</style>
+
+</div>
+
+
+
+<div class="master-exhibition" style="float:left">
+<div class="r-side">
+<!-- 大师排行榜 -->
+<div class="master-ranking clear">
+    <div class="comm-title"><h2>大师排行榜</h2></div>
+    <div class="content">
+        <ul>
+            <volist name="artist_list" id="vo" key="k">
+                <li>
+                    <span class="num top3">{$k}</span>
+                    <div class="default <if condition='$k eq 1'>hide</if>">
+                        <span class="name left">{$vo.name}</span>
+                        <span class="point right">点击次数：<b>{$vo.view}</b></span>
+                    </div>
+                    <div class="change <if condition='$k gt 1'>hide</if>">
+                        <p class="left"><img src="{$vo.thumb}" width="100" height="100"/></p>
+                        <div class="right">
+                            <p class="name"><a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">{$vo.name}</a></p>
+                            <p>{$vo.description|new_msubstr=###,0,20}...<a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">[详细]</a></p>
+                            <p>点击次数：<b>{$vo.view}</b></p>
+                        </div>
+                    </div>
+                </li>
+            </volist>
+
+        </ul>
+    </div>
+</div>
+<!-- 佳作推荐 -->
+<div class="opus-recommend clear">
+    <div class="comm-title"><h2>佳作推荐</h2></div>
+    <div class="content">
+        <ul class="tm0">
+            <volist name="works_list" id="vo" key="k">
+                <li <if condition='$k%2 eq 0'>style="margin-right:0"</if>>
+                <img src="{$vo.thumb}" width="130" height="130" alt="{$vo.name}" />
+                <a href="{:U('Artist/ArtistDetail/work',array('id'=>$vo['aid'],'wid'=>$vo[id]))}" target="_blank" class="common-word">
+                    <span class="m-t10">{$vo.name}</span>
+                    <span>作者：{:getArtistName($vo['aid'])}</span>
+                    <span>尺寸：{$vo.size}</span>
+                    <!--<span>价格：400.000元</span>-->
+                </a>
+                </li>
+            </volist>
+        </ul>
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript" src="{JS_PATH}common.js"></script>
+<script type="text/javascript" src="{JS_PATH}js.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#select").live("change",function(){
+            var p = $("#select option:selected").val();
+            window.location.href = "{:U('/Artist/ArtistCategory/dynamic/')}"+"?p="+p;
+        })
+        jumpPanel('.species','.species-jump',true,'.species-content');
+        commSelect('.info-log .common-select',20);
+        _chooseCity('#nav-local');
+        marquee('.l-slide .l-arrow','.l-slide .r-arrow','.l-slide .move-content ul');
+        //tabelTab('.person-exhibition','.column','click');
+        commSelect('.comm-select',6);
+        abChange('.master-ranking','.master-ranking ul li','.default','.change');
+        abChange('.foresee-auction','.foresee-auction ul li','.default','.change');
+        navJump('.opus-recommend ul li','.common-word');
+
+    });
+</script>
+</block>
+
+

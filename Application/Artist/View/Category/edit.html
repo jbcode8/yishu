@@ -1,0 +1,44 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{ width:500px; }
+    </style>
+</block>
+<!--主体内容 开始-->
+<block name="body">
+    <!-- 数据表格 开始-->
+    <form action="{:U('Artist/Category/edit')}" method="post" class="edit">
+        <table class="form">
+            <tr>
+                <th>名称:</th>
+                <td><input type="text" name="name" value="{$vo.name}" required="required" maxLength="10" /></td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+            <tr>
+                <th>排序:</th>
+                <td><input type="number" name="listorder" value="{$vo.listorder}" min="0" max="100" required="required" /></td>
+                <td class="tips">
+                    <i class="red">*必填</i> 0-100 之间的数字，小的排前
+                </td>
+            </tr>
+            <tr>
+                <th>状态:</th>
+                <td><input type="checkbox" name="status" value="1" <if condition="$vo['status'] eq 1"> checked </if>/> 启用</td>
+            </tr>
+            <input type="hidden" name="id" value="{$vo.id}" />
+            <tr>
+                <th></th>
+                <td>
+                    <button type="submit" class="btn ajax-post" target-form="edit">确认</button>
+                    <button type="reset" class="btn btn_gary">重填</button>
+                </td>
+            </tr>
+    </form>
+    <!-- 数据表格 结束-->
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+</block>

@@ -1,0 +1,45 @@
+<extend name="galleryDetailBase"/>
+<block name='content'>
+<!--center start-->
+<div class="center cb">
+<!--left start-->
+<div class="gallery_left">
+<!--top start-->
+<div  class="gallery_lefttop">
+    <h3>{$gInfo.name}</h3>
+    <img src="{$gInfo.gthumb}" width="210" height="200"/>
+    <p><span>作品<a href="{:U('Gallery/GalleryDetail/gworks',array('gid'=>$gInfo['id']))}">{$workcount}</a></span><span>展览<a href="{:U('Gallery/GalleryDetail/gexhibit',array('gid'=>$gInfo['id']))}">{$exhibitcount}</a></span><span class="gallery_l_r">艺术家<a href="{:U('Gallery/GalleryDetail/gartist',array('gid'=>$gInfo['id']))}">{$artistcount}</a></span></p>
+</div>
+<!--end top-->
+<!---->
+    <div class="gallery_leftc">
+        <p>地区：<a href="#">{$gInfo.address}</a></p>
+        <p>成立时间：<a href="#">{$gInfo.found}</a></p>
+        <p>艺术家：<volist name="artist" id="vo"><a href="{:U('/Artist/ArtistDetail/index',array('id'=>$vo['id']))}">{$vo.name}</a>&nbsp;</volist><a href="#" class="yellow right">更多&gt;&gt;</a></p>
+        <p>关键字：<a href="#">{$gInfo.keywords}</a></p>
+    </div>
+<!---->
+
+</div>
+<!--end left-->
+<!--right start-->
+<div class="gallery_right">
+<!--最近展览 start-->
+<div class="gallery_arts">
+<div class="gallery_artstop">联系我们</div>
+<div class="gallery_newsdown">
+<p class="m_t10">地址：{:getCity($gInfo['region_id'])}{$gInfo.address}</p>
+<p>电话：{$gInfo.phone}</p>
+<p>传真：+86-(0)10-5762-6256</p>
+<p>邮箱：{$gInfo.mail}</p>
+<p>官网：{$gInfo.web}</p>
+<p>路线：地铁3号线虹桥路站、地铁10、11号线至交通大学站下步行100米到达目的地</p>
+<p><img src="{IMG_PATH}Gallery/g_17.jpg" width="512" height="227"/></p>
+</div>
+</div>
+<!--end 最近展览-->
+</div>
+<!--right end-->
+</div>
+<!--center end-->
+</block>

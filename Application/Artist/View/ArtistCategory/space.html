@@ -1,0 +1,485 @@
+<extend name="artistBase"/>
+<block name='content'>
+<div class="container clear">
+<!-- 顶部2个焦点图 -->
+<div class="two-slide-show clear">
+    <div class="l-slide">
+        <div class="move-content">
+            <ul>
+                <ys:position name="list" catid="14" posid="10" type="1" thumb="1" limit="0,6">
+                <li>
+                    <a href="{:U('/Content/Content/detail/',array('category'=>'mingjia','id'=>$list['id']))}" target="_blank">
+                        <img src="{$list.url}" width="710" height="300" alt="{$list.title}" />
+                    </a>
+                    <div class="abbreviative">
+                        <div class="left">
+                            <h3>{$list.title|new_msubstr=###,0,17}</h3>
+                            <p>
+                                {$list.description|new_msubstr=###,0,48}...<a href="{:U('/Content/Content/detail/',array('category'=>'mingjia','id'=>$list['id']))}" class="detail">详细</a>
+                            </p>
+                        </div>
+                        <div class="right">
+                            <img src="{$list.url}" width="100" height="60" alt="{$list.title}" />
+                        </div>
+                    </div>
+                </li>
+                </ys:position>
+            </ul>
+        </div>
+        <div class="l-arrow"><</div>
+        <div class="r-arrow">></div>
+    </div>
+    <div class="r-slide">
+        <div class="name clear">
+            <span class="left"><b>大师专栏</b>精选</span>
+            <a class="right more" href="{:U('Artist/ArtistCategory/artist')}">更多 >></a>
+        </div>
+        <div class="content">
+            <div class="move-content">
+                <ul>
+                    <volist name="library_good" id="vo">
+                    <li>
+                        <a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank"><img src="{$vo.thumb}" width="275" height="250" alt="{$vo.name}" /></a>
+                        <p class="common-word">
+                            <a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">{$vo.name}</a>
+                        </p>
+                    </li>
+                    </volist>
+                </ul>
+            </div>
+            <div class="l-arrow"><span>◄</span></div>
+            <div class="r-arrow"><span>►</span></div>
+        </div>
+    </div>
+</div>
+<!-- 精英艺术家 -->
+<div class="artist-elite clear">
+    <div class="comm-title">
+        <h2>精英艺术家</h2>
+        <p class="right connect">
+            <span>▼</span>
+            <span class="select">▲</span>
+        </p>
+    </div>
+    <div class="content">
+        <div class="move-content">
+            <volist name="goodLibrary" id="vo">
+            <div class="block clear">
+                <div class="left">
+                    <div class="img">
+                        <img src="{$vo.thumb}" width="200" height="200" alt="{$vo.name}" />
+                        <div class="common-word">
+                            <a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">
+                                <span>{$vo.name}</span>
+                                <span>分类：{:getCategoryName($vo['cid'])}</span>
+                                <span>擅长：{$vo.goodat|new_msubstr=###,0,6}</span>
+                                <span>简介：{$vo.description|new_msubstr=###,0,30}</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <span class="left">作品数量：<b class="red">{$vo.count}</b></span>
+                        <span class="right">人气：<b class="red">{$vo.view}</b></span>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="title">
+                        <span>大师作品展</span>
+                    </div>
+                    <div class="content">
+                        <ul class="last-ele">
+                            <volist name="vo['works']" id="work">
+                            <li class="img">
+                                <img src="{$work.image}" width="170" height="170" alt="{$work.name}" />
+                                <div class="common-word">
+                                    <a href="{:U('Artist/ArtistDetail/exhibit',array('id'=>$work['aid']))}" target="_blank">
+                                        <span>{$work.name}</span>
+                                        <span>创作年度：{$work.years}作</span>
+                                        <span>作品尺寸：{$work.size}</span>
+                                        <span>材质：{$work.material}</span>
+                                    </a>
+                                </div>
+                            </li>
+                            </volist>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            </volist>
+        </div>
+    </div>
+</div>
+<!-- 广告 -->
+<div class="advertise">
+    <a href="#" target="_blank">
+        <img src="{IMG_PATH}advertis/tab-advertis.jpg" alt="" />
+    </a>
+</div>
+<!-- 本周之星 -->
+<div class="week-star clear">
+<div class="comm-title">
+    <h2>本周之星</h2>
+    <p class="right connect">
+        <span>▼</span>
+        <span class="select">▲</span>
+    </p>
+</div>
+<div class="content">
+<div class="move-content">
+
+<div class="block">
+    <volist name="week_list" id="vo" offset="0" length="3">
+        <div class="figure-info">
+            <p class="name clear">
+                <span class="left">{$vo.name}</span>
+                <span class="right"><a class="more" href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">更多详情 >></a></span>
+            </p>
+            <p class="img"><img src="{$vo.thumb}" alt="" height="230" width="300"/></p>
+            <div class="discription">
+                <p>
+                    {$vo.description|new_msubstr=###,0,30}……
+                    <a class="more" href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">[详细]</a>
+                </p>
+                <p>> 擅长：{$vo.goodat|new_msubstr=###,0,6}</p>
+                <p>> 入行时间：{$vo.jointime|date='Y',###}年</p>
+            </div>
+            <div class="opus">
+                <ul class="clear">
+                    <volist name="vo['works']" id="vo">
+                        <li>
+                            <a href="{:U('Artist/ArtistDetail/work'),array('id'=>$vo['id'])}" target="_blank"><img src="{$vo.image}" alt="{$vo.name}" width="145" height="145"/></a>
+                            <p class="common-word">{$vo.name}</p>
+                        </li>
+                    </volist>
+                </ul>
+                <span class="view-all"><a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['aid']))}" target="_blank">查看所有作品</a></span>
+            </div>
+        </div>
+    </volist>
+</div>
+
+<div class="block">
+    <volist name="week_list" id="vo" offset="3" length="3">
+        <div class="figure-info">
+            <p class="name clear">
+                <span class="left">{$vo.name}</span>
+                <span class="right"><a class="more" href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">更多详情 >></a></span>
+            </p>
+            <p class="img"><img src="{$vo.thumb}" alt="" height="230" width="300"/></p>
+            <div class="discription">
+                <p>
+                    {$vo.description|new_msubstr=###,0,30}……
+                    <a class="more" href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">[详细]</a>
+                </p>
+                <p>> 擅长：{$vo.goodat|new_msubstr=###,0,6}</p>
+                <p>> 入行时间：{$vo.jointime|date='Y',###}年</p>
+            </div>
+            <div class="opus">
+                <ul class="clear">
+                    <volist name="vo['works']" id="vo">
+                        <li>
+                            <a href="{:U('Artist/ArtistDetail/work'),array('id'=>$vo['id'])}" target="_blank"><img src="{$vo.image}" alt="{$vo.name}" width="145" height="145"/></a>
+                            <p class="common-word">{$vo.name}</p>
+                        </li>
+                    </volist>
+                </ul>
+                <span class="view-all"><a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">查看所有作品</a></span>
+            </div>
+        </div>
+    </volist>
+</div>
+
+</div>
+</div>
+</div>
+<!-- 广告 -->
+<div class="advertise">
+    <a href="#" target="_blank">
+        <img src="{IMG_PATH}advertis/tab-advertis.jpg" alt="" />
+    </a>
+</div>
+<!-- 最新入驻 -->
+<div class="nearly-affiliate clear">
+    <div class="comm-title">
+        <h2>最新入驻</h2>
+    </div>
+    <div class="content">
+        <ul>
+            <volist name="library_list" id="vo">
+                <li>
+                    <div class="left">
+                        <a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">
+                            <img src="{$vo.thumb}" width="160" height="160" alt="{$vo.name}" />
+                        </a>
+                    </div>
+                    <div class="right">
+                        <p><b>{$vo.name}</b></p>
+                        <p>出生于{$vo.birthday|date='Y-m-d',###}年</p>
+                        <p>入行于{$vo.jointime|date='Y',###}年</p>
+                        <p>擅长于{$vo.goodat|new_msubstr=###,0,6}</p>
+                        <p><b>简介：</b>{$vo.description|new_msubstr=###,0,10}…<a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">[详细]</a></p>
+                    </div>
+                </li>
+            </volist>
+
+        </ul>
+    </div>
+</div>
+<!-- 画种索引 展览推荐 -->
+<div class="master-recommend clear">
+<div class="artist-recommend">
+<div class="comm-title">
+    <h2>画中索引</h2>
+    <div class="right nav">
+        <ul class="column">
+            <li class="nav-1 select">国画</li>
+            <li class="nav-2">书法</li>
+            <li class="nav-3">油画</li>
+            <li class="nav-4">水粉水彩</li>
+            <li class="nav-5">版画</li>
+            <li class="nav-6">玉器</li>
+            <li class="nav-7">紫砂</li>
+        </ul>
+    </div>
+</div>
+<div class="tab-content">
+<div class="content content-1">
+    <ul class="last-ele">
+        <volist name="gh" id="vo">
+            <li <if condition='$k%4 eq 0'>style="margin-right:0"</if>>
+                <p>
+                    <a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">
+                        <img src="{$vo.thumb}" width="160" height="160" alt="{$vo.name}" />
+                    </a>
+                </p>
+                <div class="bottom-info">
+                    <p class="name">{$vo.name}</p>
+                    <p class="care">
+                        <b>{$vo.view}</b>
+                        <a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">去TA的空间</a>
+                    </p>
+                </div>
+            </li>
+        </volist>
+    </ul>
+</div>
+<div class="content content-2 hide">
+    <ul>
+        <volist name="sf" id="vo">
+            <li <if condition='$k%4 eq 0'>style="margin-right:0"</if>>
+                <p>
+                    <a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">
+                        <img src="{$vo.thumb}" width="160" height="160" alt="{$vo.name}" />
+                    </a>
+                </p>
+                <div class="bottom-info">
+                    <p class="name">{$vo.name}</p>
+                    <p class="care">
+                        <b>{$vo.view}</b>
+                        <a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">去TA的空间</a>
+                    </p>
+                </div>
+            </li>
+        </volist>
+    </ul>
+</div>
+<div class="content content-3 hide">
+    <ul>
+        <volist name="yh" id="vo">
+            <li <if condition='$k%4 eq 0'>style="margin-right:0"</if>>
+                <p>
+                    <a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">
+                        <img src="{$vo.thumb}" width="160" height="160" alt="{$vo.name}" />
+                    </a>
+                </p>
+                <div class="bottom-info">
+                    <p class="name">{$vo.name}</p>
+                    <p class="care">
+                        <b>{$vo.view}</b>
+                        <a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">去TA的空间</a>
+                    </p>
+                </div>
+            </li>
+        </volist>
+    </ul>
+</div>
+<div class="content content-4 hide">
+    <ul>
+        <volist name="sc" id="vo">
+            <li <if condition='$k%4 eq 0'>style="margin-right:0"</if>>
+                <p>
+                    <a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">
+                        <img src="{$vo.thumb}" width="160" height="160" alt="{$vo.name}" />
+                    </a>
+                </p>
+                <div class="bottom-info">
+                    <p class="name">{$vo.name}</p>
+                    <p class="care">
+                        <b>{$vo.view}</b>
+                        <a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">去TA的空间</a>
+                    </p>
+                </div>
+            </li>
+        </volist>
+    </ul>
+</div>
+<div class="content content-5 hide">
+    <ul>
+        <volist name="bh" id="vo">
+            <li <if condition='$k%4 eq 0'>style="margin-right:0"</if>>
+                <p>
+                    <a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">
+                        <img src="{$vo.thumb}" width="160" height="160" alt="{$vo.name}" />
+                    </a>
+                </p>
+                <div class="bottom-info">
+                    <p class="name">{$vo.name}</p>
+                    <p class="care">
+                        <b>{$vo.view}</b>
+                        <a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">去TA的空间</a>
+                    </p>
+                </div>
+            </li>
+        </volist>
+    </ul>
+</div>
+<div class="content content-6 hide">
+    <ul>
+        <volist name="yq" id="vo">
+            <li <if condition='$k%4 eq 0'>style="margin-right:0"</if>>
+                <p>
+                    <a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">
+                        <img src="{$vo.thumb}" width="160" height="160" alt="{$vo.name}" />
+                    </a>
+                </p>
+                <div class="bottom-info">
+                    <p class="name">{$vo.name}</p>
+                    <p class="care">
+                        <b>{$vo.view}</b>
+                        <a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">去TA的空间</a>
+                    </p>
+                </div>
+            </li>
+        </volist>
+    </ul>
+</div>
+<div class="content content-7 hide">
+    <ul>
+        <volist name="zs" id="vo">
+            <li <if condition='$k%4 eq 0'>style="margin-right:0"</if>>
+                <p>
+                    <a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">
+                        <img src="{$vo.thumb}" width="160" height="160" alt="{$vo.name}" />
+                    </a>
+                </p>
+                <div class="bottom-info">
+                    <p class="name">{$vo.name}</p>
+                    <p class="care">
+                        <b>{$vo.view}</b>
+                        <a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">去TA的空间</a>
+                    </p>
+                </div>
+            </li>
+        </volist>
+    </ul>
+</div>
+</div>
+</div>
+<div class="exhibition-recommend">
+    <div class="comm-title">
+        <h2>展览推荐</h2>
+        <p class="right connect">
+            <span>▼</span>
+            <span class="select">▲</span>
+        </p>
+    </div>
+    <div class="content">
+        <div class="move-content">
+            <div class="block">
+                <ul>
+                    <volist name="exhibit_hot" id="vo" offset="0" length="2">
+                    <li>
+                        <p class="img">
+                            <a href="{:U('/Gallery/GalleryDetail/show/',array('to'=>'exhibit','id'=>$vo['id']))}" target="_blank">
+                                <img src="{$vo.thumb}" width="95" height="95" alt="{$vo.name}" />
+                            </a>
+                        </p>
+                        <div class="word">
+                            <p>{$vo.title|new_msubstr=###,0,10}</p>
+                            <p>{:getCity($vo['region_id'])}</p>
+                            <p>{$vo.name}</p>
+                            <p>开始：{$vo.starttime|date='Y-m-d',###}</p>
+                            <p>结束：{$vo.endtime|date='Y-m-d',###}</p>
+                        </div>
+                    </li>
+                    </volist>
+                </ul>
+            </div>
+            <div class="block">
+                <ul>
+                    <volist name="exhibit_hot" id="vo" offset="2" length="2">
+                        <li>
+                            <p class="img">
+                                <a href="{:U('Gallery/GalleryDetail/show',array('to'=>'exhibit','id'=>$vo['id']))}" target="_blank">
+                                    <img src="{$vo.thumb}" width="95" height="95" alt="{$vo.name}" />
+                                </a>
+                            </p>
+                            <div class="word">
+                                <p>{$vo.title|new_msubstr=###,0,10}</p>
+                                <p>{:getCity($vo['region_id'])}</p>
+                                <p>{$vo.name}</p>
+                                <p>开始：{$vo.starttime|date='Y-m-d',###}</p>
+                                <p>结束：{$vo.endtime|date='Y-m-d',###}</p>
+                            </div>
+                        </li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript" src="{JS_PATH}common.js"></script>
+<script type="text/javascript" src="{JS_PATH}js.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        jumpPanel('.species','.species-jump',true,'.species-content');
+        commSelect('.info-log .common-select',20);
+        _chooseCity('#nav-local');
+        marquee('.l-slide .l-arrow','.l-slide .r-arrow','.l-slide .move-content ul');
+        marquee('.r-slide .l-arrow','.r-slide .r-arrow','.r-slide .move-content ul');
+        navJump('.artist-elite .block .img','.common-word');
+        navJump('.artist-recommend .bottom-info .care','a');
+        tabelTab('.artist-recommend','.column');
+        $(window).manhuatoTop({
+            showHeight : 100,
+            speed : 500
+        });
+        $(window).t_bSlide({
+            container : '.artist-elite'
+        });
+        $(window).t_bSlide({
+            moveRangeHeight : 753,
+            container : '.week-star'
+        });
+        if($.browser.msie && parseInt($.browser.version) <= 6){
+            $(window).t_bSlide({
+                moveRangeHeight : 215,
+                container : '.exhibition-recommend'
+            });
+        }
+        else{
+            $(window).t_bSlide({
+                moveRangeHeight : 210,
+                container : '.exhibition-recommend'
+            });
+        }
+    });
+</script>
+</block>
+
+

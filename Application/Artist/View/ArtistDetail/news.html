@@ -1,0 +1,25 @@
+<extend name="detailBase"/>
+<block name="content">
+<!--content  start-->
+<div class="center">
+<!--投资指数 start-->
+<div class="investement">
+   <div class="dynamics_top">个人动态</div>
+   <!--个人画展start-->
+        <div class="dynamics_d">
+<ul>
+   <volist name="list" id="vo">
+        <li><span>{$vo.updatetime|date='Y-m-d',###}</span><a href="{:U('Artist/ArtistDetail/newsDetail',array('nid'=>$vo['id'],'id'=>$detail['id']))}">{$vo.title}</a></li>
+   </volist>
+</ul>
+</div>
+   <!--end 个人画展-->
+   <!--more s tart-->
+   <div class="more">{$page}</div>
+   <!--more end-->
+  </div>
+<!--end 投资指数-->
+
+</div>
+<!--content end-->
+</block>

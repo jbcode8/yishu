@@ -1,0 +1,33 @@
+<extend name="Admin@Public:base"/>
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css"/>
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css"/>
+</block>
+<block name="body">
+    <form action="{:U('Paimai/AdminOrder/update')}" method="post">
+        <input type="hidden" name="orderinfo_id" value="{$orderinfo.orderinfo_id}"/>
+       <table>
+           <tr><td>订单ID:</td><td>{$orderinfo.orderinfo_id}</td></tr>
+           <tr><td>商品名字:</td><td>{$orderinfo.order_goodsname}</td></tr>
+           <tr><td>商品货号:</td><td>{$orderinfo.order_goodssn}</td></tr>
+           <tr><td>订单号:</td><td>{$orderinfo.orderinfo_sn}</td></tr>
+           <tr><td>订单金额:</td><td>{$orderinfo.orderinfo_amount}</td></tr>
+           <tr>
+                <td>收货地省/市:</td>
+                <td>
+                    <input type="text" name="orderinfo_provincename" value="{$orderinfo.orderinfo_provincename}"/>
+                </td>
+            </tr>
+           <tr>
+            <td>收货地市/县:</td>
+            <td>
+                <input type="text" name="orderinfo_cityname" value="{$orderinfo.orderinfo_cityname}"/>
+            </td>
+            </tr>
+           <tr><td>详细地址:</td><td><textarea name="orderinfo_address">{$orderinfo.orderinfo_address}</textarea></td></tr>
+           <tr><td>收货人姓名:</td><td><input type="text" name="orderinfo_reciver" value="{$orderinfo.orderinfo_reciver}"/></td></tr>
+           <tr><td>收货人电话:</td><td><input type="text" name="orderinfo_mobile" value="{$orderinfo.orderinfo_mobile}"/></td></tr>
+       </table>
+       <input type="submit" value="确认修改"/>
+   </form>
+</block>

@@ -1,0 +1,46 @@
+<extend name="galleryDetailBase"/>
+<block name='content'>
+<!--center start-->
+<div class="center cb">
+<!--left start-->
+<div class="gallery_left">
+<!--top start-->
+<div  class="gallery_lefttop">
+<h3>{$gInfo.name}</h3>
+<img src="{$gInfo.gthumb}" width="210" height="200"/>
+    <p><span>作品<a href="{:U('Gallery/GalleryDetail/gworks',array('gid'=>$gInfo['id']))}">{$workcount}</a></span><span>展览<a href="{:U('Gallery/GalleryDetail/gexhibit',array('gid'=>$gInfo['id']))}">{$exhibitcount}</a></span><span class="gallery_l_r">艺术家<a href="{:U('Gallery/GalleryDetail/gartist',array('gid'=>$gInfo['id']))}">{$artistcount}</a></span></p>
+</div>
+<!--end top-->
+<!---->
+ <div class="gallery_leftc">
+     <p>地区：<a href="#">{$gInfo.address}</a></p>
+     <p>成立时间：<a href="#">{$gInfo.found}</a></p>
+     <p>艺术家：<volist name="artist" id="vo"><a href="{:U('/Artist/ArtistDetail/index',array('id'=>$vo['id']))}">{$vo.name}</a>&nbsp;</volist><a href="#" class="yellow right">更多&gt;&gt;</a></p>
+     <p>关键字：<a href="#">{$gInfo.keywords}</a></p>
+ </div>
+<!---->
+<!---start-->
+<div class="gallery_leftd">
+<h3>简介</h3>
+<p>{$gInfo.desc|new_msubstr=###,0,120}<a href="{:U('Gallery/GalleryDetail/gintro',array('gid'=>$gInfo['id']))}" class="yellow right">[更多]</a></p>
+</div>
+<!--end-->
+</div>
+<!--end left-->
+<!--right start-->
+<div class="gallery_right">
+<!--艺术家 start-->
+<div class="gallery_arts">
+<div class="gallery_artstop"></span>画廊介绍</div>
+<div class="gallery_intro">
+<div class="gallery_intro_img"><img src="{$gInfo.gthumb}" width="660" height="250"/></div>
+<p>{$gInfo.desc}</p>
+
+</div>
+</div>
+<!--end 艺术家-->
+</div>
+<!--right end-->
+</div>
+<!--center end-->
+</block>

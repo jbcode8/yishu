@@ -1,0 +1,52 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+    <load file="{PLUGIN_PATH}uploadify/jquery.uploadify.min.js" />
+</block>
+<block name="body">
+
+    <form method="post" enctype="multipart/form-data" action="{:U('News/AdminNewscategory/insert')}" style="width: 700px;height: 300px; margin: auto;">
+    <table class="m_table">
+        <tr>
+            <td width="100">栏目名字:</td>
+            <td>
+                <input type="text" name="category_name" >
+            </td>
+        </tr>
+        <tr>
+            <td>每个类型汉语拼音:</td>
+            <td>
+                <input type="text" name="category_spell" >
+            </td>
+        </tr>
+		        <tr>
+            <td>seo标题:</td>
+            <td>
+                <input type="text" name="seo_title" >
+            </td>
+        </tr>
+		        <tr>
+            <td>seo关键字:</td>
+            <td>
+                <input type="text" name="seo_keys" >
+            </td>
+        </tr>
+		        <tr>
+            <td>seo内容:</td>
+            <td>
+                <input type="text" name="seo_desc" >
+            </td>
+        </tr>
+        <tr>
+            <td>是否显示:</td>
+            <td>
+                <input type="radio" checked="checked" name="category_isshow" value="0"/>&nbsp;是&nbsp;
+                <input type="radio" name="category_isshow" value="1"/>&nbsp;否&nbsp;
+            </td>
+        </tr>
+
+        <tr><td colspan="2" align="center"><input class="m_submit" type="submit" value="添加"></td></tr>
+    </table>
+    </form>
+</block>

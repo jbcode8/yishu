@@ -1,0 +1,55 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+<style type="text/css">
+body{width:550px}
+</style>
+</block>
+<block name="body">
+    <form action="{:U('Mall/Friend/add')}" method="post" class="addFriend">
+    <table class="form">
+        <tr>
+            <th>链接标题:</th>
+            <td><input name="title" type="text" style="width:200px" /></td>
+            <td class="tips"><i class="red">* 必填</i></td>
+        </tr>
+        <tr>
+            <th>链接地址:</th>
+            <td><input name="url" type="text" style="width:200px" /></td>
+            <td class="tips"><i class="red">* 必填</i></td>
+        </tr>
+        <tr>
+            <th class="w1">链接类型:</th>
+            <td>
+            <select name="type">
+                <option value="0">文字链接</option>
+                <option value="1">图片链接</option>
+            </select>
+            </td>
+            <td class="tips"><i class="red">* 必选</i></td>
+        </tr>
+        <tr>
+            <th>图片地址:</th>
+            <td><input name="thumb" type="text" style="width:200px" /></td>
+            <td class="tips"> 文字链接可以不填写</td>
+        </tr>
+        <tr>
+            <th>链接描述:</th>
+            <td><textarea name="desc" style="width: 250px;height:100px"></textarea></td>
+            <td class="tips"> 长度不可超过120个汉字</td>
+        </tr>
+        <tr>
+            <th>排列顺序:</th>
+            <td><input name="listorder" type="text" value="0" /></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <td>
+                <button type="submit" class="btn ajax-post" target-form="addFriend">确认</button>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+    </form>
+</block>
+

@@ -1,0 +1,2160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>中国艺术网-专业玉器、陶瓷、油画、古玩、国画、艺术收藏,邮票、字画拍卖等珍奇古玩鉴定交易平台</title>
+	<meta name="keywords" content="艺术,玉器,收藏,油画,邮票,陶瓷,国画,古玩" />
+	<meta name="description" content="中国艺术网-为您打造专业的名家油画、国画、玉器、艺术收藏、邮票、陶瓷等珍奇古玩鉴定交易平台，并提供最新最权威的第一手艺术资讯，供您随时阅读学习。" />
+    <link href="http://test.yishu.com/Public/css/site.css" rel="stylesheet" type="text/css" />
+    <link href="http://test.yishu.com/Public/css/style.css" rel="stylesheet" type="text/css" />
+    <script src="http://test.yishu.com/Public/js/jquery-1.7.2.js"></script>
+</head>
+<body class="art-index">
+<script type="text/javascript">
+    document.domain = "yishu.com";
+    function addFavorite(url, title) {
+        try {
+            window.external.addFavorite(url, title);
+        } catch (e){
+            try {
+                window.sidebar.addPanel(title, url, '');
+            } catch (e) {
+                alert("不兼容此浏览器，请按 Ctrl+D 键添加到收藏夹!");
+            }
+        }
+    }
+    $(function(){
+        $("#favorites").click(function () {　　　　//$里面是链接的id
+            addFavorite("{:C('WEB_URL')}","中国艺术网");
+            /*
+            var ctrl = (navigator.userAgent.toLowerCase()).indexOf('mac') != -1 ? 'Command/Cmd' : 'CTRL';
+            var fav = "http://test.yishu.com/";
+            if (document.all) {
+                window.external.addFavorite("http://test.yishu.com/", '中国艺术网')
+            } else if (window.sidebar) {
+                window.sidebar.addPanel('中国艺术网', "http://test.yishu.com/", "")
+            } else {　　　　//添加收藏的快捷键
+                alert('添加失败,您可以尝试通过快捷键' + ctrl + ' + D 加入到收藏夹~')
+            }
+            */
+        });
+    });
+    function SetHome(obj,vrl){
+        try{
+            obj.style.behavior='url(#default#homepage)';obj.setHomePage(vrl);
+        }
+        catch(e){
+            if(window.netscape) {
+                try {
+                    netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+                }
+                catch (e) {
+                    alert("此操作被浏览器拒绝！\n请在浏览器地址栏输入“about:config”并回车\n然后将 [signed.applets.codebase_principal_support]的值设置为'true',双击即可。");
+                }
+                var prefs = Components.classes['@mozilla.org/preferences-service;1'].getService(Components.interfaces.nsIPrefBranch);
+                prefs.setCharPref('browser.startup.homepage',vrl);
+            }
+            else{
+                alert("您好,您的浏览器不支持自动设置页面为首页功能,请您手动在浏览器里设置该页面为首页!");
+            }
+        }
+    }
+</script>
+<!-- 头部导航栏 -->
+<div id="nav-tool" class="top">
+<div class="content">
+<div class="info">
+<ul>
+<li class="bg-grey">欢迎光临中国艺术网!</li>
+
+<li class="bg-grey location">
+<span class="now-city">上海站</span>
+<div id="nav-local" class="hide">
+<p class="local-city">
+    当前城市：
+    <span><b>上海</b></span>
+    <a href="" class="red">[设为默认城市]</a>
+</p>
+<div class="country">
+    <ul>
+        <li><b><a href="#">全国</a></b></li>
+        <li><a href="#">北京</a></li>
+        <li><a href="#">上海</a></li>
+        <li><a href="#">广州</a></li>
+        <li><a href="#">深圳</a></li>
+        <li><a href="#">成都</a></li>
+        <li><a href="#">西安</a></li>
+        <li><a href="#">天津</a></li>
+        <li><a href="#">武汉</a></li>
+        <li><a href="#">重庆</a></li>
+        <li><a href="#">南京</a></li>
+    </ul>
+</div>
+<div class="search-city">
+    <p class="search"><input type="text" placeholder="输入城市名" /></p>
+    <p class="btn">搜 索</p>
+    <p class="red error hide">没有该城市！</p>
+</div>
+<div class="en-word">
+    <ul>
+        <li>A</li>
+        <li>B</li>
+        <li>C</li>
+        <li>D</li>
+        <li>E</li>
+        <li>F</li>
+        <li>G</li>
+        <li>H</li>
+        <li>J</li>
+        <li>K</li>
+        <li>L</li>
+        <li>M</li>
+        <li>N</li>
+        <li>P</li>
+        <li>Q</li>
+        <li>R</li>
+        <li>S</li>
+        <li>T</li>
+        <li>W</li>
+        <li>X</li>
+        <li>Y</li>
+        <li>Z</li>
+    </ul>
+</div>
+<div class="city-list">
+    <div class="content">
+        <div class="a num-rank">
+            <p class="en">A</p>
+            <ul>
+                <li>鞍山</li><li>安阳</li><li>安庆</li><li>安康</li><li>阿克苏</li><li>安顺</li>
+                <li>阿勒泰</li><li>阿拉善</li><li>阿坝</li><li>阿里</li><li>阿拉尔澳门</li>
+            </ul>
+        </div>
+        <div class="b num-rank">
+            <p class="en">B</p>
+            <ul>
+                <li>北京</li><li>保定</li><li>滨州</li><li>包头</li><li>宝鸡</li>
+                <li>本溪</li><li>蚌埠</li><li>北海</li><li>巴彦淖尔</li><li>白城</li>
+                <li>白山</li><li>亳州</li><li>巴中</li><li>白银</li><li>百色</li>
+                <li>毕节</li><li>巴音郭楞</li><li>保山</li><li>博尔塔拉</li>
+            </ul>
+        </div>
+        <div class="c num-rank">
+            <p class="en">C</p>
+            <ul>
+                <li>成都</li><li>重庆</li><li>长沙</li><li>长春</li><li>常州</li>
+                <li>沧州</li><li>赤峰</li><li>承德</li><li>常德</li><li>长治</li>
+                <li>郴州</li><li>滁州</li><li>巢湖</li><li>潮州</li><li>昌吉</li>
+                <li>池州</li><li>楚雄</li><li>崇左</li><li>昌都</li><li>朝阳</li>
+            </ul>
+        </div>
+        <div class="d num-rank">
+            <p class="en">D</p>
+            <ul>
+                <li>大连</li><li>东莞</li><li>德州</li><li>东营</li><li>大庆</li>
+                <li>大同</li><li>丹东</li><li>儋州</li><li>德阳</li><li>达州</li>
+                <li>大理</li><li>大兴安岭</li><li>定西</li><li>德宏</li><li>迪庆</li>
+            </ul>
+        </div>
+        <div class="e num-rank">
+            <p class="en">E</p>
+            <ul>
+                <li>鄂尔多斯</li><li>恩施</li><li>鄂州</li>
+            </ul>
+        </div>
+        <div class="f num-rank">
+            <p class="en">F</p>
+            <ul>
+                <li>福州</li><li>佛山</li><li>抚顺</li><li>阜阳</li>
+                <li>阜新</li><li>抚州</li><li>防城港</li>
+            </ul>
+        </div>
+        <div class="g num-rank">
+            <p class="en">G</p>
+            <ul>
+                <li>广州</li><li>贵阳</li><li>桂林</li><li>赣州</li><li>广元</li>
+                <li>广安</li><li>贵港</li><li>固原</li><li>甘南</li><li>甘孜</li><li>果洛</li>
+            </ul>
+        </div>
+        <div class="h num-rank">
+            <p class="en">H</p>
+            <ul>
+                <li>杭州</li><li>惠州</li><li>哈尔滨</li><li>合肥</li><li>呼和浩特</li>
+                <li>海口</li><li>邯郸</li><li>菏泽</li><li>衡水</li><li>淮安</li><li>衡阳</li>
+                <li>葫芦岛</li><li>淮南</li><li>汉中</li><li>怀化</li><li>淮北</li><li>黄冈</li>
+                <li>湖州</li><li>黄石</li><li>呼伦贝尔</li><li>河源</li><li>鹤壁</li><li>鹤岗</li>
+                <li>黄山</li><li>红河</li><li>河池</li><li>哈密</li><li>黑河</li><li>贺州</li>
+                <li>海西</li><li>和田</li><li>海北</li><li>海东</li><li>黄南</li>
+            </ul>
+        </div>
+        <div class="j num-rank">
+            <p class="en">J</p>
+            <ul>
+                <li>济南</li><li>济宁</li><li>吉林</li><li>锦州</li><li>金华</li>
+                <li>嘉兴</li><li>江门</li><li>荆州</li><li>焦作</li><li>晋中</li>
+                <li>佳木斯</li><li>九江</li><li>晋城</li><li>荆门</li><li>鸡西</li>
+                <li>吉安</li><li>揭阳</li><li>景德镇</li><li>济源</li><li>酒泉</li>
+                <li>金昌</li><li>嘉峪关</li>
+            </ul>
+        </div>
+        <div class="k num-rank">
+            <p class="en">K</p>
+            <ul>
+                <li>昆明</li><li>开封</li><li>喀什</li><li>克拉玛依</li><li>库尔勒</li><li>克孜勒苏</li>
+            </ul>
+        </div>
+        <div class="l num-rank">
+            <p class="en">L</p>
+            <ul>
+                <li>兰州</li><li>拉萨</li><li>廊坊</li><li>临沂</li><li>洛阳</li>
+                <li>聊城</li><li>柳州</li><li>连云港</li><li>临汾</li><li>漯河</li>
+                <li>辽阳</li><li>乐山</li><li>泸州</li><li>六安</li><li>娄底</li>
+                <li>莱芜</li><li>龙岩</li><li>吕梁</li><li>丽水</li><li>凉山</li>
+                <li>丽江</li><li>六盘水</li><li>辽源</li><li>来宾</li><li>临沧</li>
+                <li>陇南</li><li>临夏</li><li>林芝</li>
+            </ul>
+        </div>
+        <div class="m num-rank">
+            <p class="en">M</p>
+            <ul>
+                <li>绵阳</li><li>牡丹江</li><li>茂名</li><li>梅州</li><li>马鞍山</li><li>眉山</li>
+            </ul>
+        </div>
+        <div class="n num-rank">
+            <p class="en">N</p>
+            <ul>
+                <li>南京</li><li>宁波</li><li>南宁</li><li>南昌</li><li>南通</li><li>南阳</li>
+                <li>南充</li><li>内江</li><li>南平</li><li>宁德</li><li>怒江</li><li>那曲</li>
+            </ul>
+        </div>
+        <div class="p num-rank">
+            <p class="en">P</p>
+            <ul>
+                <li>平顶山</li><li>濮阳</li><li>盘锦</li><li>莆田</li><li>攀枝花</li><li>萍乡</li><li>平凉</li><li>普洱</li>
+            </ul>
+        </div>
+        <div class="q num-rank">
+            <p class="en">Q</p>
+            <ul>
+                <li>青岛</li><li>琼海</li><li>秦皇岛</li><li>泉州</li><li>齐齐哈尔</li>
+                <li>清远</li><li>曲靖</li><li>衢州</li><li>庆阳</li><li>七台河</li>
+                <li>钦州</li><li>潜江</li><li>黔东南</li><li>黔南</li><li>黔西南</li>
+            </ul>
+        </div>
+        <div class="r num-rank">
+            <p class="en">R</p>
+            <ul>
+                <li>日照</li><li>日喀则</li>
+            </ul>
+        </div>
+        <div class="s num-rank">
+            <p class="en">S</p>
+            <ul>
+                <li>上海</li><li>深圳</li><li>沈阳</li><li>石家庄</li><li>苏州</li>
+                <li>汕头</li><li>商丘</li><li>三亚</li><li>宿迁</li><li>绍兴</li>
+                <li>十堰</li><li>四平</li><li>三门峡</li><li>邵阳</li><li>上饶</li>
+                <li>遂宁</li><li>三明</li><li>绥化</li><li>石河子</li><li>宿州</li>
+                <li>韶关</li><li>松原</li><li>随州</li><li>汕尾</li><li>双鸭山</li>
+                <li>朔州</li><li>石嘴山</li><li>商洛</li><li>神农架</li><li>山南</li>
+            </ul>
+        </div>
+        <div class="t num-rank">
+            <p class="en">T</p>
+            <ul>
+                <li>天津</li><li>太原</li><li>唐山</li><li>泰安</li><li>台州</li>
+                <li>泰州</li><li>铁岭</li><li>通辽</li><li>通化</li><li>天水</li>
+                <li>铜陵</li><li>铜川</li><li>铜仁</li><li>天门</li><li>塔城</li>
+                <li>吐鲁番</li><li>图木舒克</li>
+            </ul>
+        </div>
+        <div class="w num-rank">
+            <p class="en">W</p>
+            <ul>
+                <li>武汉</li><li>无锡</li><li>乌鲁木齐</li><li>威海</li>
+                <li>潍坊</li><li>温州</li><li>芜湖</li><li>渭南</li>
+                <li>乌海</li><li>梧州</li><li>乌兰察布</li><li>武威</li>
+                <li>文山</li><li>吴忠</li><li>五家渠</li><li>五指山</li>
+            </ul>
+        </div>
+        <div class="x num-rank">
+            <p class="en">X</p>
+            <ul>
+                <li>西安</li><li>厦门</li><li>西宁</li><li>徐州</li><li>咸阳</li>
+                <li>邢台</li><li>襄阳</li><li>新乡</li><li>湘潭</li><li>许昌</li>
+                <li>信阳</li><li>孝感</li><li>忻州</li><li>咸宁</li><li>新余</li>
+                <li>宣城</li><li>仙桃</li><li>锡林郭勒</li><li>湘西</li><li>兴安</li>
+                <li>西双版纳香港</li>
+            </ul>
+        </div>
+        <div class="y num-rank">
+            <p class="en">Y</p>
+            <ul>
+                <li>银川</li><li>宜昌</li><li>烟台</li><li>扬州</li><li>盐城</li>
+                <li>营口</li><li>岳阳</li><li>运城</li><li>榆林</li><li>宜宾</li>
+                <li>阳泉</li><li>延安</li><li>益阳</li><li>永州</li><li>玉林</li>
+                <li>宜春</li><li>阳江</li><li>延边</li><li>玉溪</li><li>伊犁</li>
+                <li>云浮</li><li>伊春</li><li>雅安</li><li>鹰潭</li><li>玉树</li>
+            </ul>
+        </div>
+        <div class="z num-rank">
+            <p class="en">Z</p>
+            <ul>
+                <li>郑州</li><li>珠海</li><li>淄博</li><li>中山</li><li>枣庄</li>
+                <li>张家口</li><li>株洲</li><li>镇江</li><li>周口</li><li>湛江</li>
+                <li>驻马店</li><li>肇庆</li><li>自贡</li><li>遵义</li><li>漳州</li>
+                <li>舟山</li><li>张掖</li><li>资阳</li><li>张家界</li><li>昭通</li>
+                <li>中卫</li>
+            </ul>
+        </div>
+    </div>
+</div>
+</div>
+</li>
+<li class="bg-grey"><a href="#">分站加盟</a></li>
+<li class="bg-grey"><a href="http://service.yishu.com/help/">帮助中心</a></li>
+<li class="bg-grey"><a href="http://service.yishu.com/sitemap/">网站地图</a></li>
+<li><a href="javascript:SetHome(this,window.location)" class="set-index">设为首页</a></li>
+<li class="bg-grey"><a href="javascript:void(0)" id="favorites">收藏本站</a></li>
+</ul>
+</div>
+<!-- 未登录 -->
+<div class="un-login">
+    <div class="login">
+        <a href="http://i.yishu.com/member/passport/login?redUrl=http://test.yishu.com/" class="login-w">登录</a>
+        <div class="jump hide">
+            <p class="grey">艺术网用户可直接登录</p>
+            <form action="http://i.yishu.com/member/passport/login" method="post">
+                <p><input type="text" class="text" placeholder="请输入用户名" name="username"/></p>
+                <p><input type="password" class="text" placeholder="请输入密码" name="password"/></p>
+                <div class="clear">
+                    <label class="left">
+                        <span><input type="checkbox" name="remember"/></span>
+                        <span>十天内免登录</span>
+                    </label>
+                    <!--<p class="right"><a href="#">忘记密码？</a></p>-->
+                </div>
+                <p><input type="submit" class="login-btn" value="登 录" /></p>
+            </form>
+        </div>
+    </div>
+    <p class="register bg-grey"><a href="http://i.yishu.com/passport/register">注册</a></p>
+</div></div>
+</div>
+<!-- 头部广告位
+<div class="main-container clear" >
+    <div class="m-t5 clear"><a href="#"><img src="http://test.yishu.com/Public/img/advertis/03.jpg"></a></div>
+    <div class="m-t5 clear"><a href="#"><img src="http://test.yishu.com/Public/img/advertis/04.jpg"></a></div>
+    <div class="m-t5 clear"><a href="#" class="left m-t5"><img src="http://test.yishu.com/Public/img/advertis/05.jpg"></a><a class="m_l9 left m-t5" href="#"><img src="http://test.yishu.com/Public/img/advertis/06.jpg"></a><a class="m_l9 right m-t5" href="#"><img src="http://test.yishu.com/Public/img/advertis/07.jpg"></a></div>
+</div> -->
+<!-- 页面内容 -->
+<div class="main-container"   >
+<!-- 栏目头部 -->
+<div class="panel-header clear">
+    <div class="left top-bar">
+        <p><a href="#"><img src="http://test.yishu.com/Public/img/logo.jpg" alt="logo" /></a></p>
+        <p class="panel-name">中国最具影响力<br />首席艺术门户网</p>
+    </div>
+    <div class="left">
+        <div id="main-search">
+            <div class="species"  style="width:75px;">
+                <span class="species-content">资讯</span>
+                <span class="species-val" style="display:none">132</span>
+                <span class="choose"><img src="http://test.yishu.com/Public/img/icons/search-arrow.gif" alt="" /></span>
+                <div class="species-jump common-jump hide select-inner">
+                    <!-- 最大长度3个汉字 -->
+                    <input class="inner-vaule hide" type="text" />
+                    <ul>
+                        <li value="132">资讯</li>
+                        <li value="56">展讯</li>
+                        <li value="68">藏品</li>
+                        <li value="75">展厅</li>
+                        <li value="76">拍卖</li>
+                        <li value="111">专题活动</li>
+                        <li value="114">书画行情</li>
+                        <li value="3">图片</li>
+                        <li value="52">专题</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="search">
+                <div class="search-input">
+                    <input type="text" placeholder="请输入搜索内容" class="search-content"/>
+                </div>
+                <p class="search-btn"><input type="submit" value=" " /></p>
+            </div>
+        </div>
+        <div class="hot-search">
+            <span>青花瓷</span>
+            <span>古典家具</span>
+            <span>青铜器</span>
+            <span>油版雕</span>
+            <span>影像</span>
+            <span>紫砂壶</span>
+        </div>
+    </div>
+    <div class="right"><a href="#"><img src="http://test.yishu.com/Public/img/advertis/11.jpg" width="112" height="42" border="0"></a></div>
+</div>
+<!-- 艺术网首页 主菜单 -->
+<div class="index-nav clear">
+    <div class="channel">
+            <p class="sub-title">频道<br><span><img src="http://test.yishu.com/Public/img/icons/01.gif"></span></p>
+            <ul>
+                <li><a href="http://news.yishu.com/">资讯</a></li><li><a href="http://artist.yishu.com/">大师</a></li><li><a href="http://gallery.yishu.com/">画廊</a></li><li><a href="http://zx.yishu.com">展览</a></li><li><a href="http://auction.yishu.com/">拍卖</a></li>            </ul>
+        </div><div class="trade">
+            <p class="sub-title">交易<br><span><img src="http://test.yishu.com/Public/img/icons/02.gif"></span></p>
+            <ul>
+                <li><a href="http://test.yishu.com/Paimai/FrontInit/">在线竞拍</a></li><li><a href="http://cang.yishu.com/">藏品商城</a></li><li><a href="http://mall.yishu.com/">古玩城</a></li>            </ul>
+        </div><div class="trade">
+            <p class="sub-title">互动<br><span><img src="http://test.yishu.com/Public/img/icons/03.gif"></span></p>
+            <ul>
+                <li><a href="http://identify.yishu.com/">在线鉴定</a></li><li><a href="http://test.yishu.com/Baike/">艺术百科</a></li><li><a href="http://bbs.yishu.com/">艺友论坛</a></li><li><a href="http://test.yishu.com/wenda/">你问我答</a></li>            </ul>
+        </div><div class="trade">
+            <p class="sub-title">合作<br><span><img src="http://test.yishu.com/Public/img/icons/04.gif"></span></p>
+            <ul>
+                <li><a href="http://zx.yishu.com/c58/">在线展厅</a></li><li><a href="http://special.yishu.com/">艺术专题</a></li><li><a href="http://hangqing.yishu.com/">书画行情</a></li>            </ul>
+        </div>
+
+
+</div>
+<!-- 藏品频道 -->
+<div class="collect-channel clear">
+    <dl>
+        <dt><b>藏品频道：</b></dt>
+        <!--
+        <dd><a href="#">油画</a></dd>
+        <dd><a href="#">紫砂</a></dd>
+        <dd><a href="#">当代水墨</a></dd>
+        <dd><a href="#">当代文艺</a></dd>
+        <dd><a href="#" >陶瓷</a></dd>
+        <dd><a href="#">砚台</a></dd>
+        <dd><a href="#">国画</a></dd>
+        <dd><a href="#">书法</a></dd>
+        <dd><a href="#" class="red">玉石</a><i></i></dd>
+        <dd><a href="#">古典家具</a></dd>
+        <dd><a href="#">版画</a></dd>
+        <dd><a href="#">雕刻</a></dd>
+        <dd><a href="#">陶瓷</a></dd>
+        <dd><a href="#">砚台</a></dd>
+        <dd><a href="#">国画</a></dd>
+        <dd><a href="#">水粉水彩</a></dd>
+        <dd><a href="#">其他</a></dd>
+        -->
+        <dd><a href="http://cang.yishu.com/t60">国画</a></dd>
+        <dd><a href="http://cang.yishu.com/t62">书法</a></dd>
+        <dd><a href="http://cang.yishu.com/t61">油画</a></dd>
+        <dd><a href="http://cang.yishu.com/t65" class="red">玉器</a><i></i></dd>
+        <dd><a href="http://cang.yishu.com/t64">瓷器</a></dd>
+        <dd><a href="http://cang.yishu.com/t63">木器</a></dd>
+        <dd><a href="http://cang.yishu.com/t131">寿山石</a></dd>
+    </dl>
+</div>
+<!-- 热点 -->
+<div class="hot-recommend clear">
+    <div class="title left">热<br>点</div>
+    <ul>
+        <li ><a href="http://www.yishu.com/sc/lys/article-18791.html" title="蓝玉髓的真假鉴别方法">蓝玉髓的真假鉴别方法</a></li><li ><a href="http://www.yishu.com/sc/qy/article-18773.html" title="青玉是什么 青玉的产地与等级">青玉是什么 青玉的产</a></li><li ><a href="http://www.yishu.com/sc/sjzs/article-18760.html" title="水晶洞聚宝盆的摆放">水晶洞聚宝盆的摆放</a></li><li ><a href="http://www.yishu.com/sc/by/article-18743.html" title="和田白玉是什么 其他白玉品种与和田白玉的区别">和田白玉是什么 其他</a></li><li ><a href="http://www.yishu.com/sc/bxzs/article-18703.html" title="碧玺的功效之一：碧玺电场对人体的保健作用">碧玺的功效之一：碧玺</a></li><li ><a href="http://www.yishu.com/sc/bsj/article-18673.html" title="白水晶的十大功效">白水晶的十大功效</a></li><li ><a href="http://www.yishu.com/sc/by/article-18664.html" title="和田玉的颜色有哪些">和田玉的颜色有哪些</a></li><li ><a href="http://www.yishu.com/sc/manao/article-18644.html" title="什么是葡萄玛瑙？">什么是葡萄玛瑙？</a></li><li ><a href="http://www.yishu.com/sc/zhj/article-18637.html" title="天然紫黄晶的三大评判标准">天然紫黄晶的三大评判</a></li><li ><a href="http://www.yishu.com/sc/yszs/article-18605.html" title="紫玉髓的功效与鉴别">紫玉髓的功效与鉴别</a></li>    </ul>
+    <div class="clear m_b10"><a href="#" class="m_l6 left m-t5"><img src="http://test.yishu.com/Public/img/advertis/08.jpg"></a><a class="m_l9 left m-t5" href="#"><img src="http://test.yishu.com/Public/img/advertis/09.jpg"></a><a class="m_l9 right m-t5" href="#"><img src="http://test.yishu.com/Public/img/advertis/10.jpg"></a></div>
+</div>
+<!-- 栏目内容 -->
+<div class="container">
+<!-- 板块1 -->
+<div class="clear block1 news_block">
+    <!--left start-->
+    <div class="index_left" style="width:250px; overflow:hidden; float:left">
+        <!--今日开拍 start-->
+        <div class="today-k">
+            <div class="comm-subtitle m-t0">
+                <h4>今日开拍</h4>
+                <div class="right">
+                    <a class="more right" href="http://test.yishu.com/Paimai/FrontInit/index.html">更多</a>
+                </div>
+            </div>
+            <div class="today-kd">
+                <div class="i_kaipai"><a href="" id="auction_url"><img id="auction_img"  border="0" width="250" height="250"></a><i ><a class="k_left" style="cursor:pointer"></a>
+                </i><i><a class="k_right" style="cursor:pointer"></a></i></a><span class="transparent" id="auction_name"></span></div>
+                <ul>
+                    <li>当前价：<span class="red f16 m_l9" id="auction_cur_price"><b></b></span></li>
+                    <li>出价次数：<span class="m_l9" id="auction_bid_times"></span></li>
+                    <li>距结束<span class="m_l9 cd" ><b class="b_c0"></b></span><i style="display:none" id="leave_end"></i></li>
+                    <li><span class="b_t1 b_r1" >起拍价 ￥<span id="auction_start"></span></span><span class="b_t1" >加价幅度 ￥<span id="auction_per"></span></span><span id="auction_offset" style="display:none">0</span><span id="auction_length" style="display:none"></span></li>
+                </ul>
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    /*json数据 0:当前时间 1:活动结束时间 */
+                    homeAution(0);
+                    $(".k_right").click(function(){
+                        clearInterval(t);
+                        var offset = parseInt($("#auction_offset").text());
+                        var length = parseInt($("#auction_length").text());
+                        if(offset == length-1){
+                            offset = 0;
+                        }else{
+                            offset = offset+1;
+                        }
+                        homeAution(offset);
+                    });
+                    $(".k_left").click(function(){
+                        clearInterval(t);
+                        var offset = parseInt($("#auction_offset").text());
+                        var length = parseInt($("#auction_length").text());
+                        if(offset == 0){
+                            offset = length-1;
+                        }else{
+                            offset = offset-1;
+                        }
+                        homeAution(offset);
+                    });
+                });
+                function homeAution(offset){
+                    $.ajax({
+                        type : "GET",
+                        url : "http://test.yishu.com/Home/Index/getTodayAuction.html",
+                        data : {offset:offset},
+                        success : function(data) {
+                            var result = $.parseJSON(data);
+                            $("#auction_name").text(subString(result.goods_name,30));
+                            $("#auction_cur_price").text(result.goods_nowprice);
+                            $("#auction_bid_times").text(result.goods_bidtimes);
+                            $("#auction_start").text(result.goods_startprice);
+                            $("#auction_per").text(result.goods_everyprice);
+                            $("#auction_img").attr("src",result.thumb);
+                            $("#auction_length").text(result.length);
+                            $("#auction_offset").text(offset);
+                            $("#auction_url").attr("href","http://test.yishu.com/Paimai/FrontData/index.html?id="+result.goods_id);
+                            var countDownTime = {
+                                //1:["{1386245520|date='Y-m-d H:i:s',###}",'2014-08-15 13:54:25']
+                                1:[result.time,result.goods_endtime]
+                            };
+                            countDown(countDownTime[1][0],countDownTime[1][1],".cd",2);
+
+                            if(countDownTime[1][0]>=countDownTime[1][1]){
+                                $("#leave_end").hide();
+                            }else{
+                                $("#leave_end").show();
+                            }
+                        }
+                    });
+                }
+            </script>
+
+        </div>
+        <!--今日开拍 end-->
+        <!-- 精彩专题 start-->
+        <div class="splendid">
+            <div class="comm-subtitle m-t0">
+                <h4>精彩专题</h4>
+                <div class="right">
+                    <a class="more right" href="http://special.yishu.com">更多</a>
+                </div>
+            </div>
+            <div class="content">
+                <ul>
+                    <li>
+                            <a href="http://www.yishu.com/trust/" class="hide dis">艺术品信托——如何平</a>
+                            <div class="img">
+                                <a href="http://www.yishu.com/trust/"><img src="http://www.yishu.com/uploadfile/2014/0825/20140825032107112.jpg" alt="" width="250" height="170" /></a>
+                                <p class="common-word">艺术品信托——如何平</p>
+                            </div>
+                        </li>                    <li>
+                            <a href="http://special.yishu.com/yanshengpin/" class="dis">艺术衍生品——衍生艺</a>
+                            <div class="img hide">
+                                <a href="http://special.yishu.com/yanshengpin/"><img src="http://www.yishu.com/uploadfile/2014/0801/20140801120231658.jpg" alt="" width="250" height="170" /></a>
+                                <p class="common-word">艺术衍生品——衍生艺</p>
+                            </div>
+                        </li><li>
+                            <a href="http://special.yishu.com/798/" class="dis">十年一觉——798艺</a>
+                            <div class="img hide">
+                                <a href="http://special.yishu.com/798/"><img src="http://www.yishu.com/uploadfile/2014/0716/20140716120602129.jpg" alt="" width="250" height="170" /></a>
+                                <p class="common-word">十年一觉——798艺</p>
+                            </div>
+                        </li>                </ul>
+            </div>
+        </div>
+        <!--精彩专题 end-->
+    </div>
+    <!--left end-->
+    <!--c start-->
+    <div class="index_c">
+        <!-- 焦点图-->
+                <div id="focus">
+                        <a href="http://news.yishu.com/hangqing/18672.html"><img src="http://www.yishu.com/uploadfile/2014/0829/20140829035033709.jpg" width="410" height="250" /><s></s><p><span class="text">琥珀蜜蜡走俏市场 成</span></p></a><a href="http://news.yishu.com/zonghe/18638.html"><img src="http://www.yishu.com/uploadfile/2014/0829/20140829114138561.jpg" width="410" height="250" /><s></s><p><span class="text">艺术品信托几乎淡出市</span></p></a><a href="http://news.yishu.com/mingjia/18639.html"><img src="http://www.yishu.com/uploadfile/2014/0829/thumb_182_123_20140829115139941.jpg" width="410" height="250" /><s></s><p><span class="text">弗里达·卡罗谜样的声</span></p></a><a href="http://news.yishu.com/zhanlan/18669.html"><img src="http://www.yishu.com/uploadfile/2014/0829/20140829033630122.jpg" width="410" height="250" /><s></s><p><span class="text">兰州展出敦煌莫高窟壁</span></p></a>						<div id="ctr">
+							<span></span>
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+                </div>
+                <!--<div class="l-arrow arrow"><</div>
+                <div class="r-arrow arrow">></div>-->
+        <!--焦点图 end-->
+        <!--今日热点 start-->
+        <div class="today_hot clear">
+            <div class="today_hot_top"><span><a href="http://news.yishu.com/paimai/">拍卖资讯</a><a href="http://news.yishu.com/zhanlan/">展览资讯</a><a href="http://test.yishu.com/sc/">收藏知识</a><a href="http://news.yishu.com/yishu/">艺术动态</a></span>今日热点</div>
+            <div class="today_hot_down">
+                <dl >
+                        <a href="http://www.yishu.com/sc/xiao_qc/article-18790.html"><dt>粉青釉起源自哪里？</dt></a>
+                        <dd>我国宋代时期，瓷器发展至巅峰，拥有卓越智慧的人们创烧了很多瓷器新品，包括天青釉、粉青釉、梅子青等。今...<span><a href="http://www.yishu.com/sc/xiao_qc/article-18790.html">详细</a></span></dd>
+                    </dl><dl >
+                        <a href="http://www.yishu.com/sc/xiao_qc/article-18787.html"><dt>汝窑青瓷与其他窑系产青瓷有什么区别？</dt></a>
+                        <dd>汝窑作为一个著名的青瓷品种，其工艺精湛、造型秀美、釉面温润、高雅肃静，在我国青瓷发展史上具有划时代意...<span><a href="http://www.yishu.com/sc/xiao_qc/article-18787.html">详细</a></span></dd>
+                    </dl><dl >
+                        <a href="http://www.yishu.com/sc/xiao_qc/article-18778.html"><dt>多色釉瓷种类有哪些？</dt></a>
+                        <dd>我国瓷器发展经历了从最初的陶器向原始青瓷的转变，从单色釉瓷发展到多色釉瓷，我国瓷器种类在不断扩大中。...<span><a href="http://www.yishu.com/sc/xiao_qc/article-18778.html">详细</a></span></dd>
+                    </dl><dl >
+                        <a href="http://www.yishu.com/sc/xiao_qc/article-18774.html"><dt>青瓷属于单色釉瓷吗？</dt></a>
+                        <dd>商周时期，人们开始制作瓷器，称之为原始瓷器，因为瓷器颜色呈现青绿色，其又称之为原始青瓷。到了东汉时期...<span><a href="http://www.yishu.com/sc/xiao_qc/article-18774.html">详细</a></span></dd>
+                    </dl><dl class="b-b0">
+                        <a href="http://www.yishu.com/sc/xiao_jdz/article-18772.html"><dt>变色釉和颜色釉有什么区别</dt></a>
+                        <dd>我国瓷器发展从原始青瓷到白瓷再到彩瓷，从单色釉到多色釉，我国瓷器品种不断增多。新中国成立以来，为了创...<span><a href="http://www.yishu.com/sc/xiao_jdz/article-18772.html">详细</a></span></dd>
+                    </dl>            </div>
+        </div>
+        <!--end 今日热点-->
+    </div>
+    <!--c end-->
+    <!--right start-->
+    <div class="index_right">
+        <!--新闻排行榜 start-->
+        <div class="week-rank2">
+            <div class="comm-subtitle m-t0">
+                <h4>新闻排行榜</h4>
+                <div class="right">
+                    <a class="more right" href="http://news.yishu.com">更多</a>
+                </div>
+            </div>
+            <div class="content">
+                <ul>
+                    <li>
+                            <p class="num top3">1</p>
+                            <p><a href="http://news.yishu.com/hangqing/18672.html" title="琥珀蜜蜡走俏市场 成为收藏市场新宠">琥珀蜜蜡走俏市场 成为收藏市场新宠</a></p>
+                        </li><li>
+                            <p class="num top3">2</p>
+                            <p><a href="http://news.yishu.com/zonghe/18638.html" title="艺术品信托几乎淡出市场 2014发行产品只有七款">艺术品信托几乎淡出市场 2014发行</a></p>
+                        </li><li>
+                            <p class="num top3">3</p>
+                            <p><a href="http://news.yishu.com/mingjia/18639.html" title="弗里达·卡罗谜样的声望和作品再认识">弗里达·卡罗谜样的声望和作品再认识</a></p>
+                        </li><li>
+                            <p class="num ">4</p>
+                            <p><a href="http://news.yishu.com/zhanlan/18669.html" title="兰州展出敦煌莫高窟壁画 高科技手段展现敦煌文物">兰州展出敦煌莫高窟壁画 高科技手段展</a></p>
+                        </li><li>
+                            <p class="num ">5</p>
+                            <p><a href="http://news.yishu.com/hangqing/18595.html" title="邮市呈现回暖态势 小版张涨势凶猛">邮市呈现回暖态势 小版张涨势凶猛</a></p>
+                        </li><li>
+                            <p class="num ">6</p>
+                            <p><a href="http://news.yishu.com/jianding/18588.html" title="高低档瓷器购买需注意鉴别技巧">高低档瓷器购买需注意鉴别技巧</a></p>
+                        </li><li>
+                            <p class="num ">7</p>
+                            <p><a href="http://news.yishu.com/mingjia/18577.html" title="杜尚：至人无己，摆脱“我”和“自己”">杜尚：至人无己，摆脱“我”和“自己”</a></p>
+                        </li><li>
+                            <p class="num ">8</p>
+                            <p><a href="http://news.yishu.com/zhanlan/18578.html" title="上海举办海上连环画展览 重新感受儿时艺术">上海举办海上连环画展览 重新感受儿时</a></p>
+                        </li>
+
+                </ul>
+            </div>
+        </div>
+
+        <!--end 新闻排行榜-->
+        <!-- 臻品赏鉴-->
+        <div class="appreciate clear">
+            <div class="comm-subtitle">
+                <h4>臻品赏鉴</h4>
+                <div class="right">
+                    <a class="more right" href="http://cang.yishu.com/">更多</a>
+                </div>
+            </div>
+            <div class="content">
+                <ul>
+                    <li >
+                            <div class="left"><a href="http://cang.yishu.com/2114.html"><img src="http://www.yishu.com/uploadfile/2014/0820/20140820063248264.gif" alt="" width="100" height="65" /></a></div>
+                            <div class="right">
+                                <p class="title">韩舒柳 二尺条幅山水</p>
+                                <p class="price">￥6600</p>
+                                <p><a href="http://cang.yishu.com/2114.html">去查看&nbsp;&nbsp;&gt;</a></p>
+                            </div>
+                        </li><li >
+                            <div class="left"><a href="http://cang.yishu.com/2113.html"><img src="http://www.yishu.com/uploadfile/2014/0820/20140820063005248.gif" alt="" width="100" height="65" /></a></div>
+                            <div class="right">
+                                <p class="title">杜明岑 二尺条幅人物</p>
+                                <p class="price">￥6900</p>
+                                <p><a href="http://cang.yishu.com/2113.html">去查看&nbsp;&nbsp;&gt;</a></p>
+                            </div>
+                        </li><li >
+                            <div class="left"><a href="http://cang.yishu.com/2112.html"><img src="http://www.yishu.com/uploadfile/2014/0820/20140820062045637.gif" alt="" width="100" height="65" /></a></div>
+                            <div class="right">
+                                <p class="title">杨明义 二尺条幅山水</p>
+                                <p class="price">￥98000</p>
+                                <p><a href="http://cang.yishu.com/2112.html">去查看&nbsp;&nbsp;&gt;</a></p>
+                            </div>
+                        </li><li class="b-b0">
+                            <div class="left"><a href="http://cang.yishu.com/2111.html"><img src="http://www.yishu.com/uploadfile/2014/0820/20140820055325563.gif" alt="" width="100" height="65" /></a></div>
+                            <div class="right">
+                                <p class="title">张远谋 四尺横幅山水</p>
+                                <p class="price">￥2400</p>
+                                <p><a href="http://cang.yishu.com/2111.html">去查看&nbsp;&nbsp;&gt;</a></p>
+                            </div>
+                        </li>                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 臻品赏鉴 end-->
+</div>
+<div class="advertis"><a href="#"><img src="http://test.yishu.com/Public/img/advertis/12.jpg"></a></div>
+<!-- 板块2 -->
+<div class="clear block2">
+    <div class="top clear">
+        <div class="comm-subtitle">
+            <h4>艺术人物</h4>
+        </div>
+
+        <div class="b-left">
+            <!-- 艺术家栏目 -->
+            <div class="artist">
+                <div class="comm-subtitle2 b-0">
+                    <ul >
+                        <li class="select"><a href="http://artist.yishu.com/">艺术家</a></li>
+                        <li><a href="http://artist.yishu.com/front_artist/lists/category/13">紫砂</a></li><li><a href="http://artist.yishu.com/front_artist/lists/category/12">玉器</a></li><li><a href="http://artist.yishu.com/front_artist/lists/category/11">版画</a></li><li><a href="http://artist.yishu.com/front_artist/lists/category/8">水粉水彩</a></li><li><a href="http://artist.yishu.com/front_artist/lists/category/7">油画</a></li><li><a href="http://artist.yishu.com/front_artist/lists/category/3">书法</a></li><li><a href="http://artist.yishu.com/front_artist/lists/category/2">国画</a></li>                    </ul>
+                </div>
+                <div class="content clear">
+                    <ul>
+                        <li>
+                                <a href="http://artist.yishu.com/201"><img src="http://i.yishu.com/d/file/artist/2014/05/537f135674f01.jpg" alt="" width="122" height="150" /></a>
+                                <p class="common-word"><a>王子武</a></p>
+                            </li><li>
+                                <a href="http://artist.yishu.com/202"><img src="http://i.yishu.com/d/file/artist/2014/05/53806501933fd.jpg" alt="" width="122" height="150" /></a>
+                                <p class="common-word"><a>程十发</a></p>
+                            </li><li>
+                                <a href="http://artist.yishu.com/203"><img src="http://i.yishu.com/d/file/artist/2014/05/53830e6ba2053.jpg" alt="" width="122" height="150" /></a>
+                                <p class="common-word"><a>杨晓阳</a></p>
+                            </li><li>
+                                <a href="http://artist.yishu.com/138"><img src="http://i.yishu.com/d/file/artist/2013/11/52995bacf06fa.jpg" alt="" width="122" height="150" /></a>
+                                <p class="common-word"><a>李剑晨</a></p>
+                            </li><li>
+                                <a href="http://artist.yishu.com/212"><img src="http://i.yishu.com/d/file/artist/2014/06/539abe8b303ea.jpg" alt="" width="122" height="150" /></a>
+                                <p class="common-word"><a>刘大为</a></p>
+                            </li><li>
+                                <a href="http://artist.yishu.com/137"><img src="http://i.yishu.com/d/file/artist/2013/11/52995894c7efb.png" alt="" width="122" height="150" /></a>
+                                <p class="common-word"><a>曾醉</a></p>
+                            </li><li>
+                                <a href="http://artist.yishu.com/134"><img src="http://i.yishu.com/d/file/artist/2013/11/52998d6b44d03.jpg" alt="" width="122" height="150" /></a>
+                                <p class="common-word"><a>李旭萍</a></p>
+                            </li><li>
+                                <a href="http://artist.yishu.com/136"><img src="http://i.yishu.com/d/file/artist/2013/11/5299919e09185.jpg" alt="" width="122" height="150" /></a>
+                                <p class="common-word"><a>王肇民</a></p>
+                            </li><li>
+                                <a href="http://artist.yishu.com/140"><img src="http://i.yishu.com/d/file/artist/2013/11/5299908524482.jpg" alt="" width="122" height="150" /></a>
+                                <p class="common-word"><a>黄锡驹</a></p>
+                            </li><li>
+                                <a href="http://artist.yishu.com/213"><img src="http://i.yishu.com/d/file/artist/2014/06/539e9f7ce8b94.jpg" alt="" width="122" height="150" /></a>
+                                <p class="common-word"><a>杨佳焕</a></p>
+                            </li>                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="b-right">
+            <!-- 名家聚焦 -->
+            <div class="famous-gather">
+                <div class="comm-subtitle">
+                    <h4>名家聚焦</h4>
+                    <div class="right">
+                        <a class="more right" href="http://news.yishu.com/mingjia/">更多</a>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="ranking-list">
+                        <ul>
+                            <li>
+                                    <span class="num top3">1</span>
+                                    <p class="intro hide">
+                                        <span class="name"><a href="http://news.yishu.com/mingjia/17643.html">刘景明“虚拟交互空间”：虚拟中实现的“真</a></span>
+                                    </p>
+                                    <div class="detail ">
+                                        <div class="left"><a href="http://news.yishu.com/mingjia/17643.html"><img src="http://www.yishu.com/uploadfile/2014/0815/thumb_182_123_20140815011639460.jpg" alt="" width="90" height="60"/></a></div>
+                                        <div class="right">
+                                            <p><a href="http://news.yishu.com/mingjia/17643.html">刘景明，1974年生于江西，数码艺术专业硕士，公共艺术在读博</a></p>
+                                        </div>
+                                    </div>
+                                </li><li>
+                                    <span class="num top3">2</span>
+                                    <p class="intro ">
+                                        <span class="name"><a href="http://news.yishu.com/mingjia/17631.html">蒋飞：数码交互艺术正处于隐性存在阶段</a></span>
+                                    </p>
+                                    <div class="detail hide">
+                                        <div class="left"><a href="http://news.yishu.com/mingjia/17631.html"><img src="http://www.yishu.com/uploadfile/2014/0815/thumb_182_123_20140815120358958.jpg" alt="" width="90" height="60"/></a></div>
+                                        <div class="right">
+                                            <p><a href="http://news.yishu.com/mingjia/17631.html">数码交互艺术，很多非专业人士对这个概念都不是特别了解，几年前</a></p>
+                                        </div>
+                                    </div>
+                                </li><li>
+                                    <span class="num top3">3</span>
+                                    <p class="intro ">
+                                        <span class="name"><a href="http://news.yishu.com/mingjia/17566.html">节庆式艺术家蔡国强：要回归就得轰轰烈烈</a></span>
+                                    </p>
+                                    <div class="detail hide">
+                                        <div class="left"><a href="http://news.yishu.com/mingjia/17566.html"><img src="http://www.yishu.com/uploadfile/2014/0814/thumb_182_123_20140814034632399.jpg" alt="" width="90" height="60"/></a></div>
+                                        <div class="right">
+                                            <p><a href="http://news.yishu.com/mingjia/17566.html">蔡国强的再次荣归上海，比较起节庆烟花设计师的回国或者是策展人</a></p>
+                                        </div>
+                                    </div>
+                                </li><li>
+                                    <span class="num ">4</span>
+                                    <p class="intro ">
+                                        <span class="name"><a href="http://news.yishu.com/mingjia/16329.html">低调就是最牛叉的炫耀：安尼施·卡普尔名列</a></span>
+                                    </p>
+                                    <div class="detail hide">
+                                        <div class="left"><a href="http://news.yishu.com/mingjia/16329.html"><img src="http://www.yishu.com/uploadfile/2014/0729/thumb_182_123_20140729053847128.jpg" alt="" width="90" height="60"/></a></div>
+                                        <div class="right">
+                                            <p><a href="http://news.yishu.com/mingjia/16329.html">印裔英国艺术家安尼施·卡普尔一直是以壮观且华丽的巨型雕塑而在</a></p>
+                                        </div>
+                                    </div>
+                                </li><li>
+                                    <span class="num ">5</span>
+                                    <p class="intro ">
+                                        <span class="name"><a href="http://news.yishu.com/mingjia/16309.html">希特勒、张学良等政客也是收藏大亨</a></span>
+                                    </p>
+                                    <div class="detail hide">
+                                        <div class="left"><a href="http://news.yishu.com/mingjia/16309.html"><img src="http://www.yishu.com/uploadfile/2014/0729/thumb_182_123_20140729041406236.jpg" alt="" width="90" height="60"/></a></div>
+                                        <div class="right">
+                                            <p><a href="http://news.yishu.com/mingjia/16309.html">事实上，很多家喻户晓的政治人物都亲自参加过，或者是派代表参加</a></p>
+                                        </div>
+                                    </div>
+                                </li><li>
+                                    <span class="num ">6</span>
+                                    <p class="intro ">
+                                        <span class="name"><a href="http://news.yishu.com/mingjia/16290.html">李宝林山水画：中法艺术交流的先河</a></span>
+                                    </p>
+                                    <div class="detail hide">
+                                        <div class="left"><a href="http://news.yishu.com/mingjia/16290.html"><img src="http://www.yishu.com/uploadfile/2014/0729/20140729112530408.jpg" alt="" width="90" height="60"/></a></div>
+                                        <div class="right">
+                                            <p><a href="http://news.yishu.com/mingjia/16290.html">《大山回响一李宝林山水画艺术展》于4月3日下午在法国巴黎举办</a></p>
+                                        </div>
+                                    </div>
+                                </li><li>
+                                    <span class="num ">7</span>
+                                    <p class="intro ">
+                                        <span class="name"><a href="http://news.yishu.com/mingjia/16239.html">毛栗子：高度的写实主义者</a></span>
+                                    </p>
+                                    <div class="detail hide">
+                                        <div class="left"><a href="http://news.yishu.com/mingjia/16239.html"><img src="http://www.yishu.com/uploadfile/2014/0728/20140728062309635.jpg" alt="" width="90" height="60"/></a></div>
+                                        <div class="right">
+                                            <p><a href="http://news.yishu.com/mingjia/16239.html">毛栗子是“星星画会”的发起人之一，是于改革开放后成立的。他在</a></p>
+                                        </div>
+                                    </div>
+                                </li><li>
+                                    <span class="num ">8</span>
+                                    <p class="intro ">
+                                        <span class="name"><a href="http://news.yishu.com/mingjia/16202.html">当邹琼辉遇上常咒</a></span>
+                                    </p>
+                                    <div class="detail hide">
+                                        <div class="left"><a href="http://news.yishu.com/mingjia/16202.html"><img src="http://www.yishu.com/uploadfile/2014/0728/20140728025432288.jpg" alt="" width="90" height="60"/></a></div>
+                                        <div class="right">
+                                            <p><a href="http://news.yishu.com/mingjia/16202.html">常咒、邹琼辉两位艺术家于2012年5月相识，正直第六届马来西</a></p>
+                                        </div>
+                                    </div>
+                                </li><li>
+                                    <span class="num ">9</span>
+                                    <p class="intro ">
+                                        <span class="name"><a href="http://news.yishu.com/mingjia/16149.html">毕加索的另一种风格</a></span>
+                                    </p>
+                                    <div class="detail hide">
+                                        <div class="left"><a href="http://news.yishu.com/mingjia/16149.html"><img src="http://www.yishu.com/uploadfile/2014/0726/20140726045604535.jpg" alt="" width="90" height="60"/></a></div>
+                                        <div class="right">
+                                            <p><a href="http://news.yishu.com/mingjia/16149.html">毕加索晚年创作了这个作品《戴绿帽子的女人》，而毕加索所用的立</a></p>
+                                        </div>
+                                    </div>
+                                </li><li>
+                                    <span class="num ">10</span>
+                                    <p class="intro ">
+                                        <span class="name"><a href="http://news.yishu.com/mingjia/16127.html">艺术家柯明逝世 生前是“天书奇谭”造型设</a></span>
+                                    </p>
+                                    <div class="detail hide">
+                                        <div class="left"><a href="http://news.yishu.com/mingjia/16127.html"><img src="http://www.yishu.com/uploadfile/2014/0726/thumb_182_123_20140726040904981.jpg" alt="" width="90" height="60"/></a></div>
+                                        <div class="right">
+                                            <p><a href="http://news.yishu.com/mingjia/16127.html">有网友发微博称：“画家、动画造型设计师柯明先生于2014年7</a></p>
+                                        </div>
+                                    </div>
+                                </li>                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="advertis"><a href="#"><img src="http://test.yishu.com/Public/img/advertis/13.jpg"></a></div>
+    <!-- 热门专场 -->
+    <div class="bottom">
+        <div class="comm-subtitle">
+            <h4>热门专场</h4>
+            <!--<div class="right rem"><a href="#">&gt;</a><a class="select" href="#">&lt;</a></div>-->
+        </div>
+        <div class="content">
+            <ul>
+                <li><a href="http://cang.yishu.com/t60"><img src="http://www.yishu.com/uploadfile/2014/0830/hotspecials/zc_01.jpg" alt="" width="128" height="128" /></a></li><li><a href="http://cang.yishu.com/t62"><img src="http://www.yishu.com/uploadfile/2014/0830/hotspecials/zc_02.jpg" alt="" width="128" height="128" /></a></li><li><a href="http://cang.yishu.com/t65"><img src="http://www.yishu.com/uploadfile/2014/0830/hotspecials/zc_04.jpg" alt="" width="128" height="128" /></a></li><li><a href="http://cang.yishu.com/t64"><img src="http://www.yishu.com/uploadfile/2014/0830/hotspecials/zc_05.jpg" alt="" width="128" height="128" /></a></li><li><a href="http://cang.yishu.com/t63"><img src="http://www.yishu.com/uploadfile/2014/0830/hotspecials/zc_06.jpg" alt="" width="128" height="128" /></a></li><li><a href="http://cang.yishu.com/t131"><img src="http://www.yishu.com/uploadfile/2014/0830/hotspecials/zc_07.jpg" alt="" width="128" height="128" /></a></li><li><a href="http://cang.yishu.com/t61"><img src="http://www.yishu.com/uploadfile/2014/0830/hotspecials/zc_03.jpg" alt="" width="128" height="128" /></a></li>            </ul>
+        </div>
+    </div>
+</div>
+<!-- 板块3 -->
+<div class="clear block3">
+    <div class="comm-subtitle">
+        <h4>展览</h4>
+    </div>
+
+    <!-- 展览现场 -->
+    <div class="b-left show-pl">
+        <div class="content">
+            <div class="left">
+                <p class="title">北京举办当代朝鲜油画名家作品展</p>
+                    <p class="disc">据报道，最近北京举办了当代朝鲜油画名家作品展，展览主题为“隔...<a href="http://news.yishu.com/zhanlan/18674.html" class="blue">[详细]</a></p>                <div class="comm-list">
+                    <ul>
+                        <li><a href="http://news.yishu.com/zhanlan/18669.html">兰州展出敦煌莫高窟壁画 高科技手段展现敦</a></li><li><a href="http://news.yishu.com/zhanlan/18667.html">伦敦同时举办英国两大艺术家展览</a></li><li><a href="http://news.yishu.com/zhanlan/18662.html">上千幅艺术精品亮相山东首次双年展</a></li><li><a href="http://news.yishu.com/zhanlan/18657.html">瑞典将会展出达明安·赫斯特首场个展</a></li><li><a href="http://news.yishu.com/zhanlan/18578.html">上海举办海上连环画展览 重新感受儿时艺术</a></li>                    </ul>
+                </div>
+            </div>
+            <div class="right">
+                <!-- 焦点图 -->
+                <div class="common-slideshow s-slideshow">
+                    <div class="slide-img">
+                        <ul>
+                            <li>
+                                    <a href="http://news.yishu.com/zhanlan/18674.html"><img src="http://www.yishu.com/uploadfile/2014/0829/20140829035503378.jpg" width="280" height="215" alt="" /></a>
+                                </li><li>
+                                    <a href="http://news.yishu.com/zhanlan/18669.html"><img src="http://www.yishu.com/uploadfile/2014/0829/20140829033630122.jpg" width="280" height="215" alt="" /></a>
+                                </li><li>
+                                    <a href="http://news.yishu.com/zhanlan/18667.html"><img src="http://www.yishu.com/uploadfile/2014/0829/20140829032450291.jpg" width="280" height="215" alt="" /></a>
+                                </li><li>
+                                    <a href="http://news.yishu.com/zhanlan/18662.html"><img src="http://www.yishu.com/uploadfile/2014/0829/20140829030757996.jpg" width="280" height="215" alt="" /></a>
+                                </li>                        </ul>
+                    </div>
+                    <div class="l-arrow arrow"><</div>
+                    <div class="r-arrow arrow">></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 热门画廊 -->
+    <div class="b-right hot-draw">
+        <div class="comm-subtitle">
+            <h4>热门画廊</h4>
+            <div class="right">
+                <a class="more right" href="http://gallery.yishu.com/">更多</a>
+                <ul class="right">
+                    <li><a href="http://gallery.yishu.com/front_gallery/home/id/2">上海</a></li>
+                    <li><a href="http://gallery.yishu.com/front_gallery/home/id/3">北京</a></li>
+                    <li><a href="http://gallery.yishu.com/front_gallery/home/id/21">广州</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="content">
+            <ul>
+                <li><a href="http://gallery.yishu.com/space_gallery/index/gid/163"><img src="http://i.yishu.com/d/file/gallery/2014/08/53ffead505658.jpg" alt="" width="135" height="65" /></a></li><li><a href="http://gallery.yishu.com/space_gallery/index/gid/162"><img src="http://i.yishu.com/d/file/gallery/2014/08/53ffe7fbd39e9.jpg" alt="" width="135" height="65" /></a></li><li><a href="http://gallery.yishu.com/space_gallery/index/gid/161"><img src="http://i.yishu.com/d/file/gallery/2014/08/53ffe678856bc.jpg" alt="" width="135" height="65" /></a></li><li><a href="http://gallery.yishu.com/space_gallery/index/gid/160"><img src="http://i.yishu.com/d/file/gallery/2014/08/53f6b0a73c4c3.jpg" alt="" width="135" height="65" /></a></li><li><a href="http://gallery.yishu.com/space_gallery/index/gid/159"><img src="http://i.yishu.com/d/file/gallery/2014/08/53f6ae0b7f78c.jpg" alt="" width="135" height="65" /></a></li><li><a href="http://gallery.yishu.com/space_gallery/index/gid/158"><img src="http://i.yishu.com/d/file/gallery/2014/08/53f6aaba96066.jpg" alt="" width="135" height="65" /></a></li>            </ul>
+        </div>
+    </div>
+</div>
+<div class="advertis"><a href="#"><img src="http://test.yishu.com/Public/img/advertis/03.jpg"></a></div>
+<!-- 板块4 -->
+<div class="clear block4">
+    <div class="comm-subtitle">
+        <h4>展览推荐</h4>
+    </div>
+    <!-- 展览推荐 -->
+    <div class="b-left show-recom">
+        <div class="comm-subtitle nav b-0">
+            <ul class="left column">
+                <li class="select nav-1">北京市</li>
+                <li class="nav-2">上海市</li>
+                <li class="nav-3">天津市</li>
+                <li class="nav-4">重庆市</li>
+                <li class="nav-5">浙江省</li>
+                <li class="nav-6">江苏省</li>
+                <li class="nav-7">广东省</li>
+            </ul>
+
+            <div class="right">
+                <a class="more right" href="http://zx.yishu.com/c55/">更多</a>
+            </div>
+        </div>
+        <div class="content tab-content">
+            <div class="content-1">
+                <ul>
+                    <li>
+                            <p><a href="http://zx.yishu.com/c57/i1932p1.html"><img src="http://www.yishu.com/uploadfile/2014/0828/20140828112137308.jpg" width="155" height="155" alt="" /></a></p>
+                            <p class="name"><a href="http://zx.yishu.com/c57/i1932p1.html">大美不言：津门五人画</a></p>
+                            <p class="date">2014-09-06 - 2014-09-12</p>
+                        </li><li>
+                            <p><a href="http://zx.yishu.com/c57/i1926p1.html"><img src="http://www.yishu.com/uploadfile/2014/0825/20140825043527968.jpg" width="155" height="155" alt="" /></a></p>
+                            <p class="name"><a href="http://zx.yishu.com/c57/i1926p1.html">当代艺术展·油画篇·</a></p>
+                            <p class="date">2014-08-31 - 2014-09-15</p>
+                        </li><li>
+                            <p><a href="http://zx.yishu.com/c56/i1925p1.html"><img src="http://www.yishu.com/uploadfile/2014/0825/20140825042304385.jpg" width="155" height="155" alt="" /></a></p>
+                            <p class="name"><a href="http://zx.yishu.com/c56/i1925p1.html">“等待”吴琼2014</a></p>
+                            <p class="date">2014-08-29 - 2014-09-25</p>
+                        </li><li>
+                            <p><a href="http://zx.yishu.com/c57/i1915p1.html"><img src="http://www.yishu.com/uploadfile/2014/0823/20140823043140121.jpg" width="155" height="155" alt="" /></a></p>
+                            <p class="name"><a href="http://zx.yishu.com/c57/i1915p1.html">潘缨作品画展</a></p>
+                            <p class="date">2014-08-29 - 2014-09-03</p>
+                        </li><li>
+                            <p><a href="http://zx.yishu.com/c56/i1894p1.html"><img src="http://www.yishu.com/uploadfile/2014/0820/20140820045529273.jpg" width="155" height="155" alt="" /></a></p>
+                            <p class="name"><a href="http://zx.yishu.com/c56/i1894p1.html">史国威个人作品展</a></p>
+                            <p class="date">2014-08-23 - 2014-08-31</p>
+                        </li><li>
+                            <p><a href="http://zx.yishu.com/c57/i1893p1.html"><img src="http://www.yishu.com/uploadfile/2014/0820/20140820044459161.jpg" width="155" height="155" alt="" /></a></p>
+                            <p class="name"><a href="http://zx.yishu.com/c57/i1893p1.html">乡愁国：国际艺术家群</a></p>
+                            <p class="date">2014-08-24 - 2014-08-31</p>
+                        </li><li>
+                            <p><a href="http://zx.yishu.com/c56/i1878p1.html"><img src="http://www.yishu.com/uploadfile/2014/0816/20140816120103304.jpg" width="155" height="155" alt="" /></a></p>
+                            <p class="name"><a href="http://zx.yishu.com/c56/i1878p1.html">“树”徐加存水墨作品</a></p>
+                            <p class="date">2014-08-22 - 2014-09-05</p>
+                        </li><li>
+                            <p><a href="http://zx.yishu.com/c57/i1873p1.html"><img src="http://www.yishu.com/uploadfile/2014/0815/20140815033935104.jpg" width="155" height="155" alt="" /></a></p>
+                            <p class="name"><a href="http://zx.yishu.com/c57/i1873p1.html">故宫博物院藏清代碧玉</a></p>
+                            <p class="date">2014-08-16 - 2014-09-16</p>
+                        </li>                </ul>
+            </div>
+            <div class="content-2 hide">
+                <ul>
+                    <li>
+                            <p><a href="http://zx.yishu.com/c56/i1930p1.html"><img src="http://www.yishu.com/uploadfile/2014/0827/20140827051259948.jpg" width="155" height="155" alt="" /></a></p>
+                            <p class="name"><a href="http://zx.yishu.com/c56/i1930p1.html">“青春之泉”张天军作</a></p>
+                            <p class="date">2014-09-05 - 2014-11-30</p>
+                        </li><li>
+                            <p><a href="http://zx.yishu.com/c57/i1890p1.html"><img src="http://www.yishu.com/uploadfile/2014/0820/20140820034853529.jpg" width="155" height="155" alt="" /></a></p>
+                            <p class="name"><a href="http://zx.yishu.com/c57/i1890p1.html">“海上花”李磊抽象艺</a></p>
+                            <p class="date">2014-09-20 - 2014-11-30</p>
+                        </li><li>
+                            <p><a href="http://zx.yishu.com/c55/i33p1.html"><img src="http://www.yishu.com/uploadfile/2013/1209/thumb_120_180_20131206035137919.jpg" width="155" height="155" alt="" /></a></p>
+                            <p class="name"><a href="http://zx.yishu.com/c55/i33p1.html">“快！这就是绘画！”</a></p>
+                            <p class="date">2013-11-29 - 2014-01-30</p>
+                        </li>                </ul>
+            </div>
+            <div class="content-3 hide">
+                <ul>
+                                    </ul>
+            </div>
+            <div class="content-4 hide">
+                <ul>
+                                    </ul>
+            </div>
+            <div class="content-5 hide">
+                <ul>
+                                    </ul>
+            </div>
+            <div class="content-6 hide">
+                <ul>
+                                    </ul>
+            </div>
+            <div class="content-7 hide">
+                <ul>
+                                    </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 展览日历 -->
+    <div class="b-right show-calendar">
+        <div class="comm-subtitle b-0">
+            <h4>展览日历</h4>
+            <div class="right">
+                <div class="date"></div>
+            </div>
+        </div>
+        <div class="content">
+            <div type="text" id="datepicker"></div>
+            <div class="remark">
+                <p class="local" id="remark_title">莫拉维茨中国首展</p>
+                <p id="remark_addr">地点：精辅画廊工作室</p>
+                <p id="remark_time">时间：2013-11-10 - 2014-01-06</p>
+            </div>
+        </div>
+        <!-- 展览搜索 -->
+        <div class="show-search">
+            <p class="title left">展览搜索</p>
+            <div class="right">
+                <div class="time">
+                    <p>时间：</p>
+                    <select id="year" class="comm-select">
+                        <option>选择</option>
+                    </select>
+                    <select id="month" class="comm-select">
+                        <option>选择</option>
+                    </select>
+                    <select id="date" class="comm-select">
+                        <option>选择</option>
+                    </select>
+                </div>
+                <div class="local">
+                    <p>名称：</p>
+                    <div class="exhibition-name">
+                        <input type="text" class="text" name="exhi_title" />
+                        <input type="submit" value="确定" class="search" id="exhi_search_btn"/>
+                    </div>
+                    <script type="text/javascript">
+                        $(function(){
+                            $("#exhi_search_btn").click(function(){
+                                var time = $("#year").val().replace(/<[^>].*?>/g,"")+'-'+$("#month").val().replace(/<[^>].*?>/g,"")+'-'+$("#date").val().replace(/<[^>].*?>/g,"");
+                                var title = $("input[name='exhi_title']").val();
+                                if(title == '请输入关键字...' || !title ){ title = 0; }
+                                var url = (title==0) ? 'http://zx.yishu.com/c55/r'+time+'p1' : 'http://zx.yishu.com/c55/r'+time+'p1?title='+title;
+                                window.open(url);
+                            });
+
+                        })
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="cb"><a href="#"><img src="http://test.yishu.com/Public/img/column-img/44.jpg" width="290" height="93"  alt="" /></a></div>
+    </div>
+</div>
+<div class="advertis"><a href="#"><img src="http://test.yishu.com/Public/img/advertis/14.jpg"></a></div>
+<!-- 板块5 -->
+<div class="clear block5 auction_block">
+    <div class="comm-subtitle">
+        <h4>拍卖</h4>
+    </div>
+    <!-- 热门拍品 -->
+    <div class="b-right hot-sell">
+        <div class="comm-subtitle">
+            <h4>热门拍品</h4>
+            <div class="right">
+                <a class="more right" href="http://auction.yishu.com/exhi/">更多</a>
+            </div>
+        </div>
+        <div class="content m-t10">
+            <ul>
+                <li>
+                        <a href="http://auction.yishu.com/exhi/61"><img src="http://auction.yishu.com//d/file/auction/2013/12/52a58dece9234.jpg" width="125" height="125" alt="" /></a>
+                        <p class="common-word">
+                            <span>花梨木箱、山水人物漆</span>
+                            <span>估价： 1500</span>
+                        </p>
+                    </li><li>
+                        <a href="http://auction.yishu.com/exhi/60"><img src="http://auction.yishu.com//d/file/auction/2013/12/52a58d866f0e7.jpg" width="125" height="125" alt="" /></a>
+                        <p class="common-word">
+                            <span>竹萧</span>
+                            <span>估价： 1200</span>
+                        </p>
+                    </li><li>
+                        <a href="http://auction.yishu.com/exhi/59"><img src="http://auction.yishu.com//d/file/auction/2013/12/52a58cd211313.jpg" width="125" height="125" alt="" /></a>
+                        <p class="common-word">
+                            <span>红木座白玉如意</span>
+                            <span>估价： 50000</span>
+                        </p>
+                    </li><li>
+                        <a href="http://auction.yishu.com/exhi/58"><img src="http://auction.yishu.com//d/file/auction/2013/12/52a58bc03b48d.jpg" width="125" height="125" alt="" /></a>
+                        <p class="common-word">
+                            <span>鱼蝠莲藕碧玺挂坠</span>
+                            <span>估价： 18000</span>
+                        </p>
+                    </li><li>
+                        <a href="http://auction.yishu.com/exhi/57"><img src="http://auction.yishu.com//d/file/auction/2013/12/52a58b6b5faf3.jpg" width="125" height="125" alt="" /></a>
+                        <p class="common-word">
+                            <span>碧玺手串</span>
+                            <span>估价： 20000</span>
+                        </p>
+                    </li><li>
+                        <a href="http://auction.yishu.com/exhi/56"><img src="http://auction.yishu.com//d/file/auction/2013/12/52a589d723450.jpg" width="125" height="125" alt="" /></a>
+                        <p class="common-word">
+                            <span>镶嵌冰种翡翠挂坠</span>
+                            <span>估价： 120000</span>
+                        </p>
+                    </li><li>
+                        <a href="http://auction.yishu.com/exhi/55"><img src="http://auction.yishu.com//d/file/auction/2013/12/52a587cbc82b4.jpg" width="125" height="125" alt="" /></a>
+                        <p class="common-word">
+                            <span>山东运河备览十二卷</span>
+                            <span>估价： 25000</span>
+                        </p>
+                    </li><li>
+                        <a href="http://auction.yishu.com/exhi/54"><img src="http://auction.yishu.com//d/file/auction/2013/12/52a5876a602d6.jpg" width="125" height="125" alt="" /></a>
+                        <p class="common-word">
+                            <span>词律二十卷</span>
+                            <span>估价： 10000</span>
+                        </p>
+                    </li><li>
+                        <a href="http://auction.yishu.com/exhi/53"><img src="http://auction.yishu.com//d/file/auction/2013/12/52a585496714e.jpg" width="125" height="125" alt="" /></a>
+                        <p class="common-word">
+                            <span>归去来辞等</span>
+                            <span>估价： 3000</span>
+                        </p>
+                    </li><li>
+                        <a href="http://auction.yishu.com/exhi/52"><img src="http://auction.yishu.com//d/file/auction/2013/12/52a5853740db6.jpg" width="125" height="125" alt="" /></a>
+                        <p class="common-word">
+                            <span>仙传二十四节气坐功</span>
+                            <span>估价： 1000</span>
+                        </p>
+                    </li>            </ul>
+        </div>
+    </div>
+    <!--end 热门拍卖-->
+    <!-- 拍卖收藏 -->
+    <div class="b-left sell-collect">
+        <div class="comm-subtitle nav m-b10" >
+            <h4>拍卖收藏</h4>
+            <div class="right">
+                <a class="more right" href="http://auction.yishu.com/exhi/">更多</a>
+                <ul class="right column">
+                    <li class="select nav-1">拍卖预展</li>
+                    <li class="nav-2">拍卖结果</li>
+                </ul>
+            </div>
+        </div>
+        <div class="content tab-content">
+            <div class="content-1">
+                <ul>
+                    <li class="title">
+                        <p class="l">拍卖公司</p>
+                        <p class="c">拍卖会</p>
+                        <p class="r">拍卖时间</p>
+                    </li>
+                    <li>
+                                <span class="l">北京恒丰</span>
+                                <span class="c">二十二届书画拍卖会</span>
+                                <span class="r">2014-12-28</span>
+                        </li><li>
+                                <span class="l">天津敬人</span>
+                                <span class="c">2014年冬季艺术品拍卖会</span>
+                                <span class="r">2014-12-21</span>
+                        </li><li>
+                                <span class="l">中国嘉德</span>
+                                <span class="c">嘉德四季第四十期拍卖会</span>
+                                <span class="r">2014-12-19</span>
+                        </li><li>
+                                <span class="l">北京冠宸</span>
+                                <span class="c">北京冠宸春秋2014年精品拍卖会</span>
+                                <span class="r">2014-12-15</span>
+                        </li><li>
+                                <span class="l">北京冠宸</span>
+                                <span class="c">2014年精品拍卖会</span>
+                                <span class="r">2014-12-15</span>
+                        </li><li>
+                                <span class="l">西泠印社</span>
+                                <span class="c">西泠印社2014年秋季拍卖会</span>
+                                <span class="r">2014-12-13</span>
+                        </li><li>
+                                <span class="l">雍和嘉诚</span>
+                                <span class="c">北京雍和嘉诚2014秋季艺术品拍卖会</span>
+                                <span class="r">2014-11-30</span>
+                        </li><li>
+                                <span class="l">北京雍和</span>
+                                <span class="c">雍和嘉诚2014秋季艺术品拍卖会</span>
+                                <span class="r">2014-11-30</span>
+                        </li><li>
+                                <span class="l">北京荣宝</span>
+                                <span class="c">北京荣宝2014年秋季文物艺术品拍卖会</span>
+                                <span class="r">2014-11-22</span>
+                        </li><li>
+                                <span class="l">山东恒昌</span>
+                                <span class="c">山东恒昌2014秋季艺术品拍卖会</span>
+                                <span class="r">2014-11-16</span>
+                        </li>                </ul>
+            </div>
+            <div class="content-2 hide">
+                <ul>
+                    <li class="title">
+                        <p class="l">拍卖公司</p>
+                        <p class="c">拍卖会</p>
+                        <p class="r">总成交额（万元）</p>
+                    </li>
+                    <li>
+                                <span class="l">北京翰海</span>
+                                <span class="c">翰海四季（第83期）拍卖会</span>
+                                <span class="r">5323.06</span>
+                        </li><li>
+                                <span class="l">杭州沃恩</span>
+                                <span class="c">第四届“印象西湖”财富浙商当代艺术品专场拍卖会</span>
+                                <span class="r">5212.63</span>
+                        </li><li>
+                                <span class="l"> 北京保</span>
+                                <span class="c">大众鉴藏拍卖会第三期(北京保利)</span>
+                                <span class="r">2990.06</span>
+                        </li><li>
+                                <span class="l">北京保利</span>
+                                <span class="c">大众鉴藏拍卖会第三期</span>
+                                <span class="r">2990.06</span>
+                        </li><li>
+                                <span class="l">青岛中艺</span>
+                                <span class="c">2014迎春书画精品拍卖会（中艺）</span>
+                                <span class="r">1174.49</span>
+                        </li><li>
+                                <span class="l"> 北京保</span>
+                                <span class="c">第25期精品拍卖会</span>
+                                <span class="r">9458.75</span>
+                        </li><li>
+                                <span class="l"> 北京保</span>
+                                <span class="c">第25期精品拍卖会（北京保利）</span>
+                                <span class="r">9458.75</span>
+                        </li><li>
+                                <span class="l">南京经典</span>
+                                <span class="c">2013年秋季拍卖会（南京经典）</span>
+                                <span class="r">22757.43</span>
+                        </li><li>
+                                <span class="l">江西天顺</span>
+                                <span class="c">2014艺术品拍卖会（第一期）</span>
+                                <span class="r">1735.36</span>
+                        </li><li>
+                                <span class="l">北京长风</span>
+                                <span class="c">北京长风2013秋季拍卖会</span>
+                                <span class="r">10089.75</span>
+                        </li>                </ul>
+            </div>
+        </div>
+    </div>
+    <!--end-->
+</div>
+<div class="advertis"><a href="#"><img src="http://test.yishu.com/Public/img/advertis/15.jpg"></a></div>
+<!-- 板块6 -->
+<div class="clear block6">
+
+    <!-- 在线拍卖 -->
+    <div class="sell-online">
+        <div class="comm-subtitle">
+            <h4>在线拍卖</h4>
+            <div class="right">
+                <a class="more right" href="http://test.yishu.com/Paimai/FrontInit/index.html">更多</a>
+            </div>
+        </div>
+        <div class="content">
+
+            <div class="r">
+                <div class="sell-tab">
+                    <div class="nav clear">
+                        <ul class="column">
+                            <li class="nav-1 select b-l0"><span>拍卖专场</span></li>
+                            <li class="nav-2"><span>拍卖预告</span></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="content-1">
+                            <ul>
+                                <li>
+                                        <div class="left">
+                                            <a href="http://test.yishu.com/Paimai/FrontTopic/index/id/21.html"><img src="/Public/upload/Paimai/2014-08-30/540186c24e2ca.jpg" width="88" height="88" alt="" /></a>
+                                        </div>
+                                        <div class="right">
+                                            <p><a href="http://test.yishu.com/Paimai/FrontTopic/index/id/21.html">名家孤品专场</a></p>
+                                            <p >共<b class="red">1</b>件<b class="red m_l9">0</b>人参拍</p>
+                                            <p>开拍时间：<span class="grey">08.30/12:00-09.10/00:00</span></p>
+                                        </div>
+                                    </li><li>
+                                        <div class="left">
+                                            <a href="http://test.yishu.com/Paimai/FrontTopic/index/id/20.html"><img src="/Public/upload/Paimai/2014-08-30/5401862b4b597.jpg" width="88" height="88" alt="" /></a>
+                                        </div>
+                                        <div class="right">
+                                            <p><a href="http://test.yishu.com/Paimai/FrontTopic/index/id/20.html">东方陶瓷</a></p>
+                                            <p >共<b class="red">0</b>件<b class="red m_l9">0</b>人参拍</p>
+                                            <p>开拍时间：<span class="grey">08.30/00:00-09.05/08:00</span></p>
+                                        </div>
+                                    </li>                            </ul>
+                            <!--start-->
+                            <div class="clear m-t10"><a href="#"><img src="http://test.yishu.com/Public/img/advertis/17.jpg" border="0" width="250" height="58"></a></div>
+                            <!---end-->
+                        </div>
+                        <div class="content-2 hide">
+                            <ul>
+                                                            </ul>
+                            <!--start-->
+                            <div class="clear m-t10"><a href="#"><img src="http://test.yishu.com/Public/img/advertis/17.jpg" border="0" width="250" height="58"></a></div>
+                            <!---end-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--r end-->
+
+
+            <div class="c">
+                <ul>
+                    <li>
+                            <a href="http://test.yishu.com/Paimai/FrontData/index/id/6.html"><img src="/Public/upload/Paimai/2014-08-30/54019c577d9f0.jpg" width="130" height="130" alt="" /></a>
+                            <div class="common-word">
+                                <a href="http://test.yishu.com/Paimai/FrontData/index/id/6.html">
+                                    <span>40.09g收藏级天</span>
+                                    <span>当前价格：￥15000.00</span>
+                                    <span>起拍价：￥15000.00</span>
+                                    <span>出价次数：0次</span>
+                                </a>
+                            </div>
+                        </li>                </ul>
+            </div>
+            <!--left-->
+        </div>
+    </div>
+</div>
+<div class="advertis"><a href="#"><img src="http://test.yishu.com/Public/img/advertis/16.jpg"></a></div>
+<!-- 板块7 -->
+<div class="clear block7 cang_block">
+<!-- 藏品商城 -->
+<div class="master-art">
+    <div class="comm-subtitle">
+        <h4>藏品商城</h4>
+        <div class="right">
+            <a class="more right" href="http://cang.yishu.com/">更多</a>
+            <ul class="right">
+                <li><a href="http://cang.yishu.com/t60">国画</a></li>
+                <li><a href="http://cang.yishu.com/t62">书法</a></li>
+                <li><a href="http://cang.yishu.com/t61">油画</a></li>
+                <li><a href="http://cang.yishu.com/t65">玉器</a></li>
+                <li><a href="http://cang.yishu.com/t64">瓷器</a></li>
+                <li><a href="http://cang.yishu.com/t63">木器</a></li>
+                <li><a href="http://cang.yishu.com/t131">寿山石</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="content" >
+        <div class="zpsc clear">
+            <div class="zpsc_left">
+                <a href="http://cang.yishu.com/2144.html"><img src="http://www.yishu.com/uploadfile/2014/0822/20140822034614998.gif" border="0" width="200" height="200"><span class="transparent">荆崇强 写实油画《时梭》</span></a><a href="http://cang.yishu.com/2269.html"><img src="http://www.yishu.com/uploadfile/2014/0829/20140829040550645.gif" border="0" width="200" height="200"><span class="transparent">李云生 四尺横幅草书《如梦令》</span></a></div>
+            <div class="zpsc_c">
+                <a href="http://cang.yishu.com/1579.html"><img src="http://www.yishu.com/uploadfile/2014/0707/20140707045129728.gif" border="0" width="290" height="416"><span class="transparent">寿山石 善伯石摆件 弥勒罗汉</span></a>            </div>
+            <div class="zpsc_r">
+                <ul>
+                    <li class="m-r15">
+                        <a href="http://cang.yishu.com/1578.html"><img src="http://www.yishu.com/uploadfile/2014/0707/20140707044741676.gif" border="0" width="185px" height="200px"><span class="transparent">晚清深雕面板小木盒</span></a>                    </li>
+                    <li>
+                        <a href="http://cang.yishu.com/2141.html"><img src="http://www.yishu.com/uploadfile/2014/0822/20140822031157112.gif" border="0" width="260px" height="200px"><span class="transparent">徐朝兴 龙泉青瓷三友玲珑灯</span></a>                    </li>
+                    <li class="m-r15">
+                        <a href="http://cang.yishu.com/2271.html"><img src="http://www.yishu.com/uploadfile/2014/0829/20140829042532441.gif" border="0" width="270px" height="200px"><span class="transparent">王玉东 四尺横幅山水画《溪山清境》</span></a>                    </li>
+                    <li>
+                        <a href="http://cang.yishu.com/1139.html"><img src="http://www.yishu.com/uploadfile/2014/0606/20140606031546808.gif" border="0" width="175px" height="200px"><span class="transparent">新疆和田玉褐皮白玉籽玉摆件 将军令</span></a>                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="advertis"><a href="#"><img src="http://test.yishu.com/Public/img/advertis/top-advertis.jpg"></a></div>
+<div class="clear block8 mall_block">
+    <div class="comm-subtitle">
+        <h4>古玩城</h4>
+        <div class="right">
+            <a class="more right" href="http://mall.yishu.com/">更多</a>
+        </div>
+    </div>
+    <div class="gwandown">
+        <!--left start-->
+        <div class="gwandown_left">
+            <div><img src="http://mall.yishu.com//Uploads/Mall/store/2014-06-23/53a7ee0cbe84e.jpg" width="230" height="130"></div>
+            <p><a href="http://mall.yishu.com/mall/store/index/id/4"><b>北京珠光宝气有限公司</b></a></p>
+            <p>地区：<span style="color:#333">北京市</span></p>
+            <p>成立时间：<span style="color:#333">2014年</span></p>
+            <p>主营项目：<span style="color:#333">玉器</span></p>
+            <p  class="tjhl">主营产品：金银饰品、和田玉、翡翠、水晶、佛像、翡翠镶嵌系列与及其他人物雕像、貔貅、手玩件、摆件、手链、项链、散珠等翡翠相关品种出厂价直销。</p>
+        </div>
+        <!--left end-->
+        <!--c start-->
+        <div class="gwandown_c">
+            <p>
+                <a href="http://mall.yishu.com/mall/filter/index/cid/1">陶器瓷器</a><a href="http://mall.yishu.com/mall/filter/index/cid/2">玉器珠宝</a><a href="http://mall.yishu.com/mall/filter/index/cid/3">古币钱币</a><a href="http://mall.yishu.com/mall/filter/index/cid/4">书画油画</a><a href="http://mall.yishu.com/mall/filter/index/cid/5">金银铜器</a><a href="http://mall.yishu.com/mall/filter/index/cid/6">佛像.宗教藏品</a><a href="http://mall.yishu.com/mall/filter/index/cid/7">木器家具</a><a href="http://mall.yishu.com/mall/filter/index/cid/8">其他杂项</a>            </p>
+            <ul>
+                <li><a href="http://mall.yishu.com/mall/goods/index/id/17"><img src="http://mall.yishu.com//Uploads/Mall/goods/2014-06-23/53a7f13c46164.jpg" width="90" height="90"><span class="transparent">新疆和田玉黄皮白玉籽玉挂件 节节高升 </span></a></li><li><a href="http://mall.yishu.com/mall/goods/index/id/16"><img src="http://mall.yishu.com//Uploads/Mall/goods/2014-06-10/5396b5362d5be.jpg" width="90" height="90"><span class="transparent">新疆和田玉黄皮白玉籽玉玉牌 太白醉酒0</span></a></li><li><a href="http://mall.yishu.com/mall/goods/index/id/15"><img src="http://mall.yishu.com//Uploads/Mall/goods/2014-06-09/5395927a13295.jpg" width="90" height="90"><span class="transparent">新疆和田玉黄皮白玉籽玉摆件</span></a></li><li><a href="http://mall.yishu.com/mall/goods/index/id/9"><img src="http://mall.yishu.com//Uploads/Mall/goods/2014-06-10/53969f2c0ddfc.jpg" width="90" height="90"><span class="transparent">新疆和田玉黄皮白玉籽玉对牌 嫦娥奔月</span></a></li><li><a href="http://mall.yishu.com/mall/goods/index/id/8"><img src="http://mall.yishu.com//Uploads/Mall/goods/2014-06-10/53969fa543d86.jpg" width="90" height="90"><span class="transparent">新疆和田玉黄皮白玉籽玉对牌 渔翁得利</span></a></li><li><a href="http://mall.yishu.com/mall/goods/index/id/6"><img src="http://mall.yishu.com//Uploads/Mall/goods/2014-06-10/5396b682b543c.jpg" width="90" height="90"><span class="transparent">新疆和田玉黄皮白玉籽玉玉牌 太白醉酒 109.2克</span></a></li>            </ul>
+        </div>
+        <!--c end-->
+        <!--right start-->
+        <div class="gwandown_r">
+            <div><b>高级店铺</b></div>
+            <dl>
+                    <dt><img src="http://mall.yishu.com//Uploads/Mall/store/2014-06-23/53a7ee0cbe84e.jpg" width="55" height="55"></dt>
+                    <dd><p><a href="http://mall.yishu.com/mall/store/index/id/4"><b>北京珠光宝气有限公司</b></a></p><p>店主：宝光</p><p>商品数：1</p></dd>
+                </dl><dl>
+                    <dt><img src="http://mall.yishu.com//Uploads/Mall/store/2014-06-06/539180798e8b8.jpg" width="55" height="55"></dt>
+                    <dd><p><a href="http://mall.yishu.com/mall/store/index/id/4"><b>上海翔发珠宝有限公司</b></a></p><p>店主：讯怡</p><p>商品数：5</p></dd>
+                </dl>        </div>
+        <!--right end-->
+    </div>
+
+</div>
+
+<div class="advertis"><a href="#"><img src="http://test.yishu.com/Public/img/advertis/top-advertis.jpg"></a></div>
+</div>
+<!-- 板块8 -->
+<div class="clear block8">
+    <!-- 在线鉴定 -->
+    <div class="identify">
+        <div class="comm-subtitle nav">
+            <h4>在线鉴定</h4>
+            <div class="right">
+                <a class="more right" href="http://identify.yishu.com/">更多</a>
+                <ul class="right column">
+                    <li class="select nav-1"><a href="#">已鉴定</a></li>
+                    <li class="nav-2"><a href="#">未鉴定</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="content common-show-info tab-content">
+            <div class="content-1">
+                <ul>
+                    <li>
+                            <span class="list hide">青铜剑</span>
+                            <div class="shows ">
+                                <p class="title"><b><a href="http://identify.yishu.com/s633">青铜剑</a></b></p>
+                                <div class="con">
+                                    <div class="l"><img src="http://i.yishu.com/d/file/identify/2014/08/54003fa38d81a.jpg" width="60" height="60" alt="" /></div>
+                                    <div class="r">
+                                        <p class="clear">
+                                            <span class="left">上传日期：2014-08-29</span>
+                                            <span class="right">点击次数：9</span>
+                                        </p>
+                                        <p class="word"><a href="http://identify.yishu.com/s633">剑长61公分最宽处5公分</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li><li>
+                            <span class="list ">铜香炉</span>
+                            <div class="shows hide">
+                                <p class="title"><b><a href="http://identify.yishu.com/s632">铜香炉</a></b></p>
+                                <div class="con">
+                                    <div class="l"><img src="http://i.yishu.com/d/file/identify/2014/08/54003f419d595.jpg" width="60" height="60" alt="" /></div>
+                                    <div class="r">
+                                        <p class="clear">
+                                            <span class="left">上传日期：2014-08-29</span>
+                                            <span class="right">点击次数：6</span>
+                                        </p>
+                                        <p class="word"><a href="http://identify.yishu.com/s632">请您估价，并请告知具体接近年代和具体名称，谢谢。 00218号专家：此藏</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li><li>
+                            <span class="list ">画</span>
+                            <div class="shows hide">
+                                <p class="title"><b><a href="http://identify.yishu.com/s631">画</a></b></p>
+                                <div class="con">
+                                    <div class="l"><img src="http://i.yishu.com/d/file/identify/2014/08/54003efde74d2.jpg" width="60" height="60" alt="" /></div>
+                                    <div class="r">
+                                        <p class="clear">
+                                            <span class="left">上传日期：2014-08-29</span>
+                                            <span class="right">点击次数：7</span>
+                                        </p>
+                                        <p class="word"><a href="http://identify.yishu.com/s631">任伯年书画</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li><li>
+                            <span class="list ">天元会机书籍</span>
+                            <div class="shows hide">
+                                <p class="title"><b><a href="http://identify.yishu.com/s624">天元会机书籍</a></b></p>
+                                <div class="con">
+                                    <div class="l"><img src="http://i.yishu.com/d/file/identify/2014/08/53fb05f7eef6b.jpg" width="60" height="60" alt="" /></div>
+                                    <div class="r">
+                                        <p class="clear">
+                                            <span class="left">上传日期：2014-08-25</span>
+                                            <span class="right">点击次数：16</span>
+                                        </p>
+                                        <p class="word"><a href="http://identify.yishu.com/s624">八本书，除一本有些破损外，其他七本品相较好。请专家鉴定是什么年代？价值多</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li><li>
+                            <span class="list ">翡翠扳指</span>
+                            <div class="shows hide">
+                                <p class="title"><b><a href="http://identify.yishu.com/s622">翡翠扳指</a></b></p>
+                                <div class="con">
+                                    <div class="l"><img src="http://i.yishu.com/d/file/identify/2014/08/53fb04d59675f.jpg" width="60" height="60" alt="" /></div>
+                                    <div class="r">
+                                        <p class="clear">
+                                            <span class="left">上传日期：2014-08-25</span>
+                                            <span class="right">点击次数：16</span>
+                                        </p>
+                                        <p class="word"><a href="http://identify.yishu.com/s622">请鉴定新老？市场价值值多少钱？</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>                </ul>
+            </div>
+            <div class="content-2 hide">
+                <ul>
+                    <li>
+                            <span class="list hide">咸丰重宝当五十</span>
+                            <div class="shows ">
+                                <p class="title"><b><a href="http://identify.yishu.com/s639">咸丰重宝当五十</a></b></p>
+                                <div class="con">
+                                    <div class="l"><img src="http://i.yishu.com/d/file/identify/2014/08/54019119d7494.jpg" width="60" height="60" alt="" /></div>
+                                    <div class="r">
+                                        <p class="clear">
+                                            <span class="left">上传日期：2014-08-30</span>
+                                            <span class="right">点击次数：7</span>
+                                        </p>
+                                        <p class="word"><a href="http://identify.yishu.com/s639">谢谢</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li><li>
+                            <span class="list ">咸丰源百</span>
+                            <div class="shows hide">
+                                <p class="title"><b><a href="http://identify.yishu.com/s638">咸丰源百</a></b></p>
+                                <div class="con">
+                                    <div class="l"><img src="http://i.yishu.com/d/file/identify/2014/08/540190db23c8a.jpg" width="60" height="60" alt="" /></div>
+                                    <div class="r">
+                                        <p class="clear">
+                                            <span class="left">上传日期：2014-08-30</span>
+                                            <span class="right">点击次数：7</span>
+                                        </p>
+                                        <p class="word"><a href="http://identify.yishu.com/s638">各位老师好，113专家老师已看过（00113号专家：文字铸工及铜质包浆均</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li><li>
+                            <span class="list ">庫平足銀伍兩</span>
+                            <div class="shows hide">
+                                <p class="title"><b><a href="http://identify.yishu.com/s637">庫平足銀伍兩</a></b></p>
+                                <div class="con">
+                                    <div class="l"><img src="http://i.yishu.com/d/file/identify/2014/08/5401909cba26f.jpg" width="60" height="60" alt="" /></div>
+                                    <div class="r">
+                                        <p class="clear">
+                                            <span class="left">上传日期：2014-08-30</span>
+                                            <span class="right">点击次数：7</span>
+                                        </p>
+                                        <p class="word"><a href="http://identify.yishu.com/s637">請專家鉴定:是否真品?謝謝!</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li><li>
+                            <span class="list ">光绪元宝</span>
+                            <div class="shows hide">
+                                <p class="title"><b><a href="http://identify.yishu.com/s636">光绪元宝</a></b></p>
+                                <div class="con">
+                                    <div class="l"><img src="http://i.yishu.com/d/file/identify/2014/08/540190260721a.jpg" width="60" height="60" alt="" /></div>
+                                    <div class="r">
+                                        <p class="clear">
+                                            <span class="left">上传日期：2014-08-30</span>
+                                            <span class="right">点击次数：7</span>
+                                        </p>
+                                        <p class="word"><a href="http://identify.yishu.com/s636">光绪元宝：被韩国币机重压，韩文。梅花。禾穗。数字5 清晰！求教此币背景！</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li><li>
+                            <span class="list ">开国纪念币</span>
+                            <div class="shows hide">
+                                <p class="title"><b><a href="http://identify.yishu.com/s635">开国纪念币</a></b></p>
+                                <div class="con">
+                                    <div class="l"><img src="http://i.yishu.com/d/file/identify/2014/08/54018fa09934b.jpg" width="60" height="60" alt="" /></div>
+                                    <div class="r">
+                                        <p class="clear">
+                                            <span class="left">上传日期：2014-08-30</span>
+                                            <span class="right">点击次数：7</span>
+                                        </p>
+                                        <p class="word"><a href="http://identify.yishu.com/s635">开国纪念币：麦穗为9层。纪念的纪傍为双三角。正面左下角TEN中的EN翻了</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 问答 -->
+    <div class="faq">
+        <div class="comm-subtitle nav">
+            <h4>问答</h4>
+            <div class="right">
+                <a class="more right" href="http://test.yishu.com/Ask.html">更多</a>
+                <ul class="right column">
+                    <li class="select nav-1"><a href="#">热门</a></li>
+                    <li class="nav-2"><a href="#">待解决</a></li>
+                    <li class="nav-3"><a href="#">已解决</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="content common-show-info tab-content">
+            <div class="content-1">
+                <ul>
+                                    </ul>
+            </div>
+            <div class="content-2 hide">
+                <ul>
+                                    </ul>
+            </div>
+            <div class="content-3 hide">
+                <ul>
+                    <li>
+                            <span class="list hide">一句话描述您的疑问</span>
+                            <div class="shows ">
+                                <p class="ques"><b><a href="http://test.yishu.com/Ask/Index/detail/qid/30.html">一句话描述您的疑问</a></b></p>
+                                <p class="answer">答：写下你的回答内容......</p>                            </div>
+                        </li>                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 百科 -->
+    <div class="baike">
+        <div class="comm-subtitle">
+            <h4>百科</h4>
+            <div class="right">
+                <a class="more right" href="http://test.yishu.com/Baike.html">更多</a>
+            </div>
+        </div>
+        <div class="content">
+            <div class="tag">
+                <ul>
+                    <li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/42.html">国内学院</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/43.html">国外学院</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/44.html">其他院校</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/45.html">美术馆</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/46.html">艺术家</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/47.html">收藏家</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/48.html">鉴定家</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/49.html">评论家</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/50.html">其他</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/51.html">画廊馆</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/52.html">出版社</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/53.html">媒体</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/54.html">拍卖公司</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/55.html">艺术团体</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/56.html">其他机构</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/57.html">期刊</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/58.html">图书</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/59.html">画册</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/60.html">图录</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/61.html">其他出版物</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/62.html">个人展</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/63.html">博览会</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/64.html">群体展</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/65.html">研讨会</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/66.html">双年展</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/67.html">三年展</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/68.html">其他展会</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/69.html">电视电影</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/70.html">戏剧戏曲</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/71.html">音乐曲艺</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/72.html">摄影舞蹈</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/73.html">其他类型</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/74.html">书画</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/75.html">陶瓷</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/76.html">珠宝</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/77.html">器具</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/78.html">钱币</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/79.html">标本</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/80.html">商标</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/81.html">徽章</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/82.html">文献</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/83.html">邮票</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/84.html">票券</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/85.html">服饰</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/86.html">工艺品</a></li><li><a href="http://test.yishu.com/Baike/Index/collectionart/cid/87.html">其他艺术品</a></li>                </ul>
+            </div>
+            <!--<div class="personal-sell">
+                <a href="#"><img src="http://test.yishu.com/Public/img/column-img/57.jpg" width="280" height="80" alt="" /></a>
+            </div>-->
+        </div>
+    </div>
+</div>
+<div class="advertis"><a href="#"><img src="http://test.yishu.com/Public/img/advertis/14.jpg"></a></div>
+
+<!-- 板块9 -->
+<div class="clear block9">
+    <!-- 收藏知识 -->
+    <div class="artist-talk">
+        <div class="comm-subtitle">
+            <h4>收藏知识</h4>
+            <div class="right">
+                <a class="more right" href="http://test.yishu.com/sc">更多</a>
+                <ul class="right tjx">
+                    <li><a href="http://test.yishu.com/sc/fc/">翡翠</a></li>
+                    <li><a href="http://test.yishu.com/sc/bs/">宝石</a></li>
+                    <li><a href="http://test.yishu.com/sc/hp/">琥珀</a></li>
+                    <li><a href="http://test.yishu.com/sc/bx/">碧玺</a></li>
+                    <li><a href="http://test.yishu.com/sc/ysone/">玉髓</a></li>
+                    <li><a href="http://test.yishu.com/sc/qb/">瓷器</a></li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="content">
+            <div class="sczs">
+                <dl >
+                        <dt>
+                            <a href="http://www.yishu.com/sc/manao/article-18776.html"><img src="http://www.yishu.com/uploadfile/2014/0830/20140830054127784.jpg" width="180" height="135"></a><a href="http://www.yishu.com/sc/manao/article-18776.html" title="水胆玛瑙有什么作用？"><b>水胆玛瑙有什么作用？</b></a>
+                        </dt>
+                        <dd>
+                            <p><a href="http://www.yishu.com/sc/lys/article-18791.html" title="蓝玉髓的真假鉴别方法">蓝玉髓的真假鉴别方法</a></p><p><a href="http://www.yishu.com/sc/xiao_qc/article-18790.html" title="粉青釉起源自哪里？">粉青釉起源自哪里？</a></p><p><a href="http://www.yishu.com/sc/kqs/article-18789.html" title="孔雀石批发活动如火如荼">孔雀石批发活动如火如</a></p><p><a href="http://www.yishu.com/sc/kqs/article-18788.html" title="孔雀石功效有哪些？">孔雀石功效有哪些？</a></p><p><a href="http://www.yishu.com/sc/xiao_qc/article-18787.html" title="汝窑青瓷与其他窑系产青瓷有什么区别？">汝窑青瓷与其他窑系产</a></p><p><a href="http://www.yishu.com/sc/kqs/article-18786.html" title="孔雀石玛瑙：带来正能量的饰品">孔雀石玛瑙：带来正能</a></p>                                                                                                                                        </dd>
+                </dl><dl >
+                        <dt>
+                            <a href="http://www.yishu.com/sc/hhlm/article-18779.html"><img src="http://www.yishu.com/uploadfile/2014/0830/20140830055340452.jpg" width="180" height="135"></a><a href="http://www.yishu.com/sc/hhlm/article-18779.html" title="如何鉴别鸟足紫檀和缅甸花梨木"><b>如何鉴别鸟足紫檀和缅</b></a>
+                        </dt>
+                        <dd>
+                                                        <p><a href="http://www.yishu.com/sc/kqs/article-18785.html" title="孔雀石原石的等级之分">孔雀石原石的等级之分</a></p><p><a href="http://www.yishu.com/sc/manao/article-18776.html" title="水胆玛瑙有什么作用？">水胆玛瑙有什么作用？</a></p><p><a href="http://www.yishu.com/sc/kqs/article-18784.html" title="孔雀石印章独具特色 ">孔雀石印章独具特色 </a></p><p><a href="http://www.yishu.com/sc/kqs/article-18783.html" title="孔雀石鉴别有哪些方法？">孔雀石鉴别有哪些方法</a></p><p><a href="http://www.yishu.com/sc/bxzs/article-18782.html" title="碧玺的风水改善作用">碧玺的风水改善作用</a></p><p><a href="http://www.yishu.com/sc/kqs/article-18780.html" title="孔雀石手镯美丽神秘 是不错的配饰品">孔雀石手镯美丽神秘 </a></p>                                                                                                            </dd>
+                </dl><dl >
+                        <dt>
+                            <a href="http://www.yishu.com/sc/bxzs/article-18777.html"><img src="http://www.yishu.com/uploadfile/2014/0830/20140830054456459.jpg" width="180" height="135"></a><a href="http://www.yishu.com/sc/bxzs/article-18777.html" title="碧玺的灵性"><b>碧玺的灵性</b></a>
+                        </dt>
+                        <dd>
+                                                                                    <p><a href="http://www.yishu.com/sc/kqs/article-18781.html" title="孔雀石的作用有哪些？">孔雀石的作用有哪些？</a></p><p><a href="http://www.yishu.com/sc/hhlm/article-18779.html" title="如何鉴别鸟足紫檀和缅甸花梨木">如何鉴别鸟足紫檀和缅</a></p><p><a href="http://www.yishu.com/sc/xiao_qc/article-18778.html" title="多色釉瓷种类有哪些？">多色釉瓷种类有哪些？</a></p><p><a href="http://www.yishu.com/sc/bxzs/article-18777.html" title="碧玺的灵性">碧玺的灵性</a></p><p><a href="http://www.yishu.com/sc/hhlm/article-18775.html" title="鸟足紫檀与大果紫檀的区别">鸟足紫檀与大果紫檀的</a></p><p><a href="http://www.yishu.com/sc/xiao_qc/article-18774.html" title="青瓷属于单色釉瓷吗？">青瓷属于单色釉瓷吗？</a></p>                                                                                </dd>
+                </dl><dl >
+                        <dt>
+                            <a href="http://www.yishu.com/sc/hhlm/article-18775.html"><img src="http://www.yishu.com/uploadfile/2014/0830/20140830052540820.jpg" width="180" height="135"></a><a href="http://www.yishu.com/sc/hhlm/article-18775.html" title="鸟足紫檀与大果紫檀的区别"><b>鸟足紫檀与大果紫檀的</b></a>
+                        </dt>
+                        <dd>
+                                                                                                                <p><a href="http://www.yishu.com/sc/qy/article-18773.html" title="青玉是什么 青玉的产地与等级">青玉是什么 青玉的产</a></p><p><a href="http://www.yishu.com/sc/xiao_jdz/article-18772.html" title="变色釉和颜色釉有什么区别">变色釉和颜色釉有什么</a></p><p><a href="http://www.yishu.com/sc/xiao_qc/article-18769.html" title="汝窑天青釉是什么瓷器 图片欣赏">汝窑天青釉是什么瓷器</a></p><p><a href="http://www.yishu.com/sc/manao/article-18768.html" title="如何判断葡萄玛瑙的好坏？">如何判断葡萄玛瑙的好</a></p><p><a href="http://www.yishu.com/sc/hhlm/article-18767.html" title="花梨木中的鸟足紫檀">花梨木中的鸟足紫檀</a></p><p><a href="http://www.yishu.com/sc/sjzs/article-18763.html" title="天然水晶的等级是如何划分的">天然水晶的等级是如何</a></p>                                                    </dd>
+                </dl><dl class="b-0">
+                        <dt>
+                            <a href="http://www.yishu.com/sc/manao/article-18768.html"><img src="http://www.yishu.com/uploadfile/2014/0830/20140830043901299.jpg" width="180" height="135"></a><a href="http://www.yishu.com/sc/manao/article-18768.html" title="如何判断葡萄玛瑙的好坏？"><b>如何判断葡萄玛瑙的好</b></a>
+                        </dt>
+                        <dd>
+                                                                                                                                            <p><a href="http://www.yishu.com/sc/by/article-18761.html" title="白玉的分类与鉴别">白玉的分类与鉴别</a></p><p><a href="http://www.yishu.com/sc/sjzs/article-18760.html" title="水晶洞聚宝盆的摆放">水晶洞聚宝盆的摆放</a></p><p><a href="http://www.yishu.com/sc/sjzs/article-18758.html" title="水晶的诱惑-水晶葫芦赏析">水晶的诱惑-水晶葫芦</a></p><p><a href="http://www.yishu.com/sc/manao/article-18757.html" title="葡萄玛瑙的形态特征与等级划分">葡萄玛瑙的形态特征与</a></p><p><a href="http://www.yishu.com/sc/hmjj/article-18756.html" title="如何恢复红木家具的光泽">如何恢复红木家具的光</a></p><p><a href="http://www.yishu.com/sc/sjzs/article-18754.html" title="天然水晶球的价格">天然水晶球的价格</a></p>                        </dd>
+                </dl>            </div>
+        </div>
+    </div></div>
+<div class="advertis"><a href="#"><img src="http://test.yishu.com/Public/img/advertis/top-advertis.jpg"></a></div>
+<!-- 板块9 -->
+<div class="clear block9 forum_block">
+    <!-- 艺友论坛 -->
+    <div class="artist-talk">
+        <div class="comm-subtitle">
+            <h4>艺友论坛</h4>
+            <div class="right">
+                <a class="more right" href="http://bbs.yishu.com/">更多</a>
+            </div>
+        </div>
+        <div class="content">
+            <!-- 论坛热贴 -->
+            <div class="hot-talk">
+                <div class="comm-ss-title">
+                    <h6>论坛热贴</h6>
+                    <hr />
+                </div>
+                <div class="content">
+                    <div class="img">
+                        <a href="http://bbs.yishu.com/thread-3915-1-1.html"><img src="http://bbs.yishu.com/data/attachment/forum/201408/30/135526jaonlwihwmowuwwv.jpg" width="235" height="230" alt="" /></a>
+                        <p class="common-word">琥珀项链求价</p>
+                    </div>
+                    <div class="news">
+                        <p class="title"><a href="http://bbs.yishu.com/thread-3929-1-1.html">书画拍卖价格落差的潜规则</a></p>
+                        <div class="content">
+                            <div class="left">
+                                <ul>
+                                    <li><a href="http://bbs.yishu.com/thread-3914-1-1.html">请问这是什么木料做的</a></li><li><a href="http://bbs.yishu.com/thread-3913-1-1.html">文房赏石</a></li><li><a href="http://bbs.yishu.com/thread-3903-1-1.html">铜镜一面</a></li><li><a href="http://bbs.yishu.com/thread-3902-1-1.html">红木雕刻精品</a></li><li><a href="http://bbs.yishu.com/thread-3901-1-1.html">有认识这个的吗？</a></li><li><a href="http://bbs.yishu.com/thread-3900-1-1.html">好东西给大家分享</a></li>                                </ul>
+                            </div>
+                            <div class="right">
+                                <ul>
+                                    <li><a href="http://bbs.yishu.com/thread-3898-1-1.html">请看看是这么摆放的吗</a></li><li><a href="http://bbs.yishu.com/thread-3897-1-1.html">大型文房小叶紫檀山子</a></li><li><a href="http://bbs.yishu.com/thread-3896-1-1.html">请进来看下</a></li><li><a href="http://bbs.yishu.com/thread-3895-1-1.html">圈足碗</a></li><li><a href="http://bbs.yishu.com/thread-3894-1-1.html">留青\阴刻扇</a></li><li><a href="http://bbs.yishu.com/thread-3893-1-1.html">镶嵌螺钿座镜</a></li>                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 一周排行 -->
+            <div class="week-rank">
+                <div class="comm-ss-title">
+                    <h6>一周排行</h6>
+                    <hr />
+                </div>
+                <div class="content">
+                    <ul>
+                        <li>
+                                <p class="num top3">1</p>
+                                <p><a href="http://bbs.yishu.com/thread-3894-1-1.html">留青\阴刻扇</a></p>
+                            </li><li>
+                                <p class="num top3">2</p>
+                                <p><a href="http://bbs.yishu.com/thread-3834-1-1.html">青山绿水清人心</a></p>
+                            </li><li>
+                                <p class="num top3">3</p>
+                                <p><a href="http://bbs.yishu.com/thread-3831-1-1.html">美品玉雕赏析</a></p>
+                            </li><li>
+                                <p class="num ">4</p>
+                                <p><a href="http://bbs.yishu.com/thread-3826-1-1.html">四张凳子 请看下行情</a></p>
+                            </li><li>
+                                <p class="num ">5</p>
+                                <p><a href="http://bbs.yishu.com/thread-3762-1-1.html">一枚美品钱币</a></p>
+                            </li><li>
+                                <p class="num ">6</p>
+                                <p><a href="http://bbs.yishu.com/thread-3700-1-1.html">奇异紫砂壶</a></p>
+                            </li><li>
+                                <p class="num ">7</p>
+                                <p><a href="http://bbs.yishu.com/thread-3636-1-1.html">镀金欧米茄观赏</a></p>
+                            </li><li>
+                                <p class="num ">8</p>
+                                <p><a href="http://bbs.yishu.com/thread-3144-1-1.html">名师专访活动：上海大学教师蒋飞访谈</a></p>
+                            </li>                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 板块10 -->
+<div class="clear block10">
+    <!-- 网友晒宝 -->
+    <div class="wf-share">
+        <div class="comm-subtitle">
+            <h4>网友晒宝</h4>
+            <div class="right">
+                <a class="more right" href="http://bbs.yishu.com/">更多</a>
+            </div>
+        </div>
+        <div class="content">
+            <ul>
+                <li>
+                        <a href="http://bbs.yishu.com/thread-3915-1-1.html"><img src="http://bbs.yishu.com/data/attachment/forum/201408/30/135526jaonlwihwmowuwwv.jpg" width="184" height="184" alt="" /></a>
+                        <p class="common-word">琥珀项链求价</p>
+                    </li><li>
+                        <a href="http://bbs.yishu.com/thread-3914-1-1.html"><img src="http://bbs.yishu.com/data/attachment/forum/201408/30/135310rbg1icx1tghp0yc3.jpg" width="184" height="184" alt="" /></a>
+                        <p class="common-word">请问这是什么木料做的</p>
+                    </li><li>
+                        <a href="http://bbs.yishu.com/thread-3913-1-1.html"><img src="http://bbs.yishu.com/data/attachment/forum/201408/30/135011jyi36lmq3klef5se.jpg" width="184" height="184" alt="" /></a>
+                        <p class="common-word">文房赏石</p>
+                    </li><li>
+                        <a href="http://bbs.yishu.com/thread-3903-1-1.html"><img src="http://bbs.yishu.com/data/attachment/forum/201408/30/104304ksalaavmhmuam4nm.jpg" width="184" height="184" alt="" /></a>
+                        <p class="common-word">铜镜一面</p>
+                    </li><li>
+                        <a href="http://bbs.yishu.com/thread-3902-1-1.html"><img src="http://bbs.yishu.com/data/attachment/forum/201408/30/104031i74uj4zjoqmrbuov.jpg" width="184" height="184" alt="" /></a>
+                        <p class="common-word">红木雕刻精品</p>
+                    </li>            </ul>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<!--</div>-->
+<!-- 底部 -->
+	<div id="footer">
+	    <div class="lj">
+	    <div class="lianjie">
+			<a href="http://shoucang.hexun.com/">和讯收藏</a><a href="http://www.wenwuchina.com">中国文物网</a><a href="http://arts.takungpao.com/">大公艺术</a><a href="http://www.icoin.cn">钱币收藏</a><a href="http://www.sartfair.com/2014/cweb/index.asp">上海艺术博览会</a><a href="http://www.yushi6.com">中国玉石网</a><a href="http://www.taohuren.com">淘壶人</a><a href="http://www.dhsjpf.com">水晶批发</a><a href="http://www.gfcang.com">钱币收藏</a><a href="http://www.tianxia70.com">天下奇石网</a><a href="http://www.70jj.com">红木家具</a><a href="http://www.wuluhe.com">雾露河翡翠</a><a href="http://www.airmb.com">爱藏网</a><a href="http://www.art456.com">美术高考网</a><a href="http://www.169369.com/">世界名画赏析</a><a href="http://www.sumiao.net">素描网</a><a href="http://www.zisha8.net/">紫砂壶开壶</a><a href="http://www.zgqsc.com">奇石交易网</a><a href="http://www.meixun.org">美讯网</a><a href="http://www.sumiaowang.com">素描</a><a href="http://www.e1988.com/">邮票</a><a href="http://www.sdgw.com">收藏网</a><a href="http://www.lipin-bj.cn">北京礼品公司</a><a href="http://www.ybk168.com">中国邮票网</a><a href="http://omega.wbiao.cn">欧米茄手表</a><a href="http://news.doido.com/">珠宝知识</a><a href="http://www.jaadee.com/">翡翠王朝 </a><a href="http://www.fojiaoyongpin.com/">佛教用品</a><a href="http://www.51pot.com/">紫砂壶</a><a href="http://www.zisha360.com">紫砂壶</a><a href="http://www.daciwang.com">大瓷网</a><a href="http://www.taoyunet.com">玉器批发网</a><a href="http://www.artddu.com/">顶点艺术网</a><a href="http://www.henanart.com/">河南艺术网</a><a href="http://www.chinashj.com/">中国书画网</a><a href="http://www.shfff.com/">中国名人字画销售</a><a href="http://www.21nowart.com/">中国在线艺术网</a><a href="http://www.sznh.net/">南红玛瑙价格</a><a href="http://www.365art.com/">艺宴商城</a><a href="http://www.52youpiao.com">邮票价格查询</a><a href="http://www.368tea.com">雅茗居茶文化网</a><a href="http://www.010zihua.com">字画</a><a href="http://sc.fjsen.com/">东南收藏网</a><a href="http://www.1zihua.com/">山水画</a><a href="http://www.lqart.com/">聊斋画廊</a><a href="http://www.juhutang.com ">紫砂壶</a><a href="http://www.hfmy.cc">和田玉</a><a href="http://www.zssmall.com/">周生生</a><a href="http://www.chjshop.com/">潮宏基珠宝</a><a href="http://shuhua.cang.com">华夏书画城</a><a href="http://www.shufaai.com/">书法作品欣赏</a><a href="http://www.shufaai.com/">学习书法</a><a href="http://www.df8000.com/">金镶玉</a><a href="http://www.dongsheng2010.com/">砭石</a><a href="http://www.0579sj.com/">水晶礼品</a><a href="http://www.zgkysh.com">中国考研手绘网</a><a href="http://www.yishu.com/">中国艺术网</a><a href="http://www.yishu.com">中国艺术网</a><a href="http://www.ysyqw.com/">玉石</a><a href="http://www.gyjhoo.com/">工艺江湖</a>		</div>
+		<div class="lj">
+		<!--left start-->
+		<div class="top">
+		<p class="line">
+                <a href="http://service.yishu.com/aboutus/">关于我们</a> |<a href="http://service.yishu.com/contactus/">联系我们</a> |<a href="http://service.yishu.com/copyright/">版权声明</a> |<a href="http://service.yishu.com/hr/">人才招聘</a> |<a href="http://service.yishu.com/advertising/">广告业务</a> |<a href="http://service.yishu.com/disclaimer/">免责声明</a> |<a href="http://service.yishu.com/protection/">隐私政策</a> |<a href="http://service.yishu.com/links/">友情链接</a> |<a href="http://service.yishu.com/complaints/">客户投诉</a> |<a href="http://service.yishu.com/help/">帮助中心</a> |<a href="http://service.yishu.com/sitemap/">网站地图</a> |<a href="http://service.yishu.com/aboutchannel/">频道简介</a> |            </p>
+	<p class="footd">中国艺术网(www.yishu.com) 版权所有<br>Copyright Reserved 2000-2013 <br> 电信与信息服务业务经营许可证 沪ICP备14002523号<br>未经授权禁止转载、摘编、复制或建立镜像，如有违反，追究法律责任。</p>
+        </div>
+		<!--left end-->
+		<!--right start-->
+		<div class="foot_right">
+		<div class="foot_righttop"><img src="http://test.yishu.com/Public/img/icons/foot_02.jpg"><span>中国艺术网网站地图</span><img src="http://test.yishu.com/Public/img/icons/foot_02.jpg"></div>
+		<p><span>频道</span>
+			<a href="http://news.yishu.com/">资讯</a><a href="http://artist.yishu.com/">大师</a><a href="http://gallery.yishu.com/">画廊</a><a href="http://zx.yishu.com">展览</a><a href="http://auction.yishu.com/">拍卖</a><p><span>交易</span>
+			<a href="http://test.yishu.com/Paimai/FrontInit/">在线竞拍</a><a href="http://cang.yishu.com/">藏品商城</a><a href="http://mall.yishu.com/">古玩城</a><p><span>互动</span>
+			<a href="http://identify.yishu.com/">在线鉴定</a><a href="http://test.yishu.com/Baike/">艺术百科</a><a href="http://bbs.yishu.com/">艺友论坛</a><a href="http://test.yishu.com/wenda/">你问我答</a><p><span>合作</span>
+			<a href="http://zx.yishu.com/c58/">在线展厅</a><a href="http://special.yishu.com/">艺术专题</a><a href="http://hangqing.yishu.com/">书画行情</a>		</div>
+		<!--right end-->
+		</div>
+		</div>
+	</div>
+
+
+
+<!--<div class="t-b-advertise"></div>-->
+<!--
+<div class="adv-1 aadv">
+    <div class="in-con">
+        <a href="#"><img src="http://test.yishu.com/Public/img/column-img/53.jpg" width="120" height="260" alt="" /></a>
+        <div class="close">X</div>
+    </div>
+    <div class="oth-con clear hide">
+        <a class="recover" href="javascript:;"></a>
+        <a class="adv-img" href="#"><img src="http://test.yishu.com/Public/img/column-img/168.jpg" width="218" height="25" alt="" /></a>
+    </div>
+</div>
+<div class="adv-2 aadv">
+    <div class="in-con">
+        <a href="#"><img src="http://test.yishu.com/Public/img/column-img/54.jpg" width="120" height="260" alt="" /></a>
+        <div class="close">X</div>
+    </div>
+    <div class="oth-con clear hide">
+        <a class="recover" href="javascript:;"></a>
+        <a class="adv-img" href="#"><img src="http://test.yishu.com/Public/img/column-img/169.jpg" width="218" height="25" alt="" /></a>
+    </div>
+</div>
+<div class="adv-3 aadv">
+    <div class="in-con">
+        <a href="#"><img src="http://test.yishu.com/Public/img/column-img/55.jpg" width="120" height="260" alt="" /></a>
+        <div class="close">X</div>
+    </div>
+    <div class="oth-con clear hide">
+        <a class="recover" href="javascript:;"></a>
+        <a class="adv-img" href="#"><img src="http://test.yishu.com/Public/img/column-img/170.jpg" width="218" height="25" alt="" /></a>
+    </div>
+</div>
+<div class="adv-4 aadv">
+    <div class="in-con">
+        <a href="#"><img src="http://test.yishu.com/Public/img/column-img/56.jpg" width="120" height="260" alt="" /></a>
+        <div class="close">X</div>
+    </div>
+    <div class="oth-con clear hide">
+        <a class="recover" href="javascript:;"></a>
+        <a class="adv-img" href="#"><img src="http://test.yishu.com/Public/img/column-img/171.jpg" width="218" height="25" alt="" /></a>
+    </div>
+-->
+		<!--to top-->
+		<div class="totop">
+		<div class="totop_01"><a href="#" ></a></div>
+		<ul>
+		<li ><a href="javascript:;" value="news">资讯</a></li>
+		<li ><a href="javascript:;" value="cang">商城</a></li>
+		<li ><a href="javascript:;" value="auction">拍卖</a></li>
+		<li ><a href="javascript:;" value="mall">古玩城</a></li>
+		<li ><a href="javascript:;" value="forum">论坛</a></li>
+        </ul>
+		<div class="totop_02"><a href="javascript:;">回到顶部</a></div>
+				</div>
+		<!--to top-->
+
+</body>
+</html>
+<script type="text/javascript" src="http://test.yishu.com/Public/js/jquery.ui.datepicker.min.js"></script>
+<script type="text/javascript" src="http://test.yishu.com/Public/js/jquery.ui.datepicker-zh-CN.min.js"></script>
+<script type="text/javascript" src="http://test.yishu.com/Public/js/common.js"></script>
+<script type="text/javascript" src="http://test.yishu.com/Public/js/js.js"></script>
+<script type="text/javascript" src="http://test.yishu.com/Public/js/jiameng.js"></script>
+<script type="text/javascript">
+    var offset = $('.main-container').offset();
+    var $marginL = offset.left;
+    function goBack(el,goback){
+        if(goback == 'go'){
+            el.find('.in-con').hide();
+            el.find('.oth-con').show();
+            el.css('position','absolute');
+        }
+        else{
+            el.find('.in-con').show();
+            el.find('.oth-con').hide();
+            el.css('position','fixed');
+        }
+    }
+    function __default(elNum,move,award,top,width,height,goback){
+        if(move == 'left'){
+            $('.adv-'+elNum).animate({
+                'left':award + 'px',
+                'top':top + 'px',
+                'width':width + 'px',
+                'height':height + 'px'
+            },function(){
+                goBack($(this),goback);
+            });
+        }
+        else if(move == 'right'){
+            $('.adv-'+elNum).animate({
+                'right':award + 'px',
+                'top':top + 'px',
+                'width':width + 'px',
+                'height':height + 'px'
+            },function(){
+                goBack($(this),goback);
+            });
+        }
+    }
+    function __animate(elNum){
+        var top;
+        var _left;
+        var _right;
+        switch(elNum){
+            case 1:
+                top = '-=40';
+                _left = '+='+$marginL;
+                break;
+            case 2:
+                top = '-=340';
+                _left = '+='+($marginL+245);
+                break;
+            case 3:
+                top = '-=40';
+                _right = '+='+$marginL;
+                break;
+            case 4:
+                top = '-=340';
+                _right = '+='+($marginL+245);
+                break;
+        }
+        if(elNum > 2){
+            __default(elNum,'right',_right,top,243,25,'go');
+        }
+        else{
+            __default(elNum,'left',_left,top,243,25,'go');
+        }
+    }
+    $(document).ready(function(){
+		t1 = new Tab("ctr", "span", "focus", "a", {
+			autoPlay : true,
+			timeout : 5000,
+			delay:200,
+			event : "mouseover"	
+		});		
+
+        $.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+        $('#datepicker').datepicker({
+            onSelect:function(dateText){
+                window.open('http://zx.yishu.com/c55/r'+dateText+'p1');
+            }
+        });
+        jumpPanel('.species','.species-jump',true,'.species-content','.species-val');
+        showInfo('.famous-gather .ranking-list','.intro','.detail');
+        showInfo('.identify .common-show-info','.list','.shows');
+        showInfo('.faq .common-show-info','.list','.shows');
+        commSelect('.comm-select');
+        navJump('.sell-online .c li','.common-word');
+        navJump('.sell-online .l','.common-word');
+        tabelTab('.sell-tab','.column');
+        tabelTab('.sell-collect','.column');
+        tabelTab('.show-recom','.column');
+        tabelTab('.identify','.column');
+        tabelTab('.faq','.column');
+        navJump('.logined-select','.select');
+        arrSlide('.block1 .slideshow');
+        arrSlide('.block3 .s-slideshow');
+        navJump('.un-login .login','.jump');
+        abChange('.splendid .content','.art-index .splendid ul li','.dis','.img');
+        _chooseCity('#nav-local');
+        _setDate();
+        $('.ui-state-default').bind('mouseout',function(e){
+            $('.art-index .remark').hide();
+            e.stopPropagation();
+        });
+        var $Json = [
+            //{'url':'http://test.yishu.com/Public/img/advertis/big01.jpg'},
+            {'url':'http://test.yishu.com/Public/img/advertis/big02.jpg'}
+        ];
+        var num = $Json.length;
+        var html = '';
+        for(var i=0;i<num;i++){
+            html += '<a href="#" style="background:url('+$Json[i].url+') center center no-repeat"></a>';
+        };
+        var t = function(){
+            $('.t-b-advertise a').fadeOut();
+            $('.t-b-advertise a:eq(0)').appendTo($('.t-b-advertise'));
+            $('.t-b-advertise a').fadeIn();
+        }
+        setInterval(t,5000);
+        $('.t-b-advertise').html(html);
+        //var plusArea = '<div id="plus-area"><div class="c-1"><div id="all-close"></div></div></div>';
+        var k = function(){
+            $('#nav-tool').before(plusArea);
+            $('.t-b-advertise').css('top','85px');
+            __animate(1);
+            __animate(2);
+            __animate(3);
+            __animate(4);
+            $('#all-close').show();
+            $('.aadv').addClass('b-a');
+        }
+        var m = setTimeout(k,5000);
+        $('.aadv .recover').bind('click',function(){
+            $(this).parents('.aadv').removeClass('b-a');
+            var num = $(this).parents('.aadv').attr('class');
+            num = parseInt(num.replace('adv-',''));
+            switch(num){
+                case 1:
+                    __default(1,'left','-='+$marginL,'+=40',120,260,'back');
+                    break;
+                case 2:
+                    __default(2,'left','-='+($marginL+245),'+=340',120,260,'back');
+                    break;
+                case 3:
+                    __default(3,'right','-='+$marginL,'+=40',120,260,'back');
+                    break;
+                case 4:
+                    __default(4,'right','-='+($marginL+245),'+=340',120,260,'back');
+                    break;
+            }
+            if($('.b-a').length < 1){
+                $('#plus-area').remove();
+                $('.t-b-advertise').css('top','40px');
+            }
+            else if($('.b-a').length < 4){
+                $('#all-close').hide();
+            }
+        });
+        $('.aadv .close').bind('click',function(){
+            $(this).parents('.aadv').addClass('b-a');
+            var num = $(this).parents('.aadv').attr('class');
+            num = parseInt(num.replace('adv-',''));
+            clearTimeout(m);
+            if($('#plus-area').length == 0){
+                $('#nav-tool').before(plusArea);
+                $('.t-b-advertise').css('top','85px');
+            }
+            switch(num){
+                case 1:
+                    __default(1,'left','+='+$marginL,'-=40',243,25,'go');
+                    break;
+                case 2:
+                    __default(2,'left','+='+($marginL+245),'-=340',243,25,'go');
+                    break;
+                case 3:
+                    __default(3,'right','+='+$marginL,'-=40',243,25,'go');
+                    break;
+                case 4:
+                    __default(4,'right','+='+($marginL+245),'-=340',243,25,'go');
+                    break;
+            }
+            if($('.b-a').length > 3){
+                $('#all-close').show();
+            }
+            else{
+                $('#all-close').hide();
+            }
+        });
+        $('#all-close').live('click',function(){
+            $('#plus-area').remove();
+            $('.aadv').remove();
+            $('.t-b-advertise').css('top','40px');
+        });
+
+        $('.search-btn').bind('click',function(){
+            var search_type = $('.species-val').text();
+            var search_content = $('.search-content').val();
+            if(trim(search_content) == "" || trim(search_content) == "请输入搜索内容"){
+                alert('您未输入任何内容！');
+                return false;
+            }
+            //window.open("http://test.yishu.com/Home/Search/index.html?search_type="+search_type+"&search_content="+search_content);
+            window.location.href = "http://www.yishu.com/search/index.php?m=search&c=index&a=init&typeid="+search_type+"&siteid=1&q="+search_content+"&typeid="+search_type;
+        })
+        $('.hot-search span').bind('click',function(){
+            var search_type = $('.species-val').text();
+            var search_content = $(this).text();
+            //window.open("http://test.yishu.com/Home/Search/index.html?search_type="+search_type+"&search_content="+search_content);
+            window.location.href = "http://www.yishu.com/search/index.php?m=search&c=index&a=init&typeid="+search_type+"&siteid=1&q="+search_content+"&typeid="+search_type;
+        })
+    });
+</script>

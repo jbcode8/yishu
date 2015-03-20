@@ -1,0 +1,59 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+    <div class="nav_btn">
+        <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Paimai/AdminSeller/add')}', {title:'添加商家', id:'adoArticle',width:'1000px',height:'600px'})"> 添加商家</a>
+
+    </div>
+	</br>
+	
+	
+    <!--快捷按钮 结束-->
+
+    <table class="m_table">
+        <tr><th>商家ID</th><th>商家名字</th><th>商家简称</th><th>商家联系人</th><th>商家QQ号码</th><th>商家描述</th><th>商家座机</th><th>商家手机(联系人手机)</th><th>商家地址</th><th>商家网址</th><th>是否显示</th><th>记录创建时间</th><th>排序</th><th>操作</th></tr>
+        <volist name="sell" id="v">
+            <tr>
+                <td id="id" style="text-align:center">{$v.seller_id}</td>
+                <td style="text-align:center">{$v.seller_name}</td>
+                <td style="text-align:center">{$v.seller_brief}</td>
+                <td style="text-align:center">{$v.seller_person}</td>
+				<td style="text-align:center">{$v.seller_qq}</td>
+				<td style="text-align:center">{$v.seller_desc}</td>
+				<td style="text-align:center">{$v.seller_mobile}</td>
+				<td style="text-align:center">{$v.seller_phone}</td>
+				<td style="text-align:center">{$v.seller_address}</td>
+			    <td style="text-align:center">{$v.seller_net}</td>
+				<td style="text-align:center">
+				<if condition="$v.seller_isshow eq 0">
+				显示
+				<else />
+				不显示
+				</if>
+				</td>
+                <td style="text-align:center">{$v.seller_createtime|date="Y-m-d H:i:s",###}</td>
+				<td style="text-align:center">{$v.seller_order}</td>
+                <td style="text-align:center">
+				<a href="{:U('Paimai/AdminSeller/edit',array('seller_id'=>$v['seller_id']))}">编辑</a>
+				&nbsp&nbsp|&nbsp&nbsp
+				<a class="j_del" href="{:U('Paimai/AdminSeller/delete',array('seller_id'=>$v['seller_id']))}">删除</a></td>
+            </tr>
+        </volist>
+    </table>
+    <script>
+        $(function(){
+
+            //判断删除
+            $(".j_del").click(function(e){
+                if(!confirm("你是否确认删除该商家信息？")){
+                    e.preventDefault();
+                }
+            });
+
+        })
+    </script>
+</block>

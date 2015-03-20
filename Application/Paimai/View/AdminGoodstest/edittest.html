@@ -1,0 +1,404 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+    <load file="{PLUGIN_PATH}uploadify/jquery.uploadify.min.js" />
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+    <!-- <div class="nav_btn">
+         <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Paimai/AdminCat/add')}', {title:'添加文章', id:'adoArticle'})"> 添加文章</a>
+         <a class="fa fa-plus-square" href="{:U('Mall/ArticleCategory/index')}"> 分类管理</a>
+     </div>-->
+    <!--快捷按钮 结束-->
+    <form method="post" action="{:U('Paimai/AdminGoods/update')}" style="width: 700px;height: 300px; margin: auto;" enctype="multipart/form-data">
+        <input id="j_goods_id" type="hidden" name="goods_id" value="{$goods.goods_id}">
+		<input type="hidden" name="goods_bidtimes" value="{$goods.goods_bidtimes}"/>
+		<input type="hidden" name="goods_nowprice" value="{$goods.goods_nowprice}"/>
+        <table class="m_table">
+        <caption>编辑商品</caption>
+		<tr>
+            <td>商品ID:</td>
+            <td>{$goods.goods_id}</td>
+        </tr>
+        <tr><td width="100">拍品名称:</td><td><input type="text" name="goods_name" value="{$goods.goods_name}">(必填)</td></tr>
+        <tr>
+            <td>所属分类:</td>
+            <td>
+                <select id="goods_catid" name="goods_catid">
+                    <option value="0">--请选择--</option>
+                    <volist name="category" id="v">
+                        <if condition="$v['cat_id'] eq $goods['goods_catid']">
+                            <option selected="selected" value="{$v.cat_id}">{$v.cat_name}</option>
+                            <else/>
+                            <option value="{$v.cat_id}">{$v.cat_name}</option>
+                        </if>
+                    </volist>
+                </select>(不填则默认是其它分类)
+            </td>
+        </tr>
+        <tr>
+            <td>扩展分类:</td>
+            <td>
+                <select name="goods_extcatid">
+                    <option value="0">--请选择--</option>
+                    <volist name="category" id="v">
+                        <if condition="$v['cat_id'] eq $goods['goods_extcatid']">
+                            <option selected="selected" value="{$v.cat_id}">{$v.cat_name}</option>
+                            <else/>
+                            <option value="{$v.cat_id}">{$v.cat_name}</option>
+                        </if>
+
+                    </volist>
+                </select>(可添可不添)
+            </td>
+        </tr>
+        <tr>
+            <td>拍卖时间:</td>
+            <td>
+                开始时间:<input type="text" name="goods_starttime" value="{$goods.goods_starttime|date='Y-m-d H:i:s',###}"><br/><br/>
+                结束时间:<input type="text" name="goods_endtime" value="{$goods.goods_endtime|date='Y-m-d H:i:s',###}">
+            </td>
+        </tr>
+        <tr>
+            <td>拍卖价格:</td>
+            <td>
+                起始价:<input type="text" name="goods_startprice" value="{$goods.goods_startprice}"><br/><br/>
+                终止价:<input type="text" name="goods_endprice" value="{$goods.goods_endprice}">
+            </td>
+        </tr>
+        <tr>
+            <td>成本价格:</td>
+            <td>
+                原价:<input type="text" name="goods_yuanjia"><br/><br/>
+                折扣:<input type="text" name="goods_zekou" onkeyup="javascript:checkzk();"><div id="jisuans" style="margin:0 15px; display:inline-block;height:26px;width:60px;background:#3B4C66;line-height:26px; text-align:center;border:1px solid #fcfcfc;color:#fff">计算</div>[范围:0.01~0.99]<br/><br/>
+                <span style="color:red;"><strong>成本:<strong></span><input type="text" name="goods_cost" value="{$goods.goods_cost}" /><br/><br/>
+                注:成本价格 = 原价 X 折扣价
+
+            </td>
+            <script type="text/javascript">
+                function checkzk() {
+                    var zk_boj = $('input[name=goods_zekou]');
+                    if(zk_boj.val() < 0 || zk_boj.val()>1 ){ 
+                       zk_boj.attr('value', '');
+                    }
+                }
+                $(function(){
+                    $('#jisuans').click(function(){
+                        if($('input[name=goods_yuanjia]').val() && $('input[name=goods_zekou]').val() ){
+                            $('input[name=goods_cost]').attr('value', $('input[name=goods_yuanjia]').val()*$('input[name=goods_zekou]').val());
+                        } else {
+                            $('input[name=goods_yuanjia]').attr('value', '');
+                            $('input[name=goods_zekou]').attr('value', '');
+                        }
+                    });
+                })   
+            </script>
+        </tr>
+        <script type="text/javascript">
+            $(function(){
+                //防止回调
+                var everypricestyle_val=$("#j_auto:checked").val();
+                if(everypricestyle_val!=null){
+                    $("input[name=goods_everyprice]").attr("disabled","disabled");
+                }
+                //自动加价 点击
+                $("#j_auto").click(function(){
+                    $("input[name=goods_everyprice]").attr("disabled","disabled");
+                })
+                //固定加价 点击
+                $("#j_fixed").click(function(){
+                    $("input[name=goods_everyprice]").removeAttr("disabled");
+                })
+                $("#j_submit").click(function(){
+                    var address=$("input:radio[name='goods_everypricestyle']:checked").val();
+                    if(address==0){
+                        var everypricestyle=$("#j_fixed_val").val();
+                        if(everypricestyle<=0){
+                            alert("请正确填写加价幅度");
+                            return ;
+                        }
+                    }
+                })
+            })
+        </script>
+        <tr>
+            <td>加价幅度:</td>
+            <td>
+                <input id="j_fixed" type="radio" <if condition="$goods['goods_everypricestyle'] eq 0">checked="checked"</if> name="goods_everypricestyle" value="0">固定加价:
+                <input id="j_fixed_val" type="text" name="goods_everyprice" value="{$goods.goods_everyprice}"><br/><br/>
+                <input id="j_auto" type="radio" <if condition="$goods['goods_everypricestyle'] eq 1">checked="checked"</if> name="goods_everypricestyle" value="1">自动加价:
+            </td>
+        </tr>
+        <tr>
+            <td>参拍保证金:</td>
+            <td>
+                {$goods.goods_needmoney}
+
+            </td>
+        </tr>
+		<tr>
+			<td>商品所属公司/单位名:</td>
+			<td>
+				<input type="text" name="goods_sellername" value="{$goods.goods_sellername}">(如:御府上海总店)
+			</td>
+		</tr>
+		<tr>
+			<td>重量:</td>
+			<td>
+				<input type="text" name="goods_weight" value="{$goods.goods_weight}">(如:50g或1公斤)
+			</td>
+		</tr>
+		<tr>
+			<td>尺寸:</td>
+			<td>
+				<input type="text" name="goods_size" value="{$goods.goods_size}">(如:长69.4mm宽46.0mm厚9.9mm)
+			</td>
+		</tr>
+		<tr>
+			<td>商品存货地:</td>
+			<td>
+				<input type="text" name="goods_place" value="{$goods.goods_place}">(如:上海)
+			</td>
+		</tr>
+        <tr>
+            <td>拍品关键字:</td>
+            <td>
+                <input type="text" name="goods_keywords" value="{$goods.goods_keywords}">(用空格隔开)
+            </td>
+        </tr>
+        <tr>
+            <td>拍品简述:</td>
+            <td>
+                <textarea name="goods_brief">{$goods.goods_brief}</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>所属拍卖专场ID:</td>
+            <td>
+                <!-- <select name="goods_specialid">
+                    <option value="0">--请选择拍卖专场--</option>
+                    <volist name="special" id="v">
+                        <if condition="$v['special_id'] eq $goods['goods_specialid']">
+                            <option selected="selected" value="{$v.special_id}">{$v.special_name}</option>
+                            <else/>
+                            <option value="{$v.special_id}">{$v.special_name}</option>
+                        </if>
+                
+                    </volist>
+                </select> -->
+                <input type="text" name="goods_specialid" value="{$goods.goods_specialid}">
+            </td>
+        </tr>
+        <tr>
+            <td>拍品品牌:</td>
+            <td>
+                <select name="goods_brandid">
+                    <option value="0">--请选择拍品品牌--</option>
+                    <volist name="brand" id="v">
+                        <if condition="$v['brand_id'] eq $goods['goods_brandid']">
+                            <option selected="selected" value="{$v.brand_id}">{$v.brand_name}</option>
+                            <else/>
+                            <option value="{$v.brand_id}">{$v.brand_name}</option>
+                        </if>
+                    </volist>
+                </select>
+
+            </td>
+        </tr>
+        <tr id="j_slogan">
+            <td>拍品口号:</td>
+            <td>
+                <span id="j_add">+</span>
+
+                    <if condition="count($goodsslogan) eq 0">
+                        <div class="j_select">
+                            <select id="slogan" name="slogan[]">
+                                <option value="0">--请选择拍品口号--</option>
+                                <volist name="slogan" id="v">
+                                    <option value="{$v.slogan_id}">{$v.slogan_name}</option>
+                                </volist>
+                            </select>
+                        </div>
+                        <else/>
+
+
+                        <volist name="goodsslogan" id="vo">
+                            <div class="j_select">
+                                <select id="slogan" name="slogan[]">
+                                    <option value="0">--请选择拍品口号--</option>
+                                    <volist name="slogan" id="v">
+                                        <option <if condition="$vo['gs_sloganid'] eq $v['slogan_id']">selected="selected"</if> value="{$v.slogan_id}">{$v.slogan_name}</option>
+                                    </volist>
+                                </select>
+                            </div>
+                        </volist>
+
+                    </if>
+
+
+
+                <span id="j_down">-</span>
+            </td>
+        </tr>
+        <script>
+           //下面js需要优化
+            $(function(){
+                //拍品口号
+                //增加
+                $("#j_slogan #j_add").click(function(){
+                    $("#j_slogan .j_select").last().clone(true).insertAfter($(" #j_slogan .j_select").last());
+                });
+                //减少
+                $("#j_slogan #j_down").click(function(){
+                    if($("#j_slogan .j_select").size()>1){
+                        $("#j_slogan .j_select").last().detach();
+                    }
+                });
+            })
+        </script>
+        <tr id="goods_attr">
+            <td>可筛选属性:<span id="goodstypeid" style="display: none;">{$goods.goods_goodstypeid}</span></td>
+            <td>
+                <div class="j_select">
+                    商品类型:<select class="j_goodstype" name="goods_goodstypeid">
+                    <option value="0">--请选择商品类型--</option>
+                    <volist name="goodstype" id="v">
+                        <if condition="$v['goodstype_id'] eq $goods['goods_goodstypeid']">
+                            <option selected="selected" value="{$v.goodstype_id}">{$v.goodstype_name}</option>
+                            <else/>
+                            <option value="{$v.goodstype_id}">{$v.goodstype_name}</option>
+                        </if>
+                    </volist>
+                </select>
+                </div>
+
+            </td>
+        </tr>
+
+        <script>
+            $(function(){
+
+                 var goodstype_id=$("#goods_attr option:selected").val();
+                //alert(goodstype_id);
+                var obj=$("#goods_attr .j_select");
+                var tag=false;
+                $.get(
+                        "{:U('Paimai/AdminGoods/ajax_getattrvalue','','')}",
+                        //商品类型goodstype_id和商品goods_id
+                        {'goodstype_id': goodstype_id,'goodsattr_goodsid':$("#j_goods_id").val()},
+                        function(data){
+                            if(data){
+                                var str="<table class='m_table'>";
+                                for(var i=0;i<data.length;i++){
+                                    str+="<tr><td>"+data[i].attr_name+"<input type='hidden' name='goods_att_key[]' value='"+data[i].attr_id+"'></td><td><select name='goods_att_val[]'>"+data[i].goodsattr+"</select></td></tr>";
+                                }
+                                tag=true;
+                                str+="</table>";
+                               // alert(str);
+                                obj.after(str);
+                            }
+
+                        },
+                        'json'
+                )
+                //alert(attr_id);
+                //ajax请求数据传入商品类型id返回这个id对应的属性
+                $("#goods_attr .j_goodstype").change(function(){
+                    var t=$(this).val();
+                    var goodstypeid=$("#goodstypeid").text();
+                    //alert(t+goodstypeid)
+                    var obj=$("#goods_attr .j_select");
+                    obj.next().detach();
+                    if(t==goodstypeid&&tag==true){
+                        var goodstype_id=$("#goods_attr option:selected").val();
+                        //alert(goodstype_id);
+                        var obj=$("#goods_attr .j_select");
+                        $.get(
+                                "{:U('Paimai/AdminGoods/ajax_getattrvalue','','')}",
+                                //商品类型goodstype_id和商品goods_id
+                                {'goodstype_id': goodstype_id,'goodsattr_goodsid':$("#j_goods_id").val()},
+                                function(data){
+                                    if(data){
+                                        var str="<table class='m_table'>";
+                                        for(var i=0;i<data.length;i++){
+                                            str+="<tr><td>"+data[i].attr_name+"<input type='hidden' name='goods_att_key[]' value='"+data[i].attr_id+"'></td><td><select name='goods_att_val[]'>"+data[i].goodsattr+"</select></td></tr>";
+                                        }
+                                        str+="</table>";
+                                        // alert(str);
+                                        obj.after(str);
+                                    }else{
+                                        alert("此分类下还没有属性");
+                                    }
+
+                                },
+                                'json'
+                        )
+                    }else{
+                        $.get(
+                                "{:U('Paimai/AdminGoods/ajax_getattrbygoodstype','','')}",
+                                {'goodstype_id': $.trim($(this).val())},
+                                function(data){
+                                    if(data){
+                                        var str="<table class='m_table'>";
+                                        for(var i=0;i<data.length;i++){
+                                            str+="<tr><td>"+data[i].attr_name+"<input type='hidden' name='goods_att_key[]' value='"+data[i].attr_id+"'></td><td><select name='goods_att_val[]'>"+data[i].goodsattr+"</select></td></tr>";
+                                        }
+                                        str+="</table>";
+                                        obj.after(str);
+                                    }else{
+                                        alert("此分类下还没有属性");
+                                    }
+
+                                },
+                                'json'
+                        )
+                    }
+
+                })
+            })
+        </script>
+		<tr>
+			<td>拍品首页缩略图:</td>
+			<td style="height: 50px;">
+				<input type="file" name="index_imgs" />
+				<input type='hidden' name="index_img" />
+			</td>
+		</tr>
+        <tr>
+            <td>拍品缩略图:</td>
+            <td style="height: 100px;">
+                {:hook('upload',array('model'=>'paimaigoods','type'=>'thumb','height'=>30,'uploadify'=>'swfone'))}
+            </td>
+        </tr>
+        <tr>
+            <td>拍品细节图:</td>
+            <td style="height: 100px;">
+                {:hook('upload',array('model'=>'paimaigoods','type'=>'image','height'=>30,'uploadify'=>'swf'))}
+            </td>
+        </tr>
+        <tr>
+            <td>拍品详情描述:</td>
+            <td>
+                <textarea name="goods_intro">{$goods.goods_intro}</textarea>
+                {:hook('adminEditor',array('name'=>'goods_intro'))}
+            </td>
+        </tr>
+        <tr>
+            <td>拍品备注:</td>
+            <td>
+                <textarea name="goods_note">{$goods.goods_note}</textarea><span class="m_notice">此项只是发布者对本拍品的备注,不会在前台显示</span>
+            </td>
+        </tr>
+        <tr>
+            <td>是否显示:</td>
+            <td>
+                <input type="radio" <if condition="$goods['goods_isshow'] eq 1"> checked="checked"</if> name="goods_isshow" value="1"/>&nbsp;是&nbsp;
+                <input type="radio" <if condition="$goods['goods_isshow'] eq 0"> checked="checked"</if> name="goods_isshow" value="0"/>&nbsp;否&nbsp;<span class="m_notice">如果不可用则在添加商品的时候不可选</span>
+            </td>
+        </tr>
+
+        <tr><td colspan="2" align="center"><input id="j_submit" class="m_submit" type="submit" value="修改"></td></tr>
+        </table>
+    </form>
+</block>

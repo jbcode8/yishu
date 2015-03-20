@@ -1,0 +1,152 @@
+<extend name="Admin@Public:base"/>
+<block name="style">
+    <load file="{PLUGIN_PATH}treetable/css/treetable.css"/>
+    <load file="{CSS_PATH}Paimai/comm.css"/>
+    <load file="{PLUGIN_PATH}uploadify/jquery.uploadify.min.js"/>
+</block>
+<block name="body">
+
+<form method="post" action="{:U('Seckill/AdminSeckillgoods/insert')}" style="width: 700px;height: 300px; margin: auto;" enctype="multipart/form-data">
+
+<table class="m_table">
+<caption>添加商品</caption>
+<tr>
+    <td width="100">秒杀商品名称:</td>
+    <td><input type="text" name="skgoods_name" style="width:300px;">(必填)</td>
+</tr>
+
+<tr>
+    <td width="100">上传者:</td>
+    <td><input type="text" name="skgoods_uploader" style="width:100px;"></td>
+</tr>
+
+<tr>
+    <td>所属秒杀专场:</td>
+    <td>
+        <select name="skgoods_specialid">
+            <option value="0">-----请选择-----</option>
+            <volist name="special" id="v">
+                <option value="{$v.skspecial_id}">{$v.skspecial_name}</option>
+            </volist>
+        </select>
+    </td>
+</tr>
+<tr>
+     <td>商品时间:</td>
+      <td>
+            开始时间:<input type="text" name="skgoods_starttime" value="{$v.time|date='Y-m-d H:i:s',###}"><br/><br/>
+            结束时间:<input type="text" name="skgoods_endtime" value="{$v.time|date='Y-m-d H:i:s',###}">
+      </td>
+</tr>
+<tr>
+    <td>商品所属公司/单位名:</td>
+    <td>
+        <input type="text" name="skgoods_sellername" value="" style="width:100px;">(如:御府上海总店)
+    </td>
+</tr>
+<tr>
+    <td>商品原价:</td>
+    <td>
+        <input type="text" name="skgoods_marketprice" value="">
+    </td>
+</tr>
+<tr>
+    <td>秒杀价:</td>
+    <td>
+        <input type="text" name="skgoods_killprice" value="">
+    </td>
+</tr>
+<tr>
+    <td>重量:</td>
+    <td>
+        <input type="text" name="skgoods_weight" value="">(如:50g或1公斤)
+    </td>
+</tr>
+<tr>
+    <td>尺寸:</td>
+    <td>
+        <input type="text" name="skgoods_size" value="">(如:长69.4mm宽46.0mm厚9.9mm)
+    </td>
+</tr>
+<tr>
+    <td>数量:</td>
+    <td>
+        <input type="text" name="skgoods_quantity" value="">
+    </td>
+</tr>
+<tr>
+    <td>存货地:</td>
+    <td>
+        <input type="text" name="skgoods_city" value="">(如:上海)
+    </td>
+</tr>
+<tr>
+    <td>SEO标题:</td>
+    <td>
+        <input type="text" name="skgoods_seotitle" value="" style="width:500px;">
+    </td>
+</tr>
+<tr>
+    <td>SEO关键字:</td>
+    <td>
+        <input type="text" name="skgoods_keywords" value="" style="width:500px;">
+    </td>
+</tr>
+<tr>
+    <td>SEO描述:</td>
+    <td>
+        <input type="text" name="skgoods_seodesc" value="" style="width:500px;">
+    </td>
+</tr>
+<tr>
+    <td>商品描述:</td>
+    <td>
+        <textarea name="skgoods_brief"></textarea>
+    </td>
+</tr>
+
+<!--tr>
+    <td>拍品首页缩略图:</td>
+    <td style="height: 50px;">
+        <input type="file" name="index_imgs" />
+        <input type='hidden' name="index_img" />
+    </td>
+</tr-->
+<tr>
+    <td>商品缩略图:</td>
+    <td style="height: 50px;">
+        <!--<input type="file" name="goods_thumb">-->
+        {:hook('upload',array('model'=>'paimaigoods','type'=>'thumb','height'=>30,'uploadify'=>'swfone'))}
+    </td>
+</tr>
+
+<tr>
+    <td>商品细节图:</td>
+    <td style="height: 100px;">
+        {:hook('upload',array('model'=>'paimaigoods','type'=>'image','height'=>30,'uploadify'=>'swf'))}图片大小宽800*高800
+    </td>
+</tr>
+<tr>
+    <td>商品详情描述:</td>
+    <td>
+        <textarea name="skgoods_intro"></textarea>
+        {:hook('adminEditor',array('name'=>'skgoods_intro'))}
+    </td>
+</tr>
+
+<tr>
+    <td>是否显示:</td>
+    <td><input type="radio" name="skgoods_isshow" value="0"/>&nbsp;是&nbsp;
+	<input type="radio" checked="checked"  name="skgoods_isshow" value="1"/>&nbsp;否&nbsp;
+	</td>
+</tr>
+<tr>
+    <td colspan="2" align="center"><input class="m_submit" type="submit" value="添加"></td>
+</tr>
+
+
+</table>
+</form>
+
+
+</block>

@@ -1,0 +1,82 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_OTHER_PATH}/Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+   <!-- <div class="nav_btn">
+        <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Paimai/AdminCat/add')}', {title:'添加文章', id:'adoArticle'})"> 添加文章</a>
+        <a class="fa fa-plus-square" href="{:U('Mall/ArticleCategory/index')}"> 分类管理</a>
+    </div>-->
+    <!--快捷按钮 结束-->
+    <form method="post" action="{:U('Jishou/AdminGoodsType/save')}" style="width: 500px;height: 300px; margin: auto;">
+	<input type='hidden' name='gtype_id' value='{$gtype_goods.gtype_id}'/>
+    <table class="m_table">
+        
+        <tr><td width="100">商品属性分类名称:</td><td><input type="text" name="gtype_name" value='{$gtype_goods.gtype_name}'>(必填)</td></tr>
+
+        <tr>
+
+            <td>是否启用:</td>
+            <td>
+				<if condition='$gtype_goods.gtype_enabled eq 1'>
+                <input type="radio" checked="checked" name="gtype_enabled" value="1"/>&nbsp;是&nbsp;
+                <input type="radio" name="gtype_enabled" value="0"/>&nbsp;否&nbsp;
+				<else />
+				<input type="radio"  name="gtype_enabled" value="1"/>&nbsp;是&nbsp;
+                <input type="radio" checked="checked" name="gtype_enabled" value="0"/>&nbsp;否&nbsp;
+				
+				</if>
+            </td>
+        </tr>
+		
+        
+        <script>
+            $(function(){
+                //增加
+                /*$("#j_add").click(function(){
+                    $(".j_select").last().clone(true).insertAfter($(".j_select").last());
+                });
+                //减少
+                $("#j_down").click(function(){
+                    if($(".j_select").size()>1){
+                        $(".j_select").last().detach();
+                    }
+                });*/
+
+                /*$(".j_select").each(function(){
+                    //点击ajax请求
+                    $(this).find("#goodstype").change(function(){
+
+						
+                        var sub_select=$(this).next();
+
+                        sub_select.html("<option value='0'>--请选择--</option>");
+                        $.post(
+                            "{:U('Jishou/AdminCat/ajax_getattribute','','')}",
+                            {"goodstype_id":$(this).val(),'IS_AJAX':'1'},
+                                function(data){
+
+									
+
+									if(!data.flag){return;}
+                                    str="";
+									var attrs = data.attrs;
+                                    for(var i=0;i<data.attrs.length;i++){
+                                        str+="<option value='"+attrs[i].attr_id+"'>"+attrs[i].attr_name+"</option>";
+                                    }
+                                    sub_select.find("option:first").after(str);
+                                },
+                             "json"
+                        );
+                    });
+                });*/
+
+            })
+        </script>
+		
+        <tr><td colspan="2" align="center"><input class="m_submit" type="submit" value="添加"></td></tr>
+    </table>
+    </form>
+</block>

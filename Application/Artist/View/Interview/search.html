@@ -1,0 +1,77 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{ width:800px; }
+        .thumb{position: relative;}
+        .thumb .thumb_img{position: absolute;top:0;border:1px solid #ABADB3;}
+    </style>
+</block>
+<!--主体内容 开始-->
+<block name="body">
+    <!-- 数据表格 开始-->
+    <form method="post" class="addCategory">
+        <div id="form_left">
+            <table class="form">
+                <tr>
+                    <th>标题：</th>
+                    <td><input type="text"  name="title" size="50" ></td>
+                </tr>
+                <tr>
+                    <th width="15%">艺术家姓名：</th>
+                    <td>
+                        <input type="text" name="artistName" id="_artist_name" readonly="readonly" maxLength="10" />
+                        {:R('Library/names',array('_artist_name'))}
+                    </td>
+                </tr>
+                <tr>
+                    <th>类别：</th>
+                    <td>  {:getArtistCategory()} </td>
+                </tr>
+                <tr>
+                    <th> 状态：</th>
+                    <td>
+                        <php>  $arr = getArtistStatus(false); </php>
+                        <select name="status">
+                            <option value=""> ---请选择--- </option>
+                            <volist name="arr" id="vo">
+                                <option value="{$key}">{$vo}</option>
+                            </volist>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th> 视频地址：</th>
+                    <td><input type="url"  name="video"  size="80" ></td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <button type="submit" class="btn" target-form="addCategory">确认</button>
+                        <button type="reset" class="btn btn_gary">重填</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+    <!-- 数据表格 结束-->
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+    <load file="{PLUGIN_PATH}DatePicker/WdatePicker.js"/>
+    <script type="text/javascript">
+        $(function(){
+            $('form').submit(function(){
+                var data = $('form').serializeArray();
+                var  where = '';
+                if(data[0].value != ''){ where += 'title='+data[0].value; }
+                if(data[2].value != ''){ where += where==''?'aid='+data[2].value:'&aid='+data[2].value; }
+                if(data[3].value != '' ){ where += where==''?'status='+data[3].value:'&status='+data[3].value;}
+                if(data[4].value != '' ){ where += where==''?'video='+data[4].value:'&video='+data[4].value;}
+                var url = "{:U('Artist/Interview/index')}";
+                url.indexOf('?',url)>0?url = url+"&"+where:url = url+"?"+where;
+                $.dialog.opener.location.href = url;
+            });
+        });
+    </script>
+</block>

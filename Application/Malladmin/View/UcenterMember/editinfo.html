@@ -1,0 +1,29 @@
+<extend name="Public:base" />
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul>
+            <li class="selected"><a>修改个人信息</a></li>
+        </ul>
+    </div>
+    <!--导航部分 结束-->
+    <form action="{:U('UcenterMember/editinfo')}" method="post" class="updatenick">
+        <table class="form">
+            <tr>
+                <th class="w1">密码:</th>
+                <td><input type="password" name="password" id="password" /></td>
+            </tr>
+            <tr>
+                <th>昵称:</th>
+                <td><input name="nickname" id="nickname" value="{$nickname}"/></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <button type="submit" class="btn ajax-post" target-form="updatenick" >确认</button>
+                    <button type="reset" class="btn btn_gary">重填</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</block>

@@ -1,0 +1,176 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+    <!-- <div class="nav_btn">
+         <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Paimai/AdminCat/add')}', {title:'添加文章', id:'adoArticle'})"> 添加文章</a>
+         <a class="fa fa-plus-square" href="{:U('Mall/ArticleCategory/index')}"> 分类管理</a>
+     </div>-->
+    <!--快捷按钮 结束-->
+    <form method="post" action="{:U('Paimai/AdminCategory/update')}" style="width: 500px;height: 300px; margin: auto;">
+        <input type="hidden" name="cat_id" value="{$cat.cat_id}">
+        <table class="m_table">
+            <tr><td width="100">商品分类名称:</td><td><input type="text" name="cat_name" value="{$cat.cat_name}">(必填)</td></tr>
+
+            <tr>
+                <td>是否可用:</td>
+                <td>
+                    <input type="radio" <if condition="$cat['cat_isshow'] eq 1"> checked="checked"</if> name="cat_isshow" value="1"/>&nbsp;是&nbsp;
+                    <input type="radio" <if condition="$cat['cat_isshow'] eq 0"> checked="checked"</if> name="cat_isshow" value="0"/>&nbsp;否&nbsp;
+
+                </td>
+            </tr>
+            <tr>
+                <td>可筛选属性:</td>
+                <td>
+                    <span id="j_add">+</span>
+                    <!--这个是没有可筛选属性-->
+                    <if condition="count($cat_attr) eq 0">
+                        <div class="j_select">
+                            <input id="attrid" type="hidden" value="{$vo.cat_attr_attrid}">
+                            <select id="goodstype">
+                                <option value="0">--请选择--</option>
+                                <volist name="goodstype" id="v">
+                                    <option value="{$v.goodstype_id}">{$v.goodstype_name}</option>
+                                </volist>
+                            </select>
+
+                            <select id="attr" name="attr_id[]">
+                                <option value="0">--请选择--</option>
+                            </select>
+                        </div>
+                    <else/>
+                        <!--这个是有可筛选属性-->
+                        <volist name="cat_attr" id="vo">
+                        <div class="j_select">
+                            <input class="j_cat_attr" type="hidden" value="{$vo.cat_attr_attrid}">
+                            <select id="goodstype">
+                                <option value="0">--请选择--</option>
+                                <volist name="goodstype" id="v">
+                                    <option value="{$v.goodstype_id}">{$v.goodstype_name}</option>
+                                </volist>
+                            </select>
+                            <select id="attr" name="attr_id[]">
+                                <option value="0">--请选择--</option>
+                            </select>
+                        </div>
+                        </div>
+                        </volist>
+                    </if>
+                    <span id="j_down">-</span>
+                </td>
+            </tr>
+            <script>
+                $(function(){
+                    //请求可筛选属性,如果没有可筛选属性则不清求,如果有可筛选属性则请求
+                   $(".j_cat_attr").each(function(){
+                      if($(this).val()!=""){
+                          var goostype=$(this).siblings("#goodstype").find("option");
+                          var attr=$(this).siblings("#attr").find("option");
+                          var attrid=$(this).val();
+                          var cat_attr_attrid= $.trim($(this).val());
+                         $.get(
+                               "{:U('Paimai/AdminCategory/ajax_get_attr_info','','')}",
+                               {'cat_attr_attrid':cat_attr_attrid},
+                               function(data){
+                                   if(data){
+                                       var str="";
+                                       for(var i=0;i<data.length;i++){
+                                           //alert(data[i].attr_name);
+                                           if(attrid==data[i].attr_id){
+                                               str+="<option selected='selected' value='"+data[i].attr_id+"'>"+data[i].attr_name+"</option>";
+                                           }else{
+                                               str+="<option value='"+data[i].attr_id+"'>"+data[i].attr_name+"</option>";
+                                           }
+                                           goostype.each(function(){
+                                               if(data[i].attr_goodstypeid==$(this).val()){
+                                                   $(this).attr("selected","selected");
+                                               }
+                                           });
+                                       }
+                                       attr.after(str);
+                                   }else{
+                                       alert("请重新请求");
+                                   }
+                               },
+                                  "json"
+                          );
+                      }
+                    });
+                    //增加
+                    $("#j_add").click(function(){
+                        $(".j_select").last().clone(true).insertAfter($(".j_select").last());
+                    });
+                    //减少
+                    $("#j_down").click(function(){
+                        if($(".j_select").size()>1){
+                            $(".j_select").last().detach();
+                        }
+                    });
+
+                    $(".j_select").each(function(){
+                        //点击ajax请求
+                        $(this).find("#goodstype").change(function(){
+                            var sub_select=$(this).next();
+                            sub_select.html("<option value='0'>--请选择--</option>");
+                            $.get(
+                                    "{:U('Paimai/AdminCategory/ajax_getattribute','','')}",
+                                    {"goodstype_id":$(this).val()},
+                                    function(data){
+                                        if(data){
+                                            str="";
+                                            for(var i=0;i<data.length;i++){
+                                                str+="<option value='"+data[i].attr_id+"'>"+data[i].attr_name+"</option>";
+                                            }
+                                            sub_select.find("option:first").after(str);
+                                        }else{
+                                            alert("该分类下没有属性");
+                                        }
+
+                                    },
+                                    "json"
+                            );
+                        });
+                    });
+                })
+            </script>
+            <tr>
+                <td>商品分类简短描述:</td>
+                <td>
+                    <textarea name="cat_desc">{$cat.cat_desc}</textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>是否在前台列表中显示:</td>
+                <td>
+                    <input type="radio" <if condition="$cat['cat_show_in_front'] eq 1"> checked="checked"</if> name="cat_show_in_front" value="1"/>&nbsp;是&nbsp;
+                    <input type="radio" <if condition="$cat['cat_show_in_front'] eq 0"> checked="checked"</if> name="cat_show_in_front" value="0"/>&nbsp;否&nbsp;
+
+                </td>
+            </tr>
+            <tr>
+                <td>分类单位:</td>
+                <td>
+                    <input type="text" name="cat_unit" value="{$cat.cat_unit}"/>(如:件,只,幅,不得多于5个字符)
+                </td>
+            </tr>
+			<tr>
+            <td>分类名字拼音:</td>
+            <td>
+                <input type="text" name="cat_spell" value="{$cat.cat_spell}"/>(*必填)
+            </td>
+        </tr>
+            <tr>
+                <td>价格分段区间数:</td>
+                <td>
+                    <input type="text" name="cat_grade" value="{$cat.cat_grade}"/>
+                    <span class="m_notice">该分类的最高和最低价之间的价格分级，当大于1时，会根据最大最小价格区间分成区间，会在页面显示价格范围，如0-300,300-600,600-900这种</span>
+                </td>
+            </tr>
+            <tr><td colspan="2" align="center"><input class="m_submit" type="submit" value="修改"></td></tr>
+        </table>
+    </form>
+</block>

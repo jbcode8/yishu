@@ -1,0 +1,76 @@
+<extend name="Admin@Public:base"/>
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css"/>
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="{JS_PATH}jquery.jqprint-0.3.js"></script>
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+	
+
+    <!--快捷按钮 结束-->
+    <style type="text/css">
+        .j_green{
+            color: #59B638;
+        }
+        .j_background{
+            background: #5978A4;
+            color: #fff;
+
+        }
+        .j_print{
+            font-size: 9px;
+        }
+    </style>
+    
+    <table class="m_table j_print" style="font-size: 1px;">
+        <center style="margin:10px;"><input type="button" onclick="print()" value="点击打印"></center>
+            <tr>
+                <th>订单ID</th>
+                <th>订单号</th>
+                <th>订单总金额</th>
+                <th>订单时间</th>
+                <th>付款方式</th>
+                <th>付款状态</th>
+                <th>付款时间</th>
+                
+                <th>商品货号</th>
+                <th>商品名称</th>
+            </tr>
+        <volist name="orderinfo" id="v">
+            <tr>
+                <td class="j_background">{$v.orderinfo_id}</td>
+                <td>{$v.orderinfo_sn}</td>
+                <td><span style=" font-size:15px;">{$v.orderinfo_amount}</span></td>
+                <td>{$v.orderinfo_createtime}</td>
+                <td>{$v.orderinfo_paystyle}</td>
+                <td>
+                    {$v.orderinfo_paystatus}
+                </td>
+                <td>{$v.orderinfo_paytime}</td>
+                <td>{$v.order_goodssn}</td>
+                <td>{$v.order_goodsname}</td>
+
+            </tr>
+        </volist>
+            <tr>
+                <th>总数:{$allcount}</th>
+                <th></th>
+                <th>总金额:{$allamount}</th>
+                <th></th>
+                
+                <th colspan="3">打印条件:<br/>
+                    开始时间:{$starttime}-结束时间:{$endtime}<br/>
+                    付款状态:{$paystatus}<br/>
+                    商品分类:{$cat_name}
+                </th>
+                <th colspan="2">打印时间:{:date("Y-m-d H:i:s")}</th>
+            </tr>
+    </table>
+    <script type="text/javascript">
+        function  print(){
+            $(".m_table").jqprint();
+        }
+    </script>
+    
+</block>

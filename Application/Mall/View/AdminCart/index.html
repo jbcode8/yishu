@@ -1,0 +1,72 @@
+<extend name="Admin@Public:base" />
+
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+</block>
+
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul><li class="selected"><a href="{:U('index')}">购物车列表</a></li></ul>
+
+        <!--搜索 开始-->
+        <div class="advSearch">
+            <form method="post" action="{:U('index')}">
+                <div class="row">
+                    <label>关键字：</label>
+                    <input type="text" size="8" name="kw" placeholder="请输入关键字" style="padding:2px 5px" value="{$kw}" />
+                </div>
+                <div class="row">
+                    <label>时间：</label>
+                    <input style="padding:2px 5px" value="{$start_time}" type="text" size="6" placeholder="起始时间" name='start_time' id="starttime"  onfocus="WdatePicker({onpicked:function(){$('#endtime').focus();}})"/> -
+                    <input style="padding:2px 5px" value="{$end_time}" type="text" size="6" placeholder="结束时间" name='end_time' id="endtime" onfocus="WdatePicker({minDate:$('#starttime').val()})" />
+                </div>
+                <button type="submit" class="btn fa fa-search"> 搜 索</button>
+            </form>
+        </div>
+        <!--搜索 结束-->
+
+    </div>
+    <!--导航部分 结束-->
+
+    <form action="{:U('listorder')}" method="post">
+        <!-- 数据表格 开始-->
+        <?php
+        $thead = array(
+        'cart_id' => '编号',
+        'uid' => array(
+        '_title' => '会员名',
+        'func' => 'getUserInfo($uid)',
+        ),
+        'goods_name' => '商品名称',
+        'create_time' => array(
+        '_title' => '添加时间',
+        'tag' => 'span',
+        'func' => 'date("Y-m-d H:i:s", $create_time)',
+        ),
+        '操作'=>array(
+        ' 店铺详情'=>array('href' => 'detail?cart_id=$cart_id', 'class'=>'showCart fa fa-edit'),
+        ),
+        );
+        echo $_table_list = $__controller__->tableList($_list, $thead);
+        ?>
+        <!-- 数据表格 结束-->
+        <div class="paging">
+            {$_page}
+        </div>
+    </form>
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+    <script type="text/javascript">
+    $(function() {
+        $(".showCart").on('click',function(e){
+            e.preventDefault();
+            $.dialog.open(this.href, {title:'购物车详情', id:'showCart'} );
+        });
+    });
+    </script>
+    <load file="__PUBLIC__/plugin/DatePicker/WdatePicker.js" />
+</block>

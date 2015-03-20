@@ -1,0 +1,50 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="{PLUGIN_PATH}treetable/css/treetable.css" />
+    <load file="{PLUGIN_PATH}treetable/js/jquery.treetable.js" />
+</block>
+<block name="body">
+<div class="container">
+    <ul class="header clear">
+    <li><a href="{:U('Auction/AdminRecord/index')}">出价纪录管理</a></li>
+    <li class="current"><a href="{:U('Auction/AdminAuto/index')}">自动出价用户管理</a></li>
+    </ul>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>拍卖信息ID</th>
+                <th>用户ID</th>
+                <th>价格</th>
+                <th>IP</th>
+                <th>匿名/显示</th>
+                <th>是否自动竞价</th>
+                <th>时间</th>
+                <th>管理</th>
+            </tr>
+        </thead>
+        <tbody>
+        <volist name="list" id="v">
+            <tr>
+                <td>{$v['id']}</td>
+                <td>{$v['aid']}</td>
+                <td>{$v['mid']}</td>
+                <td>{$v['price']}</td>
+                <td>{$v['ip']}</td>
+                <td><if condition="$v['ishide'] eq 1"><span style="color:#008000">显示</span><else/><span style="color:#f00">匿名</span></if></td>
+                <td>
+                <if condition="$v['isopen'] eq 1">
+                    <a href="{:U('Auction/AdminAuto/update',array('id' => $v['id'],'isopen' => '0'))}" onclick="if(confirm('确定设置为关闭？')){return true;};return false;"><span style="color:#008000">开启</span></a>
+                <else/>
+                    <a href="{:U('Auction/AdminAuto/update',array('id' => $v['id'],'isopen' => '1'))}" onclick="if(confirm('确定设置为开启？')){return true;};return false;"><span style="color:#f00">关闭</span></a>
+                </if>
+                </td>
+                <td>{:date('Y-m-d H:i:s', $v['time'])}</td>
+                <td><a href="{:U('Auction/AdminAuto/delete',array('id' => $v['id']))}" onclick="if(confirm('确定要删除吗？')){return true;};return false;">删除</a></td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+    <div class="page">{$page}</div>
+</div>
+</block>

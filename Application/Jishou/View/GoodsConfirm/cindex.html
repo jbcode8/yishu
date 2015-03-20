@@ -1,0 +1,55 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_OTHER_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+    <!--快捷按钮 结束-->
+
+	<empty name='confirm_data'>
+            没有要确认的商品信息
+		<else/>
+    <table class="m_table">
+        <tr><th>商品名</th><th>图片</th><th>用户ID</th><th>上传时间</th><th>操作</th></tr>
+		
+        <volist name="confirm_data" id="v">
+            <tr>
+                <td id="id">{$v.goods_name}</td>
+                <td><img src='{$v.img.img_path}{$v.img.img_name}' style='height:50px;width:50px'></td>
+                <td>
+                    <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Jishou/AdminGoodsConfirm/userShow',array('user_id'=>$v['user_id']))}', {title:'商品所属用户信息', id:'adoArticle'})" style='padding:5px 10px;margin:0px 0 10px 0;border:solid 1px #888;border-radius:3px;'>{$v.user_id}</a>
+                </td>
+				<td>{$v.goods_atime|date ='Y-m-d H:i',###}</td>
+				<td>
+                <a href="{:U('/jishou/'.$v['goods_id'])}" target='_blank'>预览</a>
+                &nbsp;|&nbsp;<a href='javascript:void(0)' target='_self' onclick="if(confirm('要确认吗'))location.href = '{:U('Jishou/AdminGoodsConfirm/confirm',array('goods_id'=>$v['goods_id']))}'">确认</a> &nbsp;|&nbsp;<a href='javascript:void(0)' target='_self' onclick="if(confirm('要确认吗'))location.href = '{:U('Jishou/AdminGoodsConfirm/deny',array('goods_id'=>$v['goods_id']))}'">查封</a>&nbsp;|&nbsp;<a href='javascript:void(0)' target='_self' onclick="if(confirm('要删除吗'))location.href = '{:U('Jishou/AdminGoodsConfirm/del',array('goods_id'=>$v['goods_id']))}'">删除</a>
+                <define name='ads_url' value=""/>
+                &nbsp;|&nbsp;
+                <!--<a href='{:U("AdminAds/add",array("ads_url"=>U('/jishou/'.$v['goods_id'])))}'>生成链接</a>-->
+                <a href='javascript:$.dialog.open("{:U("AdminAds/add")}?ads_url={:U('/jishou/'.$v['goods_id'])}",{title:"生成广告位链接"})' target='_self'>生成广告位</a>
+                </td>
+            </tr>
+        </volist>
+		 </table>
+         <div class='thisispageinfo'>{$page_info}</div>
+         <style>
+            /*添加分页的样式*/
+            .thisispageinfo{margin:10px 0 20px 0;text-align:center;}
+            .thisispageinfo a,.thisispageinfo span{padding:2px 3px;}
+         </style>
+		</empty>
+   
+    <script>
+        $(function(){
+
+            //判断删除
+            $(".j_del").click(function(e){
+                if(!confirm("你确认删除这个类型,如果删除这个商品类型下面的所有属性都将被删除!")){
+                    e.preventDefault();
+                }
+            });
+
+        })
+    </script>
+</block>

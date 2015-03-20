@@ -1,0 +1,24 @@
+<extend name="Admin@Public:base"/>
+
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css"/>
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css"/>
+</block>
+
+<block name="body">
+
+   <table class="table treetable">
+       <tr><td>用户id</td><td>用户名</td><td>充值总金额</td><td>冻结金额</td><td>没按时付款扣除金额</td><td>没拍到返回金额</td><td>提现金额</td><td>剩余可用金额</td></tr>
+       <volist name="recharge_user" id="v">
+        <tr>
+            <tr><td>{$v.recharge_uid}</td><td>{$v.username}</td><td>{$v.money1}</td><td>{$v.money2}</td><td>{$v.money3}</td><td>{$v.money4}</td><td>{$v.money5}</td><td>{$v.money6}</td></tr>
+        </tr>
+        </volist>
+        <tr><td colspan="8">{$page}</td></tr>
+
+    </table>
+<style type="text/css">
+span {color:red}
+</style>	
+        
+</block>

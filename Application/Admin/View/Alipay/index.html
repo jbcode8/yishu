@@ -1,0 +1,90 @@
+<extend name="Admin@Public:base" />
+
+<block name="style">
+   
+  <style type="text/css">
+    table { width:100%; color:#808080; margin-top:8px; border-collapse:collapse;  }
+    table tr th { width:100px; height:36px;line-height:36px; background:#e7e7e7; }
+    table tr td { width:100px; height:28px;line-height:28px; text-align:center;}
+    .tabletr { background:#ebebeb; }
+    table a:hover { color:red; }
+  </style>
+</block>
+
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul>
+            <li class="selected"><a>用户充值信息</a></li>
+           <!--  <div class="nav_btn">
+                <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U(\'Admin/Coupons/add\')}',{title:'修改优惠券',lock:true})">添加</a>
+            </div> -->
+        </ul>
+
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 开始-->
+    <table>
+        <tr>
+            <th>用户</th>
+            <th>手机</th>
+            <th>登陆次数</th>
+            <th>姓名</th>
+            <th>是否充值</th>
+            <th>充值金额</th>
+            <th>充值次数</th>
+            <th>参拍次数</th>
+            <th>查看所拍物品</th>
+        </tr>
+        <volist name="list" id="vo">
+            <tr>
+                <td>{$vo['username']}</td>
+                <td>{$vo['mobile']}</td>
+                <td>
+                   {$vo['loginnum']}
+                </td>
+                <td>{$vo['reviver']}</td>
+                <td>
+                    <if condition="$vo['recharge']">
+                        是
+                    <else />
+                        否
+                    </if>
+                </td>
+                <td>
+                    {$vo['recharge_sum']}
+                </td>
+                <td>
+                    {$vo['recharge']}
+                </td>
+                <td>
+                    {$vo['canpai_num']}
+                </td>
+                <td>
+                    <a href="{:U('Admin/Alipay/paipin',array('uid'=>$vo['mid']))}">查看</a>
+                </td>
+            </tr>
+        </volist>
+        <tr>
+            <td colspan="8" id="j_a_fenye" style="background:#E7E7E7"><div style="width:800px;float:right;">{$page}</div></td>
+        </tr>
+    </table>
+    <!-- 数据表格 结束-->
+    <div class="paging">
+        <!-- {$_page} -->
+    </div>
+    <script type="text/javascript">
+        window.onload = function() {
+            $("#j_a_fenye").find("a").css({'margin': '0 5px'});
+            $("#j_a_fenye").find(".current").css({'margin': '0 5px', 'color': 'red'})
+        }
+    </script>  
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+   
+    <load file="__PUBLIC__/plugin/DatePicker/WdatePicker.js" />
+</block>

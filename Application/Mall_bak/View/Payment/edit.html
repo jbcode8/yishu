@@ -1,0 +1,40 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+<style type="text/css">
+body{ width:650px}
+</style>
+</block>
+<block name="body">
+    <form action="{:U('Mall/Payment/edit')}" method="post" class="editPayment">
+    <table class="form">
+        <tr>
+            <th>支付方式名称:</th>
+            <td><input name="pay_name" type="text" style="width:300px" value="{$vo.pay_name}" /></td>
+            <td class="tips"><i class="red">* 必填</i></td>
+        </tr>
+        <tr>
+            <th>支付方式描述:</th>
+            <td><textarea name="pay_desc" style="width:350px;height:60px">{$vo.pay_desc}</textarea></td>
+            <td class="tips"><i class="red">* 必填</i></td>
+        </tr>
+        <tr>
+            <th>支付方式配置:</th>
+            <td><textarea name="pay_config" style="width:350px; height:80px">{$vo.pay_config}</textarea></td>
+            <td class="tips"><i class="red">* 必填</i></td>
+        </tr>
+        <tr>
+            <th>排列顺序:</th>
+            <td><input name="listorder" type="text" value="{$vo.listorder}" /></td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <td>
+                <input type="hidden" name="pay_id" value="{$vo.pay_id}" />
+                <button type="submit" class="btn ajax-post" target-form="editPayment">确认</button>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+    </form>
+</block>

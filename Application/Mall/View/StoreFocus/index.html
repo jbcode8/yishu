@@ -1,0 +1,58 @@
+<extend name="Admin@Public:base" />
+
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+</block>
+
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul><li class="selected"><a href="{:U('index')}">信息列表</a></li></ul>
+
+        <!--搜索 开始-->
+        <div class="advSearch">
+            <form method="post" action="{:U(index)}">
+                <div class="row">
+                    <label>关键字：</label>
+                    <input type="text" size="10" name="kw" placeholder="请输入名称" style="padding:2px 5px" value="{$kw}" />
+                </div>
+                <button type="submit" class="btn fa fa-search"> 搜 索</button>
+            </form>
+        </div>
+        <!--搜索 结束-->
+
+    </div>
+    <!--导航部分 结束-->
+
+    <form action="{:U('listorder')}" method="post" class="u-listorder">
+        <!-- 数据表格 开始-->
+        <?php
+        $thead = array(
+            '_html' => array(
+        '_th' => 'row-selected',
+        'th' => '排序',
+        'td' => '<input type="text" name="listorder[$id]" value="$listorder" style="width:20px;height:18px;padding:0 4px">',
+        ),
+        'id' => '编号',
+        'title' => '名称',
+        '状态'=>array(
+        ' 锁定'=>array('class' =>'red','condition'=>'$status==0'),
+        ' 正常'=>array('class' =>'success','condition'=>'$status==1'),
+        ),
+        '操作'=>array(
+        ' 正常'=>array('href'=>'status?id=$id&status=1', 'class'=>'ajax-get success fa fa-check-circle'),
+        ' 锁定'=>array('href'=>'status?id=$id&status=0','class'=>'ajax-get red fa fa-lock'),
+        ' 删除'=>array('href'=>'delete?id=$id', 'class'=>'ajax-get fa fa-trash-o red'),
+        ),
+        );
+        echo $_table_list = $__controller__->tableList($_list, $thead);
+        ?>
+        <!-- 数据表格 结束-->
+        <div class="paging">
+            <button type="submit" class="btn fa fa-list ajax-post" target-form="u-listorder"> 排 序</button>
+            {$_page}
+        </div>
+    </form>
+</block>
+<!--主体内容 结束-->

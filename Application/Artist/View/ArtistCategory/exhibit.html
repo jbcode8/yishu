@@ -1,0 +1,232 @@
+<extend name="artistBase"/>
+<block name='content'>
+<div class="container clear">
+<!-- 顶部2个焦点图 -->
+<div class="top-block clear">
+    <div class="l-slide">
+        <div class="move-content">
+            <ul>
+                <ys:position name="list" catid="14" posid="10" type="1" thumb="1" limit="0,6">
+                    <li>
+                        <a href="{:U('/Content/Content/detail/',array('category'=>'mingjia','id'=>$list['id']))}" target="_blank">
+                            <img src="{$list.url}" width="710" height="300" alt="" />
+                        </a>
+                        <div class="abbreviative">
+                            <div class="left">
+                                <h3>{$list.title|new_msubstr=###,0,17}</h3>
+                                <p>
+                                    {$list.description|new_msubstr=###,0,48}...<a href="{:U('/Content/Content/detail/',array('category'=>'mingjia','id'=>$list['id']))}" class="detail">详细</a>
+                                </p>
+                            </div>
+                            <div class="right">
+                                <img src="{$list.url}" width="100" height="60" alt="{$list.title}" />
+                            </div>
+                        </div>
+                    </li>
+                </ys:position>
+            </ul>
+        </div>
+        <div class="l-arrow"><</div>
+        <div class="r-arrow">></div>
+    </div>
+    <div class="exhibition-info">
+        <div class="top">
+
+            <p><a href="{:U('Content/Content/detail',array('category'=>'exhibit_personal','id'=>$oneList['id']))}" target="_blank"><h3>{$oneList.title|new_msubstr=###,0,11}</h3></a></p>
+            <p>展览城市：{:getCity($oneList['provinceid'])}</p>
+            <p>展览时间：{$oneList.starttime|date='Y-m-d',###}至{$oneList.endtime|date='Y-m-d',###}</p>
+            <p>展览地点：{$oneList.address}</p>
+            <p>参展人员：{$oneList.list}</p>
+            <p>{$oneList.description|new_msubstr=###,0,40}……
+                <a href="{:U('Content/Content/detail',array('category'=>'exhibit_personal','id'=>$oneList['id']))}" target="_blank">[全文]</a>
+            </p>
+        </div>
+        <div class="bottom">
+            <a href="#">TA正在举办个人展览</a>
+            <div class="list">
+                <ul>
+                    <volist name="artist_list" id="vo" offset="0" length="6">
+                        <li><a href="{:U('Artist/ArtistDetail/exhibit',array('id'=>$vo['id']))}" target="_blank">▪ {$vo.name|new_msubstr=###,0,5}</a></li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bottom-block">
+<!-- 个人展览 -->
+<div class="person-exhibition clear">
+<div class="comm-title">
+    <h2>个人展览</h2>
+    <div class="operation">
+        <div class="area">
+            <div class="comm-select left">
+                <span>全部地区</span>
+                <div class="select hide">
+                    <ul>
+                        <li><a href="{:U('Artist/ArtistCategory/exhibit',array('region_id'=>$vo['id']))}">全部地区</a></li>
+                        <volist name="area" id="vo">
+                            <li>
+                                <a href="{:U('Artist/ArtistCategory/exhibit',array('region_id'=>$vo['id'],'type'=>I('get.type')))}"
+                                class="c{$vo.id}">
+                                    {$vo.name|new_msubstr=###,0,2}
+                                </a>
+                            </li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+            <div class="all-area right">全部展览&nbsp;&nbsp;►</div>
+        </div>
+        <div class="nav">
+            <ul class="column">
+                <li class="nav-1 <if condition="$_GET['type'] eq 'jrkm'">select</if> " ><a class="hover-wihte" href="{:U('Artist/ArtistCategory/exhibit',array('type'=>'jrkm','region_id'=>$_GET['region_id']))}"> 今日开幕</a></li>
+                <li class="nav-2 <if condition="$_GET['type'] eq 'zzzl'">select</if>"><a class="hover-wihte" href="{:U('Artist/ArtistCategory/exhibit',array('type'=>'zzzl','region_id'=>$_GET['region_id']))}">正在展览</a> </li>
+                <li class="nav-3 <if condition="$_GET['type'] eq 'yjjs'">select</if>"><a class="hover-wihte" href="{:U('Artist/ArtistCategory/exhibit',array('type'=>'yjjs','region_id'=>$_GET['region_id']))}">已闭幕</a> </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="tab-content">
+<div class="content-1">
+    <ul>
+        <volist name="lists" id="vo">
+        <li>
+            <div class="img"><img src="{$vo.thumb}" alt="{$vo.title}" /></div>
+            <div class="info">
+                <h3>{$vo.title|new_msubstr=###,0,30}</h3>
+                <p class="sub-info">
+                    <span>展览城市：<a>{:getCity($vo['provinceid'])}</a></span>
+                    <span>展览地点：<a>{$vo.address}</a></span>
+                    <span>展览时间：<a>{$vo.starttime|date='Y-m-d',###}</a>至<a>{$vo.endtime|date='Y-m-d',###}</a></span>
+                </p>
+                <p>
+                    {$vo.description|new_msubstr=###,0,80}...<a href="#" target="_blank">[详情]</a>
+                </p>
+                <div class="other-info">
+                    <span class="interest"><a href="#">12人感兴趣</a></span>
+                    <span class="apply"><a href="#">46人报名</a></span>
+                </div>
+            </div>
+        </li>
+        </volist>
+    </ul>
+    <!-- 分页 -->
+    <div class="common-page clear">
+        <div class="t-center">
+            {$page}
+        </div>
+    </div>
+</div>
+
+
+</div>
+</div>
+<div class="r-side">
+<!-- 大师排行榜 -->
+<div class="master-ranking clear">
+    <div class="comm-title"><h2>大师排行榜</h2></div>
+    <div class="content">
+        <ul>
+            <volist name="artist_list" id="vo" key="k">
+                <li>
+                    <span class="num top3">{$k}</span>
+                    <div class="default <if condition='$k eq 1'>hide</if>">
+                        <span class="name left"><a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">{$vo.name}</a></span>
+                        <span class="point right">点击次数：<b>{$vo.view}</b></span>
+                    </div>
+                    <div class="change <if condition='$k gt 1'>hide</if>">
+                        <p class="left"><img src="{$vo.thumb}" width="100" height="100"/></p>
+                        <div class="right">
+                            <p class="name"><a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">{$vo.name}</a></p>
+                            <p>{$vo.description|new_msubstr=###,0,20}...<a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">[详细]</a></p>
+                            <p>点击次数：<b>{$vo.view}</b></p>
+                        </div>
+                    </div>
+                </li>
+            </volist>
+
+        </ul>
+    </div>
+</div>
+<!-- 广告 -->
+<div class="advertise clear">
+    <a href="#" target="_blank">
+        <img src="{IMG_PATH}column-img/03.jpg" alt="" width="275" height="100" />
+    </a>
+</div>
+<!-- 佳作推荐 -->
+<div class="opus-recommend clear">
+    <div class="comm-title"><h2>佳作推荐</h2></div>
+    <div class="content">
+        <ul class="tm0">
+            <volist name="works_list" id="vo" key="k">
+            <li <if condition='$k%2 eq 0'>style="margin-right:0"</if>>
+                <img src="{$vo.thumb}" width="130" height="130" alt="{$vo.name}" />
+                <a href="{:U('Artist/ArtistDetail/work',array('id'=>$vo['aid'],'wid'=>$vo[id]))}" target="_blank" class="common-word">
+                    <span class="m-t10">{$vo.name}</span>
+                    <span>作者：{:getArtistName($vo['aid'])}</span>
+                    <span>尺寸：{$vo.size}</span>
+                    <!--<span>价格：400.000元</span>-->
+                </a>
+            </li>
+            </volist>
+        </ul>
+    </div>
+</div>
+<!-- 拍卖预展 -->
+<div class="foresee-auction clear">
+    <div class="comm-title"><h2>拍卖预展</h2></div>
+    <div class="content">
+        <ul>
+            <volist name="auctionSpecialPre" id="vo" key="k">
+                <li>
+                    <div class="default <if condition='$k eq 1'>hide</if>">
+                        <span>{$vo.name}</span>
+                    </div>
+                    <div class="change <if condition='$k gt 1'>hide</if>">
+                        <a href="#"><img src="{$vo.thumb}" width="275" height="130" alt="" /></a>
+                        <p class="common-word">{$vo.name}</p>
+                    </div>
+                </li>
+            </volist>
+        </ul>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript" src="{JS_PATH}common.js"></script>
+<script type="text/javascript" src="{JS_PATH}js.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        jumpPanel('.species','.species-jump',true,'.species-content');
+        commSelect('.info-log .common-select',20);
+        _chooseCity('#nav-local');
+        marquee('.l-slide .l-arrow','.l-slide .r-arrow','.l-slide .move-content ul');
+        //tabelTab('.person-exhibition','.column','click');
+        commSelect('.comm-select',6);
+        abChange('.master-ranking','.master-ranking ul li','.default','.change');
+        abChange('.foresee-auction','.foresee-auction ul li','.default','.change');
+        navJump('.opus-recommend ul li','.common-word');
+        $(window).manhuatoTop({
+            showHeight : 100,
+            speed : 500
+        });
+        var link = ''+ {$_GET['region_id']} + '';
+        if(link == '0') return false;
+        var name = '';
+        $('.operation .select li a').each(function(){
+            var sku = $(this).attr('class');
+            sku = sku.replace('c','');
+            if(sku == link) name = $(this).text();
+        });
+        $('.operation .comm-select span').text(name);
+    });
+</script>
+</block>
+
+
+

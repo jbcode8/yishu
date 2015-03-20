@@ -1,0 +1,98 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+    <load file="{PLUGIN_PATH}uploadify/jquery.uploadify.min.js" />
+</block>
+<block name="body">
+
+    <form method="post" action="{:U('News/AdminNewslist/update')}" style="width: 700px;height: 300px; margin: auto;">
+        <input type="hidden" name="news_id" value="{$news.news_id}">
+        <table class="m_table">
+            <tr><td width="100">新闻标题:</td><td><input name="news_name" value="{$news.news_name}" style="width:300px;"/></td></tr>
+            <tr><td>新闻摘要:</td><td><input type="text" name="news_summary" value="{$news.news_summary}" style="width:500px;"></td></tr>
+            <tr>
+			<td>新闻缩略图:</td>
+		    <td style="height: 150px;">
+					<!--<input type="file" name="goods_thumb">-->
+			{:hook('upload',array('model'=>'newslist','type'=>'thumb','height'=>30,'uploadify'=>'swfone'))}
+			</td>
+		    </tr>
+            <tr><td>新闻作者:</td><td><input type="text" name="news_author" value="{$news.news_author}"></td></tr>
+			<tr><td>新闻来源:</td><td><input type="text" name="news_source" value="{$news.news_source}"></td></tr>
+			<tr><td>来源链接:</td><td><input type="text" name="news_url" value="{$news.news_url}">&nbsp;(请写全地址加上"http://")</td></tr>
+			<tr>
+				<td>新闻栏目:</td>
+				<td>
+					<select name="news_type">
+						<option value="0">--请选择--</option>
+						<volist name="category" id="v">
+							<if condition="$v['category_id'] eq $news['news_type']">
+                            <option selected="selected" value="{$v.category_id}">{$v.category_name}</option>
+                            <else/>
+                            <option value="{$v.category_id}">{$v.category_name}</option>
+                        </if>
+						</volist>
+					</select>
+				</td>
+			</tr>
+			<tr>
+                <td>是否推荐:</td>
+                <td>
+                    <input type="radio" <if condition="$news['news_recommend'] eq 0">checked="checked"</if>  name="news_recommend" value="0"/>&nbsp;不推荐&nbsp;
+                    <input type="radio" <if condition="$news['news_recommend'] eq 1">checked="checked"</if> name="news_recommend" value="1"/>&nbsp;推荐&nbsp;&nbsp;&nbsp;&nbsp;(-此推荐是新闻列表页置顶推荐-)
+                </td>
+            </tr>
+			<tr>
+                <td>选择推荐位:</td>
+           <!-- <td>
+                <input type="checkbox" <if condition="$news['news_arrposid'] eq 0">checked="checked"</if> name="news_arrposid[]" value="0"/>&nbsp;不推荐&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="checkbox" <if condition="$news['news_arrposid'] eq 1">checked="checked"</if> name="news_arrposid[]" value="1"/>&nbsp;艺术网首页图片推荐&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="checkbox" <if condition="$news['news_arrposid'] eq 2">checked="checked"</if> name="news_arrposid[]" value="2"/>&nbsp;新闻页面图片新闻推荐&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="checkbox" <if condition="$news['news_arrposid'] eq 3">checked="checked"</if> name="news_arrposid[]" value="3"/>&nbsp;新闻首页百叶窗推荐&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="checkbox" <if condition="$news['news_arrposid'] eq 4">checked="checked"</if> name="news_arrposid[]" value="4"/>&nbsp;新闻首页头条新闻推荐&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="checkbox" <if condition="$news['news_arrposid'] eq 5">checked="checked"</if> name="news_arrposid[]" value="5"/>&nbsp;新闻首页要闻推荐&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="checkbox" <if condition="$news['news_arrposid'] eq 6">checked="checked"</if> name="news_arrposid[]" value="6"/>&nbsp;艺术网首页文字推荐&nbsp;&nbsp;&nbsp;&nbsp;（-可选可不选-）
+            </td>-->
+			<td>
+                <input type="radio" <if condition="$news['news_arrposid'] eq 0">checked="checked"</if> name="news_arrposid" value="0"/>&nbsp;不推荐&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" <if condition="$news['news_arrposid'] eq 1">checked="checked"</if> name="news_arrposid" value="1"/>&nbsp;艺术网首页图片推荐&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" <if condition="$news['news_arrposid'] eq 2">checked="checked"</if> name="news_arrposid" value="2"/>&nbsp;新闻页面图片新闻推荐&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" <if condition="$news['news_arrposid'] eq 3">checked="checked"</if> name="news_arrposid" value="3"/>&nbsp;新闻首页百叶窗推荐&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" <if condition="$news['news_arrposid'] eq 4">checked="checked"</if> name="news_arrposid" value="4"/>&nbsp;新闻首页头条新闻推荐&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" <if condition="$news['news_arrposid'] eq 5">checked="checked"</if> name="news_arrposid" value="5"/>&nbsp;新闻首页要闻推荐&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" <if condition="$news['news_arrposid'] eq 6">checked="checked"</if> name="news_arrposid" value="6"/>&nbsp;艺术网首页文字推荐&nbsp;&nbsp;&nbsp;&nbsp;（-可选可不选-）
+            </td>
+            </tr>
+            <tr>
+                <td>是否显示:</td>
+                <td>
+                    <input type="radio" <if condition="$news['news_isshow'] eq 0">checked="checked"</if>  name="news_isshow" value="0"/>&nbsp;是&nbsp;
+                    <input type="radio" <if condition="$news['news_isshow'] eq 1">checked="checked"</if> name="news_isshow" value="1"/>&nbsp;否&nbsp;
+                </td>
+            </tr>
+			<tr><td>seo标题:</td><td><input type="text" name="seo_title" value="{$news.seo_title}"  style="width:500px;"></td></tr>
+			<tr><td>seo关键字:</td><td><input type="text" name="seo_keys" value="{$news.seo_keys}"  style="width:500px;"></td></tr>
+			<tr><td>seo内容:</td><td><input type="text" name="seo_desc" value="{$news.seo_desc}"  style="width:500px;"></td></tr>
+            <tr>
+                <td>新闻内容:</td>
+                <td>
+                    <textarea id="test" name="news_desc">{$news.news_desc}</textarea>
+                    {:hook('adminEditor',array('name'=>'news_desc'))}
+                </td>
+            </tr>
+            <tr><td colspan="2" align="center"><input class="m_submit" type="submit" value="修改信息"></td></tr>
+        </table>
+      
+    </form>
+    <script type="text/javascript">
+        /*$(function(){
+            $("#test123").click(function(){
+                var tag=$("#test").html();
+                tag=tag.replace(/\/News\/AdminNewslist\//,'');
+                
+                $("#test").html(tag);
+            })
+        })*/
+    </script>
+</block>

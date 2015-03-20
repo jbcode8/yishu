@@ -1,0 +1,262 @@
+<extend name="galleryBase"/>
+<block name='content'>
+
+		<!-- 栏目内容 -->
+		<div class="container clear">
+			<div class="topst">
+				<div class="l-side">
+					<div class="slide-img">
+						<ul>
+                            <volist name="newGallery" id="vo">
+                                <li>
+                                    <a href="{:U('/Gallery/GalleryDetail/gallery/',array('gid'=>$vo['id']))}">
+                                        <img src="{$vo.thumb}" width="690" height="300" alt="{$vo.name}" />
+                                    </a>
+                                </li>
+                            </volist>
+						</ul>
+					</div>
+				</div>
+				<div class="r-side">
+					<div class="comm-bt">画廊动态</div>
+					<div class="content">
+						<div class="t">
+							 <volist name="newsGallery" id="vo">
+								<dl>
+									<dt><a href="{:U('/Gallery/GalleryDetail/show/',array('to'=>'news','id'=>$vo['id'],'gid'=>$vo['gid']))}">{$vo.title|new_msubstr=###,0,17}</a></dt>
+									<dd>
+										<a href="{:U('/Gallery/GalleryDetail/show/',array('to'=>'news','id'=>$vo['id'],'gid'=>$vo['gid']))}">
+											{$vo.description|new_msubstr=###,0,35}....
+											<span class="red">[详细]</span>
+										</a>
+									</dd>
+								</dl>
+							</volist>
+						</div>
+						<div class="search" id="my-search">
+							<div class="kind clear">
+								<span>我要搜：</span>
+								<p>
+									<span class="select">画廊</span>
+									<span>展览</span>
+								</p>
+							</div>
+							<div class="con clear">
+                                <form action="{:U('Gallery/Gallery/pages')}" method="get">
+                                    <input type="text" class="text" name="keyword" />
+                                    <input type="submit" value="搜 索" class="red-btn" />
+                                </form>
+                                <form action="{:U('Gallery/Gallery/exhibit')}" class="hide" method="get">
+                                    <input type="text" class="text" name="keyword" />
+                                    <input type="submit" value="搜 索" class="red-btn" />
+                                </form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="block new-join">
+				<div class="comm-bt">最新加入</div>
+				<div class="content clear">
+					<ul class="l-margin">
+						<volist name='newGallery' id='vo'>
+							<li>
+								<a href="{:U('/Gallery/GalleryDetail/gallery/',array('gid'=>$vo['id']))}"><span><img src="{$vo.thumb}" width="170" height="170" alt="{$vo.name}" /></span></a>
+								<b><a href="{:U('/Gallery/GalleryDetail/gallery/',array('gid'=>$vo['id']))}">{$vo.name}</a></b>
+								<span>创立时间：{$vo.create_time|date='Y-m-d',###}</span>
+							</li>
+						</volist>
+					</ul>
+				</div>
+			</div>
+			<div class="advertise"><a href="#"><img src="{IMG_PATH}advertis/tab-advertis.jpg" alt="" /></a></div>
+			<div class="block new-opus">
+				<div class="comm-bt">最新作品</div>
+				<div class="content">
+					<volist name="newWorks" id="vo">
+						<div class="p{$i}">
+							<img src="{$vo.thumb}" alt="">
+							<div class="hover">
+								<a href="{:U('/Gallery/GalleryDetail/show/',array('to'=>'works','id'=>$vo['id'],'gid'=>$vo['gid']))}">
+									<span class="bold">{$vo.name}</span>
+									<span>作者：{$vo.aname}</span>
+									<span>画廊：{$vo.gname}</span>
+									<span>尺寸：{$vo.size}</span>
+									<span>价格：{$vo.price}</span>
+									<span>电话：{$vo.phone}</span>
+								</a>
+							</div>
+						</div>
+					</volist>
+				</div>
+			</div>
+			<div class="advertise"><a href="#"><img src="{IMG_PATH}advertis/tab-advertis.jpg" alt="" /></a></div>
+			<div class="block comm-block">
+				<div class="l-bar">
+					<div class="comm-bt">展览推荐</div>
+					<div class="content">
+						<ul>
+							<volist name="recomExhibit" id="vo">
+								<li>
+									<a href="{:U('/Gallery/GalleryDetail/show/',array('to'=>'exhibit','id'=>$vo['id'],'gid'=>$vo['gid']))}"><img src="{$vo.thumb}" width="210" height="250" alt=""></a>
+									<p><b>{$vo.title}</b></p>
+									<p>地址：{$vo.gname}</p>
+									<p>时间：{$vo.starttime|date='Y.m.d',###}</p>
+								</li>
+							</volist>
+						</ul>
+					</div>
+				</div>
+				<div class="r-bar">
+					<div class="r-bt">展览搜索</div>
+                        <div class="content">
+                            <form action="{:U('Gallery/Gallery/exhibit')}" method="get">
+                                <label>
+                                    <span>展览城市</span>
+                                    <select name="provinceid">
+                                        <volist name="arr" id="vo">
+                                        <option value="{$vo.id}">{$vo.name}</option>
+                                        </volist>
+                                    </select>
+                                </label>
+                                <label>
+                                    <span>开始时间</span>
+                                    <input type="text" class="text" name="starttime"/>
+                                </label>
+                                <label>
+                                    <span>结束时间</span>
+                                    <input type="text" class="text" name="endtime"/>
+                                </label>
+                                <label>
+                                    <span>展览名称</span>
+                                    <input type="text" class="text" name="title"/>
+                                </label>
+                                <p class="beg-search"><input type="submit" class="red-btn" value="提 交" /></p>
+                            </form>
+                        </div>
+				</div>
+			</div>
+			<div class="advertise"><a href="#"><img src="{IMG_PATH}advertis/tab-advertis.jpg" alt="" /></a></div>
+			<div class="block comm-block">
+				<div class="l-bar">
+					<div class="comm-bt">画廊推荐</div>
+					<div class="content">
+						<ul>
+							 <volist name="recomGallery" id="vo">
+								<li>
+									<a href="{:U('/Gallery/GalleryDetail/gallery/',array('gid'=>$vo['id']))}"><img src="{$vo.thumb}" width="210" height="250" alt=""></a>
+									<p><b>{$vo.name}</b></p>
+									<p>地址：{$vo.address}</p>
+									<p>时间：{$vo.create_time|date='Y.m.d',###}</p>
+								</li>
+							</volist>
+						</ul>
+					</div>
+				</div>
+				<div class="r-bar">
+					<div class="r-bt">画廊搜索</div>
+					<div class="content">
+                        <form method="get" action="{:U('/Gallery/Gallery/pages/')}">
+                            <label>
+                                <span>展览城市</span>
+                                <select name="region_id">
+                                    <volist name="arr" id="vo">
+                                        <option value="{$vo.id}">{$vo.name}</option>
+                                    </volist>
+                                </select>
+                            </label>
+                            <label>
+                                <span>画廊名称</span>
+                                <input type="text" class="text" name="keyword" />
+                            </label>
+                            <p class="beg-search"><input type="submit" class="red-btn" value="提 交" /></p>
+                        </form>
+					</div>
+					<div class="s-advertise"><img src="{IMG_PATH}column-img/130.jpg" width="260" height="120" alt="" /></div>
+				</div>
+			</div>
+			<div class="block comm-block">
+				<div class="l-bar">
+					<div class="comm-bt">
+						<span class="left">作品推荐</span>
+						<a class="right" href="#">更多</a>
+					</div>
+					<div class="content">
+						<ul>
+							 <volist name="recomWorks" id="vo">
+								<li>
+									<a href="{:U('/Gallery/GalleryDetail/show/',array('to'=>'works','id'=>$vo['id'],'gid'=>$vo['gid']))}"><img src="{$vo.thumb}" width="210" height="250" alt=""></a>
+									<p><b>{$vo.name}</b></p>
+									<p>地址：{$vo.gname}</p>
+									<p>时间：{$vo.create_time|date='Y.m.d',###}</p>
+								</li>
+							</volist>
+						</ul>
+					</div>
+				</div>
+				<div class="r-bar">
+					<div class="r-bt">作品搜索</div>
+					<div class="content">
+						<label>
+							<span>展览城市</span>
+                            <select>
+                                <volist name="arr" id="vo">
+                                    <option value="{$vo.id}">{$vo.name}</option>
+                                </volist>
+                            </select>
+						</label>
+                        <form method="get" action="{:U('/Gallery/Gallery/pages/')}">
+                            <label>
+                                <span>画廊名称</span>
+                                <input type="text" class="text" name="keyword"/>
+                            </label>
+                            <p class="beg-search"><input type="submit" class="red-btn" value="提 交" /></p>
+                        </form>
+					</div>
+					<div class="s-advertise"><img src="{IMG_PATH}column-img/130.jpg" width="260" height="120" alt="" /></div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript" src="{JS_PATH}common.js"></script>
+<script type="text/javascript" src="{JS_PATH}js.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        jumpPanel('.species','.species-jump',true,'.species-content');
+        commSelect('.info-log .common-select',20);
+        _chooseCity('#nav-local');
+        $(window).manhuatoTop({
+            showHeight : 100,
+            speed : 500
+        });
+        arrSlide('.l-side');
+        $('.l-margin li:last').css('margin','0px');
+        $('.new-opus .content > div').hover(
+                function(){
+                    $(this).find('.hover').show();
+                },
+                function(){
+                    $(this).find('.hover').hide();
+                }
+        );
+        $('.topst .search .kind p span').bind('click',function(){
+            $('.topst .search .kind p span').removeClass('select');
+            $(this).addClass('select');
+        });
+    });
+    $(document).ready(function(){
+        $('#my-search .kind p span').click(function(){
+            if($('#my-search .kind p span:eq(0)').hasClass('select')){
+                $('#my-search .con form:eq(0)').hide();
+                $('#my-search .con form:eq(1)').show();
+            }
+            else{
+                $('#my-search .con form:eq(0)').show();
+                $('#my-search .con form:eq(1)').hide();
+            }
+        });
+    });
+</script>
+</block>
+
+

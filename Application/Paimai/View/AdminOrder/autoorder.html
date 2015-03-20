@@ -1,0 +1,725 @@
+<extend name="Admin@Public:base"/>
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css"/>
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css"/>
+
+	<!---jquery-easyui引用文件-->
+    <link rel="stylesheet" type="text/css" href="{JS_PATH}JqueryEasyui/themes/default/easyui.css"/>
+    <link rel="stylesheet" type="text/css" href="{JS_PATH}JqueryEasyui/themes/icon.css"/>
+    
+    <script type="text/javascript" src="{JS_PATH}JqueryEasyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="{JS_PATH}JqueryEasyui/locale/easyui-lang-zh_CN.js"></script>
+
+</block>
+<block name="body">
+    <style type="text/css">
+        #j_page a{padding: 5px;}
+    </style>
+
+
+<div id="tt" class="easyui-tabs" data-options="fit:true" style="">   
+    <div title="系统自动生成用户还没有处理过的订单" style="padding:20px;">   
+        <table id="j_auto_order"></table>
+		<div id="j_auto_order_form">
+			<form style="padding:15px;">
+				商品货号: <input class="easyui-validatebox textbox" type="text" name="auto_goodssn" value="">
+				收货人手机号: <input class="easyui-validatebox textbox" type="text" name="auto_mobile" value="">
+				用户名: <input class="easyui-validatebox textbox" type="text" name="auto_username" value="">
+				<a id="j_auto_search" href="#" class="easyui-linkbutton" iconCls="icon-search">条件搜索</a>
+				<a id="j_auto_clear" href="#" class="easyui-linkbutton" iconCls="icon-search">清空条件</a>
+				<a id="down-btn_0" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">订单导出</a>
+			</form>
+        </div>
+    </div>   
+    <div title="用户提交过订单但是没有付款的订单"style="overflow:auto;padding:20px;">   
+        <table id="j_no_pay_order"></table> 
+		<div id="j_nopay_order_form">
+			<form style="padding:15px;">
+				商品货号: <input class="easyui-validatebox textbox" type="text" name="nopay_goodssn" value="">
+				订单号: <input class="easyui-validatebox textbox" type="text" name="nopay_orderinfosn" value="">
+				收货人手机号: <input class="easyui-validatebox textbox" type="text" name="nopay_mobile" value="" onkeyup="this.value=this.value.replace(/[^0-9.]/g,'')">
+				用户名: <input class="easyui-validatebox textbox" type="text" name="nopay_username" value="">
+				<a id="j_nopay_search" href="#" class="easyui-linkbutton" iconCls="icon-search">条件搜索</a>
+				<a id="j_nopay_clear" href="#" class="easyui-linkbutton" iconCls="icon-search">清空条件</a>
+				<a id="down-btn_1" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">订单导出</a>
+			</form>
+        </div>
+    </div>  
+    <div title="已经付款的订单"style="overflow:auto;padding:20px;">   
+        <table id="j_finish_order"></table>
+        <div id="j_finish_order_form">
+        <form style="padding:15px;">
+            订单开始时间: <input class="easyui-datebox j_datebox" name="starttime" value="{$starttime}"></input>
+            订单结束时间: <input class="easyui-datebox j_datebox" name="endtime" value="{$endtime}"></input>
+            订单ID: <input class="easyui-validatebox textbox j_alert_id" type="text" name="orderinfo_id" value="">
+			收货人手机号: <input class="easyui-validatebox textbox" type="text" name="orderinfo_mobile" value="">
+			用户名: <input class="easyui-validatebox textbox" type="text" name="orderinfo_username" value=""><br />
+			
+            <div style="margin-top:15px;">
+				商品货号: <input class="easyui-validatebox textbox" type="text" name="orderinfo_goodssn" value="">
+				订单号: <input class="easyui-validatebox textbox" type="text" name="orderinfo_orderinfosn" value="">
+				<a id="j_finish_so" href="#" class="easyui-linkbutton" iconCls="icon-search">条件搜索</a>
+				<a id="j_finish_clear" href="#" class="easyui-linkbutton" iconCls="icon-search">清空条件</a>
+				<a id="down-btn_2" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">订单导出</a>
+			</div>
+        </form>
+        </div>
+    </div>
+	<div title="申请退换货的订单"style="overflow:auto;padding:20px;">   
+        <table id="j_return_order"></table> 
+		<div id="j_return_order_form">
+			<form style="padding:15px;">
+				商品货号: <input class="easyui-validatebox textbox" type="text" name="return_goodssn" value="">
+				订单号: <input class="easyui-validatebox textbox" type="text" name="return_orderinfosn" value="">
+				收货人手机号: <input class="easyui-validatebox textbox" type="text" name="return_mobile" value="">
+				用户名: <input class="easyui-validatebox textbox" type="text" name="return_username" value="">
+				<a id="j_return_search" href="#" class="easyui-linkbutton" iconCls="icon-search">条件搜索</a>
+				<a id="j_return_clear" href="#" class="easyui-linkbutton" iconCls="icon-search">清空条件</a>
+				<a id="down-btn_3" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">订单导出</a>
+			</form>
+        </div>
+    </div>
+</div> 
+
+    <script type="text/javascript">
+        $(function(){
+		      var editing;
+              var editingobj;
+			$(".easyui-datebox").datebox({
+                    editable:false
+                   })
+            //自动生成的订单
+           $('#j_auto_order').datagrid({
+                idField:"order_id",
+                url:"{:U('Paimai/AdminOrder/autoorderdata')}?tag=autoorder",
+                loadMsg:"正在请求数据...",
+                method:'get',
+                fit:true,
+                striped:true,
+                rownumbers:true,
+				toolbar: $("#j_auto_order_form"),
+                columns:[[    
+                    {
+                        field:'order_id',
+                        title:'ID'
+                    },    
+                    {
+                        field:'thumb',
+                        title:'商品图片',
+                        formatter:function(value,row,index){
+                            return "<img width='50' src='"+value+"'/>";
+                        }
+                    },    
+                    {
+                        field:'order_goodsname',
+                        title:'商品名称',
+                        align:'right',
+                        formatter:function(value,row,index){
+                            return "<a target='_blank' href='{:U(\'/paimai/goods\',\'\',\'\')}-"+row.order_goodsid+".html'>"+value+"</a>";
+                        }
+                    },
+                    {
+                        field:'order_goodssn',
+                        title:'商品货号'
+                    },    
+                    {
+                        field:'order_createtime',
+                        title:'订单时间',
+                        align:'right',
+                        formatter:function(value,row,index){
+                            return "<span style='color:red'>"+value+"</span>"; 
+                        }
+                    },
+                    {
+                        field:'order_goodsnowprice',
+                        title:'拍下价格',
+                        align:'right'
+                    },
+                    {
+                        field:'uname',
+                        title:'用户名',
+                        align:'right'
+                    },
+                    {
+                        field:'uphone',
+                        title:'用户手机',
+                        align:'right'
+                    },
+                    {
+                        field:'order_status',
+                        title:'订单状态',
+                        align:'right',
+                        formatter:function(value,row,index){
+                            //console.info(row);
+                            if(value==0){
+                                return "<span style='color:green;'>未付款</span>";
+                            }else if(value==3){
+                                return "<span class='j_alert' style='color:red'>已经锁定</span>";
+                            }else{
+                                return "<span>未知情况刷新尝试，提示代码："+value+",请联系技术</span>";
+                            } 
+                        }
+                    },
+                ]],
+                pagination:true,
+                pageSize:10,
+                pageList:[10,20,30],    
+            }); 
+
+				//自动生成的订单搜索
+				//搜索
+				$("#j_auto_search").click(function(){
+				  $("#j_auto_order").datagrid("load",serializeForm($("#j_auto_order_form form")));
+				});
+				//清空
+				$("#j_auto_clear").click(function(){
+					$('#j_auto_order_form form').form("clear");
+					 $("#j_auto_order").datagrid("load", {});
+				});
+
+            //没有付款
+           $('#j_no_pay_order').datagrid({
+
+                idField:"orderinfo_id",
+                url:"{:U('Paimai/AdminOrder/autoorderdata')}?tag=no_pay_order",
+                loadMsg:"正在请求数据...",
+                method:'get',
+                striped:true,
+                fit:true,
+                striped:true,
+				toolbar:$('#j_nopay_order_form'),
+                rownumbers:true,
+                columns:[[    
+                    {
+                        field:'orderinfo_id',
+                        title:'ID'
+                    },    
+                    {
+                        field:'thumb',
+                        title:'商品图片',
+                        formatter:function(value,row,index){
+                            return "<img width='50' src='"+value+"'/>";
+                        }
+                    },    
+                    {
+                        field:'order_goodsname',
+                        title:'商品名称',
+                        align:'right',
+                        formatter:function(value,row,index){
+                            return "<a target='_blank' href='{:U(\'/paimai/goods\',\'\',\'\')}-"+row.order_goodsid+".html'>"+value+"</a>";
+                        }
+                    },
+                    {
+                        field:'order_goodssn',
+                        title:'商品货号'
+                    },    
+                    {
+                        field:'order_createtime',
+                        title:'订单时间',
+                        align:'right'
+                    },
+                    {
+                        field:'order_goodsnowprice',
+                        title:'拍下价格',
+                        align:'right'
+                    },
+                    {
+                        field:'uname',
+                        title:'用户名',
+                        align:'right'
+                    },
+                    {
+                        field:'uphone',
+                        title:'竞拍者用户手机',
+                        align:'right'
+                    },
+                    {
+                        field:'order_status',
+                        title:'订单状态',
+                        align:'right',
+                        formatter:function(value,row,index){
+                            //console.info(row);
+                            if(value==1){
+                                return "<span style='color:green;'>未付款</span>";
+                            }else if(value==3){
+                                return "<span class='j_alert' style='color:red'>已经锁定</span>";
+                            }else{
+                                return "<span>未知情况刷新尝试，提示代码："+value+",请联系技术</span>";
+                            }
+                            
+                        }
+                    },
+                    {
+                        field:'orderinfo_sn',
+                        title:'订单号',
+                        align:'right'
+                    },
+                    {
+                        field:'orderinfo_address',
+                        title:'收货地址',
+                        align:'right',
+                        formatter:function(value,row,index){
+                            return row.orderinfo_provincename+row.orderinfo_cityname+row.orderinfo_address+row.orderinfo_reciver+row.orderinfo_mobile;
+                        }
+                    },
+					{
+                        field:'orderinfo_note',
+                        title:'订单备注',
+                        align:'right'
+                    },
+                ]],
+                onLoadSuccess:function(data){
+                    $(".j_alert").tooltip({    
+                        //position: 'right',    
+                        content: '<span style="color:#fff">用户到期没有付款，订单已经锁定</span>',    
+                        onShow: function(){        
+                            $(this).tooltip('tip').css({            
+                                backgroundColor: '#666',            
+                                borderColor: '#666'        
+                            });    
+                        }});
+                },
+                
+                pagination:true,
+                pageSize:10,
+                pageList:[10,20,30],    
+            });
+				//没有付款的订单搜索
+				//搜索
+				$("#j_nopay_search").click(function(){
+				  $("#j_no_pay_order").datagrid("load",serializeForm($("#j_nopay_order_form form")));
+				});
+				//清空
+				$("#j_nopay_clear").click(function(){
+					$('#j_nopay_order_form form').form("clear");
+					 $("#j_no_pay_order").datagrid("load", {});
+				});
+            //已经付款
+           //已经付款
+           $('#j_finish_order').datagrid({
+                idField:"orderinfo_id",
+                url:"{:U('Paimai/AdminOrder/autoorderdata')}?tag=finish_order",
+                loadMsg:"正在请求数据...",
+                method:'get',
+                striped:true,
+                fit:true,
+                striped:true,
+                rownumbers:true,
+                singleSelect: true,
+				toolbar: $("#j_finish_order_form"),
+   		        frozenColumns:[[
+					{
+                        field:'orderinfo_id',
+                        title:'ID'
+                    },
+					{
+                        field:'thumb',
+                        title:'商品图片',
+                        formatter:function(value,row,index){
+                            return "<img width='50' src='"+value+"'/>";
+                        }
+                    },  
+				]],
+                columns:[[    
+                       
+                      
+                    {
+                        field:'order_goodsname',
+                        title:'商品名称',
+                        align:'center',
+                        formatter:function(value,row,index){
+                            return "<a target='_blank' href='{:U(\'/paimai/goods\',\'\',\'\')}-"+row.order_goodsid+".html'>"+value+"</a>";
+                        }
+                    },
+                    {
+                        field:'order_goodssn',
+                        title:'商品货号'
+                    },    
+                    {
+                        field:'order_createtime',
+                        title:'订单时间',
+                        align:'right'
+                    },
+                    {
+                        field:'order_goodsnowprice',
+                        title:'拍下价格',
+                        align:'right'
+                    },
+                    {
+                        field:'uname',
+                        title:'用户名',
+                        align:'center'
+                    },
+                    {
+                        field:'uphone',
+                        title:'竞拍者用户手机',
+                        align:'right'
+                    },
+                    {
+                        field:'orderinfo_kdname',
+                        title:'快递公司',
+                        align:'center'
+                    },
+                    {
+                        field:'orderinfo_kd',
+                        title:'快递单号',
+                        align:'center'
+                    },
+                    {
+                        field:'order_status',
+                        title:'订单状态<br/><span style="font-size:9px;">(鼠标悬停可查看物流信息)</span>',
+                        align:'center',
+                        formatter:function(value,row,index){
+                            //console.info(row);
+                            if(value==2){
+                                return "<input type='hidden' value='"+row.orderinfo_kd+"'/><span class='j_wuliupath' style='color:green;'>已经付款</span>";
+                            }else{
+                                return "<span>未知情况，刷新尝试，提示代码："+value+",请联系技术</span>";
+                            }
+                            
+                        }
+                    },
+                    {
+                        field:'orderinfo_sn',
+                        title:'订单号',
+                        align:'right'
+                    },
+                    {
+                        field:'orderinfo_address',
+                        title:'收货地址',
+                        align:'center',
+                        formatter:function(value,row,index){
+                            return row.orderinfo_provincename+row.orderinfo_cityname+row.orderinfo_address+row.orderinfo_reciver+row.orderinfo_mobile;
+                        }
+                    },
+					{
+                        field:'orderinfo_note',
+                        title:'订单备注(双击编辑，单击其它单元格保存)',
+                        align:'left',
+						editor:{
+							type:'text',
+							options:{}
+						}
+                    },
+					
+                ]],
+                onLoadSuccess:function(data){
+                    
+                    $(".j_alert").tooltip({    
+                        //position: 'right',    
+                        content: '<span style="color:#fff">用户到期没有付款，订单已经锁定</span>',    
+                        onShow: function(){        
+                            $(this).tooltip('tip').css({            
+                                backgroundColor: '#666',            
+                                borderColor: '#666'        
+                            });    
+                        }});
+					$(".j_alert_id").tooltip({    
+                                position: 'top',    
+                                content: '<span style="color:#fff">支持多订单ID查询,中间用英文逗号隔开如：736,748</span>',    
+                                onShow: function(){        
+                                    $(this).tooltip('tip').css({            
+                                        backgroundColor: '#666',            
+                                        borderColor: '#666'        
+                                    });    
+                                }});
+
+                    $(".j_wuliupath").tooltip({
+                        content: $('<div></div>'),
+                        onShow: function(){
+                            $(this).tooltip('arrow').css('left', 20);
+                            $(this).tooltip('tip').css('left', $(this).offset().left);
+                        },
+                        onUpdate: function(cc){
+                            //获得单号
+                            var input=$(this).siblings('input').val();
+                            console.info(input);
+                            cc.panel({
+                                width: 500,
+                                height: 'auto',
+                                border: false,
+                                href: "{:U('Paimai/AdminOrder/wuliupath')}?id="+input,
+                            });
+                        }
+                
+                    })
+					
+                },
+                onClickCell:function(rowIndex, field, value){
+                    if(editing!=undefined){
+                        $("#j_finish_order").datagrid('endEdit',editing);
+                        $.get(
+                                "__URL__/updateordernote",
+                                {id: editingobj.order_orderinfoid,note:editingobj.orderinfo_note},
+                                
+                                "html"
+                                )
+
+                    }
+                },
+				onDblClickCell:function(rowIndex, field, value){
+					if(editing!=undefined){
+						$("#j_finish_order").datagrid('endEdit',editing);
+						$.get(
+								"__URL__/updateordernote",
+                                {id: editingobj.order_orderinfoid,note:editingobj.orderinfo_note},
+                                
+								"html"
+						)
+
+					}
+					$("#j_finish_order").datagrid('beginEdit',rowIndex);
+                    editing=rowIndex;
+				},
+				onAfterEdit:function(rowIndex, rowData, changes){
+                    editingobj=rowData;
+				},
+                pagination:true,
+                pageSize:10,
+                pageList:[10,20,30],    
+            });
+            
+            //点击搜索
+            $("#j_finish_so").click(function(){
+              $("#j_finish_order ").datagrid("load",serializeForm($("#j_finish_order_form form")));
+            })
+            //点击清空
+            $("#j_finish_clear").click(function(){
+                $("#j_finish_order_form form").form("clear");
+                $("#j_finish_order").datagrid('load',{});
+            })
+
+			//申请退换货
+           $('#j_return_order').datagrid({
+                idField:"orderinfo_id",
+                url:"{:U('Paimai/AdminOrder/autoorderdata')}?tag=returnorder",
+                loadMsg:"正在请求数据...",
+                method:'get',
+                striped:true,
+                fit:true,
+                nowrap:false,
+                striped:true,
+                rownumbers:true,
+				toolbar: $("#j_return_order_form"),
+                frozenColumns:[[
+                    {
+                        field:'orderinfo_id',
+                        title:'ID'
+                    },
+                    {
+                        field:'thumb',
+                        title:'商品图片',
+                        formatter:function(value,row,index){
+                            return "<img width='50' src='"+value+"'/>";
+                        }
+                    },  
+                ]],
+                columns:[[    
+                   
+                    {
+                        field:'order_goodsname',
+                        title:'商品名称',
+                        align:'right',
+                        formatter:function(value,row,index){
+                            return "<a target='_blank' href='{:U(\'/paimai/goods\',\'\',\'\')}-"+row.order_goodsid+".html'>"+value+"</a>";
+                        }
+                    },
+                    {
+                        field:'order_goodssn',
+                        title:'商品货号'
+                    },    
+                    {
+                        field:'order_createtime',
+                        title:'订单时间',
+                        align:'right'
+                    },
+                    {
+                        field:'order_goodsnowprice',
+                        title:'拍下价格',
+                        align:'right'
+                    },
+                    {
+                        field:'uname',
+                        title:'用户名',
+                        align:'right'
+                    },
+                    {
+                        field:'uphone',
+                        title:'竞拍者用户手机',
+                        align:'right'
+                    },
+                    {
+                        field:'order_status',
+                        title:'订单状态',
+                        align:'right',
+                        formatter:function(value,row,index){
+                            //console.info(row);
+                            if(value==2){
+                                return "<span style='color:green;'>已经付款</span>";
+                            }else{
+                                return "<span>未知情况刷新尝试，提示代码："+value+",请联系技术</span>";
+                            }
+                            
+                        }
+                    },
+                    {
+                        field:'orderinfo_sn',
+                        title:'订单号',
+                        align:'right'
+                    },
+                    {
+                        field:'orderinfo_address',
+                        title:'收货地址',
+                        align:'right',
+                        formatter:function(value,row,index){
+                            return row.orderinfo_provincename+row.orderinfo_cityname+row.orderinfo_address+row.orderinfo_reciver+row.orderinfo_mobile;
+                        }
+                    },
+                    {
+                        field:'orderinfo_note',
+                        title:'订单备注(双击编辑，单击其它单元格保存)',
+                        align:'left',
+                        editor:{
+                            type:'text',
+                            options:{}
+                        }
+                    },
+
+                    {
+                        field:'orderinfo_returntime',
+                        title:'申请时间',
+                        align:'center',
+                    },
+                    {
+                        field:'orderinfo_refund',
+                        title:'申请原因',
+                        align:'left',
+                    },
+                ]],
+                onLoadSuccess:function(data){
+                    $(".j_alert").tooltip({    
+                        //position: 'right',    
+                        content: '<span style="color:#fff">用户到期没有付款，订单已经锁定</span>',    
+                        onShow: function(){        
+                            $(this).tooltip('tip').css({            
+                                backgroundColor: '#666',            
+                                borderColor: '#666'        
+                            });    
+                        }});
+                },
+                onClickCell:function(rowIndex, field, value){
+                    if(editing!=undefined){
+                        $("#j_return_order").datagrid('endEdit',editing);
+                        $.get(
+                                "__URL__/updateordernote",
+                                {id: editingobj.order_orderinfoid,note:editingobj.orderinfo_note},
+                                
+                                "html"
+                                )
+
+                    }
+                },
+                onDblClickCell:function(rowIndex, field, value){
+                    if(editing!=undefined){
+                        $("#j_return_order").datagrid('endEdit',editing);
+                        $.get(
+                                "__URL__/updateordernote",
+                                {id: editingobj.order_orderinfoid,note:editingobj.orderinfo_note},
+                                
+                                "html"
+                        )
+
+                    }
+                    $("#j_return_order").datagrid('beginEdit',rowIndex);
+                    editing=rowIndex;
+                },
+                onAfterEdit:function(rowIndex, rowData, changes){
+                    editingobj=rowData;
+                },
+                pagination:true,
+                pageSize:10,
+                pageList:[10,20,30],    
+            });
+				//申请退货的订单搜索
+				//搜索
+				$("#j_return_search").click(function(){
+				  $("#j_return_order").datagrid("load",serializeForm($("#j_return_order_form form")));
+				});
+				//清空
+				$("#j_return_clear").click(function(){
+					$('#j_return_order_form form').form("clear");
+					 $("#j_return_order").datagrid("load", {});
+				});
+				
+			//下载 订单导出
+			$("#down-btn_0").click(function(){
+				$.messager.confirm('确认对话框', '在下载前请先确认筛选', function(r){
+					if (r){
+						var url=window.location.href;
+						var down_str='o_status=0&' + $("j_auto_order_form form").serialize();
+						this_url=url.replace(/autoorder/,'download_order');
+						window.location.href=this_url+"?"+down_str; 
+					}
+				});
+			});
+			$("#down-btn_1").click(function(){
+				$.messager.confirm('确认对话框', '在下载前请先确认筛选', function(r){
+					if (r){
+						var url=window.location.href;
+						var down_str='o_status=1&' + $("#j_nopay_order_form form").serialize();
+						this_url=url.replace(/autoorder/,'download_order');
+						window.location.href=this_url+"?"+down_str;  
+					}
+				});
+			});
+			$("#down-btn_2").click(function(){
+				$.messager.confirm('确认对话框', '在下载前请先确认筛选', function(r){
+					if (r){
+						var url=window.location.href;
+						var down_str='o_status=2&' + $("#j_finish_order_form form").serialize();
+						//console.log(url);return;
+						this_url=url.replace(/autoorder/,'download_order');
+						
+						window.location.href=this_url+"?"+down_str;  
+					}
+				});
+			});
+			$("#down-btn_3").click(function(){
+				$.messager.confirm('确认对话框', '在下载前请先确认筛选', function(r){
+					if (r){
+						var url=window.location.href;
+						var down_str='o_status=3&' + $("j_return_order_form form").serialize();
+						//console.log(url);return;
+						this_url=url.replace(/autoorder/,'download_order');
+						
+						window.location.href=this_url+"?"+down_str;  
+					}
+				});
+			});
+			
+            //把表单元素转化成对象
+            function serializeForm(form){
+                var obj={};
+                $.each(form.serializeArray(),function(index,field){
+                    if(field.value){
+                        if(obj[this['name']]){
+                            obj[this['name']]=obj[this['name']]+","+this['value'];
+                        }else{
+                            obj[this['name']]=this['value'];
+                        }
+                    }
+                    
+                })
+                return obj;
+            }
+
+            
+
+
+
+           
+        })
+    </script>
+    
+        
+</block>

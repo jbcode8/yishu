@@ -1,0 +1,99 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="{PLUGIN_PATH}DatePicker/WdatePicker.js" />
+    <load file="{JS_PATH}bulkActionJs.js" />
+</block>
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul></ul>
+        <!--快捷按钮 开始-->
+        <div class="nav_btn">
+            <a href="javascript:$.dialog.open('{:U(\'Artist/Library/add\')}',{title:'添加艺术家',lock:true,width:'100%',height:'100%'})" class="fa fa-plus-square">&nbsp;&nbsp;添 加</a>
+        </div>
+        <!--快捷按钮 结束-->
+
+        <!--搜索 开始-->
+        <div class="advSearch">
+            <form name="doc_search_min" action="{:U('Artist/Library/index')}" method="post">
+                <div class="row">
+                    <label>姓名：</label>
+                    <input type="text" size="8" name="name" <if condition="isset($name)">value="{$name}"</if> placeholder="请输入姓名">
+                </div>
+                <button class="btn fa fa-search"> 搜 索</button>
+                <button class="btn fa fa-search-plus" onclick="javascript:$.dialog.open('{:U(\'Artist/Library/search\')}',{title:'艺术家检索','lock':true});return false;"> 高级搜索</button>
+            </form>
+        </div>
+        <!--搜索 结束-->
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 -->
+    <div class="table">
+        <?php
+        $thead = array(
+            '_html'=>array(
+        '_th'=>'row-selected',
+        'th'=>'<input class="check-all" type="checkbox"/>',
+        'td'=>'<input class="ids" type="checkbox" name="ids[]" value="$id" />',
+        ),
+        'name'=> array(
+        '_title' => '姓名',
+        'tag' => 'a',
+        'href' => '#',
+        'target' => '_blank',
+        'class' => 'success',
+        ),
+        'cid' => array(
+        '_title' => '类别',
+        'func' => 'getArtistCategoryName($cid)',
+        ),
+        'web' => '个人网页',
+        'email' => '邮箱',
+        'hits' => '点击次数',
+        'type'=> array(
+            '_title' => '标志',
+            'func' => 'getArtistType($type)',
+        ),
+        'status'=> array(
+            '_title' => '状态',
+            'func' => 'getArtistStatus($status)',
+        ),
+        '操作'=> array(
+        ' 删除'=>array( 'href' => 'Artist/Library/delete?id=$id','class'=>'confirm ajax-get red fa fa-trash-o'),
+        ' 编辑'=>array( 'href' => 'Artist/Library/edit?id=$id', 'class'=>'editArtist fa fa-unlock'),
+        ' 锁定'=>array( 'href' => 'Artist/Library/updateStatus?id=$id&status=0', 'class'=>'ajax-get error fa fa-lock', 'condition'=>'$status==1',),
+        ' 解锁'=>array( 'href' => 'Artist/Library/updateStatus?id=$id&status=1', 'class'=>'ajax-get success fa fa-unlock', 'condition'=>'$status==0',),
+        ),
+        );
+        echo $_table_list = $__controller__->tableList($_list,$thead);
+        ?>
+    </div>
+
+    <div class="paging"  style="float: left;margin-top: 5px;">
+        <div class="page">
+            <a href="javascript:bulkUpdate('{:U(\'Artist/Library/updateStatus\')}','status',0);" class="fa fa-lock"> 锁 定</a>
+            <a href="javascript:bulkUpdate('{:U(\'Artist/Library/updateStatus\')}','status',1);" class="fa fa-unlock"> 解 锁</a>
+            <a href="javascript:bulkDelete('{:U(\'Artist/Library/delete\')}');" id="delselected" class="confirm fa fa-trash-o"> 删 除</a>
+            <php>$type = getArtistType(false);</php>
+            <volist name="type" id="t" key="k" >
+                <a href="javascript:bulkUpdate('{:U(\'Artist/Library/updateType\')}','type',{$k-1});" class="fa"> {$t}</a>
+            </volist>
+        </div>
+    </div>
+
+    <div class="paging">
+        {$_page}
+    </div>
+
+    <block name="javascript">
+        <script type="text/javascript">
+            $(function() {
+                $(".editArtist").on('click',function(e){
+                    e.preventDefault();
+                    $.dialog.open(this.href, {title:'修改艺术家信息',lock:true, width:'100%',height:'100%'});
+                });
+            });
+        </script>
+    </block>
+</block>

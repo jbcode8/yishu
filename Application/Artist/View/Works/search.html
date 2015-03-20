@@ -1,0 +1,72 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{width: 600px;height: 300px;}
+    </style>
+</block>
+<!--主体内容 开始-->
+<block name="body">
+    <!-- 数据表格 开始-->
+    <form method="post" class="addCategory">
+        <div id="form_left">
+            <table class="form">
+                <tr>
+                    <th width="100px">作品名称：</th>
+                    <td><input type="text" name="name" maxLength="10" /></td>
+                </tr>
+                <tr>
+                    <th>作者：</th>
+                    <td>
+                        <input type="text" name="artistName" id="_artist_name" readonly="readonly" required="required" maxLength="10" />
+                        {:R('Library/names',array('_artist_name'))}
+                    </td>
+                </tr>
+                <tr>
+                    <th>类别：</th>
+                    <td>  {:getArtistCategory()} </td>
+                </tr>
+                <tr>
+                    <th> 状态：</th>
+                    <td>
+                       <php>  $arr = getArtistStatus(false); </php>
+                        <select name="status">
+                            <option value=""> ---请选择--- </option>
+                            <volist name="arr" id="vo">
+                                <option value="{$key}">{$vo}</option>
+                            </volist>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <button type="submit" class="btn" target-form="addCategory">确认</button>
+                        <button type="reset" class="btn btn_gary">重填</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </form>
+    <!-- 数据表格 结束-->
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+    <load file="{PLUGIN_PATH}DatePicker/WdatePicker.js"/>
+    <script type="text/javascript">
+        $(function(){
+            $('form').submit(function(){
+                var data = $('form').serializeArray();
+                var  where = '';
+                if(data[0].value != ''){ where += 'name='+data[0].value; }
+                if(data[2].value != ''){ where += where==''?'aid='+data[2].value:'&aid='+data[2].value; }
+                if(data[3].value > 0){ where += where==''?'cid='+data[3].value:'&cid='+data[3]; }
+                if(data[4].value != '' ){ where += where==''?'status='+data[4].value:'&status='+data[4].value;}
+                var url = "{:U('Artist/Works/index')}";
+                url.indexOf('?',url)>0?url = url+"&"+where:url = url+"?"+where;
+                $.dialog.opener.location.href = url;
+            });
+        });
+    </script>
+</block>

@@ -1,0 +1,56 @@
+<extend name="Public:base" />
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul>
+            <li class="selected"><a href="{:U('index')}">{$groupname}管理组成员</a></li>
+        </ul>
+
+        <!--快速添加 开始-->
+        <div class="advSearch">
+            <form action="{:U('authorization')}" method="post" class="addgroupmember">
+                <input type="hidden" name="group_id" value="{:$_REQUEST['group_id']}" />
+                <div class="row">
+                    <label>用户id：</label>
+                    <input type="text" name="uid" size="18" placeholder="多个用户id,请用,隔开">
+                </div>
+                <button type="submit" class="btn ajax-post" target-form="addgroupmember">添 加</button>
+            </form>
+        </div>
+        <!--快速添加 结束-->
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 开始-->
+    <?php
+        $thead = array(
+                '_html'=>array(
+                '_th'=>'row-selected',
+                    'th'=>'<input class="check-all" type="checkbox"/>',
+                    'td'=>'<input class="ids" type="checkbox" name="uid[]" value="$uid" />',
+                ),
+                'uid'  => 'UID',
+                'nickname'=>'昵称',
+                'last_login_ip'=>array(
+                    '_title'=>'最后登陆IP',
+                    'tag'   =>'span',
+                    'func'  => 'long2ip($last_login_ip)',
+                ),
+                'last_login_time'=>array(
+                    '_title'=>'最后登陆时间',
+                    'tag'   =>'span',
+                    'func'  => 'date("Y-m-d H:i:s",$last_login_time)',
+                ),
+                '操作'=>array(
+                    '解除授权'=>array( 'href' => 'Admin/AuthGroup/removeauth?uid=$uid&group_id='.$_REQUEST['group_id'], 'class'=>'fa fa-legal ajax-get',),
+                ),
+                );
+                echo $_table_list = $__controller__->tableList($_list,$thead);
+    ?>
+    <!-- 数据表格 开始-->
+    <div class="paging">
+        {$_page}
+    </div>
+</block>
+<!--主体内容 结束-->

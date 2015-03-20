@@ -1,0 +1,28 @@
+<extend name="Admin@Public:base" />
+<block name="body">
+<div class="container">
+    <ul class="header clear">
+    <li <eq name="ACTION_NAME" value="index">class="current"</eq>><a href="{:U('Auction/AdminCollect/index')}">拍卖征集管理</a></li>
+    <li <eq name="ACTION_NAME" value="add">class="current"</eq>><a href="{:U('Auction/AdminCollect/add')}">添加拍卖征集</a></li>
+    </ul>
+    <script type="text/javascript" src="http://www.yishu.com/statics/js/DatePicker/WdatePicker.js"></script>
+    <form method="post">
+    <table class="table table-hover">
+        <thead><tr><th></th><th></th></tr></thead>
+        <tbody>
+        	<tr><td class="tdL">选择机构:</td><td><select name="agencyid"><option value=''>请选择机构</option><volist name="agency_list" id="vo"><option value="{$vo.id}">{$vo.name}</option></volist></option></select> <span class="ar-cred">*</span></td></tr>
+            <tr><td class="tdL">征集标题:</td><td><input type="text" name="title" class="ar-txt" /> <span class="ar-cred">*</span></td></tr>
+		    <tr><td class="tdL">截止时间:</td><td><input type="text" name="endtime" class="hlIxEtxt" id="endtime" onFocus="var end = $dp.$('endtime');WdatePicker({onpicked:function(){end.focus();}})"/> <span class="ar-cred">*</span></td></tr>
+		    <tr><td class="tdL">征集范围:</td><td><volist name="type_list" id="vo"><label style="margin-left:10px;float:left;"><input name="range[]" id="{$vo.id}" type="checkbox" style="vertical-align:middle" value="{$vo.name}" /> {$vo.name}</label></volist><span class="ar-cred">*</span></td></tr>
+		    <tr><td class="tdL">征集前言:</td><td><textarea name="preface" class="ar-txt" cols="70" rows="5"></textarea> <span class="ar-cred">*</span></td></tr>
+		    <tr><td class="tdL">征集要求:</td><td><textarea name="require" class="ar-txt" cols="70" rows="5"></textarea> <span class="ar-cred">*</span></td></tr>
+		 	<tr><td class="tdL">征集流程:</td><td><textarea name="process" class="ar-txt" cols="70" rows="5"></textarea> <span class="ar-cred">*</span></td></tr>
+		    <tr><td class="tdL">注意事项:</td><td><textarea name="notice" class="ar-txt" cols="70" rows="5"></textarea> <span class="ar-cred">*</span></td></tr>
+		    <tr><td class="tdL">联系人&nbsp;&nbsp;&nbsp;:</td><td><input type="text" name="relation" class="ar-txt" /><span class="ar-cred">*</span></td></tr>
+		    <tr><td class="tdL">联系方式:</td><td><input type="text" name="contact" class="ar-txt" /><span class="ar-cred">*</span></td></tr>
+            <tr><td>&nbsp;</td><td><input name="submit" type="submit" value="提交信息" class="btn btn-primary" /></td></tr>
+        </tbody>
+    </table>
+    </form>
+</div>
+</block>

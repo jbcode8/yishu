@@ -1,0 +1,443 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{$_GET['tag']}</title>
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" type="text/css" href="http://www.yishu.com/statics/css/global.css" />
+    <link href="http://www.yishu.com/statics/css/zx_new_site.css" rel="stylesheet" type="text/css" />
+    <link href="http://www.yishu.com/statics/css/zx_new_style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="http://www.yishu.com/statics/css/zx.css" />
+    <link href="http://www.yishu.com/favicon.ico" type="image/x-icon" rel=icon>
+    <script src="http://www.yishu.com/statics/js/jquery.min.js"></script>
+    <script src="http://www.yishu.com/statics/js/zx_new_common.js"></script>
+    <script src="http://www.yishu.com/statics/js/jquery.ui.datepicker.min.js"></script>
+    <script src="http://www.yishu.com/statics/js/jquery.ui.datepicker-zh-CN.min.js"></script>
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1513882"></script>
+</head>
+<body class="information-panel">
+<!-- 头部 -->
+<div id="header"><div class="topNav">
+</div>
+    <script type="text/javascript" src="http://www.yishu.com/statics/js/mini_top.js"></script>
+    <script type="text/javascript">
+        document.domain='yishu.com';
+    </script>
+    <p class="top-advertis"><script language="javascript" src="http://www.yishu.com/index.php?m=poster&c=index&a=show_poster&id=77"></script></p>
+    <div class="header-nav">
+        <span><a href="http://www.yishu.com/" class="first-child current">首页</a></span>
+        <span><a href="http://auction.yishu.com/hot" class="first-child current">在线竞拍</a></span>
+        <span><a href="http://zx.yishu.com/c58" class="select">在线展厅</a></span>
+        <span><a href="http://identify.yishu.com" class="select">在线鉴定</a></span>
+        <span><a href="http://bbs.yishu.com/topic.html" class="select">精华热帖</a></span>
+        <span><a href="http://news.yishu.com/" class="select">资讯</a></span>
+        <span><a href="http://artist.yishu.com" class="select">大师</a></span>
+        <span><a href="http://gallery.yishu.com" class="select">画廊</a></span>
+        <span><a href="http://zx.yishu.com/" class="select">展讯</a></span>
+        <span><a href="http://auction.yishu.com" class="select">拍卖</a></span>
+        <span><a href="http://cang.yishu.com/" class="select">藏品商城</a></span>
+        <span><a href="http://special.yishu.com/" class="select">艺术专题</a></span>
+        <span><a href="http://bbs.yishu.com" class="select">艺友论坛</a></span>
+        <span><a href="http://hangqing.yishu.com/" class="select">书画行情</a></span>
+    </div></div>
+<!--search logo-->
+<div class="main-container info-list">
+    <!-- 栏目头部 -->
+    <div class="panel-header clear">
+        <div class="left top-bar">
+            <p><a href="http://www.yishu.com"><img src="http://www.yishu.com/statics/images/zx/logo.jpg" alt="logo" /></a></p>
+            <p class="panel-name">资 讯<br />频 道</p>
+        </div>
+        <div class="main-web clear">
+            <div class="right">
+                <form action="http://www.yishu.com/index.php" method="GET" >
+                    <input type="hidden" name="m" value="search"/>
+                    <input type="hidden" name="c" value="index"/>
+                    <input type="hidden" name="a" value="init"/>
+                    <input type="hidden" name="typeid" id="typeid" value="" id="typeid"/>
+                    <input type="hidden" name="siteid" value="" id="siteid"/>
+                    <div id="main-search">
+                        <div class="species">
+
+                            <span class="species-content search_type" id="search_type_a">全 部</span>
+                            <span class="choose"><img src="http://www.yishu.com/statics/images/zx/search-arrow.gif" alt="" /></span>
+                            <div class="species-jump common-jump hide">
+                                <ul>
+                                    <li><a href="javascript:;" onclick="move_value(132);">资讯</a></li>
+                                    <li><a href="javascript:;" onclick="move_value(56);">展讯</a></li>
+                                    <li><a href="javascript:;" onclick="move_value(68);">藏品</a></li>
+                                    <li><a href="javascript:;" onclick="move_value(75);">展厅</a></li>
+                                    <li><a href="javascript:;" onclick="move_value(76);">拍卖</a></li>
+                                    <li><a href="javascript:;" onclick="move_value(111);">专题活动</a></li>
+                                    <li><a href="javascript:;" onclick="move_value(114);">书画行情</a></li>
+                                    <li><a href="javascript:;" onclick="move_value(3);">图片</a></li>
+                                    <li><a href="javascript:;" onclick="move_value(52);">专题</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="search">
+
+                            <div class="search-input">
+
+                                <input type="text" name="q" class="bk"  />
+                            </div>
+                            <p class="search-btn"><input type="submit" value="搜 索" /></p>
+                        </div>
+                    </div>
+                </form>
+                <script type="text/javascript">
+                    function move_value(a) {
+                        $('#typeid').val(a);
+                    }
+                </script>				</div>
+        </div>
+        <div class="main-navigate">
+            <ul>
+                <li><a href="http://news.yishu.com/">首 页</a></li>
+                <li><a href="http://news.yishu.com/toutiao/" >今日头条</a></li>
+                <li><a href="http://news.yishu.com/tupian/" >图片新闻</a></li>
+                <li><a href="http://news.yishu.com/paimai/" >拍卖资讯</a></li>
+                <li><a href="http://news.yishu.com/shoucang/" >收藏业界</a></li>
+                <li><a href="http://news.yishu.com/mingjia/" >名家聚焦</a></li>
+                <li><a href="http://news.yishu.com/yishu/" >艺术动态</a></li>
+                <li><a href="http://news.yishu.com/zonghe/" >综合报道</a></li>
+                <li><a href="http://news.yishu.com/hangqing/" >市场行情</a></li>
+                <li><a href="http://news.yishu.com/zhanlan/" >展览时讯</a></li>
+                <li><a href="http://news.yishu.com/zhengce/" >政策解读</a></li>
+                <li><a href="http://news.yishu.com/yiwen/" >轶闻天下</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--search logo end-->
+
+<!--c start-->
+<div class="main-container info-list">
+<!-- 栏目内容 -->
+<div class="container clear">
+
+<!-- 页面主要内容部分 -->
+<div class="il-con">
+<div class="left">
+    <div class="hot-view" id="upmaq">
+        <b>关于：</b>
+        <span><b class="blue">{$_GET['tag']}</b> 的资讯</span>
+        <!--<span><a href="#">武汉红木市场跌入深水区</a></span>
+        <span><a href="#" class="red">2013年博宝春季拍卖征集活动开始接受报名</a></span>-->
+    </div>
+    <div class="il-list">
+        <ul>
+            <volist name="lists" id="vo">
+            <li>
+                <div class="left">
+                    <a href="{:U('/Content/Content/detail/',array('category'=>get_category_name($vo['id'], $vo['model']),'id'=>$vo['id']))}" target="_blank"><if condition="$vo['url'] eq ''"><img src="/nopic.gif" width="184px" height="123px" alt="" /><else/><img src="{$vo.url}" width="184px" height="123px" alt="" /></if></a>
+                </div>
+                <div class="right">
+                    <h3><a href="{:U('/Content/Content/detail/',array('category'=>get_category_name($vo['id'], $vo['model']),'id'=>$vo['id']))}" target="_blank" >{$vo.title}</a></h3>
+                    <p>{$vo.description|new_msubstr=###,0,78,'utf-8',true}<a href="{:U('/Content/Content/detail/',array('category'=>get_category_name($vo['id'], $vo['model']),'id'=>$vo['id']))}" class="red">[详情]</a></p>
+                    <div class="operate clear">
+                        <p class="date">{$vo.update_time|date='Y年m月d日',###}</p>
+                        <p class="tag">
+                            标签：
+                            <ys:tags name="list" id="$vo['id']">
+                            <a href="{:U('/Content/Tag/index/',array('tag'=>$list))}" title="{$list}">{$list}</a>
+                            </ys:tags>
+                        </p>
+                        <p class="comment"><a href="{:U('/Content/Content/detail/',array('category'=>get_category_name($vo['id']),'id'=>$vo['id']))}" uyan_identify="true" >评论<span class="red">（0）</span></a></p>
+                        <!-- Baidu Button BEGIN -->
+                        <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+                            <span class="bds_more">分享到：</span>
+                            <a class="bds_qzone"></a>
+                            <a class="bds_tsina"></a>
+                            <a class="bds_tqq"></a>
+                            <a class="bds_renren"></a>
+                            <a class="bds_t163"></a>
+                        </div>
+                        <script type="text/javascript" id="bdshare_js" data="type=tools&amp;mini=1&amp;uid=6871782" ></script>
+                        <script type="text/javascript" id="bdshell_js"></script>
+                        <script type="text/javascript">
+                            document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+                        </script>
+                        <!-- Baidu Button END -->
+                    </div>
+                </div>
+            </li>
+            </volist>
+        </ul>
+    </div>
+    <div class="common-apage">
+        <div class="content" id="paging">
+            {$show}
+        </div>
+    </div>
+</div>
+<div class="right">
+<!-- 日历 -->
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#datepicker').datepicker({
+            onSelect:function(dateText){
+                var t= Date.parse(dateText)/1000;
+                window.location.href="http://www.yishu.com/c38t"+t+".html";
+            }
+        });
+    });
+</script>
+<div class="calendar">
+    <h3>新闻日历</h3>
+    <div type="text" id="datepicker"></div>
+</div>
+<!-- 佳作推荐 -->
+<div class="best-art">
+    <div class="title">
+        <h3>佳作推荐</h3>
+        <!--<a class="more" href="#">更多>></a>-->
+    </div>
+    <div class="content">
+        <a href="http://cang.yishu.com/242.html"><img src="http://www.yishu.com/uploadfile/2013/1203/thumb_283_399_20131203042613977.jpg" height="300px" /></a>
+        <div class="common-word">
+            <p class="title"><span>乐起凤来</span></p>
+            <p>作者：<span>御府和田玉</span></p>
+            <div class="clear">
+                <p class="left">尺寸：<span>长71.1mm 宽44.2mm 厚10.8mmcm</span></p>
+                <p class="right">价格：<span>￥560000</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 精品排行 选项卡 -->
+<div class="bestrank-tab">
+    <div class="title clear">
+        <h3>精品排行</h3>
+        <a class="more" href="http://www.yishu.com/list-26-1.html" style="top:10px;">更多>></a>
+    </div>
+    <div class="nav clear" style="height:30px">
+        <ul class="column">
+            <li class="nav-1 select"><span>油画</span></li>
+            <li class="nav-2"><span>书法</span></li>
+            <li class="nav-3"><span>国画</span></li>
+        </ul>
+    </div>
+    <div class="tab-content">
+        <div class="content-1">
+            <ul>
+                <li class="top3">
+                    <span class="num">1</span>
+                    <div class="img"><a href="http://www.yishu.com/c79i233.html" ><img src="http://www.yishu.com/uploadfile/2013/1130/20131130054053339.jpg"  width="102px" height="78px" /></a></div>
+                    <div class="disc">
+                        <p><b><a href="http://www.yishu.com/c79i233.html" >《山脚人家》王柏松原创风景</a></b></p>
+                        <p>作者：王柏松</p>
+                        <!--<p>关注指数：5998</p>-->
+                        <p class="red">￥38000</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="content-2 hide">
+            <ul>
+                <li class="top3">
+                    <span class="num">1</span>
+                    <div class="img"><a href="http://www.yishu.com/c76i248.html" ><img src="http://www.yishu.com/uploadfile/2013/1206/20131206040645977.jpg"  width="102px" height="78px" /></a></div>
+                    <div class="disc">
+                        <p><b><a href="http://www.yishu.com/c76i248.html" >王福权《清平乐·六盘山》</a></b></p>
+                        <p>作者：王福权</p>
+                        <!--<p>关注指数：5998</p>-->
+                        <p class="red">￥0</p>
+                    </div>
+                </li>
+                <li class="top3">
+                    <span class="num">2</span>
+                    <div class="img"><a href="http://www.yishu.com/c76i247.html" ><img src="http://www.yishu.com/uploadfile/2013/1206/20131206040328368.jpg"  width="102px" height="78px" /></a></div>
+                    <div class="disc">
+                        <p><b><a href="http://www.yishu.com/c76i247.html" >孙建伟《百字箴言》</a></b></p>
+                        <p>作者：孙建伟</p>
+                        <!--<p>关注指数：5998</p>-->
+                        <p class="red">￥0</p>
+                    </div>
+                </li>
+                <li class="top3">
+                    <span class="num">3</span>
+                    <div class="img"><a href="http://www.yishu.com/c76i246.html" ><img src="http://www.yishu.com/uploadfile/2013/1204/20131204033534624.jpg"  width="102px" height="78px" /></a></div>
+                    <div class="disc">
+                        <p><b><a href="http://www.yishu.com/c76i246.html" >孙建伟《沁园春》</a></b></p>
+                        <p>作者：孙建伟</p>
+                        <!--<p>关注指数：5998</p>-->
+                        <p class="red">￥0</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="num">4</span>
+                    <p class="word"><a href="http://www.yishu.com/c76i245.html" >袁椿珊《楷书对联》</a></p>
+                    <p class="price red">￥2800</p>
+                </li>
+            </ul>
+        </div>
+        <div class="content-3 hide">
+            <ul>
+                <li class="top3">
+                    <span class="num">1</span>
+                    <div class="img"><a href="http://www.yishu.com/c75i235.html" ><img src="http://www.yishu.com/uploadfile/2013/1204/thumb_184_123_20131204042711461.jpg"  width="102px" height="78px" /></a></div>
+                    <div class="disc">
+                        <p><b><a href="http://www.yishu.com/c75i235.html" >周同祥《金秋》</a></b></p>
+                        <p>作者：周同祥</p>
+                        <!--<p>关注指数：5998</p>-->
+                        <p class="red">￥21000</p>
+                    </div>
+                </li>
+                <li class="top3">
+                    <span class="num">2</span>
+                    <div class="img"><a href="http://www.yishu.com/c75i232.html" ><img src="http://www.yishu.com/uploadfile/2013/1204/thumb_184_123_20131130053642100.jpg"  width="102px" height="78px" /></a></div>
+                    <div class="disc">
+                        <p><b><a href="http://www.yishu.com/c75i232.html" >韩玉奎《全家福》</a></b></p>
+                        <p>作者：韩玉奎</p>
+                        <!--<p>关注指数：5998</p>-->
+                        <p class="red">￥60000</p>
+                    </div>
+                </li>
+                <li class="top3">
+                    <span class="num">3</span>
+                    <div class="img"><a href="http://www.yishu.com/c75i231.html" ><img src="http://www.yishu.com/uploadfile/2013/1204/thumb_184_123_20131130053226845.jpg"  width="102px" height="78px" /></a></div>
+                    <div class="disc">
+                        <p><b><a href="http://www.yishu.com/c75i231.html" >张润生《归楼图》</a></b></p>
+                        <p>作者：张润生</p>
+                        <!--<p>关注指数：5998</p>-->
+                        <p class="red">￥2000</p>
+                    </div>
+                </li>
+                <li>
+                    <span class="num">4</span>
+                    <p class="word"><a href="http://www.yishu.com/c75i230.html" >乔宜男《鹤鸣于九皋声闻于天》</a></p>
+                    <p class="price red">￥1000</p>
+                </li>
+                <li>
+                    <span class="num">5</span>
+                    <p class="word"><a href="http://www.yishu.com/c75i229.html" >刘文西《镜心》</a></p>
+                    <p class="price red">￥4200</p>
+                </li>
+                <li>
+                    <span class="num">6</span>
+                    <p class="word"><a href="http://www.yishu.com/c75i228.html" >李维清《雪韵图》</a></p>
+                    <p class="price red">￥300</p>
+                </li>
+                <li>
+                    <span class="num">7</span>
+                    <p class="word"><a href="http://www.yishu.com/c75i226.html" >李景源《山水》</a></p>
+                    <p class="price red">￥800</p>
+                </li>
+                <li>
+                    <span class="num">8</span>
+                    <p class="word"><a href="http://www.yishu.com/c75i225.html" >赵金《有女初落成》</a></p>
+                    <p class="price red">￥3000</p>
+                </li>
+                <li>
+                    <span class="num">9</span>
+                    <p class="word"><a href="http://www.yishu.com/c75i224.html" >赵金《李白醉酒》</a></p>
+                    <p class="price red">￥7000</p>
+                </li>
+                <li>
+                    <span class="num">10</span>
+                    <p class="word"><a href="http://www.yishu.com/c75i222.html" >赵太极《红云》</a></p>
+                    <p class="price red">￥30000</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- 名家 -->
+<div class="famous-art s-cms1 clear">
+    <div class="title">
+        <h3>名家</h3>
+        <a class="more" href="http://www.yishu.com/list-98-1.html">更多 >></a>
+    </div>
+    <div class="content">
+        <ul>
+            <li><a href="http://artist.yishu.com/167" target="_blank">牛其英</a></li>
+            <li><a href="http://artist.yishu.com/166" target="_blank">赵宝平</a></li>
+            <li><a href="http://artist.yishu.com/165" target="_blank">陈铁</a></li>
+            <li><a href="http://artist.yishu.com/164" target="_blank">张长志</a></li>
+            <li><a href="http://artist.yishu.com/163" target="_blank">李中天</a></li>
+            <li><a href="http://artist.yishu.com/162" target="_blank">墨田</a></li>
+            <li><a href="http://artist.yishu.com/160" target="_blank">裴根</a></li>
+            <li><a href="http://artist.yishu.com/159" target="_blank">李长文</a></li>
+            <li><a href="http://artist.yishu.com/158" target="_blank">庞维波</a></li>
+            <li><a href="http://artist.yishu.com/157" target="_blank">姬建民</a></li>
+            <li><a href="http://artist.yishu.com/156" target="_blank">牛富强</a></li>
+            <li><a href="http://artist.yishu.com/155" target="_blank">金瑞</a></li>
+            <li><a href="http://artist.yishu.com/153" target="_blank">谢国芦</a></li>
+            <li><a href="http://artist.yishu.com/152" target="_blank">高言林</a></li>
+            <li><a href="http://artist.yishu.com/151" target="_blank">李吉顺</a></li>
+            <li><a href="http://artist.yishu.com/150" target="_blank">赵志伟</a></li>
+        </ul>
+    </div>
+</div>
+<!-- 品牌 -->
+<!--<div class="brand s-cms1 clear">
+    <div class="title">
+        <h3>品牌</h3>
+        <a class="more" href="#">更多 >></a>
+    </div>
+    <div class="content">
+        <ul>
+            <li><a href="#">齐白石</a></li>
+            <li><a href="#">陈康</a></li>
+            <li><a href="#">李延生</a></li>
+            <li><a href="#">石鲁</a></li>
+            <li><a href="#">张仃</a></li>
+             <li><a href="#" class="red">吴冠中</a></li>
+            <li><a href="#">杨文仁</a></li>
+            <li><a href="#">何家英</a></li>
+            <li><a href="#">冯大中</a></li>
+            <li><a href="#">李中原</a></li>
+        </ul>
+    </div>
+</div>-->
+<div class="advertis">
+    <script language="javascript" src="http://www.yishu.com/index.php?m=poster&c=index&a=show_poster&id=14"></script>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--c end-->
+<!--
+<div class="block link">
+    <div class="l_title">合作媒体 ▪ 机构</div>
+
+        <ul class="link-text">
+            </ul>
+
+        <ul class="link-img">
+            </ul>
+        <div class="contact">责任编辑:艺术网 <span class="tel">400-000-000</span> <span class="email">service@yishu.com</span></div>
+</div>--> <div class="footer">
+    <div class="f_nav" style="background:url(http://www.yishu.com/statics/images/yishu/fot_03.jpg) repeat-x;">
+        <a href="http://service.yishu.com/aboutus/" target="_blank">关于我们</a>
+        <a href="http://service.yishu.com/copyright/" target="_blank">版权声明</a>
+        <a href="http://service.yishu.com/hr/" target="_blank">人才招聘</a>
+        <a href="http://service.yishu.com/advertising/" target="_blank">广告业务</a>
+        <a href="http://service.yishu.com/disclaimer/" target="_blank">免责声明</a>
+        <a href="http://service.yishu.com/protection/" target="_blank">隐私政策</a>
+        <a href="http://service.yishu.com/links/" target="_blank">友情链接</a>
+        <a href="http://service.yishu.com/help/" target="_blank">帮助中心</a>
+        <a href="http://service.yishu.com/sitemap/" target="_blank">网站地图</a>
+    </div>
+    <div class="block">
+        <p>Copyright Reserved 2013 &nbsp;YISHU.COM &nbsp;版权所有</p>
+        <p>电信与信息服务业务经营许可证  <a href="http://www.miibeian.gov.cn/" target="_blank">沪ICP备&nbsp;<span style="color: rgb(51, 51, 51); font-family: 宋体;">14002523号</span></a></p>
+        <div style="display:none;">
+            <script src="http://s13.cnzz.com/stat.php?id=5791326&web_id=5791326" type="text/javascript"></script>
+        </div>    </div>
+</div>
+<script type="text/javascript" src="http://www.yishu.com/statics/js/mini_top.js"></script>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#datepicker").datepicker();
+        $.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+        jumpPanel('.species','.species-jump',true,'.species-content');
+        tabelTab('.bestrank-tab','.column')
+    });
+</script>

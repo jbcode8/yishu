@@ -1,0 +1,98 @@
+<extend name="Public/base" />
+        <block name="style">
+            <style type="text/css">
+                body{width:700px;}
+                .is_config{display: none}
+            </style>
+        </block>
+<block name="body">
+	<!-- 表单 -->
+	<form action="{:U('build')}" method="post" class="createAddons">
+        <table class="form">
+            <tr>
+                <th>标识名:</th>
+                <td>
+                    <input name="info[name]" value="Example" type="text" placeholder="标识名"/>
+                </td>
+                <td>
+                    请输入插件标识
+                </td>
+            </tr>
+            <tr>
+                <th>插件名:</th>
+                <td>
+                    <input name="info[title]" value="示列" type="text" placeholder="插件名"/>
+                </td>
+                <td>
+                    请输入插件名
+                </td>
+            </tr>
+            <tr>
+                <th>版本:</th>
+                <td>
+                    <input name="info[version]" value="1.0" type="text" placeholder="版本"/>
+                </td>
+                <td>
+                    请输入插件版本
+                </td>
+            </tr>
+            <tr>
+                <th>作者:</th>
+                <td>
+                    <input name="info[author]" value="LuYanHua" type="text" placeholder="作者"/>
+                </td>
+                <td>
+                    请输入插件作者
+                </td>
+            </tr>
+            <tr>
+                <th>描述:</th>
+                <td>
+                    <textarea name="info[description]" placeholder="插件描述"></textarea>
+                </td>
+                <td>
+                    请输入描述
+                </td>
+            </tr>
+            <tr>
+                <th>安装后是否启用:</th>
+                <td>
+                    <input type="checkbox" name="info[status]" value="1" checked />
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>是否需要外部访问:</th>
+                <td>
+                    <input type="checkbox" name="has_outurl" value="1" />
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>实现钩子的方法:</th>
+                <td>
+                    <select class="select" name="hook">
+                        <volist name="Hooks" id="vo">
+                            <option value="{$vo.name}" title="{$vo.description}">{$vo.name}</option>
+                        </volist>
+                    </select>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>是否需要配置:</th>
+                <td>
+                    <input type="checkbox" id="has_config" name="has_config" value="1" />
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <button type="submit" class="btn ajax-post" target-form="createAddons">确 定</button>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+	</form>
+</block>

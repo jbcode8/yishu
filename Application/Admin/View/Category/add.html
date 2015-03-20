@@ -1,0 +1,154 @@
+<extend name="Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{width:400px;}
+    </style>
+</block>  
+<block name="body">
+    <form action="{:U('update')}" method="post" class="addmenu">
+        <table class="form">
+            <tr>
+                <th>上级栏目:</th>
+                <td>
+                    <if condition="$category">
+                    {$category['title']}
+                    <input type="hidden" value="{$category['catid']}" name="pid"/>
+                    <else />
+                        顶级栏目
+                    <input type="hidden" value="0" name="pid"/>
+                    </if>
+                </td>
+            </tr>
+            <tr>
+                <th>栏目标识:</th>
+                <td>
+                    <input name="name" type="text" placeholder="栏目标识"/>
+                </td>
+                <td class="tips">
+                    <i class="red">*必填</i> 栏目唯一标识
+                </td>
+            </tr>
+            <tr>
+                <th>栏目名称:</th>
+                <td>
+                    <input name="title" type="text" placeholder="栏目名称"/>
+                </td>
+                <td class="tips">
+                    <i class="red">*必填</i> 栏目名称
+                </td>
+            </tr>
+            <tr>
+                <th>列表行数:</th>
+                <td>
+                    <input name="list_row" type="text" placeholder="列表行数"/>
+                </td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+            <tr>
+                <th>模型类型:</th>
+                <td>
+                    <select name="model">
+                        <volist name="modelList" id="model">
+                            <option value="{$model.id}">{$model.title}</option>
+                        </volist>
+                    </select>
+                </td>
+                <td class="tips">
+                    <i class="red">*必选</i> 模型是否继承
+                </td>
+            </tr>
+            <tr>
+                <th>栏目状态:</th>
+                <td>
+                    <select name="status">
+                        <option value="1">开启</option>
+                        <option value="0">关闭</option>
+                    </select>
+                </td>
+                <td class="tips">
+                    <i class="red">*必选</i> 栏目状态
+                </td>
+            </tr>
+            <tr>
+                <th>频道模板:</th>
+                <td>
+                    <input name="template_index" type="text" placeholder="频道模板"/>
+                </td>
+                <td class="tips">
+                    模型默认频道模板
+                </td>
+            </tr>
+            <tr>
+                <th>列表模板:</th>
+                <td>
+                    <input name="template_lists" type="text" placeholder="列表模板"/>
+                </td>
+                <td class="tips">
+                    模型默认列表模板
+                </td>
+            </tr>
+            <tr>
+                <th>详情模板:</th>
+                <td>
+                    <input name="template_detail" type="text" placeholder="详情模板"/>
+                </td>
+                <td class="tips">
+                    模型默认详情模板
+                </td>
+            </tr>
+            <tr>
+                <th>编辑模板:</th>
+                <td>
+                    <input name="template_edit" type="text" placeholder="编辑模板"/>
+                </td>
+                <td class="tips">
+                    模型默认编辑模板
+                </td>
+            </tr>
+            <tr>
+                <th>网页标题:</th>
+                <td>
+                    <input name="seo_title" type="text" placeholder="网页标题"/>
+                </td>
+                <td class="tips">
+                    网页标题
+                </td>
+            </tr>
+            <tr>
+                <th>网页关键字:</th>
+                <td>
+                    <input name="seo_keywords" type="text" placeholder="网页关键字"/>
+                </td>
+                <td class="tips">
+                    网页关键字
+                </td>
+            </tr>
+            <tr>
+                <th>网页描述:</th>
+                <td>
+                    <textarea name="seo_description" placeholder="网页关键字"/></textarea>
+                </td>
+                <td class="tips">
+                    网页描述
+                </td>
+            </tr>
+            <tr>
+                <th>url:</th>
+                <td>
+                    <textarea name="url" placeholder="对应的链接地址"/></textarea>
+                </td>
+                <td class="tips">
+                    url
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <button type="submit" class="btn ajax-post" target-form="addmenu" >确认</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</block>

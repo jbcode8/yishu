@@ -1,0 +1,224 @@
+<extend name="galleryBase"/>
+<block name='content'>
+<!-- 栏目内容 -->
+<div class="container clear">
+<div class="topst">
+    <div class="l-side">
+        <div class="slide-img">
+            <ul>
+                <volist name="gallery_list" id="vo">
+                    <li><img src="{$vo.thumb}" width="690" height="300" alt="{$vo.name}" /></li>
+                </volist>
+            </ul>
+        </div>
+    </div>
+    <div class="r-side">
+        <a href="#"><img src="{IMG_PATH}column-img/131.jpg" alt=""></a>
+    </div>
+</div>
+<div class="gallery-information-con">
+<div class="l-con">
+<!--
+<div class="attention">
+    <b>热点关注：</b>
+    <ys:list name="list" catid="13" order="view DESC" limit="0,3">
+    <a href="{:U('/Content/Content/detail/',array('category'=>'shoucang','id'=>$list['id']))}">{$list.title|new_msubstr=###,0,12}</a>
+    </ys:list>
+</div>
+-->
+<div class="opus-list">
+    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1513882"></script>
+
+    <ul>
+    <notempty name="lists">
+        <volist name="lists" id="vo">
+            <li>
+                <!--<a class="img" href="{:U('/Content/Content/detail/',array('category'=>'exhibit_gallery','id'=>$vo['id']))}"><if condition="$vo['url'] eq ''"><img src="/nopic.gif" width="184px" height="136px" alt="" /><else/><img src="{$vo.url}" width="184px" height="136px" alt="" /></if></a>-->
+                <div class="r-info">
+                    <h2><a href="{:U('/Gallery/GalleryDetail/show/',array('to'=>'news','id'=>$vo['id'],'gid'=>$vo['gid']))}">{$vo.title}</a></h2>
+                    <div class="text">{$vo.description|new_msubstr=###,0,78,'utf-8',true}... <a href="{:U('/Content/Content/detail/',array('category'=>'exhibit_gallery','id'=>$vo['id']))}">[全文]</a></div>
+                    <div class="oth-info">
+                        <p class="date">{$vo.create_time|date='Y-m-d H:i:s',###} </p>
+                        <!--
+                        <p class="tag">
+                            标签：
+                            <ys:tags name="list" id="$vo['id']">
+                                <span><a href="{:U('/Content/Tag/index/',array('tag'=>$list))}">{$list}</a></span>
+                            </ys:tags>
+                        </p>
+                        -->
+                        <p class="discuzz"><a href="#" uyan_identify="true" >评论<span class="red">（0）</span></a></p>
+                        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a><a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a><a href="#" class="bds_weixin" data-cmd="weixin"></a></div>
+                    </div>
+                </div>
+            </li>
+        </volist>
+        <else />
+        <li>没有相关数据</li>
+    </notempty>
+
+</ul>
+<div class="comm-page">
+    <div id="f-page">
+        <if condition="$pages gt 1">{$page} 共{$pages}页 　到第 <select id="select">{$select}<select> 页 </if>
+    </div>
+</div>
+    <style>
+        #f-page {font: 12px/15px Tahoma, Arial, SimSun; text-align: center;}
+        #f-page .page{ display: inline;}
+        #f-page a, #f-page span {display: inline-block;_display: inline;_zoom: 1;padding: 5px 10px;border: 1px solid #ddd;color: #111;text-decoration: none; margin: 0 3px;}
+        #f-page span, #f-page a:hover {border: 1px solid #a51318;color: #fff;background: #a51318;}
+    </style>
+</div>
+</div>
+<div class="r-con">
+<!--
+<div class="hot-article comm-list">
+    <h2>热门文章</h2>
+    <div class="con">
+        <ul>
+            <ys:list name="list" catid="16" order="view DESC" limit="0,10" thumb="1">
+            <li>
+                <div class="title top3">
+                    <span class="num">{$i}</span>
+                    <a href="{:U('/Content/Content/detail/',array('category'=>'zonghe','id'=>$list['id']))}">{$list.title|new_msubstr=###,0,15}</a>
+                </div>
+                <div class="detail">
+                    <a class="img" href="{:U('/Content/Content/detail/',array('category'=>'zonghe','id'=>$list['id']))}"><img src="{$list.url}" alt="{$vo.title}" width="70" height="70"/></a>
+                    <a class="text" href="{:U('/Content/Content/detail/',array('category'=>'zonghe','id'=>$list['id']))}">{$list.description|new_msubstr=###,0,30}...</a>
+                </div>
+            </li>
+            </ys:list>
+        </ul>
+    </div>
+</div>
+-->
+<div class="recommend-opus comm-recommend clear">
+    <h2>推荐作品</h2>
+    <div class="con">
+        <ul>
+            <volist name="gallery_works" id="vo">
+                <li>
+                    <a href="{:U('Gallery/GalleryDetail/show',array('to'=>'works','id'=>$vo['id'],'gid'=>$vo['gid']))}"><img src="{$vo.thumb}" alt="{$vo.name}" width="130" height="130" /></a>
+                    <p class="common-word">{$vo.name|new_msubstr=###,0,8}</p>
+                </li>
+            </volist>
+        </ul>
+    </div>
+</div>
+<div class="hot-exhibition comm-list">
+    <h2>热门展览</h2>
+    <div class="con">
+        <ul>
+            <volist name="exhibit_hot" id="vo">
+            <li>
+                <div class="title top3">
+                    <span class="num">{$i}</span>
+                    <a href="{:U('Gallery/GalleryDetail/show/',array('to'=>'exhibit','id'=>$vo['id'],'gid'=>$vo['gid']))}">{$vo.title|new_msubstr=###,0,13}</a>
+                </div>
+                <div class="detail">
+                    <a class="img" href="{:U('Gallery/GalleryDetail/show/',array('to'=>'exhibit','id'=>$vo['id'],'gid'=>$vo['gid']))}"><img src="{$vo.thumb}" alt="{$vo.title}" width="70" height="70"/></a>
+                    <a class="text" href="{:U('Gallery/GalleryDetail/show/',array('to'=>'exhibit','id'=>$vo['id'],'gid'=>$vo['gid']))}">{$vo.description|new_msubstr=###,0,30}...</a>
+                </div>
+            </li>
+            </volist>
+
+        </ul>
+    </div>
+</div>
+<div class="recommend-master comm-recommend clear">
+    <h2>推荐大师</h2>
+    <div class="con">
+        <ul>
+            <volist name="gallery_artist" id="vo">
+            <li>
+                <a href="{:U('/Artist/ArtistDetail/index/',array('id'=>$vo['id']))}"><img src="{$vo.thumb}" alt="{$vo.name}" width="130" height="130"/></a>
+                <p class="common-word">{$vo.name}</p>
+            </li>
+            </volist>
+        </ul>
+    </div>
+</div>
+<div class="hot-gallery comm-list">
+    <h2>热门画廊</h2>
+    <div class="con">
+        <ul>
+            <volist name="gallery_hot" id="vo">
+            <li>
+                <div class="title top3">
+                    <span class="num">{$i}</span>
+                    <a href="{:U('Gallery/GalleryDetail/gallery/',array('gid'=>$vo['id']))}">{$vo.name|new_msubstr=###,0,15}</a>
+                </div>
+                <div class="detail">
+                    <a class="img" href="{:U('Gallery/GalleryDetail/gallery/',array('gid'=>$vo['id']))}"><img src="{$vo.thumb}" alt="{$vo.name}" width="70" height="70"/></a>
+                    <a class="text" href="{:U('Gallery/GalleryDetail/gallery/',array('gid'=>$vo['id']))}">{$vo.desc|new_msubstr=###,0,30}...</a>
+                </div>
+            </li>
+            </volist>
+
+        </ul>
+    </div>
+</div>
+<div class="advertise">
+    <a href="javascript:;"><img src="{IMG_PATH}column-img/136.jpg" alt="" /></a>
+</div>
+</div>
+</div>
+
+<!-- 活动专场 -->
+<!--
+<div class="active-topic">
+    <h2>活动专场</h2>
+    <div class="con">
+        <ul>
+            <li><a href="#"><img src="images/column-img/137.jpg" alt="" /></a></li>
+            <li><a href="#"><img src="images/column-img/137.jpg" alt="" /></a></li>
+            <li><a href="#"><img src="images/column-img/137.jpg" alt="" /></a></li>
+            <li><a href="#"><img src="images/column-img/137.jpg" alt="" /></a></li>
+        </ul>
+    </div>
+</div>
+-->
+</div>
+</div>
+
+<script type="text/javascript" src="{JS_PATH}common.js"></script>
+<script type="text/javascript" src="{JS_PATH}js.js"></script>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#select").live("change",function(){
+            var p = $("#select option:selected").val();
+            window.location.href = "{:U('/Gallery/Gallery/news/')}"+"?p="+p;
+        })
+        jumpPanel('.species','.species-jump',true,'.species-content');
+        commSelect('.info-log .common-select',20);
+        _chooseCity('#nav-local');
+        $(window).manhuatoTop({
+            showHeight : 100,
+            speed : 500
+        });
+        arrSlide('.l-side');
+        $('.active-topic li:last').css('margin-right','0');
+        $('.comm-list').each(function(){
+            var key = $(this);
+            key.find('li:first .detail').show();
+            key.find('li:first').css('background','#eee');
+            key.find('li').mouseenter(
+                    function(){
+                        key.find('.detail').hide();
+                        key.find('li').css('background','#fff');
+                        $(this).find('.detail').show();
+                        $(this).css('background','#eee');
+                    }
+            );
+        });
+        $('.comm-recommend').each(function(){
+            $(this).find('li:nth-child(2n)').css('margin-right','0');
+        });
+    });
+</script>
+</block>
+
+

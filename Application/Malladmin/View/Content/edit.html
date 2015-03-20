@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>中国艺术网后台管理中心 - By 中国艺术网</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <load file="{CSS_PATH}Admin/style.css" />
+    <load file="{JS_PATH}jquery-1.10.2.min.js" />
+    <load file="{JS_PATH}jquery-migrate-1.2.1.min.js" />
+    <load file="{PLUGIN_PATH}artdialog/jquery.artDialog.js?skin=magic" type="js" />
+    <load file="{PLUGIN_PATH}artdialog/iframeTools.js" />
+    <load file="{JS_PATH}Admin/common.js" />
+    <style type="text/css">
+        body{padding:5px;background-color: #F0F0F0}
+        .col-auto {width:960px;margin:0 auto;}
+        .col-l,.col-r{background-color: #fff;border:1px solid #eee;padding:5px;}
+        .col-r{float: right;width: 190px;}
+        .col-l{float: left;width: 740px;}
+        table{width: 100%;border-collapse: collapse;border-spacing: 0;}
+        .col-l th,.col-l td{border-bottom: 1px solid #eee;padding:5px 0 5px 10px;display: table-cell}
+        .col-l th{text-align: right;width: 100px;}
+        .col-l tr:last-child th,.col-l tr:last-child td{border-bottom: none;}
+        input {height:14px;padding:2px 0 2px 5px;}
+        textarea{width: 98%;}
+        h6{border-bottom: 1px solid #eee;padding: 4px 0;margin-bottom: 5px;}
+        .col-r input{max-width: 170px;}
+        .thumb{position: relative;}
+        .thumb .thumb_img{position: absolute;top:0;}
+        .thumb #upload_thumb-queue {position: absolute;top:0;width:190px;height:113px;}
+    </style>
+    <script type="text/javascript">
+        $(function(){
+            var dialog = $.dialog.open.api;
+            dialog.button({
+                name:'保存',
+                callback:function(){
+                    /**顶部警告栏*/
+                    var top_alert = window.top.$('#top-alert');
+                    top_alert.find('.close').on('click', function () {
+                        top_alert.removeClass('block').slideUp(200);
+                    });
+                    var that = this;
+                    var form = $('form'),query = form.serialize(),action = form.get(0).action;
+                    $.post(action,query).success(function(data){
+                        if (data.status==1) {
+                            //有链接需要跳转
+                            if (data.url) {
+                                updateAlert(data.info + ' 页面即将自动跳转~','alert-success');
+                                setTimeout(function(){
+                                    if($.dialog.open.api){
+                                        $.dialog.close();
+                                        $.dialog.opener.location.href=data.url;
+                                    }else{
+                                        location.href=data.url;
+                                    }
+                                    top_alert.find('.close').click();
+                                    $(that).removeClass('disabled').prop('disabled',false);
+                                },1500);
+                            }else{ //没有链接直接提示,刷新页面
+                                updateAlert(data.info ,'alert-success');
+                                setTimeout(function(){
+                                    if($.dialog.open.api){
+                                        $.dialog.close();
+                                        $.dialog.opener.location.reload();
+                                    }else{
+                                        location.reload();
+                                    }
+                                    top_alert.find('.close').click();
+                                    $(that).removeClass('disabled').prop('disabled',false);
+                                },1500);
+                            }
+                        }else{
+                            updateAlert(data.info,'alert-error');
+                            setTimeout(function(){
+                                if (data.url) {
+                                    location.href=data.url;
+                                }else{
+                                    top_alert.find('.close').click();
+                                    $(that).removeClass('disabled').prop('disabled',false);
+                                }
+                            },1500);
+                        }
+                    });
+                    return false;
+                },
+                focus:true
+            },{
+                name:'取消'
+            });
+        });
+    </script>
+    <block name="style"></block>
+</head>
+<body style="overflow-x: hidden;">
+
+<!--主体内容 开始-->
+<block name="body">
+    <form action="{:U('update')}" method="post" id="contentForm">
+        <input name="catid" type="hidden" value="{$vo.catid}" />
+        <input name="model" type="hidden" value="{$vo.model}" />
+        <input name="id" type="hidden" value="{$vo.id}" />
+        <div class="col-auto">
+            <div class="col-l">
+                <table>
+                    <tr>
+                        <th>栏目:</th>
+                        <td>{$vo.catid|get_category=###,'title'}</td>
+                    </tr>
+                    <tr>
+                        <th>标题:</th>
+                        <td><input name="title" type="text" size="60" value="{$vo.title|default=''}"/></td>
+                    </tr>
+                    <tr>
+                        <th>关键词:</th>
+                        <td><input name="keywords" type="text" size="50" value="{$vo.keywords|default=''}"/></td>
+                    </tr>
+                    <tr>
+                        <th>摘要:</th>
+                        <td><textarea name="description" rows="4">{$vo.description|default=''}</textarea></td>
+                    </tr>
+                    {$extend}
+                    <tr>
+                        <th>推荐位:</th>
+                        <td>{:getPosition($vo['model'],$vo['catid'],$vo['id'])}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-r">
+                <h6>缩略图</h6>
+                <div class="thumb">
+                    <a id="upload_thumb"></a>
+                    <img class="thumb_img" src="<empty name='vo["thumb"]'>{IMG_PATH}Admin/upload-pic.png<else/>{$vo.thumb|default=''}</empty>" width="190" height="113"/>
+                </div>
+                <input type="hidden" name="thumb" value="{$vo.thumb|default=''}" id="thumb" value="{$vo.thumb}"/>
+                <h6>发布时间</h6>
+                <input name="create_time" size="30" id="create_time" value="<empty name='vo.create_time'>{:date('Y-m-d H:i:s',NOW_TIME)}<else/>{$vo.create_time|date='Y-m-d H:i:s',###}</empty>" class="date" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});"/>
+            </div>
+        </div>
+    </form>
+</block>
+<!--主体内容 结束-->
+<block name="javascript"></block>
+<load file="{PLUGIN_PATH}DatePicker/WdatePicker.js"/>
+<load file="{PLUGIN_PATH}uploadify/jquery.uploadify.min.js" />
+<script type="text/javascript">
+    $(function(){
+        var html = $('#move_right');
+        $('.col-r').append(html);
+
+        $('#upload_thumb').uploadify({
+            'width'       : 190,
+            'height'      : 113,
+            'buttonText'  : '',
+            'removeTimeout' : 1,
+            'formData'      : {'auth_key' : ''},
+            'swf'         : '{PLUGIN_PATH}uploadify/uploadify.swf',
+            'uploader'    : '{:addons_url('Attachment://Upload/upload')}',
+            'fileTypeDesc' : 'Image Files',
+            'fileTypeExts' : '*.gif; *.jpg; *.png',
+            'itemTemplate' : '<div id="${fileID}">\
+                <div class="uploadify-progress-bar" style="height: 113px;background-color: #5978A4;position: absolute;z-index: 9999;opacity: 0.3"></div>\
+            </div>',
+            'onUploadSuccess' : uploadSuccessPic
+        });
+    });
+
+    function uploadSuccessPic(file, data, response){
+        var top_alert = window.top.$('#top-alert');
+        var res = JSON.parse(data);
+        if(res.status == false){
+            updateAlert(res.error);
+            setTimeout(function(){
+                top_alert.find('.close').click();
+            },1500);
+        }else{
+            $('.thumb_img').attr('src',res.url);
+            $('#thumb').val(res.url);
+        }
+    }
+</script>
+</body>
+</html>

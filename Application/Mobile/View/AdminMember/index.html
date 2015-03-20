@@ -1,0 +1,81 @@
+<extend name="Admin@Public:base"/>
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+
+    <!--导航部分 开始-->
+    <div class="con_nav">
+
+        <!--快捷按钮 开始-->
+        <!-- <div class="nav_btn">
+            <a href="javascript:$.dialog.open('{:U(\'Paimai/AdminGoods/add\')}',{title:'添加商品',lock:true,width:'800px',height:'600px'})" class="fa fa-plus-square">&nbsp;&nbsp;添加商品</a>
+                    <a id="action_show" style="cursor:pointer">批量显示</a>
+                    <a id="action_noshow" style="cursor:pointer">批量不显示</a>
+            
+        </div> -->
+        <!--快捷按钮 结束-->
+        
+
+    </div> 
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 开始-->
+        <table class="table treetable">
+            <thead>
+            <tr>
+				
+                <th>用户ID</th>
+				<th>用户名</th>
+                <th>昵称</th>
+                <th>注册时间</th>
+
+                <th>登陆次数</th>
+                <th>手机</th>
+                <th>电子邮箱</th>
+                <th>手机验证状态</th>
+                <th>邮箱验证状态</th>
+                
+                
+            </tr>
+            </thead>
+            <tbody>
+                <volist name="member" id="v">
+                    <tr>
+                        <td>{$v.mid}</td>
+                        <td>{$v.username}</td>
+                        <td>{$v.nickname}</td>
+                        <td>{$v.regdate|date='Y-m-d H:i:s',###}</td>
+                        <td>{$v.loginnum}</td>
+                        <td>{$v.mobile}</td>                        
+                        <td>{$v.email}</td>
+                        <td>
+                            <if condition="$v['mobile_status'] eq 1">
+                                <span style="color:green;">是</span>
+                            <else/>
+                            <span style="">否</span>
+                            </if>
+                        </td>
+                        <td>
+                            <if condition="$v['email_status'] eq 1">
+                                <span style="color:green;">是</span>
+                                <else/>
+                                <span style="">否</span>
+                            </if>
+                            
+                        </td>
+                       
+                    </tr>
+                </volist>
+            </tbody>
+        </table>
+		<div class="paging">
+        <!-- <button type="submit" class="btn fa fa-reorder ajax-post" target-form="authlistorder"> 排 序</button> -->
+		</div>
+    </form>
+	<div id="j_page" style="float:right;">{$page}
+    </div>
+    <br/>
+
+</block>

@@ -1,0 +1,25 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{ width:650px}
+    </style>
+</block>
+<block name="body">
+    <table class="form">
+        <tr>
+            <th class="w1">商品名称:</th><td>{$vo.goods_name}</td>
+        </tr>
+        <tr>
+            <th>商品关键字:</th><td>{$vo.keywords}</td>
+        </tr>
+        <tr>
+            <th>所属店铺:</th><td>{:mallStoreInfo($vo['store_id'], 'store_name')}</td>
+        </tr>
+        <tr>
+            <th>添加时间:</th><td>{:date('Y-md H:i:s', $vo['create_time'])}</td>
+        </tr>
+        <tr>
+            <th>更多信息:</th><td>后续从产品相关的拓展库读取对应信息</td>
+        </tr>
+    </table>
+</block>

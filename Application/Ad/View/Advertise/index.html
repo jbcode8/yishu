@@ -1,0 +1,113 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="{PLUGIN_PATH}treetable/css/treetable.css" />
+</block>
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+
+        <ul>
+            <li class="selected">
+                <a href="{:U('Ad/Advertise/index')}">广告列表</a>
+            </li>
+        </ul>
+
+        <!--快捷按钮 开始-->
+        <div class="nav_btn">
+            <a id="addAdv" href="{:U('Ad/Advertise/add')}" class="fa fa-plus-square">&nbsp;&nbsp;添加广告</a>
+
+        </div>
+        <!--快捷按钮 结束-->
+
+        <!--搜索 开始-->
+        <div class="advSearch">
+            <form name="doc_search_min" action="{:U('Ad/Advertise/index')}" method="post">
+                <div class="row">
+                    <label>广告标题：</label>
+                    <input type="text" size="8" name="title" value="{$title}" placeholder="请输入广告标题">
+                </div>
+                <button class="btn fa fa-search"> 搜 索</button>
+                <button class="btn fa fa-search-plus" onclick="javascript:$.dialog.open('{:U(\'Ad/Advertise/search\')}',{title:'广告检索','lock':true});return false;"> 高级搜索</button>
+            </form>
+        </div>
+        <!--搜索 结束-->
+
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 开始-->
+    <form action="{:U('batch')}" method="post" class="batch">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="row-selected row-selected"><input id="u-ck-f" type="checkbox"></th>
+                <th>广告标题</th>
+                <th>广告类型</th>
+                <th>所属广告位</th>
+                <th>状态</th>
+                <th>点击次数</th>
+                <th>添加时间</th>
+                <th>结束时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <if condition="$list neq null ">
+                <volist name="list" id="vo">
+                    <tr>
+                        <td>
+                            <input class="ids" type="checkbox" name="ids[]" value="{$vo.id}">                                                 </td>
+                        <td>{$vo.title}</td>
+                        <td>
+                            <if condition="($vo['type'] eq 0) "> 文字
+                                <elseif condition="$vo['type'] eq 1"/>图片
+                                <elseif condition="$vo['type'] eq 2"/>JS
+                                <else />FLASH
+                            </if>
+                        </td>
+                        <td>{$spacename[$vo['sid']]}</td>
+                        <td>
+                            <if condition="($vo['status'] eq 1) ">
+                                <a href="{:U('Ad/Advertise/change', array('id'=>$vo['id'], 'status'=>0))}" class="ajax-get success fa fa-unlock">开启</a>
+                                <else />
+                                <a href="{:U('Ad/Advertise/change', array('id'=>$vo['id'], 'status'=>1))}" class="ajax-get error fa fa-lock">关闭</a>
+                            </if>
+                        </td>
+                        <td>{$vo.click}</td>
+                        <td>{$vo.starttime|date="Y-m-d H:i:s",###}</td>
+                        <td>{$vo.endtime|date="Y-m-d H:i:s",###}</td>
+                        <td style="width: 260px">
+                            <a id="editAdv" class="fa fa-edit" href="{:U('Ad/Advertise/edit', array('id'=>$vo['id']))}"> 修改</a>
+                            <a href="{:U('Ad/Advertise/delete', array('id'=>$vo['id'],'sid'=>$vo['sid']))}" class='confirm ajax-get fa fa-trash-o red'> 删除</a>
+                    </tr>
+                </volist>
+                <else />
+                <tr><td colspan="9">没有相关数据</td></tr>
+            </if>
+            </tbody>
+        </table>
+        <div class="paging">
+            <if condition="$list neq null ">
+                <input type="radio" name="act" value="0" /> 关闭&nbsp;&nbsp;
+                <input type="radio" name="act" value="1" /> 开启&nbsp;&nbsp;
+                <input type="radio" name="act" value="3" /> 删除&nbsp;&nbsp;
+                <button type="submit" class="btn fa ajax-post" target-form="batch"> 提交操作</button>
+            </if>
+            {$_page}
+        </div>
+    </form>
+    <!-- 数据表格 结束-->
+</block>
+<!--主体内容 结束-->
+<block name="javascript">
+    <script type="text/javascript">
+        $(function(){
+            $('#editAdv').live('click',function(e){e.preventDefault();$.dialog.open(this.href, {title:'修改广告', id:'newWindow'} );});
+            $('#addAdv').live('click',function(e){e.preventDefault();$.dialog.open(this.href, {title:'添加广告', id:'newWindow'} );});
+            $('.u-order').css({'width':'15px','font':'12px/15px Arial','padding':'2px 5px'});
+            $('#u-ck-f').click(function(){if($('#u-ck-f').is(':checked')){$('.ids').attr('checked','true');}else{ $('.ids').removeAttr("checked");}});
+        });
+    </script>
+</block>
+

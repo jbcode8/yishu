@@ -1,0 +1,27 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{width:350px}
+    </style>
+</block>
+<block name="body">
+    <form action="{:U('add')}" method="post" class="addInfo">
+        <table class="form">
+            <tr>
+                <th>类别名称:</th>
+                <td><input name="name" type="text" /></td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+            <tr>
+                <th>排列顺序:</th>
+                <td><input name="listorder" type="text" value="0" /></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>&nbsp;</th>
+                <td><button type="submit" class="btn ajax-post" target-form="addInfo">确认</button></td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
+</block>

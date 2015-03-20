@@ -1,0 +1,68 @@
+<extend name="Admin@Public:base"/>
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css"/>
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css"/>
+</block>
+<block name="body">
+   <table class="m_table">
+       <tr>
+       	   <td>用户姓名</td>
+		   <td>提现用户</td>
+		   <td>手机号码</td>
+		   <td>充值总额</td>
+		   <td>扣除保证金</td>
+		   <td>可提现金额</td>
+		   <td>已提现</td>
+		   <td>提现金额</td>
+		   <td>提现银行</td>
+		   <td>银行账号</td>
+		   <td>银行地区</td>
+		   <td>银行城市</td>
+		   <td>提现时间</td>
+		   <td>提现状态</td>
+		   <td>提现操作</td>
+	   </tr>
+        
+		<volist name='txs' id='v'>
+		<tr> 
+		   <td><a href="{:U('Paimai/AdminOrder/manage_tx_detail',array('id'=>$v['uid']))}" target="_blank">{$v['realname']}</a></td>
+           <td><a href="{:U('Paimai/AdminOrder/manage_tx_detail',array('id'=>$v['uid']))}" target="_blank">{:getUsername($v['uid'],0)}</a></td>
+           <td>{$v['mobile']}</td>
+           <td>
+           		<if condition="$v['all_amount']">
+           			{$v['all_amount']}元
+           		<else />
+           			0元
+           		</if>	
+           </td>
+           <td>
+           		<if condition="$v['cuted_money']">
+           			{$v['cuted_money']}元
+           		<else />
+           			0元
+           		</if>	
+           </td>
+           <td>{$v['ky_money']}元</td>
+           <td>{$v['tx_money']}元</td>
+		   <td>{$v.money}元</td>
+		   <td>{:C('BANK_CONF')[bank_info($v['bid'])['bankname']]}</td>
+		   <td>{:bank_info($v['bid'])['bankno']}</td>
+		   <td>{:bank_info($v['bid'])['bankarea']}</td>
+		   <td>{:bank_info($v['bid'])['bankcity']}</td>
+		   <td>{$v.time|date='Y-m-d H:i:s',###}</td>
+		   <td><if condition="$v['status'] eq 0">未审核<elseif condition="$v['status'] eq 1" />提现成功<elseif condition="$v['status'] eq 2" />不符合提现条件</if></td>
+		   <td>
+		   <if condition="$v['status'] eq 0">
+		   <a href="/Paimai/AdminOrder/ty/id/{$v.id}/uid/{$v['uid']}">同意提现</a> / 
+		   <a href="/Paimai/AdminOrder/bty/id/{$v.id}">不同意提现</a>
+		   <else />
+			已审核
+		   </if>
+		   </td>
+		   </tr>
+		</volist>
+        
+        <tr><td colspan="15">{$page}</td></tr>
+    </table>
+        
+</block>

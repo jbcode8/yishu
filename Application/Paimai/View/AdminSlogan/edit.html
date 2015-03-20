@@ -1,0 +1,27 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+    <!-- <div class="nav_btn">
+         <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Paimai/AdminCat/add')}', {title:'添加文章', id:'adoArticle'})"> 添加文章</a>
+         <a class="fa fa-plus-square" href="{:U('Mall/ArticleCategory/index')}"> 分类管理</a>
+     </div>-->
+    <!--快捷按钮 结束-->
+    <form method="post" action="{:U('Paimai/AdminSlogan/update')}" style="width: 500px;height: 300px; margin: auto;">
+        <input type="hidden" name="slogan_id" value="{$slogan.slogan_id}">
+        <table class="m_table">
+            <tr><td width="200">口号内容:</td><td><textarea name="slogan_name">{$slogan.slogan_name}</textarea>(最好不要超过15个字)</td></tr>
+            <tr>
+                <td>是否可用:</td>
+                <td>
+                    <input type="radio" <if condition="$slogan['slogan_isshow'] eq 1"> checked="checked" </if> name="slogan_isshow" value="1"/>&nbsp;是&nbsp;
+                    <input type="radio" <if condition="$slogan['slogan_isshow'] eq 0"> checked="checked" </if> name="slogan_isshow" value="0"/>&nbsp;否&nbsp;
+                </td>
+            </tr>
+            <tr><td colspan="2" align="center"><input class="m_submit" type="submit" value="添加"></td></tr>
+        </table>
+    </form>
+</block>

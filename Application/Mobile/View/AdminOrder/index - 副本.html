@@ -1,0 +1,140 @@
+<extend name="Admin@Public:base"/>
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css"/>
+    <link href="{CSS_PATH}Paimai/comm.css" rel="stylesheet" type="text/css"/>
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+	
+
+    <!--快捷按钮 结束-->
+    <style type="text/css">
+        .j_green{
+            color: #59B638;
+        }
+        .j_background{
+            background: #5978A4;
+            color: #fff;
+        }      
+    </style>
+    <table class="m_table">
+        <volist name="orderinfo" id="v">
+            <tr>
+                <td class="j_background">订单ID:{$v.orderinfo_id}</td>
+                <td>订单号:{$v.orderinfo_sn}</td>
+                <td>订单总金额:{$v.orderinfo_amount}</td>
+                <td>订单时间:{$v.orderinfo_createtime|date='Y-m-d H:i:s',###}</td>
+                <td>
+                    <if condition="$v['orderinfo_status'] eq 5">
+                        <a href="{:U('Paimai/AdminOrder/edit',array('orderinfo_id'=>$v['orderinfo_id']))}">修改订单</a>
+                    </if>
+                </td>
+            </tr>
+            <tr>
+                <td>商品货号</td>
+                <td>商品名称</td>
+                <td>竞拍次数</td>
+                <td>商品价格</td>
+                <td>&nbsp;</td>
+            </tr>
+			
+            {:getOrdergoodsByOrderinfo($v['orderinfo_id'])}
+			
+            <tr>
+                <td colspan="2">收货地址:
+                    {:getRegionNameByid($v['orderinfo_province'])}(省/市)
+                    {:getRegionNameByid($v['orderinfo_city'])}(市/区)
+                    {$v.orderinfo_address}
+                    收货人名字:{$v.orderinfo_reciver}
+                    收货人电话:{$v.orderinfo_mobile}
+                </td>
+				<td colspan="2">
+				<if condition="$v['orderinfo_paystatus'] eq 2">
+                            <if condition="$v['orderinfo_status'] eq 5">
+				快递单号:
+                    <input id='kd' type='text' name='kd' value='{$v['orderinfo_kd']}' />
+				</if></if>
+                </td> 
+                <td class="j_option">&nbsp;
+                    <!-- 隐藏 -->
+                    <input id="j_orderinfo_id" type="hidden" value="{$v.orderinfo_id}"/>
+    
+                    <if condition="$v['orderinfo_paystatus'] eq 0">未付款
+
+                    <elseif condition="$v['orderinfo_paystatus'] eq 2"/>
+                            <if condition="$v['orderinfo_status'] eq 5">
+                                <input  class="j_sendgoods sendgoods" type="button" value="确认发货"/>
+                            <elseif condition="$v['orderinfo_status'] eq 6"/>
+                                等待收货
+                            <elseif condition="$v['orderinfo_status'] eq 7"/>
+                                交易完成
+                            <elseif condition="$v['orderinfo_status'] eq 8"/>
+                                <input class="j_sendgoods goods_refund" type="button" value="退货审核"/>
+                            <elseif condition="$v['orderinfo_status'] eq 4"/>
+                                退货成功
+                            </if>
+                        
+                    </if>
+                </td>
+            </tr>
+			<tr><td colspan="5" class="j_background"></td></tr>
+        </volist>
+		<tr><td colspan="5" align="right">{$page}</td></tr>
+    </table>
+    <script>
+        $(function () {
+            //ajax发货
+            $(".sendgoods").each(function () {
+
+                $(this).click(function () {
+                    var option_td_obj=$(this).parent();
+                    //alert(option_td_obj.text());
+                    var orderinfo_id = $.trim($(this).siblings("input").val());
+                    //alert(orderinfo_id);return ;
+					
+                    if (confirm("确认发货?")) {
+						if(! $('#kd').val()){
+							alert('请填写快递单号');
+							return;
+						}
+                        $.get(
+                                "__URL__/ajax_chargesendstatus",
+                                {'id': orderinfo_id,'kd':$('#kd').val()},
+                                function (data) {
+                                    if (data == 1) {
+                                        alert("发货成功");
+                                        option_td_obj.text("已经发货,等待收货");
+                                        window.location.reload();
+                                    } else {
+                                        alert("发货失败");
+                                    }
+                                }
+                        )
+                    }
+                })
+            })
+
+            //确认退货
+            $(".goods_refund").each(function(){
+                $(this).click(function(){
+                    var refund_id = $(this).parent().find("#j_orderinfo_id").attr("value");
+                    var refund_message = $(this).parent();
+                    if (confirm("确认通过退货?")) {
+                         $.post("{:U('AdminOrder/refund_goods')}", {'id':refund_id }, function(r){
+                            if(r.status){
+                                alert('退货修改成功');
+                                refund_message.html('');
+                                refund_message.html('退货成功');
+                            } else {
+                                alert('退货修改失败');
+                            }
+                        },'json');
+                    }
+                });
+            });
+            
+        })
+    </script>
+
+    
+</block>

@@ -1,0 +1,112 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{width:800px;}
+
+        .u-brief{width:380px;height:54px;font:12px/1.5 Microsoft YaHei}
+    </style>
+</block>
+<block name="body">
+    <load file="{PLUGIN_PATH}uploadify/jquery.uploadify.min.js" />
+    <form action="{:U('Gallery/AdminExhibit/update')}" method="post" class="addNews">
+        <table class="form">
+            <tr>
+                <th class="w1">标题:</th>
+                <td>
+                    <input type="text" name="title" />
+                </td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+            <tr>
+                <th class="w1">选择画廊:</th>
+                <td>
+                    {:tagSelectGallery()}
+                </td>
+                <td class="tips">
+                <i class="red">* 必填</i>
+                </td>
+            </tr>
+            <tr>
+                <th>选择作家:</th>
+                <td><select name="aid" id="aid"><option value=""> -- 请选择</option></select></td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+			<tr>
+                <th>所处地区:</th>
+                <td>{:tagSelectRegion()}</td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+            <tr>
+                <th>开始时间:</th>
+                <td>
+                    <input type="text" name="starttime" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});" />
+                </td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+            <tr>
+                <th>结束时间:</th>
+                <td>
+                    <input type="text" name="endtime" onfocus="var st=$('#starttime').val(); WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:st});"  />
+                </td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+            <tr>
+                <th>缩略图:</th>
+                <td> {:hook('upload',array('model'=>'galleryExhibit','type'=>'thumb','height'=>80,width=>150,'uploadify'=>'swfone'))}</td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+            <tr>
+                <th>简介:</th>
+                <td>
+                    <textarea name="description"></textarea>
+                </td>
+                <td class="tips">
+                    <i>可选</i>
+                </td>
+            </tr>
+            <tr>
+                <th>内容:</th>
+                <td>
+                    <div style="width: 85%;height:200px;">
+                        <textarea name="content">{$vo.content}</textarea>{:hook('adminEditor',array('name'=>'content'))}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <button type="submit" class="btn ajax-post" target-form="addNews">确认</button>
+                    <button type="reset" class="btn btn_gary">重填</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</block>
+<block name="javascript">
+    <load file="__PUBLIC__/plugin/DatePicker/WdatePicker.js" />
+    <script type="text/javascript">
+        $('#gid').on('change', function(){
+            var gid = $(this).children('option:selected').val();
+            var uri = "{:U('Gallery/AdminWorks/artistlist')}";
+            $.ajax({
+                url:uri, type:'GET', data:{'gid':gid}, dataType:'jsonp', jsonp: "backfunc",
+                success: function(json){
+                    if(json['status'] == 1){
+                        var arr = json['info'], _option = '<option value=""> -- 请选择</option>';
+                        $.each(arr, function(k, v){
+                            _option += '<option value="'+ v['id'] +'">'+ v['name'] +'</option>';
+                        });
+                        $('#aid option').remove();
+                        $(_option).appendTo($('#aid'));
+                    }
+                }
+            });
+        });
+    </script>
+</block>

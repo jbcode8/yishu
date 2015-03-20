@@ -1,0 +1,31 @@
+<extend name="Admin@Public:base" />
+<block name="body">
+<div class="container">
+    <ul class="header clear">
+    <li <eq name="ACTION_NAME" value="show">class="current"</eq>><a href="{:U('Auction/AdminDelivery/index')}">征集投递管理</a></li>
+    </ul>
+	<table class="table table-hover">
+	<tbody>
+	    <tr><td class="tdL" width="250">拍品名称:</td><td>{$list['name']}</td></tr>
+	    <tr><td class="tdL" width="250">拍品分类:</td><td>{:getAuctionCategoryName($list['category'])}</td></tr>
+	    <tr><td class="tdL">拍品作者:</td><td>{$list['author']}</td></tr>
+	    <tr><td class="tdL">拍品尺寸：</td><td>{$list['size']}</td></tr>
+	    <tr><td class="tdL">拍品品相：</td><td>{$list['intact']}</td></tr>
+	    <tr><td class="tdL">保留价:</td><td>{$list['price']}</td></tr>
+	    <tr><td class="tdL">备注:</td><td>{$list['remark']}</td></tr>
+	    <tr><td class="tdL">投递人姓名:</td><td>{$list['uploader']}</td></tr>
+	    <tr><td class="tdL">投递人昵称:</td><td>{:getNickName($list['memid'])}</td></tr>
+	    <php>$img_arr = $list['images'];$new_arr = explode('/', $img_arr);</php>
+	    <tr><td class="tdL">投递人头像:</td><td>1、<img src="__ROOT__/statics/collect_head_image/{$new_arr[2]}"> 2、<img src="__ROOT__/statics/collect_head_image/{$new_arr[1]}"> 3、<img src="__ROOT__/statics/collect_head_image/{$new_arr[0]}"></td></tr>
+	    <tr><td class="tdL">所在城市:</td><td>{:getAreaName($list['city'])}</td></tr>
+	    <tr><td class="tdL">投递的机构:</td><td>{:getAgencyName($list['agencyid'])}</td></tr>
+	    <tr><td class="tdL">上传者手机:</td><td>{$list['phone']}</td></tr>
+	    <tr><td class="tdL">上传者电话:</td><td>{$list['tel']}</td></tr>
+	    <tr><td class="tdL">投品状态：</td><td><if condition="($list['status'] eq 0)"><span style="color:blue">待审核 </span><elseif condition="($list['status'] eq 1)" /><span style="color:blue">已通过 </span><else /><span style="color:red">未通过 </span></if></td></tr>
+	    <tr><td class="tdL" width="250">投递时间:</td><td>{$list['createtime']|date='Y-m-d H:i:s',###}</td></tr>
+	    <tr><td class="tdL" width="250">更新时间:</td><td><if condition="!$list['updatetime']">无<else />{$list['updatetime']|date='Y-m-d H:i:s',###}</if></td></tr>
+	    <tr><td class="tdL">&nbsp;</td><td><a href="{:U('Auction/AdminDelivery/show', array('id' => $list['id'], 'audit' => 'yes'))}" class="btn btn-primary">通过审核</a> | <a href="{:U('Auction/AdminDelivery/show', array('id' => $list['id'], 'audit' => 'no'))}" class="btn btn-primary">未通过审核</a></td></tr>
+	</tbody>
+	</table>
+</div>
+</block>

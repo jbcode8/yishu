@@ -1,0 +1,79 @@
+<extend name="Admin@Public:base" />
+
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+</block>
+
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul><li class="selected"><a href="{:U('Mall/Store/index')}">店铺列表</a></li></ul>
+
+        <!--搜索 开始-->
+        <div class="advSearch">
+            <form method="post" action="{:U(index)}">
+                <div class="row">
+                    <label>关键字：</label>
+                    <input type="text" size="8" name="kw" placeholder="请输入关键字" style="padding:2px 5px" value="{$kw}" />
+                    {:searchSelect(array('store_name' => '店铺名称','store_address' => '店铺地址','store_desc' => '店铺描述','store_owner' => '店主名称'), $type)}
+                </div>
+                <div class="row">
+                    <label>时间：</label>
+                    <input style="padding:2px 5px" value="{$start_time}" type="text" size="6" placeholder="起始时间" name='start_time' id="starttime"  onfocus="WdatePicker({onpicked:function(){$('#endtime').focus();}})"/> -
+                    <input style="padding:2px 5px" value="{$end_time}" type="text" size="6" placeholder="结束时间" name='end_time' id="endtime" onfocus="WdatePicker({minDate:$('#starttime').val()})" />
+                </div>
+                <button type="submit" class="btn fa fa-search"> 搜 索</button>
+            </form>
+        </div>
+        <!--搜索 结束-->
+
+    </div>
+    <!--导航部分 结束-->
+
+    <form action="{:U('listorder')}" method="post">
+        <!-- 数据表格 开始-->
+        <?php
+        $thead = array(
+            'store_id'=>'编号',
+            'store_name'=>'店铺名称',
+            'store_address'=>'店铺地址',
+            'store_owner_name'=>'店主名称',
+            'create_time'=>array(
+                '_title'=>'申请时间',
+                'tag'=>'span',
+                'func'=>'date("Y-m-d H:i:s", $create_time)',
+            ),
+            '状态'=>array(
+                ' 待审'=>array('class'=>'error fa fa-ban', 'condition'=>'$status==0',),
+                ' 启用'=>array('class'=>'success fa fa-check-circle', 'condition'=>'$status==1',),
+                ' 锁定'=>array('class'=>'error fa fa-lock', 'condition'=>'$status==2',),
+            ),
+            '操作'=>array(
+                ' 查看'=>array('href' => 'Mall/Store/detail?store_id=$store_id', 'class'=>'showStore fa fa-edit'),
+                ' 启用'=>array('href' =>'Mall/Store/editstatus?store_id=$store_id&status=1', 'class'=>'ajax-get success fa fa-check-circle',),
+                ' 锁定'=>array('href' =>'Mall/Store/editstatus?store_id=$store_id&status=2', 'class'=>'ajax-get error fa fa-lock',),
+            ),
+        );
+        echo $_table_list = $__controller__->tableList($_list, $thead);
+        ?>
+        <!-- 数据表格 结束-->
+        <div class="paging">
+            {$_page}
+        </div>
+    </form>
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+    <script type="text/javascript">
+        $(function() {
+            $(".showStore").on('click',function(e){
+                e.preventDefault();
+                $.dialog.open(this.href, {title:'店铺详情', id:'showStore'} );
+            });
+        });
+
+    </script>
+    <load file="__PUBLIC__/plugin/DatePicker/WdatePicker.js" />
+</block>

@@ -1,0 +1,57 @@
+<extend name="Admin@Public:base" />
+<block name="body">
+<div class="container">
+    <ul class="header clear">
+    <li <eq name="ACTION_NAME" value="index">class="current"</eq>><a href="{:U('Auction/AdminData/index')}">拍卖信息管理</a></li>
+    <li <eq name="ACTION_NAME" value="add">class="current"</eq>><a href="{:U('Auction/AdminData/add')}">添加拍卖信息</a></li>
+    </ul>
+    <form method="post">
+    <table class="table table-hover">
+        <thead><tr><th></th><th></th></tr></thead>
+        <tbody>
+            <tr><td>拍卖标题：</td><td><input type="text" name="title" size="50" /></td></tr>
+            <tr><td>拍卖简述：</td><td><textarea name="desc" rows="4" style="width:500px"></textarea></td></tr
+            <tr><td>搜索产品：</td><td><input type="text" name="wd" size="30" id='wd'/> 
+                    <button id="search" class="btn btn-primary"> 搜索 </button><br />根据商品编号、名称或货号搜索商品</td></tr>
+            <tr><td>拍卖分类：</td><td><select name="gid" id="gid"><option value="">请先搜索出产品</option></select></td></tr>
+            <tr><td>起拍时间：</td><td>
+<input type="text" name='starttime' id='starttime' value="" class="input-big Wdate" placeholder="起拍时间" onFocus="var end = $dp.$('endtime');WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',alwaysUseStartDate:true,onpicked:function(){end.focus();}});" />
+                </td></tr>
+            <tr><td>结束时间：</td><td>
+<input type="text" name='endtime' id='endtime' class="input-big Wdate" placeholder="结束时间"  onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',alwaysUseStartDate:true,minDate:'#F{$dp.$D(starttime)}'});" /></td></tr>
+            <tr><td>起拍价格：</td><td><input type="text" name="startprice" onKeyUp="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" size="30" /></td></tr>
+            <tr><td>封顶价格：</td><td><input type="text" name="endprice" onKeyUp="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" size="20" /></td></tr>
+            <tr><td>加价幅度：</td><td><input type="text" name="eachprice" onKeyUp="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" size="40" /></td></tr>
+            <tr><td>保证金：</td><td><input type="text" name="needmoney" onKeyUp="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" size="40" /></textarea></td></tr>
+            <tr><td>需要积分：</td><td><input type="text" name="needintegral" onKeyUp="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" size="40" /></textarea></td></tr>
+            <tr><td>&nbsp;</td><td><input name="submit" type="submit" value="提交信息" class="btn btn-primary" /></td></tr>
+        </tbody>
+    </table>
+    </form>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $('#search').click(function(){
+            var wd = $.trim($('#wd').val());
+            if(wd == ''){alert('请填写搜索内容');}
+            else{
+                $.ajax({
+                    url : "{:U('Auction/AdminData/goodsdata')}", 
+                    data : {'wd' : wd}, type : 'get', 
+                    success : function(data){
+                        selectHtml(data);
+                    } 
+                });
+            }            
+            return false;
+        });
+    });
+    function selectHtml(ob){
+        var opt = '';
+        if(ob){$.each(ob,function(i,arr){opt += '<option value="'+ arr['id'] +'">'+ arr['name'] +'</option>'; });}else{opt = '<option value="">未搜索到相关产品</option>';}        
+        $("#gid option").remove();
+        $('#gid').append(opt);
+    }
+    </script>
+</div>
+<script type="text/javascript" src="{PLUGIN_PATH}DatePicker/WdatePicker.js"></script>
+</block>

@@ -1,0 +1,141 @@
+<extend name="galleryDetailBase"/>
+<block name='content'>
+<!--center start-->
+<div class="center cb">
+    <!--left start-->
+    <div class="gallery_left">
+        <!--top start-->
+        <div  class="gallery_lefttop">
+            <h3>{$gInfo.name}</h3>
+            <img src="{$gInfo.gthumb}" width="210" height="200"/>
+            <p><span>作品<a href="{:U('Gallery/GalleryDetail/gworks',array('gid'=>$gInfo['id']))}">{$workcount}</a></span><span>展览<a href="{:U('Gallery/GalleryDetail/gexhibit',array('gid'=>$gInfo['id']))}">{$exhibitcount}</a></span><span class="gallery_l_r">艺术家<a href="{:U('Gallery/GalleryDetail/gartist',array('gid'=>$gInfo['id']))}">{$artistcount}</a></span></p>
+        </div>
+        <!--end top-->
+        <!---->
+        <div class="gallery_leftc">
+            <p>地区：<a href="#">{$gInfo.address}</a></p>
+            <p>成立时间：<a href="#">{$gInfo.found}</a></p>
+            <p>艺术家：<volist name="artist" id="vo"><a href="{:U('/Artist/ArtistDetail/index',array('id'=>$vo['id']))}">{$vo.name}</a>&nbsp;</volist><a href="#" class="yellow right">更多&gt;&gt;</a></p>
+            <p>关键字：<a href="#">{$gInfo.keywords}</a></p>
+        </div>
+        <!---->
+        <!---start-->
+        <div class="gallery_leftd">
+            <h3>简介</h3>
+            <p>{$gInfo.desc|new_msubstr=###,0,120}<a href="{:U('Gallery/GalleryDetail/gintro',array('gid'=>$gInfo['id']))}" class="yellow right">[更多]</a></p>
+        </div>
+        <!--end-->
+    </div>
+    <!--end left-->
+    <!--right start-->
+    <div class="gallery_right">
+        <!--banner-->
+        <div class="gallery_banner block1">
+
+
+
+
+            <div class="common-slideshow slideshow">
+                <div class="slide-img">
+                    <ul>
+                        <li><a href="#" target="_blank" > <img src="{$gInfo.gthumb}" width="710" height="300" /></a></li>
+                        <!--
+                        <li><a href="#" target="_blank" ><img src="{IMG_PATH}Gallery/g_02.jpg" width="710" height="300" /></a></li>
+                        <li><a href="#" target="_blank" ><img src="{IMG_PATH}Gallery/g_02.jpg" width="710" height="300" /></a></li>
+                        -->
+                    </ul>
+                </div>
+                <!--
+                <div class="num-page"><ul><li>1</li><li>2</li><li>3</li></ul></div>
+                -->
+            </div>
+        </div>
+        <!--banner end-->
+        <!--艺术家 start-->
+        <div class="gallery_arts">
+            <div class="gallery_artstop"><span><a href="{:U('/Gallery/GalleryDetail/gartist/',array('gid'=>$gInfo['id']))}">更多&gt;&gt;</a></span>艺术家</div>
+            <div class="gallery_artsd">
+                <ul>
+                    <volist name="aInfo" id="vo">
+                    <li><a href="{:U('/Artist/ArtistDetail/index/',array('id'=>$vo['id']))}"><img src="{$vo.thumb}" border="0" width="136" height="160"/></a><p><a href="#">{$vo.name}</a></p></li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+        <!--end 艺术家-->
+        <!--最近展览 start-->
+        <div class="gallery_arts">
+            <div class="gallery_artstop"><span><a href="{:U('/Gallery/GalleryDetail/gexhibit/',array('gid'=>$gInfo['id']))}">更多&gt;&gt;</a></span>最近展览</div>
+            <div class="gallery_artsdown">
+                <ul>
+                    <volist name="eInfo" id="vo">
+                    <li><a href="{:U('/Gallery/GalleryDetail/show/',array('to'=>'exhibit','id'=>$vo['id'],'gid'=>$gInfo['id']))}"><img src="{$vo.thumb}" border="0" width="170" height="130" /></a><p><a href="#">{$vo.description|new_msubstr=###,0,14}</a></p><p>展览地点：<u>{$vo.gname}</u></p><p>展览时间：<u>{$vo.starttime|date='Y-m-d',###}</u></p></li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+        <!--end 最近展览-->
+        <!--作品展示 start-->
+        <div class="gallery_arts">
+            <div class="gallery_artstop"><span><a href="{:U('/Gallery/GalleryDetail/gworks/',array('gid'=>$gInfo['id']))}">更多&gt;&gt;</a></span>作品展示</div>
+            <div class="gallery_fontc">
+                <ul>
+                    <volist name="wInfo" id="vo">
+                        <li><a href="{:U('/Gallery/GalleryDetail/show/',array('to'=>'works','id'=>$vo['id'],'gid'=>$gInfo['id']))}"><img src="{$vo.thumb}" border="0" width="170" height="130"/></a><p><a href="#">{$vo.name}</a></p><p>作者：<u>{:getName($vo['aid'])}</u></p></li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+        <!--end 作品展示-->
+        <!--start 留言信息-->
+        <div class="gallery_message">
+            <form method="post" action="{:U('Gallery/GalleryDetail/lMessage',array('gid'=>$gInfo['id']))}">
+             <input type="hidden" name="gid" value="{$gInfo.id}"/>
+            <div class="gallery_artstop"></div>
+            <input class="gallery_messages" name="content" type="text" />
+            <div class="cb"><span class="right"><if condition="$auth eq false">您还未登录，请先<a href="{:U('/Member/Passport/login')}" class="blue">登录</a>后再留言<else/><input type="submit" class="gallery_tijiao" value="提交" /></if>
+</span><span class="left">验证码：<input  style="width:62px; height:20px; border:1px solid #E0E0E0" name="yzm" type="text" /><img  class="m_l10" src="{:U('Gallery/GalleryDetail/verify',array('gid'=>$gInfo['id']))}"  id="verifyimg"/></span></div>
+             </form>
+            <div class="message_c">
+                <volist name="message" id="vo">
+                <p class="message_black"><span>{:getUsername($vo['uid'])}</span><span>{$vo.create_time|date='Y-m-d H:i:s',###}</span><span>发表评论</span></p>
+                <p >{$vo.content}</p>
+                </volist>
+            </div>
+            <!--more s tart-->
+            <div class="more right">
+                <div id="f-page">
+                    <if condition="$pages gt 1">{$page} 共{$pages}页 　到第 <select id="select">{$select}<select> 页 </if>
+                </div>
+            </div>
+            <!--more end-->
+            <style>
+                #f-page {font: 12px/15px Tahoma, Arial, SimSun; text-align: center;}
+                #f-page .page{ display: inline;}
+                #f-page a, #f-page span {display: inline-block;_display: inline;_zoom: 1;padding: 5px 10px;border: 1px solid #ddd;color: #111;text-decoration: none; margin: 0 3px;}
+                #f-page span, #f-page a:hover {border: 1px solid #a51318;color: #fff;background: #a51318;}
+            </style>
+        </div>
+        <!--end 留言信息-->
+    </div>
+    <!--right end-->
+</div>
+<!--center end-->
+<script>
+    $(function(){
+        $("#select").live("change",function(){
+            var p = $("#select option:selected").val();
+            window.location.href = "{:U('/Gallery/GalleryDetail/gallery/')}"+"?gid="+{$gInfo['id']}+"&p="+p;
+        })
+        //刷新验证码
+        var verifyimg = $("#verifyimg").attr("src");
+        $("#verifyimg").click(function(){
+            if( verifyimg.indexOf('?')>0){
+                $("#verifyimg").attr("src", verifyimg+'&random='+Math.random());
+            }else{
+                $("#verifyimg").attr("src", verifyimg.replace(/\?.*$/,'')+'?'+Math.random());
+            }
+        });
+    })
+</script>
+</block>

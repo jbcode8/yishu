@@ -1,0 +1,82 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{width: 300px;height: 210px;}
+    </style>
+</block>
+<!--主体内容 开始-->
+<block name="body">
+    <!-- 数据表格 开始-->
+    <form method="post" class="adSearch">
+        <div id="form_left">
+            <table class="form">
+                <tr>
+                    <th width="100px">广告标题：</th>
+                    <td><input type="text" name="title" value="" /></td>
+                </tr>
+                <tr>
+                    <th class="w1">广告类型：</th>
+                    <td>
+                        <select name="type">
+                            <option value="">请选择</option>
+                            <option value="0">文字</option>
+                            <option value="1">图片</option>
+                            <option value="2">JS</option>
+                            <option value="3">FLASH</option>
+                        </select>
+
+                    </td>
+                </tr>
+                <tr>
+                    <th class="w1">所属广告位：</th>
+                    <td>
+                        <select name="sid">
+                            <option value="">请选择</option>
+                            <volist name="data" id="vo">
+                                <option value="{$vo.id}"  <if condition="$data['advertise']['sid'] eq $vo['id']">selected="selected"</if>>{$vo.name}</option>
+                            </volist>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="w1">状态：</th>
+                    <td>
+                        <select name="status">
+                            <option value="">请选择</option>
+                            <option value="1">开启</option>
+                            <option value="0">关闭</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th></th>
+                    <td>
+                        <button type="submit" class="btn" target-form="adSearch">确认</button>
+                        <button type="reset" class="btn btn_gary">重填</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </form>
+    <!-- 数据表格 结束-->
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+    <script type="text/javascript">
+        $(function(){
+            $('form').submit(function(){
+                var data = $('form').serializeArray();
+                var  where = '';
+                if(data[0].value != ''){ where += 'title='+data[0].value; }
+                if(data[1].value != ''){ where += where==''?'type='+data[1].value:'&type='+data[1].value; }
+                if(data[2].value != ''){ where += where==''?'sid='+data[2].value:'&sid='+data[2].value; }
+                if(data[3].value != '' ){ where += where==''?'status='+data[3].value:'&status='+data[3].value;}
+                var url = "{:U('Ad/Advertise/index')}";
+                url.indexOf('?',url)>0?url = url+"&"+where:url = url+"?"+where;
+               $.dialog.opener.location.href = url;
+            });
+        });
+    </script>
+</block>

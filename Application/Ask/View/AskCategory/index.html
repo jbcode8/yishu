@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>分类列表页</title>
+	</head>
+	
+	<body>
+			<table>
+				<tr>
+					<td>CID</td>
+					<td>分类名称</td>
+					<td>父级id</td>
+					<td>排序</td>
+					<td>是否显示</td>
+				</tr>
+				<volist name="category_list" id="category">
+				<tr>
+					<td>{$category['cate_id']}</td>
+					<td>{$category['name']}</td>
+					<td>{$category['parent_id']}</td>
+					<td>{$category['sort_order']}</td>
+					<td>{$category['if_show']}</td>
+					<td><a href="{:U('Answers/AskCategory/edit',array('cid' => $category['cate_id']))}">编辑分类</a></td>
+					<td><a href="{:U('Answers/AskCategory/edit',array('cid' => $category['cate_id']))}">删除分类</a></td>
+				</tr>
+				</volist>
+				<tr>
+					<td><a href="{:U('Answers/AskCategory/add')}">添加分类</a></td>
+				</tr>
+			</table>
+	</body>
+</html>

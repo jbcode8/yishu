@@ -1,0 +1,1833 @@
+<extend name="newsBase"/>
+<block name='content'>
+<!-- 页面内容 -->
+<div class="main-container">
+    <!-- 栏目头部 -->
+    <div class="panel-header clear">
+        <div class="left top-bar">
+            <p><a href="#"><img src="{IMG_PATH}logo.jpg" alt="logo" /></a></p>
+            <p class="panel-name">资 讯<br />频 道</p>
+        </div>
+        <div class="main-web clear">
+            <div class="right">
+                <div id="main-search">
+                    <div class="species">
+                        <span class="species-content">全 部</span>
+                        <span class="choose"><img src="{IMG_PATH}icons/search-arrow.gif" alt="" /></span>
+                        <div class="species-jump common-jump hide">
+                            <ul>
+                                <li onclick="javascript:$('#modelid').val(2);">资 讯</li>
+                                <li onclick="javascript:$('#modelid').val(4);">展 讯</li>
+                                <li onclick="javascript:$('#modelid').val(3);">画 廊</li>
+                                <li onclick="javascript:$('#modelid').val(3);">大 师</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="search">
+                        <form action="{:U('Search/index')}" method="get">
+                            <input type="hidden" name="model" id="modelid">
+                            <div class="search-input">
+                                <input type="text" name="q" placeholder="中国最具影响力艺术门户" />
+                            </div>
+                            <p class="search-btn"><input type="submit" value="搜 索" /></p>
+                        </form>
+                    </div>
+                </div>
+                <div class="hot-search">
+                    <span>热搜：</span>
+                    <span><a href="#">乾隆通宝</a></span>
+                    <span><a href="#">古典家具</a></span>
+                    <span><a href="#">青铜器</a></span>
+                    <span><a href="#">油版雕</a></span>
+                    <span><a href="#">影像</a></span>
+                    <span><a href="#">古籍善本</a></span>
+                    <span><a href="#" class="red">紫砂壶</a></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-navigate">
+            <ul>
+                <li><a href="{:U('/Home/Content/index/category/news')}" class="select">首页</a></li>
+                <ys:nav name="list" catid="4">
+                    <li> <a href="{:U('/Home/Content/lists/category/'.$list['name'])}">{$list.title}</a></li>
+                </ys:nav>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+			<div class="top-msg">
+				<p class="left">
+					<a href="#">艺术网新闻频道上线了!</a>
+				</p>
+				<p class="right">
+					<b class="red">热门资讯：</b>
+                    <ys:list name="list" catid="4" order="view DESC" limit="0,1">
+                    <a href="{:U('/Home/Content/detail/',array('category'=>$category['name'],'id'=>$list['id']))}">{$list.title|new_msubstr=###,0,20}</a>
+                    </ys:list>
+				</p>
+			</div>
+			<div class="main-page">
+				<div class="top-side clear">
+					<div class="ts-left">
+						<div class="common-slideshow information-index-slideshow">
+							<div class="slide-img">
+								<ul>
+                                    <ys:position name="list" catid="10" posid="2" type="1" thumb="1" limit="0,5">
+                                        <li class="{$list}">
+                                            <a href="{:U('/Home/Content/detail/',array('category'=>$category['name'],'id'=>$list['id']))}"><img src="{$list.url}"/></a>
+                                        </li>
+                                    </ys:position>
+								</ul>
+							</div>
+							<div class="num-page">
+								<ul>
+									<li>1</li>
+									<li>2</li>
+									<li>3</li>
+									<li>4</li>
+									<li>5</li>
+								</ul>
+							</div>
+						</div>
+						<div class="famous-focusing column-one">
+							<div class="title">
+								<h2 class="blue">名家聚焦</h2>
+								<p class="title-line"><span class="t1"></span><span class="t2"></span></p>
+							</div>
+							<div class="content">
+                                <ys:position name="list" catid="14" posid="2" type="1" thumb="1" limit="1">
+                                    <h3>{$list.title}</h3>
+                                    <div class="discription clear">
+                                        <p class="left"><a href="{:U('/Home/Content/detail/',array('category'=>$category['name'],'id'=>$list['id']))}" target="_blank"><img src="{$list.url}" width="130" height="90px" alt="" /></a></p>
+                                        <p class="right">
+										<span class="article-dis">
+										{$list.description|new_msubstr=###,0,50}
+										<a href="{:U('/Home/Content/detail/',array('category'=>$category['name'],'id'=>$list['id']))}" target="_blank" class="red">[详细]</a>
+										</span>
+                                        </p>
+                                    </div>
+                                </ys:position>
+								<div class="column-list">
+									<ul>
+                                        <ys:list name="list"  catid='14' field='id,title,description' order='update_time DESC'  limit="0,3">
+                                            <li>
+                                            <p class="sub-title"><a href="{:U('/Home/Content/detail/',array('category'=>$category['name'],'id'=>$list['id']))}" target="_blank">{$list.title|new_msubstr=###,0,20}</a></p>
+                                            <p class="athor">{:get_author($list.uid)}</p>
+                                            </li>
+                                        </ys:list>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="ts-center">
+						<div class="main-news">
+							<dl>
+                                <volist name="news" id="list">
+                               <dt>
+                                   <a href="{:U('/Home/Content/detail/',array('category'=>$category['name'],'id'=>$list['dt']['id']))}" target="_blank">{$list.dt.title}</a>
+                               </dt>
+                                <dd>
+                                    <volist name="list['dd']" id="no">
+                                    <a href="{:U('/Home/Content/detail/',array('category'=>$category['name'],'id'=>$no['id']))}" target="_blank">[{$no.title}]</a>
+                                    </volist>
+                                </dd>
+                                </volist>
+							</dl>
+						</div>
+						<div class="secondary-news">
+							<ul>
+                                <ys:list name="list" catid='20' field='id,title,update_time' order='update_time DESC'  limit="0,9">
+								    <li><p class="title"><a href="{:U('/Home/Content/detail/',array('category'=>$category['name'],'id'=>$list['id']))}" target="_blank">{$list.title|new_msubstr=###,0,20}</a></p><p class="date">{$list.update_time|date='Y-m-d',###}</p></li>
+                                </ys:list>
+							</ul>
+						</div>
+					</div>
+					<div class="ts-right">
+						<div class="art-topic">
+							<h4>艺术专题</h4>
+							<p>
+								<a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/02.jpg" alt="" /></a>
+								<span class="word">
+									<a href="#">【画廊故事】之调整期的画廊<br />——泽中画廊</a>
+								</span>
+							</p>
+							<p>
+								<a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/03.jpg" alt="" /></a>
+								<span class="word"><a href="#">这里最多能写2行字<br />like this</a>
+								</span>
+							</p>
+						</div>
+						<div class="exhibition column-three">
+							<h4>展览时讯</h4>
+							<div class="discription clear">
+                                <ys:position name="list" catid="18" posid="2" type="1" limit="0,1">
+                                    <div class="left"><a href="{:U('/Home/Content/detail/',array('category'=>$category['name'],'id'=>$list['id']))}" target="_blank"><img src="{$list.url}" width="100px" height="70px" alt="" /></a></div>
+                                    <label class="right">
+                                        <a href="{$list.id}" target="_blank"><b>{$list.title}</b></a>
+                                        <p class="grey">{$list.update_time|date='Y-m-d',###}</p>
+                                    </label>
+                                </ys:position>
+							</div>
+							<div class="list article-list">
+								<ul>
+                                    <ys:list name="list" catid='18' field='id,title,update_time' order='update_time DESC'  limit="1,5">
+                                        <li><a href="{:U('/Home/Content/detail/',array('category'=>$category['name'],'id'=>$list['id']))}" target="_blank">{$list.title|new_msubstr=###,0,18}</a></li>
+                                   </ys:list>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="center-advertis">
+                    <Ys:adv id="1" />
+				</div>
+				<div class="center-side clear">
+					<div class="cs-left">
+						<div class="collection">
+							<div class="title">
+								<h2 class="blue">收藏业界</h2>
+								<span class="more"><a href="{:U('Home/Content/lists',array('category'=>'shoucang'))}" target="_blank">更多>></a></span>
+								<p class="title-line"><span class="t1"></span><span class="t2"></span></p>
+							</div>
+							<div class="content clear">
+                                <ys:position name="list" catid="13" posid="2" type="1" limit="1">
+                                    <p class="left">
+                                        <a href="{:U('/Home/Content/detail/',array('category'=>$category['name'],'id'=>$list['id']))}" target="_blank"><img src="{$list.url}" width="120px" height="140px"  alt="" /></a>
+                                    </p>
+                                </ys:position>
+								<div class="right article-list">
+									<ul>
+                                        <ys:list name="list" catid='13' field='id,title,update_time' order='update_time DESC'  limit="6">
+                                            <li><a href="{:U('/Home/Content/detail/',array('category'=>$category['name'],'id'=>$list['id']))}" target="_blank">{$list.title|new_msubstr=###,0,14}</a></li>
+                                         </ys:list>
+									</ul>
+								</div>
+							</div>
+							<p class="advertis"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/06.jpg" alt="" /></a></p>
+						</div>
+						<div class="news-world column-one">
+							<div class="title">
+								<h2 class="blue">轶闻天下</h2>
+								<span class="more"><a href="{:U('Home/Content/lists',array('category'=>'yiwen'))}" target="_blank">更多>></a></span>
+								<p class="title-line"><span class="t1"></span><span class="t2"></span></p>
+							</div>
+							<div class="content">
+                                <ys:position name="list" catid="20" posid="2" type="1" limit="0,1">
+                                    <h3>{$list.title}</h3>
+                                    <div class="discription clear">
+                                        <p class="left"><a href="{$list.id}" target="_blank"><img src="{$list.url}" width="130" height="90px" alt="" /></a></p>
+                                        <p class="right">
+										<span class="article-dis">
+										{$list.description|new_msubstr=###,0,50}
+										<a href="{:U('/Home/Content/detail/',array('category'=>$category['name'],'id'=>$list['id']))}" target="_blank" class="red">[详细]</a>
+										</span>
+                                        </p>
+                                    </div>
+                                    <php>$hav=$vo['id'];</php>
+                                    </ys:position>
+								<div class="column-list">
+									<ul>
+                                        <ys:list name="list" catid='20' field='id,title,uid,
+update_time' order='update_time DESC'  limit="1,6">
+                                            <li>
+                                                <p class="sub-title"><a href="{:U('/Home/Content/detail/',array('category'=>$category['name'],'id'=>$list['id']))}" target="_blank">{$list.title|new_msubstr=###,0,20}</a></p>
+                                                <p class="athor">{:get_author($list.uid)}</p>
+                                            </li>
+                                        </ys:list>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="cs-center">
+						<div class="auction column-two">
+							<div class="title">
+								<p class="left">
+									<span class="cn">拍卖资讯 </span>
+									<span class="en">AUCTION</span>
+								</p>
+								<a href="{:U('Home/Content/lists',array('category'=>'paimai'))}" class="right more" target="_blank">更多>></a>
+							</div>
+							<div class="article-list">
+								<ul>
+                                    <ys:list name="list" catid='12' field='id,title,update_time' order='update_time DESC'  limit="0,5">
+                                        <li><a href="{:U('/Home/Content/detail/',array('category'=>$category['name'],'id'=>$list['id']))}" target="_blank">{$list.title}</a></li>
+                                    </ys:list>
+								</ul>
+							</div>
+						</div>
+						<div class="market column-two">
+							<div class="title">
+								<p class="left">
+									<span class="cn">市场行情 </span>
+									<span class="en">MARKET QUOTATION</span>
+								</p>
+								<a href="{:U('Home/Content/lists',array('category'=>'hangqing'))}" class="right more" target="_blank">更多>></a>
+							</div>
+							<div class="article-list">
+								<ul>
+                                    <ys:list name="list" catid='17' field='id,title,update_time' order='update_time DESC'  limit="5">
+                                        <li><a href="{:U('/Home/Content/detail/',array('category'=>$category['name'],'id'=>$list['id']))}" target="_blank">{$list.title}</a></li>
+                                    </ys:list>
+								</ul>
+							</div>
+						</div>
+						<div class="policy column-two">
+							<div class="title">
+								<p class="left">
+									<span class="cn">政策解读 </span>
+									<span class="en">POLICY INTERPRETATION</span>
+								</p>
+								<a href="{:U('Home/Content/lists',array('category'=>'zhengce'))}" class="right more" target="_blank">更多>></a>
+							</div>
+							<div class="article-list">
+								<ul>
+                                    <ys:list name="list" catid='19' field='id,title,update_time' order='update_time DESC'  limit="5">
+                                        <li><a href="{:U('/Home/Content/detail/',array('category'=>$category['name'],'id'=>$list['id']))}" target="_blank">{$list.title}</a></li>
+                                    </ys:list>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="cs-right">
+						<div class="herald column-three">
+							<h4>拍卖预告</h4>
+							<a class="more" href="#">更多>></a>
+							<div class="discription clear">
+								<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/04.jpg" alt="" /></div>
+								<label class="right">
+									<a href="#"><b>第十一届艺术网主办古玩鉴定会</b></a>
+									<p class="grey">2013-10-25</p>
+								</label>
+							</div>
+							<div class="list article-list">
+								<ul>
+									<li><a href="#">第十六届博宝艺术网古玩鉴定会</a></li>
+									<li><a href="#">第十五届博宝艺术网联合君弘高尔夫球会</a></li>
+									<li><a href="#">主办古玩鉴定会</a></li>
+									<li><a href="#">第十四届博宝网鉴定会</a></li>
+									<li><a href="#">第十二届博宝艺术网古玩鉴定会</a></li>
+									<li><a href="#">第十二届博宝艺术网古玩鉴定会</a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="collectible">
+							<h4>藏品待售</h4>
+							<a class="more" href="#">更多>></a>
+							<div class="content">
+								<ul>
+									<li>
+										<p><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/07.jpg" alt="" /></a></p>
+										<p><a href="#">三圣牌</a></p>
+										<p class="red">￥1200000</p>
+									</li>
+									<li>
+										<p><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/08.jpg" alt="" /></a></p>
+										<p><a href="#">《五谷丰登》</a></p>
+										<p class="red">￥9500</p>
+									</li>
+									<li>
+										<p><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/09.jpg" alt="" /></a></p>
+										<p><a href="#">五子登科大鸡利</a></p>
+										<p class="red">￥368000</p>
+									</li>
+									<li>
+										<p><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/10.jpg" alt="" /></a></p>
+										<p><a href="#">刘建峰 天山角下</a></p>
+										<p class="red">￥12800</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="bottom-advertis">
+					<a href="#"><img src="{IMG_PATH}Home/News/Temp/Advertis/bottom-advertis.jpg" alt="" /></a>
+				</div>
+				<div class="bottom-side clear">
+					<div class="bc-top">
+						<div class="title clear">
+							<div class="sp-line eight-word"><p class="c1"></p><p class="c2"></p></div>
+							<h1>艺术品投资与收藏</h1>
+							<div class="sp-line eight-word"><p class="c2"></p><p class="c1"></p></div>
+						</div>
+						<div class="information-tab art-tab">
+							<div class="nav">
+								<ul class="column">
+									<li class="nav-1 select"><span>国画</span></li>
+									<li class="nav-2"><span>油画</span></li>
+									<li class="nav-3"><span>书法</span></li>
+									<li class="nav-4"><span>玉器</span></li>
+									<li class="nav-5"><span>陶瓷</span></li>
+									<li class="nav-6"><span>钱币</span></li>
+								</ul>
+							</div>
+							<div class="tab-content">
+								<div class="content-1">
+									<div class="clear">
+										<div class="left">
+											<div class="img">
+												<img src="{IMG_PATH}Home/News/Temp/Column-img/11.jpg" alt="" />
+												<p class="word">丰子恺画中的酒后世界</p>
+											</div>
+											<div class="collection">
+												<div class="title">
+													<h2 class="blue">投资与收藏</h2>
+													<p class="title-line"><span class="t1"></span><span class="t2"></span></p>
+												</div>
+												<div class="content">
+													<p>
+														<span><img src="{IMG_PATH}Home/News/Temp/Column-img/12.jpg" alt="" /></span>
+														<span>王勇作品欣赏</span>
+													</p>
+													<p class="center-line"></p>
+													<p>
+														<span><img src="{IMG_PATH}Home/News/Temp/Column-img/13.jpg" alt="" /></span>
+														<span>郑瑰玺大景花鸟画展 </span>
+													</p>
+												</div>
+											</div>
+										</div>
+										<div class="center">
+											<div class="article-list">
+												<ul>
+													<li><a href="#">笔象悟道——山水写生作品开展</a></li>
+													<li><a href="#">没有画廊的艺博会是否可行？</a></li>
+													<li><a href="#">他的史诗-杨佴旻新水墨画中国巡回展南</a></li>
+													<li><a href="#">李新华作品入选“中华文明历史题材美术创作工</a></li>
+													<li><a href="#">泰特美术馆参观人数近800万</a></li>
+												</ul>
+											</div>
+											<div class="article-list">
+												<ul>
+													<li><a href="#">笔象悟道——山水写生作品开展</a></li>
+													<li><a href="#">没有画廊的艺博会是否可行？</a></li>
+													<li><a href="#">他的史诗-杨佴旻新水墨画中国巡回展南</a></li>
+													<li><a href="#">李新华作品入选“中华文明历史题材美术创作工</a></li>
+													<li><a href="#">泰特美术馆参观人数近800万</a></li>
+												</ul>
+											</div>
+											<div class="article-list">
+												<ul>
+													<li><a href="#">笔象悟道——山水写生作品开展</a></li>
+													<li><a href="#">没有画廊的艺博会是否可行？</a></li>
+													<li><a href="#">他的史诗-杨佴旻新水墨画中国巡回展南</a></li>
+													<li><a href="#">李新华作品入选“中华文明历史题材美术创作工</a></li>
+												</ul>
+											</div>
+										</div>
+										<div class="right ranking">
+											<h4>关注排行榜</h4>
+											<a class="more" href="#">更多>></a>
+											<div class="ranking-list">
+												<ul>
+													<li>
+														<i class="num red">01</i>
+														<p class="intro hide">
+															<span class="name">樱桃</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail">
+															<div class="left"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></a></div>
+															<div class="right">
+																<p><a href="#">《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</a></p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num red">02</i>
+														<p class="intro">
+															<span class="name">张弟德 云心自向山山去</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></a></div>
+															<div class="right">
+																<p><a href="#">《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</a></p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num red">03</i>
+														<p class="intro">
+															<span class="name">10张弟德 千山浓绿</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></a></div>
+															<div class="right">
+																<p><a href="#">《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</a></p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">04</i>
+														<p class="intro">
+															<span class="name">生云外淡雾山中树色</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></a></div>
+															<div class="right">
+																<p><a href="#">《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</a></p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">05</i>
+														<p class="intro">
+															<span class="name">稠万壑盘空天路远</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></a></div>
+															<div class="right">
+																<p><a href="#">《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</a></p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">06</i>
+														<p class="intro">
+															<span class="name">乐在仙峰灵境游</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></a></div>
+															<div class="right">
+																<p><a href="#">《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</a></p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">07</i>
+														<p class="intro">
+															<span class="name">11张弟德仙峰灵境游</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></a></div>
+															<div class="right">
+																<p><a href="#">《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</a></p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">08</i>
+														<p class="intro">
+															<span class="name">一湾溪水出山来</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></a></div>
+															<div class="right">
+																<p><a href="#">《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</a></p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">09</i>
+														<p class="intro">
+															<span class="name">12张弟德 仙峰灵境</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></a></div>
+															<div class="right">
+																<p><a href="#">《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</a></p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">10</i>
+														<p class="intro">
+															<span class="name">遥山一抹淡烟中</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></a></div>
+															<div class="right">
+																<p><a href="#">《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</a></p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div class="tab-advertis"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Advertis/tab-advertis.jpg" alt="" /></a></div>
+								</div>
+								<div class="content-2 hide">
+									<div class="clear">
+										<div class="left">
+											<div class="img">
+												<img src="{IMG_PATH}Home/News/Temp/Column-img/11.jpg" alt="" />
+												<p class="word">丰子恺画中的酒后世界</p>
+											</div>
+											<div class="collection">
+												<div class="title">
+													<h2 class="blue">投资与收藏</h2>
+													<p class="title-line"><span class="t1"></span><span class="t2"></span></p>
+												</div>
+												<div class="content">
+													<p>
+														<span><img src="{IMG_PATH}Home/News/Temp/Column-img/12.jpg" alt="" /></span>
+														<span>王勇作品欣赏</span>
+													</p>
+													<p class="center-line"></p>
+													<p>
+														<span><img src="{IMG_PATH}Home/News/Temp/Column-img/13.jpg" alt="" /></span>
+														<span>郑瑰玺大景花鸟画展 </span>
+													</p>
+												</div>
+											</div>
+										</div>
+										<div class="center">
+											<div class="article-list">
+												<ul>
+													<li><a href="#">笔象悟道——山水写生作品开展</a></li>
+													<li><a href="#">没有画廊的艺博会是否可行？</a></li>
+													<li><a href="#">他的史诗-杨佴旻新水墨画中国巡回展南</a></li>
+													<li><a href="#">李新华作品入选“中华文明历史题材美术创作工</a></li>
+													<li><a href="#">泰特美术馆参观人数近800万</a></li>
+												</ul>
+											</div>
+											<div class="article-list">
+												<ul>
+													<li><a href="#">笔象悟道——山水写生作品开展</a></li>
+													<li><a href="#">没有画廊的艺博会是否可行？</a></li>
+													<li><a href="#">他的史诗-杨佴旻新水墨画中国巡回展南</a></li>
+													<li><a href="#">李新华作品入选“中华文明历史题材美术创作工</a></li>
+													<li><a href="#">泰特美术馆参观人数近800万</a></li>
+												</ul>
+											</div>
+											<div class="article-list">
+												<ul>
+													<li><a href="#">笔象悟道——山水写生作品开展</a></li>
+													<li><a href="#">没有画廊的艺博会是否可行？</a></li>
+													<li><a href="#">他的史诗-杨佴旻新水墨画中国巡回展南</a></li>
+													<li><a href="#">李新华作品入选“中华文明历史题材美术创作工</a></li>
+												</ul>
+											</div>
+										</div>
+										<div class="right ranking">
+											<h4>关注排行榜</h4>
+											<a class="more" href="#">更多>></a>
+											<div class="ranking-list">
+												<ul>
+													<li>
+														<i class="num red">01</i>
+														<p class="intro hide">
+															<span class="name">樱桃</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail">
+															<div class="left"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></a></div>
+															<div class="right">
+																<p><a href="#">《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</a></p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num red">02</i>
+														<p class="intro">
+															<span class="name">张弟德 云心自向山山去</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></a></div>
+															<div class="right">
+																<p><a href="#">《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</a></p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num red">03</i>
+														<p class="intro">
+															<span class="name">10张弟德 千山浓绿</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></a></div>
+															<div class="right">
+																<p><a href="#">《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</a></p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">04</i>
+														<p class="intro">
+															<span class="name">生云外淡雾山中树色</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></a></div>
+															<div class="right">
+																<p><a href="#">《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</a></p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">05</i>
+														<p class="intro">
+															<span class="name">稠万壑盘空天路远</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></a></div>
+															<div class="right">
+																<p><a href="#">《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</a></p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">06</i>
+														<p class="intro">
+															<span class="name">乐在仙峰灵境游</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></a></div>
+															<div class="right">
+																<p><a href="#">《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</a></p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">07</i>
+														<p class="intro">
+															<span class="name">11张弟德仙峰灵境游</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></a></div>
+															<div class="right">
+																<p><a href="#">《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</a></p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">08</i>
+														<p class="intro">
+															<span class="name">一湾溪水出山来</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></a></div>
+															<div class="right">
+																<p><a href="#">《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</a></p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">09</i>
+														<p class="intro">
+															<span class="name">12张弟德 仙峰灵境</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></a></div>
+															<div class="right">
+																<p><a href="#">《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</a></p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">10</i>
+														<p class="intro">
+															<span class="name">遥山一抹淡烟中</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></a></div>
+															<div class="right">
+																<p><a href="#">《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</a></p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div class="tab-advertis"><img src="{IMG_PATH}Home/News/Temp/Advertis/tab-advertis.jpg" alt="" /></div>
+								</div>
+								<div class="content-3 hide">
+									<div class="clear">
+										<div class="left">
+											<div class="img">
+												<img src="{IMG_PATH}Home/News/Temp/Column-img/11.jpg" alt="" />
+												<p class="word">丰子恺123的酒后世界</p>
+											</div>
+											<div class="collection">
+												<div class="title">
+													<h2 class="blue">投资与收藏</h2>
+													<p class="title-line"><span class="t1"></span><span class="t2"></span></p>
+												</div>
+												<div class="content">
+													<p>
+														<span><img src="{IMG_PATH}Home/News/Temp/Column-img/12.jpg" alt="" /></span>
+														<span>王勇作品欣赏</span>
+													</p>
+													<p class="center-line"></p>
+													<p>
+														<span><img src="{IMG_PATH}Home/News/Temp/Column-img/13.jpg" alt="" /></span>
+														<span>郑瑰玺大景花鸟画展 </span>
+													</p>
+												</div>
+											</div>
+										</div>
+										<div class="center">
+											<div class="article-list">
+												<ul>
+													<li><a href="#">笔象悟道——山水写生作品开展</a></li>
+													<li><a href="#">没有画廊的艺博会是否可行？</a></li>
+													<li><a href="#">他的史诗-杨佴旻新水墨画中国巡回展南</a></li>
+													<li><a href="#">李新华作品入选“中华文明历史题材美术创作工</a></li>
+													<li><a href="#">泰特美术馆参观人数近800万</a></li>
+												</ul>
+											</div>
+											<div class="article-list">
+												<ul>
+													<li><a href="#">笔象悟道——山水写生作品开展</a></li>
+													<li><a href="#">没有画廊的艺博会是否可行？</a></li>
+													<li><a href="#">他的史诗-杨佴旻新水墨画中国巡回展南</a></li>
+													<li><a href="#">李新华作品入选“中华文明历史题材美术创作工</a></li>
+													<li><a href="#">泰特美术馆参观人数近800万</a></li>
+												</ul>
+											</div>
+											<div class="article-list">
+												<ul>
+													<li><a href="#">笔象悟道——山水写生作品开展</a></li>
+													<li><a href="#">没有画廊的艺博会是否可行？</a></li>
+													<li><a href="#">他的史诗-杨佴旻新水墨画中国巡回展南</a></li>
+													<li><a href="#">李新华作品入选“中华文明历史题材美术创作工</a></li>
+												</ul>
+											</div>
+										</div>
+										<div class="right ranking">
+											<h4>关注排行榜</h4>
+											<a class="more" href="#">更多>></a>
+											<div class="ranking-list">
+												<ul>
+													<li>
+														<i class="num red">01</i>
+														<p class="intro hide">
+															<span class="name">樱桃</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num red">02</i>
+														<p class="intro">
+															<span class="name">张弟德 云心自向山山去</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num red">03</i>
+														<p class="intro">
+															<span class="name">10张弟德 千山浓绿</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">04</i>
+														<p class="intro">
+															<span class="name">生云外淡雾山中树色</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">05</i>
+														<p class="intro">
+															<span class="name">稠万壑盘空天路远</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">06</i>
+														<p class="intro">
+															<span class="name">乐在仙峰灵境游</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">07</i>
+														<p class="intro">
+															<span class="name">11张弟德仙峰灵境游</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">08</i>
+														<p class="intro">
+															<span class="name">一湾溪水出山来</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">09</i>
+														<p class="intro">
+															<span class="name">12张弟德 仙峰灵境</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">10</i>
+														<p class="intro">
+															<span class="name">遥山一抹淡烟中</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div class="tab-advertis"><img src="{IMG_PATH}Home/News/Temp/Advertis/tab-advertis.jpg" alt="" /></div>
+								</div>
+								<div class="content-4 hide">
+									<div class="clear">
+										<div class="left">
+											<div class="img">
+												<img src="{IMG_PATH}Home/News/Temp/Column-img/11.jpg" alt="" />
+												<p class="word">丰子恺画中的酒后世界</p>
+											</div>
+											<div class="collection">
+												<div class="title">
+													<h2 class="blue">投资与收藏</h2>
+													<p class="title-line"><span class="t1"></span><span class="t2"></span></p>
+												</div>
+												<div class="content">
+													<p>
+														<span><img src="{IMG_PATH}Home/News/Temp/Column-img/12.jpg" alt="" /></span>
+														<span>王勇作品欣赏</span>
+													</p>
+													<p class="center-line"></p>
+													<p>
+														<span><img src="{IMG_PATH}Home/News/Temp/Column-img/13.jpg" alt="" /></span>
+														<span>郑瑰玺大景花鸟画展 </span>
+													</p>
+												</div>
+											</div>
+										</div>
+										<div class="center">
+											<div class="article-list">
+												<ul>
+													<li><a href="#">笔象悟道——山水写生作品开展</a></li>
+													<li><a href="#">没有画廊的艺博会是否可行？</a></li>
+													<li><a href="#">他的史诗-杨佴旻新水墨画中国巡回展南</a></li>
+													<li><a href="#">李新华作品入选“中华文明历史题材美术创作工</a></li>
+													<li><a href="#">泰特美术馆参观人数近800万</a></li>
+												</ul>
+											</div>
+											<div class="article-list">
+												<ul>
+													<li><a href="#">笔象悟道——山水写生作品开展</a></li>
+													<li><a href="#">没有画廊的艺博会是否可行？</a></li>
+													<li><a href="#">他的史诗-杨佴旻新水墨画中国巡回展南</a></li>
+													<li><a href="#">李新华作品入选“中华文明历史题材美术创作工</a></li>
+													<li><a href="#">泰特美术馆参观人数近800万</a></li>
+												</ul>
+											</div>
+											<div class="article-list">
+												<ul>
+													<li><a href="#">笔象悟道——山水写生作品开展</a></li>
+													<li><a href="#">没有画廊的艺博会是否可行？</a></li>
+													<li><a href="#">他的史诗-杨佴旻新水墨画中国巡回展南</a></li>
+													<li><a href="#">李新华作品入选“中华文明历史题材美术创作工</a></li>
+												</ul>
+											</div>
+										</div>
+										<div class="right ranking">
+											<h4>关注3排行榜</h4>
+											<a class="more" href="#">更多>></a>
+											<div class="ranking-list">
+												<ul>
+													<li>
+														<i class="num red">01</i>
+														<p class="intro hide">
+															<span class="name">樱桃</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num red">02</i>
+														<p class="intro">
+															<span class="name">张弟德 云心自hjjj去</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大gfgg作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num red">03</i>
+														<p class="intro">
+															<span class="name">10张弟德 千山浓绿</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画djghj品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">04</i>
+														<p class="intro">
+															<span class="name">生fgh山中树色</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">05</i>
+														<p class="intro">
+															<span class="name">稠万壑盘空天路远</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">06</i>
+														<p class="intro">
+															<span class="name">乐在仙峰灵境游</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">07</i>
+														<p class="intro">
+															<span class="name">11张弟德仙峰灵境游</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">08</i>
+														<p class="intro">
+															<span class="name">一湾溪水出山来</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">09</i>
+														<p class="intro">
+															<span class="name">12张弟德 仙峰灵境</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">10</i>
+														<p class="intro">
+															<span class="name">遥山一抹淡烟中</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div class="tab-advertis"><img src="{IMG_PATH}Home/News/Temp/Advertis/tab-advertis.jpg" alt="" /></div>
+								</div>
+								<div class="content-5 hide">
+									<div class="clear">
+										<div class="left">
+											<div class="img">
+												<img src="{IMG_PATH}Home/News/Temp/Column-img/11.jpg" alt="" />
+												<p class="word">丰子恺00000000后世界</p>
+											</div>
+											<div class="collection">
+												<div class="title">
+													<h2 class="blue">投资与收藏</h2>
+													<p class="title-line"><span class="t1"></span><span class="t2"></span></p>
+												</div>
+												<div class="content">
+													<p>
+														<span><img src="{IMG_PATH}Home/News/Temp/Column-img/12.jpg" alt="" /></span>
+														<span>王勇作品欣赏</span>
+													</p>
+													<p class="center-line"></p>
+													<p>
+														<span><img src="{IMG_PATH}Home/News/Temp/Column-img/13.jpg" alt="" /></span>
+														<span>郑瑰玺大景花鸟画展 </span>
+													</p>
+												</div>
+											</div>
+										</div>
+										<div class="center">
+											<div class="article-list">
+												<ul>
+													<li><a href="#">笔象悟道——山水写生作品开展</a></li>
+													<li><a href="#">没有画廊的艺博会是否可行？</a></li>
+													<li><a href="#">他的史诗-杨佴旻新水墨画中国巡回展南</a></li>
+													<li><a href="#">李新华作品入选“中华文明历史题材美术创作工</a></li>
+													<li><a href="#">泰特美术馆参观人数近800万</a></li>
+												</ul>
+											</div>
+											<div class="article-list">
+												<ul>
+													<li><a href="#">笔象悟道——山水写生作品开展</a></li>
+													<li><a href="#">没有画廊的艺博会是否可行？</a></li>
+													<li><a href="#">他的史诗-杨佴旻新水墨画中国巡回展南</a></li>
+													<li><a href="#">李新华作品入选“中华文明历史题材美术创作工</a></li>
+													<li><a href="#">泰特美术馆参观人数近800万</a></li>
+												</ul>
+											</div>
+											<div class="article-list">
+												<ul>
+													<li><a href="#">笔象悟道——山水写生作品开展</a></li>
+													<li><a href="#">没有画廊的艺博会是否可行？</a></li>
+													<li><a href="#">他的史诗-杨佴旻新水墨画中国巡回展南</a></li>
+													<li><a href="#">李新华作品入选“中华文明历史题材美术创作工</a></li>
+												</ul>
+											</div>
+										</div>
+										<div class="right ranking">
+											<h4>关注排行榜</h4>
+											<a class="more" href="#">更多>></a>
+											<div class="ranking-list">
+												<ul>
+													<li>
+														<i class="num red">01</i>
+														<p class="intro hide">
+															<span class="name">樱桃</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num red">02</i>
+														<p class="intro">
+															<span class="name">张弟德 云心自向山山去</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num red">03</i>
+														<p class="intro">
+															<span class="name">10张弟德 千山浓绿</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">04</i>
+														<p class="intro">
+															<span class="name">生云外淡雾山中树色</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">05</i>
+														<p class="intro">
+															<span class="name">稠万壑盘空天路远</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">06</i>
+														<p class="intro">
+															<span class="name">乐在仙峰灵境游</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">07</i>
+														<p class="intro">
+															<span class="name">11张弟德仙峰灵境游</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">08</i>
+														<p class="intro">
+															<span class="name">一湾溪水出山来</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">09</i>
+														<p class="intro">
+															<span class="name">12张弟德 仙峰灵境</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">10</i>
+														<p class="intro">
+															<span class="name">遥山一抹淡烟中</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div class="tab-advertis"><img src="{IMG_PATH}Home/News/Temp/Advertis/tab-advertis.jpg" alt="" /></div>
+								</div>
+								<div class="content-6 hide">
+									<div class="clear">
+										<div class="left">
+											<div class="img">
+												<img src="{IMG_PATH}Home/News/Temp/Column-img/11.jpg" alt="" />
+												<p class="word">丰6456酒后世界</p>
+											</div>
+											<div class="collection">
+												<div class="title">
+													<h2 class="blue">投资与收藏</h2>
+													<p class="title-line"><span class="t1"></span><span class="t2"></span></p>
+												</div>
+												<div class="content">
+													<p>
+														<span><img src="{IMG_PATH}Home/News/Temp/Column-img/12.jpg" alt="" /></span>
+														<span>王勇作品欣赏</span>
+													</p>
+													<p class="center-line"></p>
+													<p>
+														<span><img src="{IMG_PATH}Home/News/Temp/Column-img/13.jpg" alt="" /></span>
+														<span>郑瑰玺大景花鸟画展 </span>
+													</p>
+												</div>
+											</div>
+										</div>
+										<div class="center">
+											<div class="article-list">
+												<ul>
+													<li><a href="#">笔象悟道——山水写生作品开展</a></li>
+													<li><a href="#">没有画廊的艺博会是否可行？</a></li>
+													<li><a href="#">他的史诗-杨佴旻新水墨画中国巡回展南</a></li>
+													<li><a href="#">李新华作品入选“中华文明历史题材美术创作工</a></li>
+													<li><a href="#">泰特美术馆参观人数近800万</a></li>
+												</ul>
+											</div>
+											<div class="article-list">
+												<ul>
+													<li><a href="#">笔象悟道——山水写生作品开展</a></li>
+													<li><a href="#">没有画廊的艺博会是否可行？</a></li>
+													<li><a href="#">他的史诗-杨佴旻新水墨画中国巡回展南</a></li>
+													<li><a href="#">李新华作品入选“中华文明历史题材美术创作工</a></li>
+													<li><a href="#">泰特美术馆参观人数近800万</a></li>
+												</ul>
+											</div>
+											<div class="article-list">
+												<ul>
+													<li><a href="#">笔象悟道——山水写生作品开展</a></li>
+													<li><a href="#">没有画廊的艺博会是否可行？</a></li>
+													<li><a href="#">他的史诗-杨佴旻新水墨画中国巡回展南</a></li>
+													<li><a href="#">李新华作品入选“中华文明历史题材美术创作工</a></li>
+												</ul>
+											</div>
+										</div>
+										<div class="right ranking">
+											<h4>关注排行榜</h4>
+											<a class="more" href="#">更多>></a>
+											<div class="ranking-list">
+												<ul>
+													<li>
+														<i class="num red">01</i>
+														<p class="intro hide">
+															<span class="name">樱桃</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num red">02</i>
+														<p class="intro">
+															<span class="name">张弟德 云心自向山山去</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num red">03</i>
+														<p class="intro">
+															<span class="name">10张弟德 千山浓绿</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">04</i>
+														<p class="intro">
+															<span class="name">生云外淡雾山中树色</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">05</i>
+														<p class="intro">
+															<span class="name">稠万壑盘空天路远</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">06</i>
+														<p class="intro">
+															<span class="name">乐在仙峰灵境游</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">07</i>
+														<p class="intro">
+															<span class="name">11张弟德仙峰灵境游</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">08</i>
+														<p class="intro">
+															<span class="name">一湾溪水出山来</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">09</i>
+														<p class="intro">
+															<span class="name">12张弟德 仙峰灵境</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+													<li>
+														<i class="num">10</i>
+														<p class="intro">
+															<span class="name">遥山一抹淡烟中</span>
+															<span class="price red">￥1500000.00</span>
+														</p>
+														<div class="detail hide">
+															<div class="left"><img src="{IMG_PATH}Home/News/Temp/Column-img/14.jpg" alt="" /></div>
+															<div class="right">
+																<p>《樱桃》_国画大师黄永玉作品_国画作品_名家真迹_书画投资,收藏</p>
+																<p class="red">￥1500000.00</p>
+															</div>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div class="tab-advertis"><a href="#"><img src="{IMG_PATH}Home/News/Temp/Advertis/tab-advertis.jpg" alt="" /></a></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="bc-center">
+						<div class="title clear">
+							<div class="sp-line four-word"><p class="c1"></p><p class="c2"></p></div>
+							<h1>名家推荐</h1>
+							<div class="sp-line four-word"><p class="c2"></p><p class="c1"></p></div>
+						</div>
+						<div class="information-tab famouse-tab">
+							<div class="nav clear">
+								<ul class="column">
+									<li class="nav-1 select"><span>书法家</span></li>
+									<li class="nav-2"><span>国画家</span></li>
+									<li class="nav-3"><span>艺术家</span></li>
+									<li class="nav-4"><span>版画家</span></li>
+									<li class="nav-5"><span>油画家</span></li>
+									<li class="nav-6"><span>雕刻家</span></li>
+								</ul>
+							</div>
+							<div class="tab-content">
+								<div class="content-1">
+									<ul>
+										<li>
+											<a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" /></a>
+											<p class="common-word">刘大为</p>
+										</li>
+										<li>
+											<a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" /></a>
+											<p class="common-word">刘大为</p>
+										</li>
+										<li>
+											<a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" /></a>
+											<p class="common-word">刘大为</p>
+										</li>
+										<li>
+											<a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" /></a>
+											<p class="common-word">刘大为</p>
+										</li>
+										<li>
+											<a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" /></a>
+											<p class="common-word">刘大为</p>
+										</li>
+										<li>
+											<a href="#"><img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" /></a>
+											<p class="common-word">刘大为</p>
+										</li>
+									</ul>
+								</div>
+								<div class="content-2 hide">
+									<ul>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘小为</p>
+										</li>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘小为</p>
+										</li>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘小为</p>
+										</li>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘小为</p>
+										</li>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘小为</p>
+										</li>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘小为</p>
+										</li>
+									</ul>
+								</div>
+								<div class="content-3 hide">
+									<ul>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘中为</p>
+										</li>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘中为</p>
+										</li>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘中为</p>
+										</li>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘中为</p>
+										</li>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘中为</p>
+										</li>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘中为</p>
+										</li>
+									</ul>
+								</div>
+								<div class="content-4 hide">
+									<ul>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘大为</p>
+										</li>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘大为</p>
+										</li>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘大为</p>
+										</li>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘大为</p>
+										</li>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘大为</p>
+										</li>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘大为</p>
+										</li>
+									</ul>
+								</div>
+								<div class="content-5 hide">
+									<ul>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘大为</p>
+										</li>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘大为</p>
+										</li>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘大为</p>
+										</li>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘大为</p>
+										</li>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘大为</p>
+										</li>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘大为</p>
+										</li>
+									</ul>
+								</div>
+								<div class="content-6 hide">
+									<ul>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘大为</p>
+										</li>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘大为</p>
+										</li>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘大为</p>
+										</li>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘大为</p>
+										</li>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘大为</p>
+										</li>
+										<li>
+											<img src="{IMG_PATH}Home/News/Temp/Column-img/15.jpg" alt="" />
+											<p class="common-word">刘大为</p>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="bc-center">
+						<div class="title clear">
+							<div class="sp-line four-word"><p class="c1"></p><p class="c2"></p></div>
+							<h1>佳作推荐</h1>
+							<div class="sp-line four-word"><p class="c2"></p><p class="c1"></p></div>
+							<div><!-- ie6 bug fixed --></div>
+							<a href="#" class="more">更多 >></a>
+						</div>
+						<div class="content">
+							<div class="left">
+								<img src="{IMG_PATH}Home/News/Temp/Column-img/16.jpg" alt="" />
+								<p class="common-word">刘庆和《人物》</p>
+							</div>
+							<div class="right">
+								<ul>
+									<li><img src="{IMG_PATH}Home/News/Temp/Column-img/17.jpg" alt="" /><p class="common-word">刘庆和《人物》</p></li>
+									<li><img src="{IMG_PATH}Home/News/Temp/Column-img/17.jpg" alt="" /><p class="common-word">刘庆和《人物》</p></li>
+									<li><img src="{IMG_PATH}Home/News/Temp/Column-img/17.jpg" alt="" /><p class="common-word">刘庆和《人物》</p></li>
+									<li><img src="{IMG_PATH}Home/News/Temp/Column-img/17.jpg" alt="" /><p class="common-word">刘庆和《人物》</p></li>
+									<li><img src="{IMG_PATH}Home/News/Temp/Column-img/17.jpg" alt="" /><p class="common-word">刘庆和《人物》</p></li>
+									<li><img src="{IMG_PATH}Home/News/Temp/Column-img/17.jpg" alt="" /><p class="common-word">刘庆和《人物》</p></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+</block>
+<block name="js">
+    <script type="text/javascript">
+        $(document).ready(function(){
+            commonSlideshow('information-index-slideshow');
+            jumpPanel('.species','.species-jump',true,'.species-content');
+            tabelTab('.art-tab','.column');
+            tabelTab('.famouse-tab','.column');
+            navJump('.art-tab .nav ul li','div.other-info');
+            navJump('.art-topic p','.word');
+            showInfo('.art-tab .content-1 .ranking-list','.intro','.detail');
+            showInfo('.art-tab .content-2 .ranking-list','.intro','.detail');
+            showInfo('.art-tab .content-3 .ranking-list','.intro','.detail');
+            showInfo('.art-tab .content-4 .ranking-list','.intro','.detail');
+            showInfo('.art-tab .content-5 .ranking-list','.intro','.detail');
+            commSelect('.info-log .common-select',20);
+            _chooseCity('#nav-local');
+        });
+    </script>
+</block>
+

@@ -1,0 +1,100 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="{PLUGIN_PATH}treetable/css/treetable.css" />
+</block>
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+
+        <ul>
+            <li class="selected">
+                <a href="{:U('Gallery/AdminExhibit/index')}">展讯列表</a>
+            </li>
+        </ul>
+        <!--快捷按钮 开始-->
+        <div class="nav_btn">
+            <a id="addNews" href="{:U('Gallery/AdminExhibit/add')}" class="fa fa-plus-square">&nbsp;&nbsp;添加展讯</a>
+        </div>
+        <!--快捷按钮 结束-->
+
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 开始-->
+    <form action="{:U('batch')}" method="post" class="batch">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="row-selected row-selected"><input id="u-ck-f" type="checkbox"></th>
+                <th>标题</th>
+                <th>作者</th>
+                <th>画廊名称</th>
+                <th>作家名称</th>
+                <th>开始时间</th>
+                <th>结束时间</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <if condition="$list neq null ">
+                <volist name="list" id="vo">
+                    <tr>
+                        <td>
+                            <input class="ids" type="checkbox" name="ids[]" value="{$vo.id}">                                                 </td>
+                        <td>{$vo.title}</td>
+                        <td>{:get_author($vo['uid'])}</td>
+                        <td>{:getGallery($vo['gid'])}</td>
+                        <td>
+                            {:getName($vo['aid'])}
+                        </td>
+                        <td>{$vo.starttime|date='Y-m-d',###}</td>
+                        <td>
+                            {$vo.endtime|date='Y-m-d',###}
+                        </td>
+                        <td>
+                            <if condition="($vo['status'] eq 1) ">
+                                <a href="{:U('Gallery/AdminExhibit/change', array('id'=>$vo['id'], 'status'=>0))}" class="ajax-get success fa fa-unlock">已审核</a>
+								<elseif condition="($vo['status'] eq 2) " />
+                                <a href="{:U('Gallery/AdminExhibit/change', array('id'=>$vo['id'], 'status'=>1))}" class="ajax-get fa fa-thumbs-up red">推荐</a>
+                                <else />
+                                <a href="{:U('Gallery/AdminExhibit/change', array('id'=>$vo['id'], 'status'=>1))}" class="ajax-get error fa fa-lock">未审核</a>
+                            </if>
+                        </td>
+                        <td style="width: 260px">
+						 <a href="{:U('Gallery/AdminExhibit/change', array('id'=>$vo['id'], 'status'=>2))}" class="ajax-get fa fa-thumbs-up red">推荐</a>
+						 <a href="{:U('Gallery/AdminExhibit/change', array('id'=>$vo['id'], 'status'=>1))}" class="ajax-get success fa fa-unlock">正常</a>
+                            <a id="editNews" class="fa fa-edit" href="{:U('Gallery/AdminExhibit/edit', array('id'=>$vo['id']))}"> 修改</a>
+                            <a href="{:U('Gallery/AdminExhibit/delete', array('id'=>$vo['id'],'sid'=>$vo['sid']))}" class='confirm ajax-get fa fa-trash-o red'> 删除</a>
+                    </tr>
+                </volist>
+                <else />
+                <tr><td colspan="9">没有相关数据</td></tr>
+            </if>
+            </tbody>
+        </table>
+        <div class="paging">
+            <if condition="$list neq null ">
+                <input type="radio" name="act" value="0" /> 未审核&nbsp;&nbsp;
+                <input type="radio" name="act" value="1" /> 已审核&nbsp;&nbsp;
+                <input type="radio" name="act" value="3" /> 删除&nbsp;&nbsp;
+                <button type="submit" class="btn fa ajax-post" target-form="batch"> 提交操作</button>
+            </if>
+            {$_page}
+        </div>
+    </form>
+    <!-- 数据表格 结束-->
+</block>
+<!--主体内容 结束-->
+<block name="javascript">
+    <script type="text/javascript">
+        $(function(){
+            $('.u-order').css({'width':'15px','font':'12px/15px Arial','padding':'2px 5px'});
+            $('#u-ck-f').click(function(){if($('#u-ck-f').is(':checked')){$('.ids').attr('checked','true');}else{ $('.ids').removeAttr("checked");}});
+        });
+        $('#editNews').live('click',function(e){e.preventDefault();$.dialog.open(this.href, {title:'修改展讯', id:'newWindow'} );});
+        $('#addNews').live('click',function(e){e.preventDefault();$.dialog.open(this.href, {title:'添加展讯', id:'newWindow'} );});
+    </script>
+</block>
+

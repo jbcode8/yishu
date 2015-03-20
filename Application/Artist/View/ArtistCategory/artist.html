@@ -1,0 +1,557 @@
+<extend name="artistBase"/>
+<block name='content'>
+<!-- 栏目内容 -->
+<div class="container clear">
+<div class="t-pic">
+    <ul>
+        <volist name="pic_list" id="vo">
+            <li class="p{$i}">
+                <div class="c">
+                    <img src="{$vo.thumb}" alt="" width="230" height="320" />
+                    <div class="common-word">
+                        <a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">
+                            <span class="name">{$vo.name}</span>
+                            <span>{$vo.description|new_msubstr=###,0,40}........</span>
+                        </a>
+                    </div>
+                </div>
+            </li>
+        </volist>
+        <li class="p10">
+            <p class="d1">当前入驻艺术家</p>
+            <p class="d2"><b>{$count}</b>位</p>
+            <p class="d3"><a href="{:U('/Member/Passport/')}" target="_blank">点击开通您的专属官网</a></p>
+        </li>
+
+    </ul>
+</div>
+<div class="main-label">
+<div class="l-bar">
+    <!-- 大师排行榜 -->
+    <div class="master-ranking">
+        <div class="c-t">大师排行榜</div>
+        <div class="content">
+            <ul>
+                <volist name="artist_list" id="vo" key="k">
+                <li>
+                    <span class="num top3">{$k}</span>
+                    <div class="default <if condition='$k eq 1'>hide</if>">
+                        <span class="name left"><a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">{$vo.name}</a></span>
+                        <span class="point right">点击次数：<b>{$vo.view}</b></span>
+                    </div>
+                    <div class="change <if condition='$k gt 1'>hide</if>">
+                        <p class="left"><img src="{$vo.thumb}" width="100" height="100"/></p>
+                        <div class="right">
+                            <p class="name"><a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">{$vo.name}</a></p>
+                            <p>{$vo.description|new_msubstr=###,0,20}...<a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">[详细]</a></p>
+                            <p>点击次数：<b>{$vo.view}</b></p>
+                        </div>
+                    </div>
+                </li>
+                </volist>
+            </ul>
+        </div>
+    </div>
+    <div class="advertise"><a href="#" target="_blank"><img src="{IMG_PATH}column-img/121.jpg" width="275" /></a></div>
+    <!-- 名人名作 -->
+    <div class="famous-man-opus clear">
+        <div class="c-t">
+            <span class="left">名人名作</span>
+            <a class="right more" href="{:U('Artist/ArtistCategory/works')}" target="_blank">更多 >></a>
+        </div>
+        <div class="content">
+            <ul class="last-ele">
+                <volist name="events_list" id="vo" key="k">
+                <li>
+                    <img src="{$vo.thumb}" alt="{$vo.name}" width="132" height="132"/>
+                    <div class="common-word">
+                        <a href="{:U('Artist/ArtistDetail/work',array('id'=>$vo['aid'],'wid'=>$vo[id]))}" target="_blank">
+                            <span>{$vo.name}</span>
+                            <span>作者：{:getArtistName($vo['aid'])}</span>
+                            <span>尺寸：{$vo.size}</span>
+                            <!--<span>价格：400.000元</span>-->
+                        </a>
+                    </div>
+                </li>
+                </volist>
+            </ul>
+        </div>
+    </div>
+    <div class="advertise"><a href="#" target="_blank"><img src="{IMG_PATH}column-img/121.jpg" width="275" height="93"/></a></div>
+    <div class="advertise p-0"><a href="#" target="_blank"><img src="{IMG_PATH}column-img/121.jpg" width="275" height="93"/></a></div>
+</div>
+<div class="r-bar">
+<div class="tool-search clear">
+    <div class="search-area">
+        <form method="get" action="{:U('Artist/ArtistCategory/artist')}">
+        <input type="text" name="keywords" placeholder="请输入艺术家名..." />
+        <button type="submit" class="grey-btn">搜 索</button>
+        </form>
+    </div>
+    <div class="hot-search">
+        <b>热搜：</b>
+        <volist name="hot_search" id="vo">
+            <span><a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">{$vo.name}</a></span>
+        </volist>
+    </div>
+</div>
+<!-- 筛选 -->
+<div class="filter-tab clear">
+<div class="nav clear">
+    <ul class="column">
+        <li <if condition="$_GET['cid'] eq null">class="select"</if>><a class="hover-wihte" href="{:U('Artist/ArtistCategory/artist',array('provinceid'=>$_GET['provinceid'],'zm'=>$_GET['zm']))}"> 全部</a></li>
+        <li class="nav-2 <if condition="$_GET['cid'] eq 17">select</if>">
+            <span>
+                <a class="hover-wihte" href="{:U('Artist/ArtistCategory/artist',array('provinceid'=>$_GET['provinceid'],'zm'=>$_GET['zm'],'cid'=>17))}"> 油画</a>
+            </span>
+        </li>
+        <li class="nav-3 <if condition="$_GET['cid'] eq 14">select</if>">
+            <span>
+                <a class="hover-wihte" href="{:U('Artist/ArtistCategory/artist',array('provinceid'=>$_GET['provinceid'],'zm'=>$_GET['zm'],'cid'=>14))}"> 国画</a>
+            </span>
+        </li>
+        <li class="nav-4 <if condition="$_GET['cid'] eq 19">select</if>">
+           <span>
+                <a class="hover-wihte"  href="{:U('Artist/ArtistCategory/artist',array('provinceid'=>$_GET['provinceid'],'zm'=>$_GET['zm'],'cid'=>19))}"> 书法</a>
+            </span>
+        <li class="nav-5 <if condition="$_GET['cid'] eq 20">select</if>">
+            <span>
+                <a class="hover-wihte" href="{:U('Artist/ArtistCategory/artist',array('provinceid'=>$_GET['provinceid'],'zm'=>$_GET['zm'],'cid'=>20))}"> 水粉水彩</a>
+            </span>
+        </li>
+        <li class="nav-6 <if condition="$_GET['cid'] eq 21">select</if>">
+            <span>
+                <a class="hover-wihte" href="{:U('Artist/ArtistCategory/artist',array('provinceid'=>$_GET['provinceid'],'zm'=>$_GET['zm'],'cid'=>21))}"> 版画</a>
+            </span>
+        </li>
+        <li class="nav-7 <if condition="$_GET['cid'] eq 22">select</if>">
+            <span>
+                <a class="hover-wihte" href="{:U('Artist/ArtistCategory/artist',array('provinceid'=>$_GET['provinceid'],'zm'=>$_GET['zm'],'cid'=>22))}"> 玉器</a>
+            </span>
+        </li>
+        <li class="nav-8 <if condition="$_GET['cid'] eq 23">select</if>">
+            <span>
+                <a class="hover-wihte" href="{:U('Artist/ArtistCategory/artist',array('provinceid'=>$_GET['provinceid'],'zm'=>$_GET['zm'],'cid'=>23))}"> 紫砂</a>
+            </span>
+        </li>
+    </ul>
+    <span class="slide">收起筛选 ∧</span>
+</div>
+<div class="tab-content clear">
+<div class="content-1">
+    <div class="filter-block">
+        <p class="sub-t">地区</p>
+        <div class="list">
+            <ul>
+                <li <if condition="$_GET['provinceid'] eq null">class="select"</if>><a class="hover-wihte" href="{:U('Artist/ArtistCategory/artist',array('zm'=>$_GET['zm'],'cid'=>$_GET['cid']))}">全部</a></li>
+                <volist name="area" id="vo">
+                <li <if condition="$vo['id'] eq $_GET['provinceid']">class="select"</if>>
+                    <a class="hover-wihte" href="{:U('Artist/ArtistCategory/artist',array('provinceid'=>$vo['id'],'zm'=>$_GET['zm'],'cid'=>$_GET['cid']))}">{$vo.name|new_msubstr=###,0,2}</a>
+                   </li>
+                </volist>
+
+            </ul>
+        </div>
+    </div>
+    <!--
+    <div class="filter-block">
+        <p class="sub-t">校园</p>
+        <div class="list">
+            <ul>
+                <li class="select">全部</li>
+                <li>中央美术学院 </li>
+                <li>中国美术学院</li>
+                <li>西安美术学院</li>
+                <li>四川美术学院</li>
+                <li>天津美术学院</li>
+                <li>鲁迅美术学院</li>
+                <li>浙江美术学院</li>
+                <li>清华大学美术学院</li>
+            </ul>
+        </div>
+    </div>
+    -->
+</div>
+<div class="content-2 hide">
+    <div class="filter-block">
+        <p class="sub-t">地区</p>
+        <div class="list">
+            <ul>
+                <li <if condition="$_GET['provinceid'] eq null">class="select"</if>><a class="hover-wihte" href="{:U('Artist/ArtistCategory/artist',array('zm'=>$_GET['zm'],'cid'=>$_GET['cid']))}">全部</a></li>
+                <volist name="area" id="vo">
+                    <li <if condition="$vo['id'] eq $_GET['provinceid']">class="select"</if>>
+                    <a class="hover-wihte" href="{:U('Artist/ArtistCategory/artist',array('provinceid'=>$vo['id'],'zm'=>$_GET['zm'],'cid'=>$_GET['cid']))}">{$vo.name|new_msubstr=###,0,2}</a>
+                    </li>
+                </volist>
+
+            </ul>
+        </div>
+    </div>
+    <!--
+   <div class="filter-block">
+       <p class="sub-t">校园</p>
+       <div class="list">
+           <ul>
+               <li class="select">全部</li>
+               <li>中央美术学院 </li>
+               <li>中国美术学院</li>
+               <li>西安美术学院</li>
+               <li>四川美术学院</li>
+               <li>天津美术学院</li>
+               <li>鲁迅美术学院</li>
+               <li>浙江美术学院</li>
+               <li>清华大学美术学院</li>
+           </ul>
+       </div>
+   </div>
+   -->
+</div>
+<div class="content-3 hide">
+    <div class="filter-block">
+        <p class="sub-t">地区</p>
+        <div class="list">
+            <ul>
+                <li <if condition="$_GET['provinceid'] eq null">class="select"</if>><a class="hover-wihte" href="{:U('Artist/ArtistCategory/artist',array('zm'=>$_GET['zm'],'cid'=>$_GET['cid']))}">全部</a></li>
+                <volist name="area" id="vo">
+                    <li <if condition="$vo['id'] eq $_GET['provinceid']">class="select"</if>>
+                    <a class="hover-wihte" href="{:U('Artist/ArtistCategory/artist',array('provinceid'=>$vo['id'],'zm'=>$_GET['zm'],'cid'=>$_GET['cid']))}">{$vo.name|new_msubstr=###,0,2}</a>
+                    </li>
+                </volist>
+
+            </ul>
+        </div>
+    </div>
+    <!--
+   <div class="filter-block">
+       <p class="sub-t">校园</p>
+       <div class="list">
+           <ul>
+               <li class="select">全部</li>
+               <li>中央美术学院 </li>
+               <li>中国美术学院</li>
+               <li>西安美术学院</li>
+               <li>四川美术学院</li>
+               <li>天津美术学院</li>
+               <li>鲁迅美术学院</li>
+               <li>浙江美术学院</li>
+               <li>清华大学美术学院</li>
+           </ul>
+       </div>
+   </div>
+   -->
+</div>
+<div class="content-4 hide">
+    <div class="filter-block">
+        <p class="sub-t">地区</p>
+        <div class="list">
+            <ul>
+                <li <if condition="$_GET['provinceid'] eq null">class="select"</if>><a class="hover-wihte" href="{:U('Artist/ArtistCategory/artist',array('zm'=>$_GET['zm'],'cid'=>$_GET['cid']))}">全部</a></li>
+                <volist name="area" id="vo">
+                    <li <if condition="$vo['id'] eq $_GET['provinceid']">class="select"</if>>
+                    <a class="hover-wihte" href="{:U('Artist/ArtistCategory/artist',array('provinceid'=>$vo['id'],'zm'=>$_GET['zm'],'cid'=>$_GET['cid']))}">{$vo.name|new_msubstr=###,0,2}</a>
+                    </li>
+                </volist>
+
+            </ul>
+        </div>
+    </div>
+    <!--
+    <div class="filter-block">
+        <p class="sub-t">校园</p>
+        <div class="list">
+            <ul>
+                <li class="select">全部</li>
+                <li>中央美术学院 </li>
+                <li>中国美术学院</li>
+                <li>西安美术学院</li>
+                <li>四川美术学院</li>
+                <li>天津美术学院</li>
+                <li>鲁迅美术学院</li>
+                <li>浙江美术学院</li>
+                <li>清华大学美术学院</li>
+            </ul>
+        </div>
+    </div>
+    -->
+</div>
+<div class="content-5 hide">
+    <div class="filter-block">
+        <p class="sub-t">地区</p>
+        <div class="list">
+            <ul>
+                <li <if condition="$_GET['provinceid'] eq null">class="select"</if>><a class="hover-wihte" href="{:U('Artist/ArtistCategory/artist',array('zm'=>$_GET['zm'],'cid'=>$_GET['cid']))}">全部</a></li>
+                <volist name="area" id="vo">
+                    <li <if condition="$vo['id'] eq $_GET['provinceid']">class="select"</if>>
+                    <a class="hover-wihte" href="{:U('Artist/ArtistCategory/artist',array('provinceid'=>$vo['id'],'zm'=>$_GET['zm'],'cid'=>$_GET['cid']))}">{$vo.name|new_msubstr=###,0,2}</a>
+                    </li>
+                </volist>
+
+            </ul>
+        </div>
+    </div>
+    <!--
+   <div class="filter-block">
+       <p class="sub-t">校园</p>
+       <div class="list">
+           <ul>
+               <li class="select">全部</li>
+               <li>中央美术学院 </li>
+               <li>中国美术学院</li>
+               <li>西安美术学院</li>
+               <li>四川美术学院</li>
+               <li>天津美术学院</li>
+               <li>鲁迅美术学院</li>
+               <li>浙江美术学院</li>
+               <li>清华大学美术学院</li>
+           </ul>
+       </div>
+   </div>
+   -->
+</div>
+<div class="content-6 hide">
+    <div class="filter-block">
+        <p class="sub-t">地区</p>
+        <div class="list">
+            <ul>
+                <li <if condition="$_GET['provinceid'] eq null">class="select"</if>><a class="hover-wihte" href="{:U('Artist/ArtistCategory/artist',array('zm'=>$_GET['zm'],'cid'=>$_GET['cid']))}">全部</a></li>
+                <volist name="area" id="vo">
+                    <li <if condition="$vo['id'] eq $_GET['provinceid']">class="select"</if>>
+                    <a class="hover-wihte" href="{:U('Artist/ArtistCategory/artist',array('provinceid'=>$vo['id'],'zm'=>$_GET['zm'],'cid'=>$_GET['cid']))}">{$vo.name|new_msubstr=###,0,2}</a>
+                    </li>
+                </volist>
+
+            </ul>
+        </div>
+    </div>
+    <!--
+    <div class="filter-block">
+        <p class="sub-t">校园</p>
+        <div class="list">
+            <ul>
+                <li class="select">全部</li>
+                <li>中央美术学院 </li>
+                <li>中国美术学院</li>
+                <li>西安美术学院</li>
+                <li>四川美术学院</li>
+                <li>天津美术学院</li>
+                <li>鲁迅美术学院</li>
+                <li>浙江美术学院</li>
+                <li>清华大学美术学院</li>
+            </ul>
+        </div>
+    </div>
+    -->
+</div>
+<div class="content-7 hide">
+    <div class="filter-block">
+        <p class="sub-t">地区</p>
+        <div class="list">
+            <ul>
+                <li <if condition="$_GET['provinceid'] eq null">class="select"</if>><a class="hover-wihte" href="{:U('Artist/ArtistCategory/artist',array('zm'=>$_GET['zm'],'cid'=>$_GET['cid']))}">全部</a></li>
+                <volist name="area" id="vo">
+                    <li <if condition="$vo['id'] eq $_GET['provinceid']">class="select"</if>>
+                    <a class="hover-wihte" href="{:U('Artist/ArtistCategory/artist',array('provinceid'=>$vo['id'],'zm'=>$_GET['zm'],'cid'=>$_GET['cid']))}">{$vo.name|new_msubstr=###,0,2}</a>
+                    </li>
+                </volist>
+
+            </ul>
+        </div>
+    </div>
+    <!--
+   <div class="filter-block">
+       <p class="sub-t">校园</p>
+       <div class="list">
+           <ul>
+               <li class="select">全部</li>
+               <li>中央美术学院 </li>
+               <li>中国美术学院</li>
+               <li>西安美术学院</li>
+               <li>四川美术学院</li>
+               <li>天津美术学院</li>
+               <li>鲁迅美术学院</li>
+               <li>浙江美术学院</li>
+               <li>清华大学美术学院</li>
+           </ul>
+       </div>
+   </div>
+   -->
+</div>
+</div>
+</div>
+<!-- 字母筛选 -->
+<div class="alphabet filter-block clear">
+    <ul>
+
+        <volist name="az" id="vo">
+            <li <if condition="$_GET['zm'] eq $vo">class="select"</if>>
+                <a href="{:U('Artist/ArtistCategory/artist',array('provinceid'=>$_GET['provinceid'],'cid'=>$_GET['cid'],'zm'=>$vo))}">{$vo}</a>
+            </li>
+        </volist>
+
+    </ul>
+</div>
+<!-- 艺术家列表 -->
+<div class="artist-list clear">
+<div class="operate">
+    <span class="left">表示该艺术家在本站开有官方网站</span>
+    <div class="right">
+        <b>浏览方式：</b>
+        <span id="word-mod" class="select">文字</span>
+        <span id="b-pic-mod">大图</span>
+        <span id="s-pic-mod">小图</span>
+    </div>
+</div>
+<div class="word-mod show all-ope">
+
+<div class="{$key} comm-w">
+    <volist name="lists" id="vo">
+    <div class="name">
+        <p>{$key}</p>
+        <span class="show-all change-h">全部</span>
+    </div>
+    <div class="content">
+        <ul>
+            <volist name="vo" id="vo">
+                <li <if condition="$vo['type'] eq 2">class="star"</if>><a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">{$vo.name}</a></li>
+            </volist>
+
+        </ul>
+    </div>
+    </volist>
+</div>
+
+
+</div>
+<div class="b-pic-mod hide all-ope">
+<volist name="lists" id="vo">
+<div class="{$key} comm-w">
+    <div class="name">
+        <p>{$key}</p>
+        <span class="show-all change-h">全部</span>
+    </div>
+    <div class="content">
+        <ul>
+            <volist name="vo" id="vo">
+            <li>
+                <p class="img">
+                    <a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">
+                        <img src="{$vo.thumb}" alt="{$vo.name}" width="120" height="160"/>
+                    </a>
+                </p>
+                <div class="info">
+                    <div class="top">
+                        <p><b>{$vo.name}</b></p>
+                        <p>生日：{$vo.birthday|date='Y',###}年</p>
+                        <p>籍贯：{:getCity($vo['provinceid'])}</p>
+                        <p>擅长画种：{:getCategoryName($vo['cid'])}</p>
+                    </div>
+                    <p class="btn"><a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank">详细资料</a></p>
+                </div>
+            </li>
+            </volist>
+        </ul>
+    </div>
+</div>
+</volist>
+</div>
+<div class='s-pic-mod hide all-ope'>
+    <volist name="lists" id="vo">
+    <div class="{$key} comm-w">
+        <div class="name">
+            <p>{$key}</p>
+            <span class="show-all change-h">全部</span>
+        </div>
+        <div class="content">
+            <ul>
+                <volist name="vo" id="vo">
+                <li>
+                    <p><a href="{:U('Artist/ArtistDetail/index',array('id'=>$vo['id']))}" target="_blank"><img src="{$vo.thumb}" alt="{$vo.name}" width="133" height="158"/></a></p>
+                    <p><span <if condition="$vo['type'] eq 2">class="star"</if>>{$vo.name}</span></p>
+                </li>
+                </volist>
+            </ul>
+        </div>
+    </div>
+    </volist>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript" src="{JS_PATH}common.js"></script>
+<script type="text/javascript" src="{JS_PATH}js.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        jumpPanel('.species','.species-jump',true,'.species-content');
+        commSelect('.info-log .common-select',20);
+        _chooseCity('#nav-local');
+        $(window).manhuatoTop({
+            showHeight : 100,
+            speed : 500
+        });
+        $('.famous-man-opus .content li:nth-child(2n)').css('margin-right','0');
+        navJump('.t-pic ul li','.common-word');
+        navJump('.famous-man-opus ul li','.common-word');
+        abChange('.master-ranking','.master-ranking ul li','.default','.change');
+        tabelTab('.filter-tab','.column','click');
+        $('.filter-block ul li').bind('click',function(){
+            $(this).parent().find('li').removeClass('select');
+            $(this).addClass('select');
+        });
+
+        $('.slide').click(function(){
+            if($('.filter-tab .tab-content').css('display') == 'block'){
+                $('.filter-tab .tab-content').slideUp();
+                $(this).text('展开筛选 ∨');
+            }
+            else{
+                $('.filter-tab .tab-content').slideDown();
+                $(this).text('收起筛选 ∧');
+            }
+        });
+        $('.comm-w .change-h').bind('click',function(){
+            var obj = $(this).parents('.comm-w').find('.content');
+            obj.css('height','auto');
+            var height = obj.height();
+            obj.css('height','40px');
+            var _height = $(this).parents('.comm-w').find('.content ul li').outerHeight()
+            if($(this).hasClass('show-all')){
+                $(this).text('收起');
+                $(this).removeClass('show-all').addClass('hide-all');
+                obj.animate({
+                    height: height
+                });
+            }
+            else if($(this).hasClass('hide-all')){
+                $(this).text('全部');
+                $(this).addClass('show-all').removeClass('hide-all');
+                obj.animate({
+                    height: _height
+                });
+            }
+        });
+        $('#word-mod').click(function(){
+            $('.operate .right span').removeClass('select');
+            $(this).addClass('select');
+            $('.all-ope').addClass('hide').removeClass('show');
+            $('.word-mod').addClass('show').removeClass('hide');
+        });
+        $('#b-pic-mod').click(function(){
+            $('.operate .right span').removeClass('select');
+            $(this).addClass('select');
+            $('.all-ope').addClass('hide').removeClass('show');
+            $('.b-pic-mod').addClass('show').removeClass('hide');
+        });
+        $('#s-pic-mod').click(function(){
+            $('.operate .right span').removeClass('select');
+            $(this).addClass('select');
+            $('.all-ope').addClass('hide').removeClass('show');
+            $('.s-pic-mod').addClass('show').removeClass('hide');
+        });
+    });
+</script>
+</block>
+
+

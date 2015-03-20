@@ -1,0 +1,47 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_OTHER_PATH}Paimai/comm.css" rel="stylesheet" type="text/css" />
+
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+    <div class="nav_btn">
+        <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Jianding/AdminCategory/add')}', {title:'添加商品分类', id:'adoArticle'})" style='padding:5px 10px;margin:0px 0 10px 0;border:solid 1px #888;border-radius:3px;'> 添加商品分类</a>
+
+    </div>
+    <!--快捷按钮 结束-->
+
+    <table class="m_table">
+        <tr><th>属性ID</th><th>分类名称</th><th>拼音</th><th>是否可用</th><th>操作</th></tr>
+        <volist name="cat_data" id="v">
+            <tr>
+                <td id="id">{$v.cat_id}</td>
+                <td>{$v.cat_name}</td>
+                <td>{$v.cat_spell}</td>
+                <td>
+				<if condition="$v.is_enabled eq 1">
+					可用<else/>已禁用
+				</if>
+				</td>
+               
+
+                <td><a href="javascript:$.dialog.open('{:U('Jianding/AdminCategory/update',array('cat_id'=>$v['cat_id']))}', {title:'添加商品分类', id:'adoArticle'})">编辑</a>&nbsp;|&nbsp;<a class="j_del" href="{:U('Jianding/AdminCategory/delete',array('cat_id'=>$v['cat_id']))}">删除</a>&nbsp;|&nbsp;
+                <a href="{:U('Jianding/AdminAttribute/aindex',array('cat_id'=>$v['cat_id']))}">属性分类</a>
+                </td>
+            </tr>
+        </volist>
+    </table>
+    <script>
+        $(function(){
+
+            //判断删除
+            $(".j_del").click(function(e){
+                if(!confirm("你确认删除这个类型,如果删除这个商品类型下面的所有属性都将被删除!")){
+                    e.preventDefault();
+                }
+            });
+
+        })
+    </script>
+</block>

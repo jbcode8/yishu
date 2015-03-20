@@ -1,0 +1,119 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">
+        body{width:500px;}
+    </style>
+</block>
+<block name="body">
+    <form action="{:U('Ad/Advertise/add')}" method="post" class="addAdvertise" enctype="multipart/form-data">
+        <table class="form">
+            <tr>
+                <th class="w1">广告标题:</th>
+                <td>
+                    <input type="text" name="title"/>
+                </td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+            <tr>
+                <th class="w1">广告类型:</th>
+                <td>
+                    <input type="radio" name="type" value="0" checked="checked" onclick="adType(0)">文字
+                    <input type="radio" name="type" value="1" onclick="adType(1)">图片
+                    <input type="radio" name="type" value="2" onclick="adType(2)">JS
+                    <input type="radio" name="type" value="3" onclick="adType(3)">FLASH
+                </td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+            <tr>
+                <th class="w1">所属广告位:</th>
+                <td>
+
+                    <select name="sid">
+                        <volist name="data" id="vo">
+                            <option value="{$vo.id}"  <if condition="$_GET['sid'] eq $vo['id']">selected="selected"</if>>{$vo.name}</option>
+                        </volist>
+                    </select>
+                </td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+            <tr>
+                <th class="w1">状态:</th>
+                <td>
+                    <select name="status">
+                        <option value="1">开启</option>
+                        <option value="0">关闭</option>
+                    </select>
+                </td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+
+            <tr>
+                <th class="w1">开始时间:</th>
+                <td>
+                    <input name="starttime" id="starttime" class="date" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});">
+                </td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+            <tr>
+                <th class="w1">结束时间:</th>
+                <td>
+                    <input name="endtime" id="endtime" class="date" onfocus="var st=$('#starttime').val(); WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:st});">
+                </td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+            <tr>
+                <th>链接地址:</th>
+                <td><input type="text" name="url"></td>
+                <td class="tips">
+                    <i>可选</i>
+                </td>
+            </tr>
+            <tr id='adtype'>
+                <th>文字内容:</th>
+
+                <td><textarea name='content' type='text'></textarea></td>
+                <td class='tips'><i class='red'>*必填</i></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <button type="submit" class="btn ajax-post" target-form="addAdvertise">确认</button>
+                    <button type="reset" class="btn btn_gary">重填</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <load file="{PLUGIN_PATH}DatePicker/WdatePicker.js"/>
+    <textarea id="test" style="display:none">{:hook('upload',array('model'=>'ad','type'=>'thumb','height'=>80,'width'=>160,'uploadify'=>'ad'))}</textarea>
+    <load file="{PLUGIN_PATH}uploadify/jquery.uploadify.min.js" />
+    <script type="text/javascript">
+        function adType(type){
+            text = " <th>文字内容:</th><td><textarea name='content' type='text'></textarea></td><td class='tips'><i class='red'>*必填</i></td>" ;
+            img = " <th>广告图片:</th><td id='imagestype'></td><td class='tips'><i class='red'>*必填</i></td>" ;
+            js = " <th>JS内容:</th><td><textarea name='content' type='text'></textarea></td><td class='tips'><i class='red'>*必填</i></td>" ;
+            flash = " <th>FLASH内容:</th><td><textarea name='content' type='text'></textarea></td><td class='tips'><i class='red'>*必填</i></td>" ;
+            if(type==1){
+                $('#adtype').html(img);
+                $("#imagestype").html($('#test').val());
+            }else if(type == 2){
+                $('#adtype').html(js);
+            }else if(type == 3){
+                $('#adtype').html(flash);
+            }else{
+                $('#adtype').html(text);
+            }
+        }
+    </script>
+</block>

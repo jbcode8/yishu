@@ -1,0 +1,63 @@
+<extend name="detailBase"/>
+<block name="content">
+<!--content  start-->
+<div class="center investement cb">
+   <div class="photo_top">个人相册</div>
+
+<!--online start-->
+<div class="consult-slideshow clear">
+					<div class="top-side clear">
+						<div class="l-arrow"><</div>
+						<div class="change-content">
+							<ul>
+                                <volist name="photo" id="vo">
+								<li class="t{$i} <if condition='$i neq 1'>hide</if>" >
+									<span><img src="{$vo.savepath}{$vo.savename}" alt="" width="286" height="403"/></span>
+									<p><i>照片标题：<u>{$album.title}</u></i><i>相关人物：<u>{:getArtistName($album['artistid'])}</u></i></p>
+									<p><i>拍摄时间：<u>{$album.createtime|date='Y',###}年</u></i></p>
+									<p><i>作品描述：<u>{$vo.addonDesc|new_msubstr=###,0,20,'utf-8',true}</u></i></p>
+								</li>
+                                </volist>
+
+							</ul>
+						</div>
+						<div class="r-arrow">></div>
+					</div>
+					<div class="bottom-side clear">
+						<div class="l-arrow  arr"><</div>
+						<div class="move-content">
+							<ul>
+                                <volist name="photo" id="vo">
+								<li class="b{$i} <if condition='$i neq 1'>select</if>"><img src="{$vo.savepath}{$vo.savename}" alt="" width="122" height="72" /></li>
+								</volist>
+							</ul>
+						</div>
+						<div class="r-arrow  arr">></div>
+					</div>
+				</div>
+
+<!--end online-->
+</div>
+<!--content end-->
+
+<script  src="{JS_PATH}Artist/online.js" ></script>
+<SCRIPT>
+$(document).ready(function(){
+	// JavaScript Document
+	$(window).twinSlide({
+		topImgWidth : 680,
+		topImgHeight : 499,
+		bottomImgWidth : 122,
+		bottomImgHeight : 72,
+		bottomImgMargin : 8,
+		topLeftArrow : '.top-side .l-arrow',
+		topRightArrow : '.top-side .r-arrow',
+		topMoveContent : '.top-side .change-content ul',
+		bottomLeftArrow : '.bottom-side .l-arrow',
+		bottomRightArrow : '.bottom-side .r-arrow',
+		bottomMoveContent : '.bottom-side .move-content ul',
+		oneScreenNum : 7
+	});	  
+});
+</SCRIPT>
+</block>

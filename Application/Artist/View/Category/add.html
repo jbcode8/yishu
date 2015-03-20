@@ -1,0 +1,41 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+
+</block>
+<!--主体内容 开始-->
+<block name="body">
+    <!-- 数据表格 开始-->
+    <form action="{:U('Artist/Category/add')}" method="post" class="addCategory">
+        <table class="form">
+            <tr>
+                <th>名称:</th>
+                <td><input type="text" name="name" required="required" maxLength="10" /></td>
+                <td class="tips">
+                    <i class="red">*必填</i>
+                </td>
+            </tr>
+            <tr>
+                <th>排序:</th>
+                <td><input type="number" name="listorder" value="0" min="0" max="100" required="required" /></td>
+                <td class="tips">
+                    <i class="red">*必填</i> 0-100 之间的数字，小的排前
+                </td>
+            </tr>
+            <tr>
+                <th>状态:</th>
+                <td><input type="checkbox" name="status" value="1" checked /> 启用</td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <button type="submit" class="btn" target-form="addCategory">确认</button>
+                    <button type="reset" class="btn btn_gary">重填</button>
+                </td>
+            </tr>
+    </form>
+    <!-- 数据表格 结束-->
+</block>
+<!--主体内容 结束-->
+
+<block name="javascript">
+</block>

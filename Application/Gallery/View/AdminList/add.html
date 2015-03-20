@@ -1,0 +1,96 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <style type="text/css">body{width:850px;}</style>
+</block>
+<block name="body">
+    <load file="{PLUGIN_PATH}uploadify/jquery.uploadify.min.js" />
+    <form action="{:U('add')}" method="post" class="addInfo">
+        <table class="form">
+            <tr>
+                <th>关联会员ID:</th>
+                <td><input type="number" name="uid" required="required" maxLength="10" value="1" /></td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+            <tr>
+                <th>画廊名称:</th>
+                <td><input name="name" type="text" /></td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+            <tr>
+                <th>画廊类别:</th>
+                <td>{:tagSelectCate()}</td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+            <tr>
+                <th>所处地区:</th>
+                <td>{:tagSelectRegion()}</td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+            <tr>
+                <th>详细地址:</th>
+                <td><input name="address" type="text" style="width:300px" /></td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+            <tr>
+                <th>缩略图:</th>
+                <td>
+                    {:hook('upload',array('model'=>'galleryList','type'=>'thumb','height'=>80,width=>150,'uploadify'=>'swfone'))}</td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+            <tr>
+                <th>成立时间:</th>
+                <td><input style="padding:2px 5px" type="text" size="6" placeholder="成立时间" name="found" onfocus="WdatePicker({dateFmt:'yyyy'})" /></td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+            <tr>
+                <th>关键字:</th>
+                <td><input name="keywords" type="text" /></td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+            <tr>
+                <th>画廊简介:</th>
+                <td><textarea name="desc" style="width:350px; height:54px; font:12px/1.5 Microsoft YaHei"></textarea></td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+            <tr>
+                <th>画廊介绍:</th>
+                <td><textarea name="content" style="width:400px; height:90px; font:12px/1.5 Microsoft YaHei"></textarea></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>画廊组图:</th>
+                <td>
+                    {:hook('upload',array('model'=>'galleryList','type'=>'image','height'=>30,'uploadify'=>'swf'))}
+                </td>
+            </tr>
+            <tr>
+                <th>联系电话:</th>
+                <td><input name="phone" type="text" /></td>
+                <td class="tips"><i class="red">* 必填</i></td>
+            </tr>
+            <tr>
+                <th>联系邮箱:</th>
+                <td><input name="mail" type="text" /></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>联系网址:</th>
+                <td><input name="web" type="text" /></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>排列顺序:</th>
+                <td><input name="listorder" type="text" value="0" /></td>
+                <td></td>
+            </tr>
+            <tr>
+                <th>&nbsp;</th>
+                <td><button type="submit" class="btn ajax-post" target-form="addInfo">确认</button></td>
+                <td></td>
+            </tr>
+        </table>
+    </form>
+</block>
+<block name="javascript">
+    <load file="__PUBLIC__/plugin/DatePicker/WdatePicker.js" />
+</block>

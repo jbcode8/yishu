@@ -1,0 +1,112 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_OTHER_PATH}/Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+   <!-- <div class="nav_btn">
+        <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Paimai/AdminCat/add')}', {title:'添加文章', id:'adoArticle'})"> 添加文章</a>
+        <a class="fa fa-plus-square" href="{:U('Mall/ArticleCategory/index')}"> 分类管理</a>
+    </div>-->
+    <!--快捷按钮 结束-->
+    <form method="post" action="{:U('Jianding/AdminAttribute/save')}" style="width: 500px;height: 300px; margin: auto;">
+	
+    <table class="m_table">
+        <input type='hidden' name='attr_id' value='{$attrs.attr_id}'>
+        <tr><td width="100">商品属性值名称:</td><td><input type="text" name="attr_name" value='{$attrs.attr_name}'>(必填)</td></tr>
+
+        <tr>
+			<td width="100">输入类型:</td>
+			<td>
+			<if condition="$attrs['attr_input_type'] eq 1">
+				<input type="radio" checked='checked' name="attr_input_type" value='1'>手写输入
+				<input type='radio' name='attr_input_type' value='2'>选择输入
+			<else />
+				<input type="radio"  name="attr_input_type" value='1'>手写输入
+				<input type='radio' checked='checked' name='attr_input_type' value='2'>选择输入
+			</if>
+			</td>
+		</tr>
+
+		<tr>
+			<td>属性值：</td>
+			<td>
+			<if condition="$attrs['attr_input_type'] eq 1">
+				<textarea name='attr_value' disabled='disabled'></textarea>
+			<else />
+				<textarea name='attr_value'>{$attrs.attr_value}</textarea>
+			</if>
+				<br>{属性值以 "|" 隔开,如颜色属性：白色|黑色|绿色|蓝色}
+			</td>
+		</tr>
+
+		<tr>
+			<td>值单位：</td>
+			<td>
+				<input  name='attr_ext' value='{$attrs.attr_ext}'> {没有可不填}
+			</td>
+		</tr>
+		<tr>
+			<td>排序：</td>
+			<td><input type='text' value='{$attrs.sort_order}' name='sort_order' ><br/>{默认0,高值则属性在前台显示靠前,非负}</td>
+		</tr>
+
+		
+        
+        <script>
+            $(function(){
+
+				$('form input[name=attr_input_type]').mouseup(function(e){
+					if(e.target.value=='2'){
+						$('form textarea[name=attr_value]').attr('disabled',false)
+					}else{
+						$('form textarea[name=attr_value]').attr('disabled','disabled')
+					}
+				});
+                //增加
+                /*$("#j_add").click(function(){
+                    $(".j_select").last().clone(true).insertAfter($(".j_select").last());
+                });
+                //减少
+                $("#j_down").click(function(){
+                    if($(".j_select").size()>1){
+                        $(".j_select").last().detach();
+                    }
+                });*/
+
+                /*$(".j_select").each(function(){
+                    //点击ajax请求
+                    $(this).find("#goodstype").change(function(){
+
+						
+                        var sub_select=$(this).next();
+
+                        sub_select.html("<option value='0'>--请选择--</option>");
+                        $.post(
+                            "{:U('Jishou/AdminCat/ajax_getattribute','','')}",
+                            {"goodstype_id":$(this).val(),'IS_AJAX':'1'},
+                                function(data){
+
+									
+
+									if(!data.flag){return;}
+                                    str="";
+									var attrs = data.attrs;
+                                    for(var i=0;i<data.attrs.length;i++){
+                                        str+="<option value='"+attrs[i].attr_id+"'>"+attrs[i].attr_name+"</option>";
+                                    }
+                                    sub_select.find("option:first").after(str);
+                                },
+                             "json"
+                        );
+                    });
+                });*/
+
+            })
+        </script>
+		
+        <tr><td colspan="2" align="center"><input class="m_submit" type="submit" value="添加"></td></tr>
+    </table>
+    </form>
+</block>

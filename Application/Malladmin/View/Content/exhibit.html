@@ -1,0 +1,40 @@
+<tr>
+    <th>内容:</th>
+    <td>
+        <div style="width: 85%;">
+            <textarea name="content">{$vo.content}</textarea>{:hook('adminEditor',array('name'=>'content'))}
+        </div>
+    </td>
+</tr>
+<include file="picture" />
+<tr>
+    <th>主办单位:</th>
+    <td>
+        <input name="organizer" value="{$vo.organizer}" size="80" />
+    </td>
+</tr>
+<tr>
+    <th>参展人员名单:</th>
+    <td>
+        <textarea name="list">{$vo.list}</textarea>
+    </td>
+</tr>
+<tr>
+    <th>所在城市:</th>
+    <td>
+        {:hook('region', array('province'=>$vo['provinceid'], 'city'=>$vo['cityid'], 'area'=>$vo['areaid']))}
+    </td>
+</tr>
+<tr>
+    <th>所详细地址:</th>
+    <td>
+        <input type="text" name="address" value="{$vo.address}" size="100" />
+    </td>
+</tr>
+<tr>
+<th>展览时间:</th>
+<td>
+    从 <input type="text" id="st" name="starttime" <if condition="!empty($vo['starttime'])">value="{$vo.starttime|date='Y-m-d H:i:s',###}"</if> size="16" onfocus="var end=$dp.$('et');WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',onpicked:function(){end.focus();}});" />
+    到 <input type="text" id="et" name="endtime" <if condition="!empty($vo['endtime'])">value="{$vo.endtime|date='Y-m-d H:i:s',###}"</if> size="16" onfocus="var st=$('#st').val(); WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:st});" />
+</td>
+</tr>

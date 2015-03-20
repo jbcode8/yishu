@@ -1,0 +1,35 @@
+<extend name="Admin@Public:base" />
+<block name="body">
+<div class="container">
+    <ul class="header clear">
+    <li <eq name="ACTION_NAME" value="index">class="current"</eq>><a href="{:U('Auction/AdminAgency/index')}">拍卖机构管理</a></li>
+		<li <eq name="ACTION_NAME" value="add">class="current"</eq>><a href="{:U('Auction/AdminAgency/add')}">添加拍卖机构</a></li>
+    </ul>
+    <form method="post">
+    <table class="table table-hover">
+        <tbody>
+            <tr><td>机构名称:</td><td><input type="text" name="name" class="ar-txt" value="{$data['name']}" /></td></tr>
+			<tr><td>拼音首字母:</td><td><input type="text" name="pinyin" class="ar-txt" value="{$data['pinyin']}" /></td></tr>
+			<tr><td>机构图片:</td><td><Form function="images" parameter="thumb, thumb, $data['thumb'], auction" /></td></tr>
+			<tr><td>所属区域:</td><td>
+			<select name="areaid">
+				<option value="">请选择地区</option>
+				<volist name="arrArea" id="v">
+				<option value="{$v['id']}" <if condition="$data['areaid'] eq $v['id']"> selected="selected"</if>>{$v['name']}</option>
+				</volist>
+			</select></td></tr>
+			<tr><td>详细地址:</td><td><input type="text" name="address" value="{$data['address']}" /></td></tr>
+			<tr><td>关键字:</td><td><input type="text" name="keywords" value="{$data['keywords']}" /></td></tr>
+			<tr><td>机构简介:</td><td><textarea name="description" class="ar-txt" cols="70" rows="5">{$data['description']}</textarea></td></tr>
+			<tr><td>详细介绍:</td><td><textarea name="content" class="ar-txt" cols="70" rows="5">{$data['content']}</textarea></td></tr>
+			<tr><td>机构电话:</td><td><input type="text" name="tel" value="{$data['tel']}" /></td></tr>
+			<tr><td>机构邮编:</td><td><input type="text" name="post" value="{$data['post']}" /></td></tr>
+			<tr><td>机构邮箱:</td><td><input type="text" name="email" value="{$data['email']}" /></td></tr>
+			<tr><td>机构网址:</td><td><input type="text" name="website" value="{$data['website']}" /></td></tr>
+            <tr><td>&nbsp;</td><td><input type="hidden" name="id" value="{$data['id']}" />
+			<input name="submit" type="submit" value="编辑信息" class="btn btn-primary" /></td></tr>
+        </tbody>
+    </table>
+    </form>
+</div>
+</block>

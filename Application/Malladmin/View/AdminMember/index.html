@@ -1,0 +1,62 @@
+<extend name="Public:base" />
+<!--主体内容 开始-->
+<block name="body">
+    <!--导航部分 开始-->
+    <div class="con_nav">
+        <ul>
+            <li class="selected"><a href="{:U('index')}">后台管理员管理</a></li>
+        </ul>
+
+        <!--快捷按钮 开始-->
+        <div class="nav_btn">
+            <a href="javascript:$.dialog.open('{:U('add')}',{title:'添加管理员',id:'authadd'});" class='fa fa-plus-square'> 添 加</a>
+            <a href="javascript:$.dialog.open('{:U('orgmember')}',{title:'从现有会员中添加至管理员',id:'authadd'});" class='fa fa-plus-square'> 添加现有会员</a>
+        </div>
+        <!--快捷按钮 结束-->
+
+    </div>
+    <!--导航部分 结束-->
+
+    <!-- 数据表格 开始-->
+    <?php
+        $thead = array(
+                'uid'  => 'UID',
+                'nickname'=>'昵称',
+                'login'=>'登陆次数',
+                'last_login_ip'=>array(
+                    '_title'=>'最后登陆IP',
+                    'tag'   =>'span',
+                    'func'  => 'long2ip($last_login_ip)',
+                ),
+                'last_login_time'=>array(
+                    '_title'=>'最后登陆时间',
+                    'tag'   =>'span',
+                    'func'  => 'date("Y-m-d H:i:s",$last_login_time)',
+                ),
+                '状态'=>array(
+                    '禁用'=>array( 'href' => 'Admin/AdminMember/enabled?uid=$uid', 'class'=>'ajax-get error fa fa-ban', 'condition'=>'$status==0',),
+                    '启用'=>array( 'href' => 'Admin/AdminMember/disable?uid=$uid', 'class'=>'ajax-get success fa fa-check-circle', 'condition'=>'$status==1',),
+                ),
+                '操作'=>array(
+                    '授权'=>array( 'href' => 'Admin/AuthGroup/authorization?uid=$uid', 'class'=>'fa fa-legal auth', 'condition'=>'$uid!='.C('USER_ADMINISTRATOR'),),
+                    '删除'=>array( 'href' => 'Admin/AdminMember/delete?uid=$uid', 'class'=>'confirm ajax-get fa fa-trash-o', 'condition'=>'$uid!='.C('USER_ADMINISTRATOR'),),
+    ),
+                );
+                echo $_table_list = $__controller__->tableList($_list,$thead);
+    ?>
+    <!-- 数据表格 开始-->
+    <div class="paging">
+        {$_page}
+    </div>
+</block>
+<!--主体内容 结束-->
+<block name="javascript">
+    <script type="text/javascript">
+        $(function(){
+            $('.auth').on('click',function(e){
+                e.preventDefault();
+                $.dialog.open($(this).attr('href'),{title:'授权',id:'auth'});
+            });
+        });
+    </script>
+</block>

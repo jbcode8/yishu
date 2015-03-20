@@ -1,0 +1,117 @@
+<extend name="Admin@Public:base" />
+<block name="style">
+    <load file="__PUBLIC__/plugin/treetable/css/treetable.css" />
+    <link href="{CSS_OTHER_PATH}/Paimai/comm.css" rel="stylesheet" type="text/css" />
+</block>
+<block name="body">
+    <!--快捷按钮 开始-->
+   <!-- <div class="nav_btn">
+        <a class="fa fa-plus-square" href="javascript:$.dialog.open('{:U('Paimai/AdminCat/add')}', {title:'添加文章', id:'adoArticle'})"> 添加文章</a>
+        <a class="fa fa-plus-square" href="{:U('Mall/ArticleCategory/index')}"> 分类管理</a>
+    </div>-->
+    <!--快捷按钮 结束-->
+    <form method="post" action="{:U('Jianding/AdminExpert/exp_save')}" style="width: 500px;height: 300px; margin: auto;" enctype="multipart/form-data">
+	
+    <table class="m_table">
+        <input type='hidden' name='expert_id' value='{$exp.expert_id}'>
+        <tr>
+            <td width="100">鉴定器分类:</td>
+            <td>
+                <select name="cat_id">
+                    <volist name="cat_lists" id="v">
+                    	<if condition="$v.cat_id eq $exp['cat_id']">
+                    		<option value="{$v.cat_id}" selected="selected">{$v.cat_name}</option>
+                    	<else />
+                    		<option value="{$v.cat_id}" >{$v.cat_name}</option>
+                    	</if>
+                        
+                    </volist>
+                </select>(必填)
+            </td>
+        </tr>
+        <tr><td width="100">专家名称:</td><td><input type="text" required='required' name="expert_name" value="{$exp.expert_name}">(必填)</td></tr>
+
+        <tr>
+            <td>是否启用该专家:</td>
+            <td>
+            	<if condition="$exp.is_use eq 1">
+            		<input type="radio" checked="checked" name="is_use" value="1"/>&nbsp;是&nbsp;
+                	<input type="radio" name="is_use" value="0"/>&nbsp;否&nbsp;
+                <else />
+                	<input type="radio" name="is_use" value="1"/>&nbsp;是&nbsp;
+                	<input type="radio" checked="checked" name="is_use" value="0"/>&nbsp;否&nbsp;
+            	</if>
+            </td>
+        </tr>
+
+		<tr>
+            <td>专家描述:</td>
+            <td>
+                <textarea name="expert_desc" required='required'>{$exp.expert_desc}</textarea>
+            </td>
+        </tr>
+        
+        <tr><td width="100">鉴定费用:</td><td><input type="text" required='required' name="eval_fee" value="{$exp.eval_fee}">(必填)</td></tr>
+        
+        <empty name="$exp.portrait_img_name">
+        	<tr><td>头像预览：</td><td><img height="75" widht="75" src="{$exp.portrait_img_path}{$exp.portrait_img_name}"/></td></tr>
+        </empty>
+        
+        <tr><td width="100">专家头像:</td><td><input type="file" name="portrait_img">(必填)</td></tr>
+        
+        <script>
+            $(function(){
+
+				$('form input[name=attr_input_type]').mouseup(function(e){
+					if(e.target.value=='2'){
+						$('form textarea[name=attr_value]').attr('disabled',false)
+					}else{
+						$('form textarea[name=attr_value]').attr('disabled','disabled')
+					}
+				});
+                //增加
+                /*$("#j_add").click(function(){
+                    $(".j_select").last().clone(true).insertAfter($(".j_select").last());
+                });
+                //减少
+                $("#j_down").click(function(){
+                    if($(".j_select").size()>1){
+                        $(".j_select").last().detach();
+                    }
+                });*/
+
+                /*$(".j_select").each(function(){
+                    //点击ajax请求
+                    $(this).find("#goodstype").change(function(){
+
+						
+                        var sub_select=$(this).next();
+
+                        sub_select.html("<option value='0'>--请选择--</option>");
+                        $.post(
+                            "{:U('Jishou/AdminCat/ajax_getattribute','','')}",
+                            {"goodstype_id":$(this).val(),'IS_AJAX':'1'},
+                                function(data){
+
+									
+
+									if(!data.flag){return;}
+                                    str="";
+									var attrs = data.attrs;
+                                    for(var i=0;i<data.attrs.length;i++){
+                                        str+="<option value='"+attrs[i].attr_id+"'>"+attrs[i].attr_name+"</option>";
+                                    }
+                                    sub_select.find("option:first").after(str);
+                                },
+                             "json"
+                        );
+                    });
+                });*/
+
+            })
+        </script>
+		
+        <tr><td colspan="2" align="center"><input class="m_submit" type="submit" value="修改"></td></tr>
+    </table>
+    </form>
+</block>

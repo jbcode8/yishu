@@ -1,0 +1,556 @@
+<extend name="ExhibitBase"/>
+<block name="content">
+<div class="main-container">
+<!-- 栏目头部 -->
+<div class="panel-header clear">
+    <div class="left top-bar">
+        <p><a href="#"><img src="{IMG_PATH}logo.jpg" alt="logo" /></a></p>
+        <p class="panel-name">展 讯<br />频 道</p>
+    </div>
+    <div class="main-web clear">
+        <div class="right">
+            <div id="main-search">
+                <div class="species">
+                    <span class="species-content">全 部</span>
+                    <span class="choose"><img src="{IMG_PATH}icons/search-arrow.gif" alt="" /></span>
+                    <div class="species-jump common-jump hide">
+                        <ul>
+                            <li>拍 卖</li>
+                            <li>法 律</li>
+                            <li>行 情</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="search">
+                    <form>
+                        <div class="search-input">
+                            <input type="text" placeholder="中国最具影响力艺术门户" />
+                        </div>
+                        <p class="search-btn"><input type="submit" value="搜 索" /></p>
+                    </form>
+                </div>
+            </div>
+            <div class="hot-search">
+                <span>热搜：</span>
+                <span><a href="#">乾隆通宝</a></span>
+                <span><a href="#">古典家具</a></span>
+                <span><a href="#">青铜器</a></span>
+                <span><a href="#">油版雕</a></span>
+                <span><a href="#">影像</a></span>
+                <span><a href="#">古籍善本</a></span>
+                <span><a href="#" class="red">紫砂壶</a></span>
+            </div>
+        </div>
+    </div>
+    <div class="main-navigate">
+        <ul>
+            <li><a href="#" class="select">首 页</a></li>
+            <li><a href="#">资讯</a></li>
+            <li><a href="#">画廊展览</a></li>
+            <li><a href="#">个人展览</a></li>
+            <li><a href="#">机构展览</a></li>
+            <li><a href="#">在线展厅</a></li>
+            <li><a href="#">沙龙活动</a></li>
+        </ul>
+    </div>
+</div>
+<!-- 头部附加分类 -->
+<div class="overhead-info">
+    <b>藏品频道：</b>
+    <a href="#" target="_blank">国画</a>
+    <a href="#" target="_blank">书法</a>
+    <a href="#" target="_blank">油画</a>
+    <a href="#" target="_blank">玉器</a>
+    <a href="#" target="_blank">瓷器</a>
+    <a href="#" target="_blank">木器</a>
+    <a href="#" target="_blank">寿山石</a>
+</div>
+<!-- 栏目内容 -->
+<div class="container clear">
+<!-- 上层块部分 2栏式 -->
+<div class="top-column clear">
+<div class="l-con">
+    <div class="main-slide clear">
+        <div class="img-con">
+            <ul>
+                <ys:position name="list" catid="18" posid="2" type="1" thumb="1" limit="0,3">
+                <li>
+                    <a href="{:U('/Content/Content/detail/',array('category'=>'zhanlan','id'=>$list['id']))}"><img src="{$list.url}" width="530" height="300" alt=""></a>
+                    <p class="common-word"><a href="#">{$list.title|new_msubstr=###,0,50}</a></p>
+                </li>
+                </ys:position>
+
+            </ul>
+        </div>
+        <div class="img-list">
+            <ul>
+                <ys:position name="list" catid="18" posid="2" type="1" thumb="1" limit="0,3">
+                <li class="c{$i}">
+                    <span><img src="{$list.url}" width="134" height="74" alt="{$list.title}"></span>
+                </li>
+
+                </ys:position>
+            </ul>
+        </div>
+    </div>
+    <div class="hot-information">
+        <div class="comm-t">
+            <h1>热点资讯</h1>
+            <a class="more">更多</a>
+        </div>
+        <div class="content clear">
+            <ys:list name="list" catid="4" order="view DESC" limit="0,1" thumb="1">
+            <div class="left">
+                <a href="{:U('/Content/Content/detail/',array('category'=>'news','id'=>$list['id']))}"><img src="{$list.url}" width="264" height="264" alt="" /></a>
+                <p class="common-word">{$list.title|new_msubstr=###,0,10}</p>
+            </div>
+            </ys:list>
+            <div class="right">
+                <ul>
+                    <ys:list name="list" catid="4" order="view DESC" limit="1,3" thumb="1">
+                    <li>
+                        <p class="t"><a href="{:U('/Content/Content/detail/',array('category'=>$category['name'],'id'=>$list['id']))}">{$list.title|new_msubstr=###,0,18}</a></p>
+                        <p class="text">{$list.description|new_msubstr=###,0,60}</p>
+                    </li>
+                    </ys:list>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="r-con">
+    <div class="search">
+        <div class="title">展览搜索</div>
+        <div class="content">
+            <form method="post" action="fuck.php">
+                <label>
+                    <p><input type="text" class="text" name="title" placeholder="展览名称" /></p>
+                    <span>如:2007格哈雷里希特艺术展</span>
+                </label>
+                <label>
+                    <p><input type="text" class="text" placeholder="艺术家" /></p>
+                    <span>如:栗宪庭 吴鸿 黄笃</span>
+                </label>
+                <label>
+                    <p>
+                        <input type="text" class="text" placeholder="如意画廊" />
+                    </p>
+                    <span>如:如意画廊  中国美术馆  日本艺术馆</span>
+                </label>
+                <div class="show-local">
+                    <p>
+                        <input type="text" class="text" id="show-local" placeholder="展览地点" />
+                    </p>
+                    <span>如:上海  北京  武汉  天津</span>
+                    <div class="choose-place">
+                        <ul>
+                            <li>
+                                <p class="name">[全部]</p>
+                                <p class="list">
+                                    <span>全部</span>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="name">[华东]</p>
+                                <p class="list">
+                                    <span>北京</span>
+                                    <span>天津</span>
+                                    <span>河北</span>
+                                    <span>山西</span>
+                                    <span>内蒙古</span>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="name">[东北]</p>
+                                <p class="list">
+                                    <span>吉林</span>
+                                    <span>辽宁</span>
+                                    <span>黑龙江</span>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="name">[华东]</p>
+                                <p class="list">
+                                    <span>山东</span>
+                                    <span>江苏</span>
+                                    <span>安微</span>
+                                    <span>浙江</span>
+                                    <span>福建</span>
+                                    <span>上海</span>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="name">[华南]</p>
+                                <p class="list">
+                                    <span>广东</span>
+                                    <span>广西</span>
+                                    <span>海南</span>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="name">[华中]</p>
+                                <p class="list">
+                                    <span>湖北</span>
+                                    <span>湖南</span>
+                                    <span>河南</span>
+                                    <span>江西</span>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="name">[西北]</p>
+                                <p class="list">
+                                    <span>宁夏</span>
+                                    <span>新疆</span>
+                                    <span>青海</span>
+                                    <span>陕西</span>
+                                    <span>甘肃</span>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="name">[西南]</p>
+                                <p class="list">
+                                    <span>四川</span>
+                                    <span>云南</span>
+                                    <span>贵州</span>
+                                    <span>西藏</span>
+                                    <span>重庆</span>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="name">[港澳台]</p>
+                                <p class="list">
+                                    <span>台湾</span>
+                                    <span>香港</span>
+                                    <span>澳门</span>
+                                </p>
+                            </li>
+                            <li>
+                                <p class="name">[国外]</p>
+                                <p class="list">
+                                    <span>国外</span>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <label>
+                    <p>
+                        <select>
+                            <option>画廊展览</option>
+                            <option>个人展览</option>
+                            <option>机构展览</option>
+                        </select>
+                    </p>
+                </label>
+                <label>
+                    <p><input type="text" class="text" placeholder="主办机构" /></p>
+                    <span>如:广东美术馆 北京画廊</span>
+                </label>
+                <label>
+                    <p><input type="text" class="date Wdate" onclick="WdatePicker()" /> 至 <input type="text" class="date Wdate" onclick="WdatePicker()" /></p>
+                    <span>如:2012-10-20 至 2012-10-25</span>
+                </label>
+                <div class="submit">
+                    <input type="submit" value="搜展览" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="advertise">
+        <Ys:adv id="1" />
+
+    </div>
+</div>
+</div>
+<div class="exhibition-tab">
+<div class="nav clear">
+    <ul class="column">
+        <li class="nav-1 select">画廊展览</li>
+        <li class="nav-2">个人展览</li>
+        <li class="nav-3">机构展览</li>
+    </ul>
+    <a href="#">全部展览</a>
+</div>
+<div class="tab-content">
+<div class="content-1">
+    <ul>
+        <volist name="hl" id="vo">
+        <li>
+            <a href="#" class="image">
+                <img src="{$vo.thumb}" width="136" height="180" alt="{$vo.title}" />
+            </a>
+            <div class="con-info">
+                <h2>{$vo.title}</h2>
+                <div class="info clear">
+                    <p>展览城市：{:getCity($vo['provinceid'])}</p>
+                    <p>展览时间：{$vo.starttime|date='Y.m.d',###}至{$vo.endtime|date='Y.m.d',###}</p>
+                    <p>展览地点：{$vo.address}</p>
+                    <p>主办单位：{$vo.organizer}</p>
+                    <p>参展人员：{$vo.list}</p>
+                </div>
+                <div class="discription">
+                    {$vo.description|new_msubstr=###,0,80,'utf-8',true} <a href="#">[详细]</a>
+                </div>
+                <div class="oth-ope">
+                    <span class="registration"><a>46</a>人报名</span>
+                    <span class="interest"><a>12</a>人感兴趣</span>
+                </div>
+            </div>
+        </li>
+        </volist>
+    </ul>
+</div>
+<div class="content-2 hide">
+    <ul>
+        <volist name="gr" id="vo">
+            <li>
+                <a href="#" class="image">
+                    <img src="{$vo.thumb}" width="136" height="180" alt="{$vo.title}" />
+                </a>
+                <div class="con-info">
+                    <h2>{$vo.title}</h2>
+                    <div class="info clear">
+                        <p>展览城市：{:getCity($vo['provinceid'])}</p>
+                        <p>展览时间：{$vo.starttime|date='Y.m.d',###}至{$vo.endtime|date='Y.m.d',###}</p>
+                        <p>展览地点：{$vo.address}</p>
+                        <p>主办单位：{$vo.organizer}</p>
+                        <p>参展人员：{$vo.list}</p>
+                    </div>
+                    <div class="discription">
+                        {$vo.description|new_msubstr=###,0,80,'utf-8',true} <a href="#">[详细]</a>
+                    </div>
+                    <div class="oth-ope">
+                        <span class="registration"><a>46</a>人报名</span>
+                        <span class="interest"><a>12</a>人感兴趣</span>
+                    </div>
+                </div>
+            </li>
+        </volist>
+    </ul>
+</div>
+<div class="content-3 hide">
+    <ul>
+        <volist name="jg" id="vo">
+            <li>
+                <a href="#" class="image">
+                    <img src="{$vo.thumb}" width="136" height="180" alt="{$vo.title}" />
+                </a>
+                <div class="con-info">
+                    <h2>{$vo.title}</h2>
+                    <div class="info clear">
+                        <p>展览城市：{:getCity($vo['provinceid'])}</p>
+                        <p>展览时间：{$vo.starttime|date='Y.m.d',###}至{$vo.endtime|date='Y.m.d',###}</p>
+                        <p>展览地点：{$vo.address}</p>
+                        <p>主办单位：{$vo.organizer}</p>
+                        <p>参展人员：{$vo.list}</p>
+                    </div>
+                    <div class="discription">
+                        {$vo.description|new_msubstr=###,0,80,'utf-8',true} <a href="#">[详细]</a>
+                    </div>
+                    <div class="oth-ope">
+                        <span class="registration"><a>46</a>人报名</span>
+                        <span class="interest"><a>12</a>人感兴趣</span>
+                    </div>
+                </div>
+            </li>
+        </volist>
+    </ul>
+</div>
+</div>
+</div>
+<div class="online-display-hall">
+    <div class="comm-t">
+        <h1>在线展厅</h1>
+        <a href="#" class="more">更多</a>
+    </div>
+    <div class="content">
+        <div class="move-content">
+            <div class="sub-con">
+                <div class="block clear">
+                    <a class="big-img" href="#">
+                        <img src="{IMG_PATH}column-img/158.jpg" width="268" height="340" alt="" />
+                        <p class="common-word">金色和平鸽</p>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <img src="{IMG_PATH}column-img/159.jpg" alt="" />
+                                <p class="common-word">金色和平鸽</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="{IMG_PATH}column-img/159.jpg" alt="" />
+                                <p class="common-word">金色和平鸽</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="{IMG_PATH}column-img/159.jpg" alt="" />
+                                <p class="common-word">金色和平鸽</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="{IMG_PATH}column-img/159.jpg" alt="" />
+                                <p class="common-word">金色和平鸽</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="{IMG_PATH}column-img/159.jpg" alt="" />
+                                <p class="common-word">金色和平鸽</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="{IMG_PATH}column-img/159.jpg" alt="" />
+                                <p class="common-word">金色和平鸽</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="{IMG_PATH}column-img/159.jpg" alt="" />
+                                <p class="common-word">金色和平鸽</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="{IMG_PATH}column-img/159.jpg" alt="" />
+                                <p class="common-word">金色和平鸽</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="block clear">
+                    <a class="big-img" href="#">
+                        <img src="{IMG_PATH}column-img/158.jpg" width="268" height="340" alt="" />
+                        <p class="common-word">金色和平鸽</p>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <img src="{IMG_PATH}column-img/159.jpg" alt="" />
+                                <p class="common-word">金色和平鸽</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="{IMG_PATH}column-img/159.jpg" alt="" />
+                                <p class="common-word">金色和平鸽</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="{IMG_PATH}column-img/159.jpg" alt="" />
+                                <p class="common-word">金色和平鸽</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="{IMG_PATH}column-img/159.jpg" alt="" />
+                                <p class="common-word">金色和平鸽</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="{IMG_PATH}column-img/159.jpg" alt="" />
+                                <p class="common-word">金色和平鸽</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="{IMG_PATH}column-img/159.jpg" alt="" />
+                                <p class="common-word">金色和平鸽</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="{IMG_PATH}column-img/159.jpg" alt="" />
+                                <p class="common-word">金色和平鸽</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="{IMG_PATH}column-img/159.jpg" alt="" />
+                                <p class="common-word">金色和平鸽</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="block clear">
+                    <a class="big-img" href="#">
+                        <img src="{IMG_PATH}column-img/158.jpg" width="268" height="340" alt="" />
+                        <p class="common-word">金色和平鸽</p>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <img src="{IMG_PATH}column-img/159.jpg" alt="" />
+                                <p class="common-word">金色和平鸽</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="{IMG_PATH}column-img/159.jpg" alt="" />
+                                <p class="common-word">金色和平鸽</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="{IMG_PATH}column-img/159.jpg" alt="" />
+                                <p class="common-word">金色和平鸽</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="{IMG_PATH}column-img/159.jpg" alt="" />
+                                <p class="common-word">金色和平鸽</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="{IMG_PATH}column-img/159.jpg" alt="" />
+                                <p class="common-word">金色和平鸽</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="{IMG_PATH}column-img/159.jpg" alt="" />
+                                <p class="common-word">金色和平鸽</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="{IMG_PATH}column-img/159.jpg" alt="" />
+                                <p class="common-word">金色和平鸽</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="{IMG_PATH}column-img/159.jpg" alt="" />
+                                <p class="common-word">金色和平鸽</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <a href="javascript:;" class="left-arr arr"><</a>
+        <a href="javascript:;" class="right-arr arr">></a>
+    </div>
+</div>
+<div class="topic-active">
+    <div class="comm-t"><h1>专场活动</h1></div>
+    <div class="content">
+        <ul class="last-ele">
+            <volist name="special" id="vo">
+            <li><a href="{:U('Special/Special/index/',array('special'=>$vo['name']))}"><img src="{$vo.thumb}" width="236" height="130" alt="{$vo.title}" /></a></li>
+
+            </volist>
+        </ul>
+    </div>
+</div>
+</div>
+</div>
+</block>
